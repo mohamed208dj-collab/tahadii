@@ -3,258 +3,194 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>بوابة بكالوريا رمضان 🌙</title>
+    <title>ORBITRON | HARDCORE PRO</title>
     
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
-    
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
     <style>
         :root {
-            --gold: #C5A059;
-            --dark-gold: #8B7345;
-            --cream: #FDFBF7;
+            --cyan: #00f2fe;
+            --pink: #f093fb;
+            --glass: rgba(10, 10, 20, 0.85);
         }
 
-        body { 
-            font-family: 'Cairo', sans-serif; 
-            background: var(--cream);
-            background-image: url('https://www.transparenttextures.com/patterns/islamic-art.png');
-            overflow: hidden;
-            user-select: none;
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+        body {
+            background: #020205; height: 100vh; display: flex; align-items: center; justify-content: center;
+            overflow: hidden; font-family: 'Cairo', sans-serif;
+            background: radial-gradient(circle at center, #0a0a20 0%, #020205 100%);
         }
 
-        /* شاشة التحميل الملكية */
-        #splash-screen {
-            position: fixed;
-            inset: 0;
-            background: radial-gradient(circle at center, #ffffff 0%, #f4eee1 100%);
-            z-index: 1000;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            transition: all 1s cubic-bezier(0.645, 0.045, 0.355, 1);
+        /* الخلفية المتحركة الأصلية */
+        .bg-glow {
+            position: absolute; width: 450px; height: 450px;
+            background: linear-gradient(var(--cyan), var(--pink));
+            filter: blur(120px); opacity: 0.12; animation: move 20s infinite alternate;
+        }
+        @keyframes move { from {transform: translate(-100px, -100px);} to {transform: translate(100px, 100px);} }
+
+        /* البطاقة الزجاجية الفخمة */
+        .pro-card {
+            position: relative; z-index: 10;
+            width: 92%; max-width: 460px;
+            background: var(--glass); backdrop-filter: blur(50px);
+            border-radius: 40px; padding: 45px 30px;
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 40px 100px rgba(0,0,0,0.8);
+            text-align: center; transition: 0.3s;
         }
 
-        .lantern-anim {
-            font-size: 120px;
-            filter: drop-shadow(0 10px 20px rgba(197, 160, 89, 0.4));
-            animation: swing 3s ease-in-out infinite;
+        /* شريط الوقت العلوي (نيون) */
+        .timer-track {
+            position: absolute; top: 0; left: 0; width: 100%; height: 5px;
+            background: rgba(255,255,255,0.05); border-radius: 40px 40px 0 0; overflow: hidden;
+        }
+        .timer-fill {
+            width: 100%; height: 100%; background: linear-gradient(90deg, var(--cyan), var(--pink));
+            transition: width 1s linear;
         }
 
-        @keyframes swing {
-            0%, 100% { transform: rotate(-8deg) translateY(0); }
-            50% { transform: rotate(8deg) translateY(-15px); }
+        .header {
+            display: flex; justify-content: space-between; align-items: center;
+            font-family: 'Orbitron'; font-size: 0.7rem; color: var(--cyan); margin-bottom: 35px;
         }
 
-        .gold-progress {
-            width: 250px;
-            height: 4px;
-            background: rgba(197, 160, 89, 0.1);
-            border-radius: 20px;
-            margin-top: 50px;
-            position: relative;
-            overflow: hidden;
+        .lives-ui { color: #ff3e3e; font-size: 1.2rem; letter-spacing: 3px; }
+
+        .question {
+            min-height: 150px; font-size: 1.7rem; font-weight: 800;
+            color: #fff; margin-bottom: 30px; line-height: 1.5;
+            text-shadow: 0 0 15px rgba(255,255,255,0.1);
         }
 
-        .gold-fill {
-            position: absolute;
-            height: 100%;
-            background: linear-gradient(90deg, var(--gold), #f2d472);
-            width: 0%;
-            box-shadow: 0 0 15px var(--gold);
+        input {
+            width: 100%; padding: 22px; background: rgba(0,0,0,0.5);
+            border: 1px solid rgba(255,255,255,0.1); border-radius: 20px;
+            color: #fff; font-size: 1.4rem; text-align: center;
+            transition: 0.3s; margin-bottom: 20px;
         }
+        input:focus { border-color: var(--cyan); box-shadow: 0 0 30px rgba(0, 242, 254, 0.2); outline: none; }
 
-        /* كروت الشعب الاحترافية */
-        .branch-card {
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(197, 160, 89, 0.2);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            cursor: pointer;
+        .btn-execute {
+            width: 100%; padding: 22px; background: #fff; color: #000;
+            border: none; border-radius: 18px; font-family: 'Orbitron';
+            font-weight: 900; font-size: 1.2rem; cursor: pointer; transition: 0.3s;
+            box-shadow: 0 10px 30px rgba(255,255,255,0.1);
         }
+        .btn-execute:hover { transform: scale(1.02); background: var(--cyan); }
 
-        .branch-card:active {
-            transform: scale(0.96);
-            background: var(--gold);
-            color: white !important;
-        }
+        /* الأنيميشن */
+        .shake { animation: shake 0.4s cubic-bezier(.36,.07,.19,.97) both; }
+        @keyframes shake { 10%, 90% { transform: translate3d(-1px, 0, 0); } 20%, 80% { transform: translate3d(2px, 0, 0); } 30%, 50%, 70% { transform: translate3d(-4px, 0, 0); } 40%, 60% { transform: translate3d(4px, 0, 0); } }
 
-        .branch-card:active .icon-box { background: rgba(255,255,255,0.2); }
-
-        .icon-box {
-            width: 60px;
-            height: 60px;
-            border-radius: 18px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 28px;
-            transition: 0.3s;
-        }
-
-        /* زر التأكيد العائم */
-        .floating-btn {
-            background: linear-gradient(135deg, #1e1e1e 0%, #000000 100%);
-            border-bottom: 4px solid #444;
-        }
-
-        .hide-splash {
-            transform: translateY(-100%) scale(1.1);
-            opacity: 0;
-        }
+        .low-time { filter: drop-shadow(0 0 10px #ff3e3e); }
     </style>
 </head>
 <body>
 
-    <div id="splash-screen">
-        <div class="lantern-anim">🏮</div>
-        <div class="text-center mt-6 animate__animated animate__fadeIn">
-            <h1 class="text-3xl font-black text-[#8B7345]">بوابة التفوق</h1>
-            <p class="text-gray-400 font-bold tracking-[0.2em] text-[10px] mt-2 uppercase">Ramadan Bac 2026</p>
-        </div>
-        <div class="gold-progress">
-            <div id="loading-bar" class="gold-fill"></div>
-        </div>
-        <div id="loading-text" class="mt-4 text-xs font-bold text-yellow-700 opacity-60 italic">جاري تهيئة المسار...</div>
+<div class="bg-glow"></div>
+
+<div class="pro-card" id="card">
+    <div class="timer-track"><div class="timer-fill" id="timerBar"></div></div>
+    
+    <div class="header">
+        <span>NODE_<span id="lvlIdx">01</span></span>
+        <div class="lives-ui" id="hearts">♥♥♥</div>
     </div>
 
-    <div id="selection-screen" class="min-h-screen p-6 hidden animate__animated animate__fadeIn">
-        <header class="text-center mb-10 mt-6">
-            <div class="inline-block bg-yellow-100 text-yellow-700 px-4 py-1 rounded-full text-[10px] font-black mb-2 border border-yellow-200 uppercase">Step 01: Profile Selection</div>
-            <h2 class="text-3xl font-black text-gray-800">اختر هويتك 🎓</h2>
-            <p class="text-gray-500 text-sm mt-2 font-medium italic">سيتم توجيهك للمحتوى المخصص لشعبتك تلقائياً</p>
-        </header>
+    <div class="question" id="qBox">SYSTEM_BOOTING...</div>
 
-        <div class="grid grid-cols-1 gap-4 max-w-md mx-auto">
-            <div onclick="selectBranch('science.html', 'علوم تجريبية')" class="branch-card p-4 rounded-[24px] flex items-center justify-between shadow-sm">
-                <div class="flex items-center gap-4">
-                    <div class="icon-box bg-green-50 text-green-600">🧬</div>
-                    <div>
-                        <h4 class="font-black text-gray-800">علوم تجريبية</h4>
-                        <p class="text-[10px] text-gray-400">طبيب المستقبل</p>
-                    </div>
-                </div>
-                <span class="text-gray-300 ml-2">◀</span>
-            </div>
+    <input type="text" id="ansInput" placeholder="ENTER ACCESS KEY" autocomplete="off" onpaste="return false;">
 
-            <div onclick="selectBranch('math.html', 'رياضيات')" class="branch-card p-4 rounded-[24px] flex items-center justify-between shadow-sm">
-                <div class="flex items-center gap-4">
-                    <div class="icon-box bg-blue-50 text-blue-600">📐</div>
-                    <div>
-                        <h4 class="font-black text-gray-800">رياضيات</h4>
-                        <p class="text-[10px] text-gray-400">عقل هندسي</p>
-                    </div>
-                </div>
-                <span class="text-gray-300 ml-2">◀</span>
-            </div>
+    <button class="btn-execute" onclick="verify()">EXECUTE_LOGIN</button>
+    
+    <div style="margin-top:20px; font-family:Orbitron; font-size:0.6rem; color:#444; letter-spacing:2px;" id="statusText">MEMORY_STABLE</div>
+</div>
 
-            <div onclick="selectBranch('tech.html', 'تقني رياضي')" class="branch-card p-4 rounded-[24px] flex items-center justify-between shadow-sm">
-                <div class="flex items-center gap-4">
-                    <div class="icon-box bg-orange-50 text-orange-600">⚙️</div>
-                    <div>
-                        <h4 class="font-black text-gray-800">تقني رياضي</h4>
-                        <p class="text-[10px] text-gray-400">صناع التكنولوجيا</p>
-                    </div>
-                </div>
-                <span class="text-gray-300 ml-2">◀</span>
-            </div>
+<script>
+    const RIDDLES = [
+        {q: "ما هو الشيء الذي يكسو الناس وهو عارٍ؟", a: ["الابرة", "ابرة"]},
+        {q: "له مدن بلا بيوت وجبال بلا أشجار؟", a: ["الخريطة", "خريطة"]},
+        {q: "كلما زاد نقص؟", a: ["العمر", "عمر"]},
+        {q: "تسمع بلا أذن وتتكلم بلا لسان؟", a: ["الهاتف", "تلفون", "هاتف"]},
+        {q: "قلبه يأكل قشره؟", a: ["الشمعة", "شمعة"]},
+        {q: "شيء نأكله ولا يؤكل؟", a: ["الصحن", "الطبق"]}
+    ];
+    for(let i=7; i<=100; i++) RIDDLES.push({q: `لغز المستوى ${i}: شيء له أسنان ولا يعض؟`, a: ["المشط", "مشط"]});
 
-            <div onclick="selectBranch('management.html', 'تسيير واقتصاد')" class="branch-card p-4 rounded-[24px] flex items-center justify-between shadow-sm">
-                <div class="flex items-center gap-4">
-                    <div class="icon-box bg-purple-50 text-purple-600">📈</div>
-                    <div>
-                        <h4 class="font-black text-gray-800">تسيير واقتصاد</h4>
-                        <p class="text-[10px] text-gray-400">رواد الأعمال</p>
-                    </div>
-                </div>
-                <span class="text-gray-300 ml-2">◀</span>
-            </div>
+    let step = parseInt(localStorage.getItem('orb_pro_hard_step')) || 0;
+    let lives = 3;
+    let seconds = 30;
+    let timer;
 
-            <div onclick="selectBranch('literary.html', 'آداب وفلسفة')" class="branch-card p-4 rounded-[24px] flex items-center justify-between shadow-sm">
-                <div class="flex items-center gap-4">
-                    <div class="icon-box bg-red-50 text-red-600">📚</div>
-                    <div>
-                        <h4 class="font-black text-gray-800">آداب وفلسفة / لغات</h4>
-                        <p class="text-[10px] text-gray-400">الفكر واللغة</p>
-                    </div>
-                </div>
-                <span class="text-gray-300 ml-2">◀</span>
-            </div>
-        </div>
+    function render() {
+        if(step >= 100) return win();
+        document.getElementById('qBox').innerText = RIDDLES[step].q;
+        document.getElementById('lvlIdx').innerText = (step+1 < 10) ? '0'+(step+1) : step+1;
+        document.getElementById('ansInput').value = "";
+        resetTimer();
+    }
 
-        <footer class="mt-12 text-center">
-            <p class="text-[10px] text-gray-300 font-bold uppercase tracking-widest">Powered by Gemini AI & Github Pages</p>
-        </footer>
-    </div>
+    function resetTimer() {
+        clearInterval(timer);
+        seconds = 30;
+        updateTimerUI();
+        timer = setInterval(() => {
+            seconds--;
+            updateTimerUI();
+            if(seconds <= 0) handleFail();
+        }, 1000);
+    }
 
-    <script>
-        const tg = window.Telegram.WebApp;
-        tg.expand();
-        tg.enableClosingConfirmation();
-        tg.setHeaderColor('#ffffff');
+    function updateTimerUI() {
+        const bar = document.getElementById('timerBar');
+        bar.style.width = (seconds / 30) * 100 + "%";
+        bar.style.background = seconds <= 10 ? "#ff3e3e" : "linear-gradient(90deg, var(--cyan), var(--pink))";
+    }
 
-        // 1. منطق الـ Loader (10 ثواني)
-        let progress = 0;
-        const bar = document.getElementById('loading-bar');
-        const loadText = document.getElementById('loading-text');
+    function verify() {
+        const val = document.getElementById('ansInput').value.trim().toLowerCase();
+        if(RIDDLES[step].a.some(ans => val.includes(ans.toLowerCase()))) {
+            confetti({ particleCount: 150, spread: 70, colors: ['#00f2fe', '#f093fb'] });
+            step++;
+            localStorage.setItem('orb_pro_hard_step', step);
+            lives = 3; // استعادة القلوب
+            updateLives();
+            render();
+        } else {
+            handleFail();
+        }
+    }
+
+    function handleFail() {
+        lives--;
+        updateLives();
+        const card = document.getElementById('card');
+        card.classList.add('shake');
+        if(window.navigator.vibrate) window.navigator.vibrate(300);
         
-        const hints = [
-            "جاري تجهيز المصادر...",
-            "ضبط إعدادات التلجرام...",
-            "تحضير فوانيس التحدي...",
-            "أوشكنا على الانطلاق..."
-        ];
-
-        const timer = setInterval(() => {
-            progress += 1;
-            bar.style.width = progress + '%';
-            
-            if(progress % 25 === 0) {
-                loadText.innerText = hints[Math.floor(progress/25) - 1] || hints[0];
-            }
-
-            if(progress >= 100) {
-                clearInterval(timer);
-                checkRedirect();
-            }
-        }, 100);
-
-        // 2. فحص التوجيه التلقائي
-        function checkRedirect() {
-            const savedPage = localStorage.getItem('userBranchPage');
-            if(savedPage) {
-                // إذا كان الطالب قد اختار من قبل، نرسله مباشرة
-                window.location.href = savedPage;
-            } else {
-                // إذا كان جديد، نخفي التحميل ونظهر الاختيارات
-                document.getElementById('splash-screen').classList.add('hide-splash');
-                setTimeout(() => {
-                    document.getElementById('splash-screen').style.display = 'none';
-                    document.getElementById('selection-screen').classList.remove('hidden');
-                }, 1000);
-            }
+        if(lives <= 0) {
+            alert("SYSTEM FAILURE: عودة للمرحلة السابقة!");
+            lives = 3;
+            if(step > 0) step--;
+            localStorage.setItem('orb_pro_hard_step', step);
         }
+        setTimeout(() => card.classList.remove('shake'), 400);
+        render();
+    }
 
-        // 3. دالة اختيار الشعبة
-        function selectBranch(pageUrl, branchName) {
-            tg.HapticFeedback.notificationOccurred('success');
-            
-            // تخزين الاختيار
-            localStorage.setItem('userBranchPage', pageUrl);
-            localStorage.setItem('userBranchName', branchName);
+    function updateLives() {
+        document.getElementById('hearts').innerText = "♥".repeat(lives) + "♡".repeat(3-lives);
+    }
 
-            // أنيميشن الانتقال
-            document.body.style.overflow = 'hidden';
-            tg.MainButton.setText("جاري توجيهك لصفحة " + branchName);
-            tg.MainButton.show();
-            
-            setTimeout(() => {
-                window.location.href = pageUrl;
-            }, 800);
-        }
-    </script>
+    function win() {
+        clearInterval(timer);
+        document.getElementById('card').innerHTML = `<h1 style="color:var(--cyan); font-family:Orbitron;">GOD_MODE</h1><p style="color:#fff; margin:20px 0;">لقد قهرت الـ 100 لغز باحترافية.</p><button class="btn-execute" onclick="localStorage.clear(); location.reload();">REBOOT</button>`;
+    }
+
+    window.onload = render;
+</script>
 </body>
 </html>
