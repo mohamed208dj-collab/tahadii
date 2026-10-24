@@ -1,1 +1,484 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#100d20">
+<title>الإعدادات ❤️ | LoveSpace</title>
 
+<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg:#100d20;
+  --bg2:#19142d;
+  --card:rgba(35,27,57,.82);
+  --text:#fff5ff;
+  --muted:#b9abc9;
+  --primary:#e879f9;
+  --secondary:#a78bfa;
+  --border:rgba(232,121,249,.17);
+  --danger:#fb7185;
+  --success:#86efac;
+  --shadow:0 15px 45px rgba(0,0,0,.2);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:'Alexandria',sans-serif;
+  background:radial-gradient(ellipse at top,#29143d 0%,var(--bg) 55%);
+  color:var(--text);
+  min-height:100vh;
+  line-height:1.8;
+}
+button,input,select{font:inherit}
+button{cursor:pointer}
+a{color:inherit;text-decoration:none}
+.container{width:min(920px,92%);margin:auto;padding:25px 0 50px}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:28px}
+.back,.save-btn{
+  border:1px solid var(--border);background:var(--card);color:var(--text);
+  padding:10px 16px;border-radius:14px;font-size:12px;
+}
+.logo{font-size:15px;font-weight:800;color:var(--primary)}
+.hero{text-align:center;padding:20px 10px 30px}
+.hero-icon{
+  width:76px;height:76px;display:grid;place-items:center;margin:0 auto 16px;
+  border:1px solid var(--border);border-radius:25px;font-size:34px;
+  background:linear-gradient(135deg,rgba(232,121,249,.18),rgba(167,139,250,.12));
+  box-shadow:0 0 35px rgba(232,121,249,.12);
+}
+.hero h1{font-size:clamp(25px,5vw,36px);font-weight:800}
+.hero h1 span{color:var(--primary)}
+.hero p{font-size:12px;color:var(--muted);margin-top:8px}
+.status{
+  display:flex;align-items:center;gap:10px;padding:14px 16px;
+  background:rgba(134,239,172,.06);border:1px solid rgba(134,239,172,.15);
+  border-radius:16px;margin-bottom:22px;font-size:11px;color:var(--success);
+}
+.status-dot{width:8px;height:8px;border-radius:50%;background:var(--success);flex-shrink:0}
+.section{
+  background:var(--card);border:1px solid var(--border);border-radius:22px;
+  padding:20px;margin-bottom:18px;box-shadow:var(--shadow);
+  backdrop-filter:blur(15px);
+}
+.section-title{display:flex;align-items:center;gap:11px;margin-bottom:16px}
+.section-icon{
+  width:42px;height:42px;display:grid;place-items:center;border-radius:14px;
+  background:rgba(232,121,249,.1);font-size:20px;
+}
+.section-title h2{font-size:15px}
+.section-title p{font-size:10px;color:var(--muted)}
+.setting{
+  display:flex;align-items:center;justify-content:space-between;gap:14px;
+  padding:15px 0;border-bottom:1px solid var(--border);
+}
+.setting:last-child{border-bottom:0;padding-bottom:0}
+.setting-info{flex:1;min-width:0}
+.setting-info strong{display:block;font-size:12px;font-weight:600}
+.setting-info small{display:block;color:var(--muted);font-size:10px;margin-top:3px}
+.switch{position:relative;width:48px;height:27px;flex-shrink:0}
+.switch input{opacity:0;width:0;height:0;position:absolute}
+.slider{
+  position:absolute;inset:0;background:#51465f;border-radius:30px;
+  transition:.25s;cursor:pointer;
+}
+.slider:before{
+  content:"";position:absolute;width:19px;height:19px;right:4px;top:4px;
+  border-radius:50%;background:white;transition:.25s;
+}
+.switch input:checked+.slider{background:var(--primary)}
+.switch input:checked+.slider:before{transform:translateX(-21px)}
+.switch input:focus-visible+.slider{outline:2px solid white;outline-offset:3px}
+.select{
+  max-width:155px;width:45%;padding:9px 10px;border:1px solid var(--border);
+  border-radius:12px;background:var(--bg2);color:var(--text);font-size:11px;
+  outline:none;
+}
+.colors{display:flex;gap:9px;flex-wrap:wrap;justify-content:flex-end}
+.color-btn{
+  width:29px;height:29px;border-radius:50%;border:2px solid transparent;
+  outline:1px solid transparent;outline-offset:2px;
+}
+.color-btn.active{outline-color:var(--text);border-color:var(--bg)}
+.color-btn:focus-visible{outline:2px solid white}
+.action-btn{
+  border:1px solid var(--border);background:rgba(232,121,249,.09);
+  color:var(--text);border-radius:12px;padding:9px 12px;font-size:10px;
+}
+.action-btn.danger{color:var(--danger);border-color:rgba(251,113,133,.25);background:rgba(251,113,133,.07)}
+.actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.footer{text-align:center;color:var(--muted);font-size:10px;padding:20px 0}
+.footer span{color:var(--primary)}
+.toast{
+  position:fixed;bottom:24px;left:50%;transform:translate(-50%,20px);
+  background:#281b39;border:1px solid var(--border);padding:12px 18px;
+  border-radius:14px;font-size:11px;opacity:0;pointer-events:none;
+  transition:.25s;z-index:20;box-shadow:var(--shadow);max-width:90%;text-align:center;
+}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+body.no-motion *,body.no-motion *:before,body.no-motion *:after{
+  animation:none!important;transition:none!important;scroll-behavior:auto!important;
+}
+body.large-text{font-size:18px}
+body.large-text .setting-info strong{font-size:14px}
+body.large-text .setting-info small{font-size:12px}
+body.large-text .section-title h2{font-size:17px}
+body.high-contrast{--muted:#e5d9f0;--border:rgba(255,255,255,.4)}
+body.light-mode{
+  --bg:#f7f1fc;--bg2:#fff;--card:rgba(255,255,255,.92);
+  --text:#281633;--muted:#695a75;--border:rgba(122,66,145,.2);
+  --shadow:0 12px 35px rgba(55,20,70,.08);
+  background:radial-gradient(ellipse at top,#f0d9ff 0%,var(--bg) 60%);
+}
+body.light-mode .select{background:#fff;color:#281633}
+@media(max-width:520px){
+  .container{width:93%;padding-top:17px}
+  .section{padding:15px;border-radius:18px}
+  .setting{gap:8px}
+  .setting-info strong{font-size:11px}
+  .setting-info small{font-size:9px}
+  .select{max-width:125px;font-size:10px}
+  .actions{max-width:145px}
+  .hero{padding-top:12px}
+}
+</style>
+</head>
+
+<body>
+<main class="container">
+
+  <header class="topbar">
+    <a class="back" href="home.html">→ الرئيسية</a>
+    <div class="logo">LoveSpace <span>♥</span></div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-icon">⚙️</div>
+    <h1>إعدادات <span>مساحتنا</span></h1>
+    <p>كل شيء على ذوقك، في عالمك الخاص ❤️</p>
+  </section>
+
+  <div class="status">
+    <span class="status-dot"></span>
+    <span id="saveStatus">إعداداتك محفوظة على هذا الجهاز.</span>
+  </div>
+
+  <section class="section">
+    <div class="section-title">
+      <div class="section-icon">🎨</div>
+      <div>
+        <h2>المظهر والتصميم</h2>
+        <p>اختار الأجواء اللي تعجبك</p>
+      </div>
+    </div>
+
+    <div class="setting">
+      <div class="setting-info">
+        <strong>الوضع الفاتح</strong>
+        <small>تبديل الخلفية الداكنة إلى خلفية فاتحة</small>
+      </div>
+      <label class="switch">
+        <input type="checkbox" id="lightMode" aria-label="الوضع الفاتح">
+        <span class="slider"></span>
+      </label>
+    </div>
+
+    <div class="setting">
+      <div class="setting-info">
+        <strong>اللون الرئيسي</strong>
+        <small>اختار لون واجهة LoveSpace</small>
+      </div>
+      <div class="colors" aria-label="ألوان الواجهة">
+        <button class="color-btn active" data-color="pink" style="background:#e879f9" aria-label="وردي"></button>
+        <button class="color-btn" data-color="purple" style="background:#a78bfa" aria-label="بنفسجي"></button>
+        <button class="color-btn" data-color="blue" style="background:#60a5fa" aria-label="أزرق"></button>
+        <button class="color-btn" data-color="rose" style="background:#fb7185" aria-label="وردي غامق"></button>
+        <button class="color-btn" data-color="mint" style="background:#6ee7b7" aria-label="أخضر نعناعي"></button>
+      </div>
+    </div>
+
+    <div class="setting">
+      <div class="setting-info">
+        <strong>حجم الكتابة</strong>
+        <small>اختار الحجم المناسب للقراءة</small>
+      </div>
+      <select class="select" id="fontSize" aria-label="حجم الكتابة">
+        <option value="normal">عادي</option>
+        <option value="large">كبير</option>
+      </select>
+    </div>
+
+    <div class="setting">
+      <div class="setting-info">
+        <strong>تباين أوضح</strong>
+        <small>زيادة وضوح النصوص والحدود</small>
+      </div>
+      <label class="switch">
+        <input type="checkbox" id="contrast" aria-label="تباين أوضح">
+        <span class="slider"></span>
+      </label>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-title">
+      <div class="section-icon">✨</div>
+      <div>
+        <h2>التجربة والتأثيرات</h2>
+        <p>تحكم في طريقة عرض الموقع</p>
+      </div>
+    </div>
+
+    <div class="setting">
+      <div class="setting-info">
+        <strong>الحركات والأنيميشن</strong>
+        <small>إيقاف الحركات لتصفح أبسط</small>
+      </div>
+      <label class="switch">
+        <input type="checkbox" id="animations" checked aria-label="الحركات والأنيميشن">
+        <span class="slider"></span>
+      </label>
+    </div>
+
+    <div class="setting">
+      <div class="setting-info">
+        <strong>تأكيد قبل الحذف</strong>
+        <small>طلب التأكيد قبل حذف البيانات من الصفحات الداعمة</small>
+      </div>
+      <label class="switch">
+        <input type="checkbox" id="confirmDelete" checked aria-label="تأكيد قبل الحذف">
+        <span class="slider"></span>
+      </label>
+    </div>
+
+    <div class="setting">
+      <div class="setting-info">
+        <strong>التذكير بالحفظ</strong>
+        <small>إظهار تنبيه عند حفظ إعداداتك</small>
+      </div>
+      <label class="switch">
+        <input type="checkbox" id="saveReminder" checked aria-label="التذكير بالحفظ">
+        <span class="slider"></span>
+      </label>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-title">
+      <div class="section-icon">🔐</div>
+      <div>
+        <h2>الخصوصية والبيانات</h2>
+        <p>تحكم في بياناتك المحلية</p>
+      </div>
+    </div>
+
+    <div class="setting">
+      <div class="setting-info">
+        <strong>إخفاء المحتوى الحساس</strong>
+        <small>إخفاء بعض النصوص داخل هذه الصفحة فقط</small>
+      </div>
+      <label class="switch">
+        <input type="checkbox" id="hideSensitive" aria-label="إخفاء المحتوى الحساس">
+        <span class="slider"></span>
+      </label>
+    </div>
+
+    <div class="setting">
+      <div class="setting-info">
+        <strong>تصدير إعداداتي</strong>
+        <small>تحميل نسخة JSON من تفضيلات هذه الصفحة</small>
+      </div>
+      <button class="action-btn" id="exportSettings">تصدير ⤓</button>
+    </div>
+
+    <div class="setting">
+      <div class="setting-info">
+        <strong>إعادة ضبط الإعدادات</strong>
+        <small>إرجاع التفضيلات إلى القيم الافتراضية</small>
+      </div>
+      <button class="action-btn danger" id="resetSettings">إعادة الضبط</button>
+    </div>
+
+    <div class="setting">
+      <div class="setting-info">
+        <strong>إدارة الخصوصية</strong>
+        <small>الانتقال إلى صفحة إعدادات الخصوصية</small>
+      </div>
+      <a class="action-btn" href="privacy.html">فتح الصفحة ↗</a>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-title">
+      <div class="section-icon">💗</div>
+      <div>
+        <h2>حول LoveSpace</h2>
+        <p>مساحتنا الخاصة</p>
+      </div>
+    </div>
+
+    <div class="setting">
+      <div class="setting-info">
+        <strong>اسم المساحة</strong>
+        <small>LoveSpace — عالمنا الخاص</small>
+      </div>
+      <span>❤️</span>
+    </div>
+
+    <div class="setting">
+      <div class="setting-info">
+        <strong>حفظ البيانات</strong>
+        <small>التفضيلات محفوظة محليًا في المتصفح</small>
+      </div>
+      <span style="color:var(--success);font-size:11px">محليًا ✓</span>
+    </div>
+  </section>
+
+  <footer class="footer">
+    صُممت بكل حب لمساحتنا الخاصة <span>♥</span>
+    <br>LoveSpace © 2026
+  </footer>
+</main>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(() => {
+  'use strict';
+
+  const KEY = 'lovespace_settings_v1';
+
+  const defaults = {
+    lightMode: false,
+    color: 'pink',
+    fontSize: 'normal',
+    contrast: false,
+    animations: true,
+    confirmDelete: true,
+    saveReminder: true,
+    hideSensitive: false
+  };
+
+  const palettes = {
+    pink:   { primary:'#e879f9', secondary:'#a78bfa' },
+    purple: { primary:'#a78bfa', secondary:'#c084fc' },
+    blue:   { primary:'#60a5fa', secondary:'#818cf8' },
+    rose:   { primary:'#fb7185', secondary:'#f472b6' },
+    mint:   { primary:'#6ee7b7', secondary:'#34d399' }
+  };
+
+  const $ = id => document.getElementById(id);
+  let settings = loadSettings();
+  let toastTimer;
+
+  function loadSettings() {
+    try {
+      const saved = JSON.parse(localStorage.getItem(KEY) || '{}');
+      return { ...defaults, ...saved };
+    } catch {
+      return { ...defaults };
+    }
+  }
+
+  function persist(showMessage = false) {
+    try {
+      localStorage.setItem(KEY, JSON.stringify(settings));
+      $('saveStatus').textContent = 'إعداداتك محفوظة على هذا الجهاز.';
+      if (showMessage && settings.saveReminder) {
+        toast('تم حفظ إعداداتك بنجاح ❤️');
+      }
+    } catch {
+      $('saveStatus').textContent = 'تعذر الحفظ في المتصفح. تحقق من مساحة التخزين.';
+      toast('تعذر حفظ الإعدادات على هذا الجهاز.');
+    }
+  }
+
+  function toast(message) {
+    const el = $('toast');
+    el.textContent = message;
+    el.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => el.classList.remove('show'), 2400);
+  }
+
+  function applySettings() {
+    document.body.classList.toggle('light-mode', !!settings.lightMode);
+    document.body.classList.toggle('large-text', settings.fontSize === 'large');
+    document.body.classList.toggle('high-contrast', !!settings.contrast);
+    document.body.classList.toggle('no-motion', !settings.animations);
+
+    const palette = palettes[settings.color] || palettes.pink;
+    document.documentElement.style.setProperty('--primary', palette.primary);
+    document.documentElement.style.setProperty('--secondary', palette.secondary);
+
+    $('lightMode').checked = !!settings.lightMode;
+    $('fontSize').value = settings.fontSize;
+    $('contrast').checked = !!settings.contrast;
+    $('animations').checked = !!settings.animations;
+    $('confirmDelete').checked = !!settings.confirmDelete;
+    $('saveReminder').checked = !!settings.saveReminder;
+    $('hideSensitive').checked = !!settings.hideSensitive;
+
+    document.querySelectorAll('.color-btn').forEach(button => {
+      const active = button.dataset.color === settings.color;
+      button.classList.toggle('active', active);
+      button.setAttribute('aria-pressed', String(active));
+    });
+
+    const meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) meta.content = settings.lightMode ? '#f7f1fc' : '#100d20';
+
+    document.querySelectorAll('.policy, .data-list').forEach(el => {
+      el.style.filter = settings.hideSensitive ? 'blur(5px)' : '';
+    });
+  }
+
+  function update(name, value) {
+    settings[name] = value;
+    applySettings();
+    persist(true);
+  }
+
+  $('lightMode').addEventListener('change', e => update('lightMode', e.target.checked));
+  $('fontSize').addEventListener('change', e => update('fontSize', e.target.value));
+  $('contrast').addEventListener('change', e => update('contrast', e.target.checked));
+  $('animations').addEventListener('change', e => update('animations', e.target.checked));
+  $('confirmDelete').addEventListener('change', e => update('confirmDelete', e.target.checked));
+  $('saveReminder').addEventListener('change', e => update('saveReminder', e.target.checked));
+  $('hideSensitive').addEventListener('change', e => update('hideSensitive', e.target.checked));
+
+  document.querySelectorAll('.color-btn').forEach(button => {
+    button.addEventListener('click', () => update('color', button.dataset.color));
+  });
+
+  $('exportSettings').addEventListener('click', () => {
+    const blob = new Blob(
+      [JSON.stringify(settings, null, 2)],
+      { type: 'application/json;charset=utf-8' }
+    );
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'lovespace-settings.json';
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    URL.revokeObjectURL(url);
+    toast('تم تجهيز ملف الإعدادات للتصدير.');
+  });
+
+  $('resetSettings').addEventListener('click', () => {
+    const message = 'تحب ترجع إعدادات هذه الصفحة إلى الحالة الافتراضية؟';
+    if (settings.confirmDelete && !window.confirm(message)) return;
+
+    settings = { ...defaults };
+    applySettings();
+    persist(true);
+    toast('رجعنا الإعدادات الافتراضية.');
+  });
+
+  applySettings();
+})();
+</script>
+</body>
+</html>
