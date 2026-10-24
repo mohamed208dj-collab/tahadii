@@ -1,1 +1,476 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#100d20">
+<title>المساعدة ❤️ | LoveSpace</title>
 
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+  --bg: #100d20;
+  --card: rgba(255,255,255,.055);
+  --border: rgba(255,255,255,.10);
+  --pink: #ff70b8;
+  --purple: #a78bfa;
+  --text: #f7f2ff;
+  --muted: #aaa3c2;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Alexandria', sans-serif;
+  background:
+    radial-gradient(circle at 10% 10%, #352052 0, transparent 35%),
+    radial-gradient(circle at 90% 80%, #291638 0, transparent 35%),
+    var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  padding: 22px 15px 40px;
+}
+
+.container {
+  width: 100%;
+  max-width: 850px;
+  margin: auto;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 25px;
+}
+
+.back {
+  color: var(--text);
+  text-decoration: none;
+  background: var(--card);
+  border: 1px solid var(--border);
+  padding: 11px 15px;
+  border-radius: 13px;
+  font-size: 13px;
+}
+
+.logo {
+  font-size: 17px;
+  font-weight: 800;
+  color: var(--pink);
+}
+
+.hero {
+  text-align: center;
+  padding: 32px 18px;
+  border: 1px solid var(--border);
+  border-radius: 26px;
+  background: linear-gradient(135deg, rgba(167,139,250,.13), rgba(255,112,184,.07));
+  margin-bottom: 22px;
+}
+
+.hero-icon {
+  font-size: 47px;
+  margin-bottom: 12px;
+  filter: drop-shadow(0 0 15px #ff70b855);
+}
+
+h1 {
+  font-size: clamp(23px, 5vw, 32px);
+  margin-bottom: 12px;
+}
+
+h1 span {
+  color: var(--pink);
+}
+
+.hero p {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 2;
+}
+
+.search-box {
+  margin: 20px 0;
+}
+
+.search-box input {
+  width: 100%;
+  padding: 16px 18px;
+  border-radius: 15px;
+  border: 1px solid var(--border);
+  outline: none;
+  background: rgba(255,255,255,.06);
+  color: white;
+  font: inherit;
+  font-size: 13px;
+}
+
+.search-box input:focus {
+  border-color: var(--pink);
+  box-shadow: 0 0 0 3px #ff70b815;
+}
+
+.section-title {
+  font-size: 17px;
+  margin: 25px 0 14px;
+}
+
+.faq {
+  display: grid;
+  gap: 11px;
+}
+
+details {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+  transition: .25s;
+}
+
+details[open] {
+  border-color: #ff70b855;
+  background: rgba(255,112,184,.055);
+}
+
+summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 17px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+summary::-webkit-details-marker {
+  display: none;
+}
+
+summary::after {
+  content: '+';
+  color: var(--pink);
+  font-size: 22px;
+  flex-shrink: 0;
+}
+
+details[open] summary::after {
+  content: '−';
+}
+
+.answer {
+  padding: 0 17px 18px;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 2.2;
+}
+
+.answer a {
+  color: var(--pink);
+}
+
+.tips {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0,1fr));
+  gap: 12px;
+}
+
+.tip {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 17px;
+  padding: 17px;
+}
+
+.tip-icon {
+  font-size: 25px;
+  margin-bottom: 10px;
+}
+
+.tip h3 {
+  font-size: 13px;
+  margin-bottom: 8px;
+}
+
+.tip p {
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 2;
+}
+
+.contact {
+  margin-top: 25px;
+  padding: 23px;
+  border: 1px solid #ff70b833;
+  border-radius: 22px;
+  background: linear-gradient(135deg, #ff70b811, #a78bfa11);
+  text-align: center;
+}
+
+.contact h2 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.contact p {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 2;
+  margin-bottom: 17px;
+}
+
+.contact button, .contact a {
+  display: inline-block;
+  border: none;
+  border-radius: 12px;
+  padding: 13px 18px;
+  font: inherit;
+  font-size: 12px;
+  text-decoration: none;
+  cursor: pointer;
+  color: #21112d;
+  background: linear-gradient(135deg, var(--pink), var(--purple));
+  font-weight: 700;
+}
+
+.no-results {
+  display: none;
+  color: var(--muted);
+  text-align: center;
+  padding: 25px 10px;
+  font-size: 13px;
+}
+
+footer {
+  text-align: center;
+  color: #807896;
+  font-size: 10px;
+  margin-top: 28px;
+  line-height: 2;
+}
+
+@media(max-width: 480px) {
+  .tips { grid-template-columns: 1fr; }
+  .hero { padding: 27px 15px; }
+  summary { font-size: 12px; }
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+
+  <header class="topbar">
+    <a class="back" href="home.html">→ الرجوع للرئيسية</a>
+    <div class="logo">LoveSpace ❤️</div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-icon">💗</div>
+    <h1>مركز <span>المساعدة</span></h1>
+    <p>
+      مرحباً بيك في مساحتنا الخاصة ❤️<br>
+      هنا تلقى إجابات للأسئلة وتتعلم كيفاش تستعمل الموقع.
+    </p>
+  </section>
+
+  <div class="search-box">
+    <input
+      type="search"
+      id="search"
+      placeholder="🔍 ابحث عن سؤالك..."
+      aria-label="ابحث عن سؤال"
+    >
+  </div>
+
+  <h2 class="section-title">❓ الأسئلة الشائعة</h2>
+
+  <div class="faq" id="faq">
+
+    <details data-search="استعمال الموقع كيفاش نخدم الموقع">
+      <summary>كيفاش نستعمل LoveSpace؟</summary>
+      <div class="answer">
+        ارجع للصفحة الرئيسية واختار القسم اللي تحب تدخل ليه، مثلاً الذكريات أو الرسائل أو الألعاب. كل قسم عنده وظيفة خاصة بيه.
+      </div>
+    </details>
+
+    <details data-search="البيانات الحفظ localstorage حفظ الرسائل">
+      <summary>هل المعلومات اللي نكتبها تتحفظ؟</summary>
+      <div class="answer">
+        الأقسام اللي تستعمل التخزين المحلي تحفظ المعلومات في المتصفح والجهاز اللي استعملته. إذا مسحت بيانات الموقع أو بدلت الجهاز، ممكن تفقد معلوماتك. الحفظ المحلي وحده ما يعنيش أن المعلومات تترفع للإنترنت.
+      </div>
+    </details>
+
+    <details data-search="حساب تسجيل الدخول login account">
+      <summary>كيفاش ندخل لحسابي؟</summary>
+      <div class="answer">
+        إذا المشروع فيه نظام تسجيل دخول مفعّل، افتح صفحة تسجيل الدخول واتبع التعليمات. صفحات HTML وحدها ما تنشئش حسابات حقيقية ولا تتحقق من كلمة السر من دون نظام خلفي.
+      </div>
+    </details>
+
+    <details data-search="الصور photos memories ذكريات">
+      <summary>كيفاش نضيف الصور والذكريات؟</summary>
+      <div class="answer">
+        افتح قسم الصور أو الذكريات واتبع الخيارات الموجودة فيه. تأكد من حفظ التغييرات قبل ما تغلق الصفحة، وجرب ترجع للقسم باش تتأكد بلي المعلومات بقات.
+      </div>
+    </details>
+
+    <details data-search="الألعاب games quiz xo">
+      <summary>الألعاب ما تخدمش، واش ندير؟</summary>
+      <div class="answer">
+        حدّث الصفحة، واستعمل متصفح حديث كيما Chrome. إذا بقات المشكلة، جرّب تفتح الملف من جديد وتأكد بلي نسخت الكود كامل وما حذفت حتى جزء منه.
+      </div>
+    </details>
+
+    <details data-search="الهاتف الهاتف المحمول responsive mobile">
+      <summary>هل الموقع يخدم في الهاتف؟</summary>
+      <div class="answer">
+        التصميم مهيأ للهاتف والكمبيوتر. استعمل متصفح حديث وخلي الصفحة تتحمل مليح. بعض الخصائص تقدر تختلف حسب المتصفح والجهاز.
+      </div>
+    </details>
+
+    <details data-search="رابط الصفحات home html links">
+      <summary>كي نضغط على قسم وما يفتحش؟</summary>
+      <div class="answer">
+        تأكد أن ملف الصفحة موجود في نفس مجلد المشروع، وأن اسم الملف في الرابط مطابق تماماً لاسمه، مثلاً <b>games.html</b> أو <b>events.html</b>.
+      </div>
+    </details>
+
+    <details data-search="الخصوصية privacy الأمان security">
+      <summary>هل معلوماتي خاصة وآمنة؟</summary>
+      <div class="answer">
+        هذا يعتمد على طريقة بناء الموقع. التخزين المحلي يبقى عادةً في المتصفح، لكن أي معلومات تكتبها في خدمة متصلة بالإنترنت قد تخضع لطريقة معالجة تلك الخدمة. ما تكتبش كلمات السر أو المعلومات الحساسة في صفحات تجريبية.
+      </div>
+    </details>
+
+    <details data-search="نسخة احتياطية backup نقل البيانات">
+      <summary>كيفاش ما نضيعش معلوماتي؟</summary>
+      <div class="answer">
+        إذا كانت المعلومات مهمة، احتفظ بنسخة منها في مكان آمن. ما تمسحش بيانات المتصفح قبل ما تتأكد من وجود نسخة احتياطية، لأن بعض الصفحات تحفظ البيانات محلياً فقط.
+      </div>
+    </details>
+
+  </div>
+
+  <div class="no-results" id="noResults">
+    ما لقيناش سؤال مطابق 🔎<br>
+    جرّب كلمات أخرى.
+  </div>
+
+  <h2 class="section-title">✨ نصائح للاستعمال</h2>
+
+  <div class="tips">
+    <article class="tip">
+      <div class="tip-icon">💾</div>
+      <h3>احفظ تغييراتك</h3>
+      <p>بعد ما تضيف معلومة، تأكد بلي تحفّظت قبل ما تخرج من الصفحة.</p>
+    </article>
+
+    <article class="tip">
+      <div class="tip-icon">🔗</div>
+      <h3>تأكد من الروابط</h3>
+      <p>كل صفحة لازم يكون عندها ملف صحيح ورابط مطابق لاسم الملف.</p>
+    </article>
+
+    <article class="tip">
+      <div class="tip-icon">🛡️</div>
+      <h3>حافظ على خصوصيتك</h3>
+      <p>ما تشاركش معلومات حساسة في صفحات تجريبية أو غير محمية.</p>
+    </article>
+
+    <article class="tip">
+      <div class="tip-icon">🌙</div>
+      <h3>استعمل متصفح حديث</h3>
+      <p>Chrome أو أي متصفح حديث يساعد على تشغيل خصائص الموقع بشكل أفضل.</p>
+    </article>
+  </div>
+
+  <section class="contact">
+    <h2>ما لقيتش الحل؟ 💌</h2>
+    <p>
+      تقدر ترجع للرئيسية وتراجع أقسام الموقع.<br>
+      وإذا عندك مشكل تقني، سجّل اسم الصفحة والخطأ اللي ظهرلك.
+    </p>
+    <button onclick="copyReport()">📋 نسخ نموذج الإبلاغ عن مشكلة</button>
+  </section>
+
+  <footer>
+    صُنعت بكل حب ❤️<br>
+    LoveSpace — مساحتنا الخاصة
+  </footer>
+
+</div>
+
+<script>
+const search = document.getElementById('search');
+const questions = [...document.querySelectorAll('#faq details')];
+const noResults = document.getElementById('noResults');
+
+search.addEventListener('input', () => {
+  const query = search.value.trim().toLowerCase();
+  let visible = 0;
+
+  questions.forEach(item => {
+    const text = (
+      item.innerText + ' ' + (item.dataset.search || '')
+    ).toLowerCase();
+
+    const matches = text.includes(query);
+    item.style.display = matches ? '' : 'none';
+
+    if (!matches) item.open = false;
+    if (matches) visible++;
+  });
+
+  noResults.style.display = visible === 0 ? 'block' : 'none';
+});
+
+function copyReport() {
+  const report =
+`بلاغ عن مشكلة في LoveSpace ❤️
+
+اسم الصفحة:
+نوع المشكلة:
+ماذا حدث؟
+نوع الجهاز والمتصفح:
+
+`;
+
+  if (navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard.writeText(report)
+      .then(() => alert('تم نسخ نموذج البلاغ. عمّرو وابعثو وين تحب.'))
+      .catch(() => fallbackCopy(report));
+  } else {
+    fallbackCopy(report);
+  }
+}
+
+function fallbackCopy(text) {
+  const area = document.createElement('textarea');
+  area.value = text;
+  area.style.position = 'fixed';
+  area.style.opacity = '0';
+  document.body.appendChild(area);
+  area.select();
+
+  try {
+    document.execCommand('copy');
+    alert('تم نسخ النموذج. عمّرو وابعثو وين تحب.');
+  } catch (error) {
+    alert(text);
+  }
+
+  area.remove();
+}
+</script>
+</body>
+</html>
