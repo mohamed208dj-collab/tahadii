@@ -4,884 +4,593 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#100d20">
-<title>Study Space 📚 | LoveSpace</title>
+<title>LoveSpace | فضاء الدراسة الجامعية</title>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;600;700;800&display=swap');
 
-:root {
-  --bg: #100d20;
-  --card: #1b1530;
-  --pink: #ff78b7;
-  --purple: #a78bfa;
-  --text: #fff0f7;
-  --muted: #bdb0d0;
-  --border: #ffffff15;
+:root{
+  --bg:#100d20;
+  --panel:#19152b;
+  --panel2:#211b38;
+  --border:rgba(255,255,255,.09);
+  --text:#f5f1ff;
+  --muted:#aaa2c5;
+  --purple:#a78bfa;
+  --pink:#f472b6;
+  --cyan:#67e8f9;
+  --green:#86efac;
+  --danger:#fca5a5;
 }
-
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+*{box-sizing:border-box}
+body{
+  margin:0;background:
+  radial-gradient(ellipse at 5% 0%,#382052 0,transparent 35%),
+  radial-gradient(ellipse at 100% 40%,#172746 0,transparent 30%),
+  var(--bg);
+  color:var(--text);font-family:'Alexandria',sans-serif;
+  min-height:100vh;
 }
-
-body {
-  min-height: 100vh;
-  padding: 20px 14px 35px;
-  font-family: 'Alexandria', sans-serif;
-  color: var(--text);
-  background:
-    radial-gradient(circle at 15% 10%, #54265c55, transparent 35%),
-    radial-gradient(circle at 85% 85%, #6e287755, transparent 35%),
-    var(--bg);
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{
+  outline:2px solid var(--cyan);outline-offset:3px
 }
-
-.container {
-  max-width: 850px;
-  width: 100%;
-  margin: auto;
+a{color:inherit;text-decoration:none}
+.topbar{
+  position:sticky;top:0;z-index:10;
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:14px 5%;background:rgba(16,13,32,.88);
+  backdrop-filter:blur(18px);border-bottom:1px solid var(--border)
 }
-
-header {
-  text-align: center;
-  padding: 15px 0 25px;
+.brand{display:flex;align-items:center;gap:10px;font-weight:800}
+.logo{
+  display:grid;place-items:center;width:43px;height:43px;border-radius:15px;
+  background:linear-gradient(135deg,#a78bfa,#f472b6);
+  color:#fff;box-shadow:0 7px 25px #a78bfa35;font-size:21px
 }
-
-.logo {
-  width: 68px;
-  height: 68px;
-  margin: 0 auto 15px;
-  display: grid;
-  place-items: center;
-  border-radius: 22px;
-  font-size: 32px;
-  background: linear-gradient(135deg, #ff78b7, #8b5cf6);
-  box-shadow: 0 0 35px #ff78b744;
+.brand small{display:block;color:var(--muted);font-size:10px;font-weight:400}
+.top-actions{display:flex;gap:8px;flex-wrap:wrap}
+.btn{
+  border:1px solid var(--border);border-radius:12px;padding:10px 14px;
+  color:var(--text);background:var(--panel2);font-size:12px;
+  transition:.2s
 }
-
-h1 {
-  font-size: clamp(25px, 5vw, 36px);
-  margin-bottom: 10px;
-  background: linear-gradient(90deg, #fff, #ff9dce, #c4b5fd);
-  color: transparent;
-  background-clip: text;
-  -webkit-background-clip: text;
+.btn:hover{transform:translateY(-2px);border-color:#a78bfa}
+.btn.primary{background:linear-gradient(135deg,#8b5cf6,#db65b5);border:0}
+.btn.small{padding:7px 10px;font-size:11px}
+.container{max-width:1250px;margin:auto;padding:26px 5% 55px}
+.hero{
+  position:relative;overflow:hidden;padding:30px;border:1px solid var(--border);
+  border-radius:25px;background:linear-gradient(125deg,#30204d,#211a39 55%,#152a40);
+  margin-bottom:20px
 }
-
-.subtitle {
-  color: var(--muted);
-  font-size: 12px;
-  line-height: 2;
+.hero:after{content:"🎓";position:absolute;left:35px;bottom:-15px;font-size:100px;opacity:.13}
+.eyebrow{color:var(--cyan);font-size:11px;letter-spacing:1px}
+h1{font-size:clamp(23px,4vw,36px);margin:12px 0}
+.hero p{color:#d0c8e5;font-size:13px;line-height:2;max-width:700px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:18px 0 25px}
+.stat,.panel,.course-card,.resource-card{
+  border:1px solid var(--border);background:rgba(25,21,43,.92);border-radius:18px
 }
-
-.card {
-  background: linear-gradient(145deg, #211832ed, #171225f5);
-  border: 1px solid var(--border);
-  border-radius: 24px;
-  padding: 22px;
-  margin-bottom: 17px;
-  box-shadow: 0 15px 40px #0003;
+.stat{padding:17px}
+.stat .num{font-size:25px;font-weight:800;color:var(--purple)}
+.stat p{margin:5px 0 0;color:var(--muted);font-size:11px}
+.section-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:25px 0 13px}
+.section-head h2{font-size:17px;margin:0}
+.muted{color:var(--muted);font-size:12px;line-height:1.9}
+.toolbar{
+  display:grid;grid-template-columns:minmax(180px,1fr) 180px 180px;
+  gap:10px;padding:15px;background:var(--panel);border:1px solid var(--border);
+  border-radius:17px;margin-bottom:17px
 }
-
-.section-title {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 18px;
-  font-size: 16px;
+.field{
+  width:100%;padding:12px;border-radius:11px;border:1px solid var(--border);
+  color:var(--text);background:#100d20;font-size:12px;min-width:0
 }
-
-.section-title span {
-  font-size: 22px;
+.field::placeholder{color:#81799b}
+select.field option{background:#19152b}
+.track-tabs,.semester-tabs,.category-tabs{display:flex;gap:8px;flex-wrap:wrap}
+.tab{
+  border:1px solid var(--border);border-radius:12px;padding:10px 14px;
+  background:var(--panel);color:var(--muted);font-size:12px
 }
-
-.welcome {
-  background: linear-gradient(120deg, #44204f, #292044);
-  border-color: #ff78b72b;
+.tab.active{color:#fff;background:#8b5cf633;border-color:#a78bfa}
+.semester-tabs{margin:15px 0}
+.course-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}
+.course-card{padding:17px;transition:.2s;min-width:0}
+.course-card:hover{transform:translateY(-3px);border-color:#a78bfa80}
+.course-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}
+.course-icon{font-size:25px}
+.tag{display:inline-block;padding:5px 8px;border-radius:8px;background:#a78bfa18;color:#c4b5fd;font-size:10px}
+.course-card h3{font-size:14px;margin:14px 0 5px;line-height:1.8}
+.course-card .english{font-size:11px;color:var(--muted);direction:ltr;text-align:right}
+.course-card p{font-size:11px;color:var(--muted);line-height:1.9;min-height:40px}
+.progress-label{display:flex;justify-content:space-between;color:var(--muted);font-size:10px;margin:12px 0 7px}
+.progress{height:5px;border-radius:10px;background:#ffffff12;overflow:hidden}
+.progress span{display:block;height:100%;border-radius:10px;background:linear-gradient(90deg,#8b5cf6,#f472b6)}
+.card-actions{display:flex;gap:7px;margin-top:14px}
+.card-actions .btn{flex:1}
+.empty{padding:35px;text-align:center;border:1px dashed var(--border);border-radius:16px;color:var(--muted)}
+.panel{padding:20px;margin-top:22px}
+.panel h2{font-size:17px;margin-top:0}
+.resource-layout{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+.resource-card{padding:16px}
+.resource-card h3{font-size:13px;margin-top:0}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.form-grid .full{grid-column:1/-1}
+label{display:block;color:var(--muted);font-size:11px;margin-bottom:7px}
+textarea.field{resize:vertical;min-height:85px}
+.resource-list{display:grid;gap:9px;margin-top:12px}
+.resource-item{
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
+  padding:12px;background:#100d20;border:1px solid var(--border);border-radius:12px
 }
-
-.welcome h2 {
-  color: var(--pink);
-  font-size: 20px;
-  margin-bottom: 9px;
+.resource-item strong{display:block;font-size:11px;overflow-wrap:anywhere}
+.resource-item small{color:var(--muted);font-size:10px;display:block;margin-top:5px}
+.resource-buttons{display:flex;gap:6px;flex-wrap:wrap}
+.notice{padding:13px;border-radius:12px;background:#67e8f910;border:1px solid #67e8f92b;color:#b9f4fa;font-size:11px;line-height:2;margin-top:15px}
+.footer{text-align:center;color:var(--muted);font-size:10px;padding:25px 10px}
+.hidden{display:none!important}
+#toast{
+  position:fixed;bottom:20px;left:50%;transform:translateX(-50%);
+  padding:12px 18px;background:#30254b;border:1px solid #a78bfa;
+  color:white;border-radius:12px;font-size:12px;z-index:50;
+  opacity:0;pointer-events:none;transition:.2s;max-width:90%;text-align:center
 }
-
-.welcome p {
-  font-size: 12px;
-  line-height: 2.1;
-  color: #e4d5f0;
+#toast.show{opacity:1}
+dialog{
+  width:min(650px,94%);max-height:85vh;overflow:auto;
+  color:var(--text);background:#19152b;border:1px solid var(--border);
+  border-radius:20px;padding:22px
 }
-
-.stats {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
-  margin-bottom: 17px;
+dialog::backdrop{background:#080611c9;backdrop-filter:blur(5px)}
+.dialog-head{display:flex;justify-content:space-between;gap:12px;align-items:center}
+.dialog-head h2{font-size:18px}
+.lesson-list{display:grid;gap:10px;margin:15px 0}
+.lesson{padding:13px;border:1px solid var(--border);border-radius:12px;background:#100d20}
+.lesson strong{font-size:12px}
+.lesson p{font-size:11px;color:var(--muted);line-height:1.9;white-space:pre-wrap;overflow-wrap:anywhere}
+.lesson a{font-size:11px;color:var(--cyan);text-decoration:underline}
+.checkrow{display:flex;align-items:center;gap:9px;color:var(--muted);font-size:11px;margin-top:10px}
+.checkrow input{accent-color:#a78bfa}
+@media(max-width:900px){
+ .course-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .stats{grid-template-columns:repeat(2,1fr)}
 }
-
-.stat {
-  text-align: center;
-  padding: 18px 8px;
-  background: #ffffff08;
-  border: 1px solid var(--border);
-  border-radius: 18px;
-}
-
-.stat .number {
-  font-size: 25px;
-  font-weight: 700;
-  color: var(--pink);
-}
-
-.stat p {
-  color: var(--muted);
-  font-size: 10px;
-  margin-top: 7px;
-}
-
-.progress-track {
-  width: 100%;
-  height: 10px;
-  background: #ffffff12;
-  border-radius: 20px;
-  overflow: hidden;
-  margin: 12px 0 8px;
-}
-
-.progress-bar {
-  height: 100%;
-  width: 0;
-  border-radius: 20px;
-  background: linear-gradient(90deg, #ec4899, #a78bfa);
-  transition: width .4s;
-}
-
-.progress-info {
-  display: flex;
-  justify-content: space-between;
-  color: var(--muted);
-  font-size: 11px;
-}
-
-.form-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-}
-
-.field {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.field.full {
-  grid-column: 1 / -1;
-}
-
-label {
-  font-size: 11px;
-  color: var(--muted);
-}
-
-input, select, textarea {
-  width: 100%;
-  min-width: 0;
-  padding: 13px;
-  color: var(--text);
-  font-family: inherit;
-  font-size: 12px;
-  background: #100d20;
-  border: 1px solid #ffffff20;
-  border-radius: 13px;
-  outline: none;
-}
-
-input:focus, select:focus, textarea:focus {
-  border-color: var(--pink);
-}
-
-select option {
-  background: #1b1530;
-}
-
-button {
-  font-family: inherit;
-  cursor: pointer;
-  border: 0;
-  border-radius: 13px;
-  padding: 13px 16px;
-  font-size: 12px;
-  font-weight: 600;
-  transition: .2s;
-}
-
-button:active {
-  transform: scale(.97);
-}
-
-.primary {
-  color: white;
-  background: linear-gradient(100deg, #ec4899, #8b5cf6);
-}
-
-.primary:hover {
-  filter: brightness(1.1);
-}
-
-.add-btn {
-  width: 100%;
-  margin-top: 15px;
-}
-
-.filters {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-bottom: 16px;
-}
-
-.filter-btn {
-  color: var(--muted);
-  background: #ffffff09;
-  border: 1px solid var(--border);
-  padding: 9px 13px;
-  font-size: 10px;
-}
-
-.filter-btn.active {
-  color: white;
-  background: #a855f733;
-  border-color: #c084fc88;
-}
-
-.task-list {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.task {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-  padding: 15px;
-  background: #100d207a;
-  border: 1px solid var(--border);
-  border-radius: 16px;
-}
-
-.task-check {
-  width: 20px;
-  height: 20px;
-  min-width: 20px;
-  margin-top: 3px;
-  accent-color: #ec4899;
-  cursor: pointer;
-}
-
-.task-content {
-  flex: 1;
-  min-width: 0;
-}
-
-.task-name {
-  font-size: 12px;
-  font-weight: 600;
-  overflow-wrap: anywhere;
-}
-
-.task.done .task-name {
-  text-decoration: line-through;
-  opacity: .55;
-}
-
-.task-meta {
-  color: var(--muted);
-  font-size: 10px;
-  line-height: 2;
-  margin-top: 7px;
-}
-
-.priority {
-  display: inline-block;
-  padding: 4px 8px;
-  border-radius: 8px;
-  margin-top: 6px;
-  font-size: 9px;
-}
-
-.priority.high {
-  color: #ff9bba;
-  background: #ff477e18;
-}
-
-.priority.normal {
-  color: #c4b5fd;
-  background: #8b5cf618;
-}
-
-.priority.low {
-  color: #9be7c3;
-  background: #34d39918;
-}
-
-.delete-btn {
-  color: #ff9ab7;
-  background: #ff477e13;
-  padding: 8px 10px;
-  font-size: 10px;
-}
-
-.empty {
-  text-align: center;
-  padding: 25px 10px;
-  color: var(--muted);
-  font-size: 12px;
-  line-height: 2;
-}
-
-.timer-box {
-  text-align: center;
-  padding: 10px 0;
-}
-
-.timer-display {
-  font-size: clamp(43px, 10vw, 64px);
-  font-weight: 700;
-  letter-spacing: 2px;
-  margin: 15px 0;
-  color: var(--pink);
-  font-variant-numeric: tabular-nums;
-}
-
-.timer-label {
-  color: var(--muted);
-  font-size: 12px;
-}
-
-.timer-controls {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 9px;
-  margin-top: 20px;
-}
-
-.timer-controls button {
-  min-width: 100px;
-}
-
-.secondary {
-  color: var(--text);
-  background: #ffffff0c;
-  border: 1px solid var(--border);
-}
-
-.timer-setting {
-  max-width: 180px;
-  margin: 15px auto 0;
-}
-
-.tips {
-  display: grid;
-  gap: 10px;
-}
-
-.tip {
-  display: flex;
-  gap: 12px;
-  align-items: flex-start;
-  padding: 13px;
-  background: #ffffff07;
-  border-radius: 14px;
-}
-
-.tip-icon {
-  font-size: 22px;
-}
-
-.tip p {
-  font-size: 11px;
-  line-height: 2;
-  color: var(--muted);
-}
-
-.tip strong {
-  display: block;
-  color: var(--text);
-  margin-bottom: 3px;
-}
-
-footer {
-  text-align: center;
-  color: #a99bbd;
-  font-size: 11px;
-  margin-top: 25px;
-  line-height: 2;
-}
-
-@media (max-width: 520px) {
-  .card { padding: 17px 13px; }
-  .stats { gap: 7px; }
-  .stat { padding: 15px 4px; }
-  .stat .number { font-size: 21px; }
-  .form-grid { grid-template-columns: 1fr; }
-  .field.full { grid-column: auto; }
+@media(max-width:600px){
+ .topbar{padding:11px 4%}.container{padding:18px 4% 35px}
+ .brand small{display:none}.top-actions .btn{padding:8px;font-size:10px}
+ .hero{padding:22px}.hero:after{font-size:65px;left:10px}
+ .toolbar{grid-template-columns:1fr}
+ .course-grid,.resource-layout,.form-grid{grid-template-columns:1fr}
+ .form-grid .full{grid-column:auto}
+ .section-head{align-items:flex-start;flex-direction:column}
+ .resource-item{align-items:flex-start;flex-direction:column}
 }
 </style>
 </head>
 
 <body>
-<main class="container">
-
-<header>
-  <div class="logo">📚</div>
-  <h1>Study Space</h1>
-  <p class="subtitle">
-    نظّم قرايتك، تابع تقدمك، وقرّب لأهدافك كل يوم ✨
-  </p>
+<header class="topbar">
+  <a class="brand" href="home.html">
+    <span class="logo">♡</span>
+    <span>LoveSpace<small>University Study Hub</small></span>
+  </a>
+  <div class="top-actions">
+    <a class="btn" href="home.html">⌂ الرئيسية</a>
+    <button class="btn primary" id="exportBtn">تصدير بياناتي</button>
+  </div>
 </header>
 
-<section class="card welcome">
-  <h2>كل خطوة صغيرة تقرّبك للنجاح 🎯</h2>
-  <p>
-    ماشي لازم تكمل كلش في نهار واحد. اختار مهمة،
-    ركّز عليها، ومن بعد انتقل للي بعدها. المهم هو الاستمرار.
-  </p>
-</section>
+<main class="container">
+  <section class="hero">
+    <div class="eyebrow">YOUR UNIVERSITY SPACE · 2026</div>
+    <h1>فضاء الدراسة الجامعية 🎓</h1>
+    <p>
+      جميع مواد السنة الأولى في الرياضيات والإعلام الآلي والهندسة المدنية
+      في مكان واحد. نظم دروسك، حمّل ملفاتك، سجّل تقدمك وراجع امتحاناتك
+      بطريقة تناسبك.
+    </p>
+    <div class="track-tabs">
+      <button class="tab active" data-track="ALL">📚 جميع التخصصات</button>
+      <button class="tab" data-track="MI">💻 MI · رياضيات وإعلام آلي</button>
+      <button class="tab" data-track="GC">🏗️ GC · هندسة مدنية</button>
+    </div>
+  </section>
 
-<section class="stats">
-  <div class="stat">
-    <div class="number" id="totalTasks">0</div>
-    <p>إجمالي المهام</p>
-  </div>
-  <div class="stat">
-    <div class="number" id="doneTasks">0</div>
-    <p>المهام المكتملة</p>
-  </div>
-  <div class="stat">
-    <div class="number" id="studyMinutes">0</div>
-    <p>دقائق التركيز</p>
-  </div>
-</section>
+  <section class="stats">
+    <div class="stat"><div class="num" id="totalCount">0</div><p>المواد المعروضة</p></div>
+    <div class="stat"><div class="num" id="doneCount">0</div><p>المواد التي راجعتها</p></div>
+    <div class="stat"><div class="num" id="resourceCount">0</div><p>مواردك المسجلة</p></div>
+    <div class="stat"><div class="num" id="progressCount">0%</div><p>نسبة تقدمك في المواد</p></div>
+  </section>
 
-<section class="card">
-  <div class="section-title">
-    <span>📈</span>
-    <h2>تقدمك الدراسي</h2>
-  </div>
-
-  <div class="progress-info">
-    <span>نسبة إكمال المهام</span>
-    <strong id="progressText">0%</strong>
-  </div>
-  <div class="progress-track">
-    <div class="progress-bar" id="progressBar"></div>
-  </div>
-</section>
-
-<section class="card">
-  <div class="section-title">
-    <span>➕</span>
-    <h2>أضف مهمة دراسية</h2>
+  <div class="section-head">
+    <h2>📖 مكتبة المواد</h2>
+    <span class="muted">السنة الأولى جامعي · L1</span>
   </div>
 
-  <form id="taskForm">
-    <div class="form-grid">
-      <div class="field full">
-        <label for="taskTitle">عنوان المهمة</label>
-        <input id="taskTitle" maxlength="100"
-          placeholder="مثال: مراجعة درس النهايات" required>
+  <div class="toolbar">
+    <input class="field" id="search" placeholder="🔎 ابحث عن مادة...">
+    <select class="field" id="semester">
+      <option value="ALL">الفصلان S1 و S2</option>
+      <option value="S1">الفصل الأول S1</option>
+      <option value="S2">الفصل الثاني S2</option>
+    </select>
+    <select class="field" id="kind">
+      <option value="ALL">كل أنواع المواد</option>
+      <option value="COMMON">مواد مشتركة</option>
+      <option value="MI">مواد MI فقط</option>
+      <option value="GC">مواد GC فقط</option>
+    </select>
+  </div>
+
+  <div class="semester-tabs">
+    <button class="tab active" data-sem="ALL">كل الفصول</button>
+    <button class="tab" data-sem="S1">S1 · الفصل الأول</button>
+    <button class="tab" data-sem="S2">S2 · الفصل الثاني</button>
+  </div>
+
+  <div class="muted" id="resultsLabel" style="margin:10px 0 14px"></div>
+  <section class="course-grid" id="courseGrid"></section>
+
+  <section class="panel" id="resourcePanel">
+    <h2>🗂️ مواردي الجامعية</h2>
+    <p class="muted">أضف دروس PDF، ملخصات، TD، تمارين وامتحانات لكل مادة. الملفات تُحفظ في هذا المتصفح حسب المساحة المتاحة.</p>
+
+    <div class="resource-layout">
+      <div class="resource-card">
+        <h3>＋ إضافة درس أو ملف</h3>
+        <form id="resourceForm">
+          <div class="form-grid">
+            <div class="full">
+              <label for="resourceCourse">المادة</label>
+              <select class="field" id="resourceCourse" required></select>
+            </div>
+            <div>
+              <label for="resourceType">نوع المورد</label>
+              <select class="field" id="resourceType">
+                <option value="درس">📘 درس</option>
+                <option value="TD">📝 TD</option>
+                <option value="تمارين">✍️ تمارين</option>
+                <option value="امتحان">🎓 امتحان</option>
+                <option value="ملخص">📑 ملخص</option>
+                <option value="رابط">🔗 رابط خارجي</option>
+              </select>
+            </div>
+            <div>
+              <label for="resourceTitle">عنوان المورد</label>
+              <input class="field" id="resourceTitle" required placeholder="مثلاً: Chapitre 1">
+            </div>
+            <div class="full">
+              <label for="resourceDescription">ملاحظات (اختياري)</label>
+              <textarea class="field" id="resourceDescription" placeholder="اكتب ملاحظاتك هنا..."></textarea>
+            </div>
+            <div class="full">
+              <label for="resourceUrl">رابط الملف (اختياري)</label>
+              <input class="field" id="resourceUrl" type="url" placeholder="https://...">
+            </div>
+            <div class="full">
+              <label for="resourceFile">أو اختر ملفًا من هاتفك / حاسوبك</label>
+              <input class="field" id="resourceFile" type="file" accept=".pdf,.doc,.docx,.ppt,.pptx,.txt,.jpg,.jpeg,.png">
+              <p class="muted">ملاحظة: الملفات الكبيرة قد لا تُحفظ بسبب حدود مساحة المتصفح.</p>
+            </div>
+          </div>
+          <button class="btn primary" style="width:100%;margin-top:13px" type="submit">حفظ المورد</button>
+        </form>
       </div>
 
-      <div class="field">
-        <label for="taskSubject">المادة</label>
-        <select id="taskSubject">
-          <option>رياضيات</option>
-          <option>فيزياء</option>
-          <option>علوم طبيعية</option>
-          <option>هندسة مدنية</option>
-          <option>عربية</option>
-          <option>فرنسية</option>
-          <option>إنجليزية</option>
-          <option>فلسفة</option>
-          <option>تاريخ وجغرافيا</option>
-          <option>إسلامية</option>
-          <option>أخرى</option>
-        </select>
-      </div>
-
-      <div class="field">
-        <label for="taskDate">تاريخ الإنجاز</label>
-        <input type="date" id="taskDate">
-      </div>
-
-      <div class="field">
-        <label for="taskDuration">المدة المتوقعة بالدقائق</label>
-        <input type="number" id="taskDuration"
-          min="5" max="600" value="30">
-      </div>
-
-      <div class="field">
-        <label for="taskPriority">الأولوية</label>
-        <select id="taskPriority">
-          <option value="high">مهمة جداً</option>
-          <option value="normal" selected>عادية</option>
-          <option value="low">منخفضة</option>
-        </select>
+      <div class="resource-card">
+        <h3>📂 الملفات والدروس المسجلة</h3>
+        <input class="field" id="resourceSearch" placeholder="ابحث في مواردك...">
+        <div class="category-tabs" style="margin-top:10px">
+          <button class="tab active" data-resource-filter="ALL">الكل</button>
+          <button class="tab" data-resource-filter="درس">الدروس</button>
+          <button class="tab" data-resource-filter="TD">TD</button>
+          <button class="tab" data-resource-filter="امتحان">الامتحانات</button>
+        </div>
+        <div class="resource-list" id="resourceList"></div>
       </div>
     </div>
+  </section>
 
-    <button class="primary add-btn" type="submit">
-      ➕ إضافة المهمة
-    </button>
-  </form>
-</section>
-
-<section class="card">
-  <div class="section-title">
-    <span>📝</span>
-    <h2>برنامج المراجعة</h2>
-  </div>
-
-  <div class="filters">
-    <button class="filter-btn active" data-filter="all">الكل</button>
-    <button class="filter-btn" data-filter="pending">قيد الإنجاز</button>
-    <button class="filter-btn" data-filter="done">مكتملة</button>
-  </div>
-
-  <div class="task-list" id="taskList"></div>
-</section>
-
-<section class="card">
-  <div class="section-title">
-    <span>⏱️</span>
-    <h2>مؤقّت التركيز</h2>
-  </div>
-
-  <div class="timer-box">
-    <p class="timer-label" id="timerLabel">وقت المذاكرة</p>
-    <div class="timer-display" id="timerDisplay">25:00</div>
-
-    <div class="timer-setting">
-      <label for="timerMinutes">مدة الجلسة بالدقائق</label>
-      <input id="timerMinutes" type="number" min="1"
-        max="180" value="25">
+  <section class="panel">
+    <h2>💡 كيف تستعمل المكتبة؟</h2>
+    <p class="muted">
+      1. اختَر التخصص والفصل من الفلاتر.<br>
+      2. افتح المادة لإضافة دروسك وملفات PDF والتمارين.<br>
+      3. علّم المادة بأنها تمت مراجعتها عندما تكملها.<br>
+      4. صدّر بياناتك بانتظام كنسخة احتياطية.
+    </p>
+    <div class="notice">
+      ⚠️ قائمة المواد هنا استرشادية وليست برنامجًا رسميًا موحدًا لكل الجامعات.
+      قد تختلف أسماء المواد وتوزيعها بين S1 وS2 حسب الجامعة والتخصص.
+      يمكنك تعديل القائمة وإضافة مواد برنامج جامعتك.
     </div>
-
-    <div class="timer-controls">
-      <button class="primary" id="startTimer">▶ ابدأ</button>
-      <button class="secondary" id="pauseTimer">⏸ إيقاف مؤقت</button>
-      <button class="secondary" id="resetTimer">↺ إعادة</button>
-    </div>
-  </div>
-</section>
-
-<section class="card">
-  <div class="section-title">
-    <span>💡</span>
-    <h2>نصائح للمراجعة</h2>
-  </div>
-
-  <div class="tips">
-    <div class="tip">
-      <span class="tip-icon">🎯</span>
-      <p><strong>حدد هدفاً واضحاً</strong>
-      قبل ما تبدأ، قرر واش حاب تكمل في هذي الجلسة.</p>
-    </div>
-
-    <div class="tip">
-      <span class="tip-icon">📵</span>
-      <p><strong>قلّل المشتتات</strong>
-      حط الهاتف بعيد عليك وقت التركيز إذا ما كنتش تحتاجه.</p>
-    </div>
-
-    <div class="tip">
-      <span class="tip-icon">🧠</span>
-      <p><strong>اختبر روحك</strong>
-      حاول تحل تمارين وتسترجع المعلومات بلا ما تشوف الدرس مباشرة.</p>
-    </div>
-
-    <div class="tip">
-      <span class="tip-icon">🌿</span>
-      <p><strong>خذ استراحات</strong>
-      ارتاح بين الجلسات، ونظّم وقتك بطريقة تناسبك.</p>
-    </div>
-  </div>
-</section>
-
-<footer>
-  LoveSpace · Study Space 📚
-  <br>
-  خطوة اليوم هي نجاح الغد ✨
-</footer>
-
+  </section>
 </main>
 
+<footer class="footer">LoveSpace ♡ · تعلم اليوم، وافتخر بتقدمك غدًا.</footer>
+<div id="toast" role="status" aria-live="polite"></div>
+
+<dialog id="courseDialog">
+  <div class="dialog-head">
+    <h2 id="dialogTitle">تفاصيل المادة</h2>
+    <button class="btn small" id="closeDialog">✕ إغلاق</button>
+  </div>
+  <div id="dialogBody"></div>
+</dialog>
+
 <script>
-const STORAGE_KEY = "lovespace_study_v1";
+const COURSES = [
+  // المواد المشتركة أو التي قد توجد في أكثر من مسار
+  {id:"analyse1",name:"Analyse 1",ar:"التحليل الرياضي 1",track:"COMMON",sem:"S1",icon:"📈",desc:"الدوال، النهايات، الاستمرارية، الاشتقاق ودراسة الدوال."},
+  {id:"algebre1",name:"Algèbre 1",ar:"الجبر 1",track:"COMMON",sem:"S1",icon:"🔢",desc:"المنطق والمجموعات والعلاقات والبنى الجبرية حسب البرنامج."},
+  {id:"physique1",name:"Physique 1",ar:"الفيزياء 1",track:"COMMON",sem:"S1",icon:"⚛️",desc:"أساسيات الميكانيك والقياسات والكميات الفيزيائية."},
+  {id:"chimie1",name:"Chimie 1",ar:"الكيمياء 1",track:"COMMON",sem:"S1",icon:"🧪",desc:"بنية الذرة، الروابط الكيميائية والمفاهيم الأساسية."},
+  {id:"informatique1",name:"Informatique 1",ar:"الإعلام الآلي 1",track:"COMMON",sem:"S1",icon:"💻",desc:"مقدمة في الإعلام الآلي وأساسيات استعمال الحاسوب."},
+  {id:"langue1",name:"Langue étrangère 1",ar:"لغة أجنبية 1",track:"COMMON",sem:"S1",icon:"🌐",desc:"مصطلحات وتقنيات التواصل العلمي حسب البرنامج."},
+  {id:"methodologie1",name:"Méthodologie / Techniques de travail",ar:"منهجية العمل الجامعي",track:"COMMON",sem:"S1",icon:"📚",desc:"منهجية التعلم والبحث والعمل الجامعي عند توفرها."},
+  {id:"analyse2",name:"Analyse 2",ar:"التحليل الرياضي 2",track:"COMMON",sem:"S2",icon:"📉",desc:"تكملة التحليل الرياضي حسب البرنامج الدراسي."},
+  {id:"algebre2",name:"Algèbre 2",ar:"الجبر 2",track:"COMMON",sem:"S2",icon:"🧮",desc:"مفاهيم جبرية متقدمة حسب المسار."},
+  {id:"physique2",name:"Physique 2",ar:"الفيزياء 2",track:"COMMON",sem:"S2",icon:"🪐",desc:"تكملة الفيزياء؛ المحتوى يختلف حسب التخصص."},
+  {id:"chimie2",name:"Chimie 2",ar:"الكيمياء 2",track:"COMMON",sem:"S2",icon:"🧫",desc:"تكملة الكيمياء حسب البرنامج الجامعي."},
+  {id:"langue2",name:"Langue étrangère 2",ar:"لغة أجنبية 2",track:"COMMON",sem:"S2",icon:"🗣️",desc:"لغة ومصطلحات علمية."},
 
-let tasks = [];
-let currentFilter = "all";
-let focusMinutes = 0;
-let timerSeconds = 25 * 60;
-let timerRunning = false;
-let timerInterval = null;
-let lastTick = 0;
+  // MI - Mathématiques et Informatique
+  {id:"algo1",name:"Algorithmique",ar:"الخوارزميات",track:"MI",sem:"S1",icon:"⌨️",desc:"المتغيرات، الشروط، الحلقات، الجداول والخوارزميات."},
+  {id:"prog1",name:"Programmation 1",ar:"البرمجة 1",track:"MI",sem:"S1",icon:"👨‍💻",desc:"مبادئ البرمجة وتطبيق الخوارزميات بلغة المقرر."},
+  {id:"structure1",name:"Structure Machine",ar:"بنية الآلة",track:"MI",sem:"S1",icon:"🖥️",desc:"تمثيل المعلومات، النظام الثنائي ومبادئ عمل الحاسوب."},
+  {id:"logique1",name:"Logique",ar:"المنطق",track:"MI",sem:"S1",icon:"🔣",desc:"المنطق القضي، الروابط المنطقية وجداول الحقيقة حسب المقرر."},
+  {id:"discrete1",name:"Mathématiques discrètes",ar:"الرياضيات المتقطعة",track:"MI",sem:"S1",icon:"🔗",desc:"مجموعات وعلاقات وتطبيقات متقطعة حسب البرنامج."},
+  {id:"algo2",name:"Algorithmique 2",ar:"الخوارزميات 2",track:"MI",sem:"S2",icon:"🧩",desc:"تكملة الخوارزميات، الإجراءات والدوال وهياكل البيانات حسب البرنامج."},
+  {id:"prog2",name:"Programmation 2",ar:"البرمجة 2",track:"MI",sem:"S2",icon:"💾",desc:"تطبيقات برمجية أعمق وفق لغة التدريس."},
+  {id:"architecture",name:"Architecture des ordinateurs",ar:"معمارية الحاسوب",track:"MI",sem:"S2",icon:"🖱️",desc:"المعالج والذاكرة والتعليمات وبنية الحاسوب."},
+  {id:"algebrelineaire",name:"Algèbre linéaire",ar:"الجبر الخطي",track:"MI",sem:"S2",icon:"📐",desc:"المصفوفات والأنظمة الخطية والفضاءات حسب المقرر."},
+  {id:"proba",name:"Probabilités et statistiques",ar:"الاحتمالات والإحصاء",track:"MI",sem:"S2",icon:"🎲",desc:"مبادئ الاحتمالات والإحصاء إذا كانت ضمن برنامج الفصل."},
+  {id:"systeme1",name:"Systèmes / Introduction informatique",ar:"أنظمة ومقدمة في الإعلام الآلي",track:"MI",sem:"S2",icon:"⚙️",desc:"محتوى تمهيدي يُراجع وفق توصيف الجامعة."},
 
-const $ = id => document.getElementById(id);
+  // Génie Civil
+  {id:"dessin",name:"Dessin technique",ar:"الرسم التقني",track:"GC",sem:"S1",icon:"📏",desc:"الإسقاطات، المقاطع، الأبعاد وقراءة الرسومات التقنية."},
+  {id:"geologie",name:"Géologie",ar:"الجيولوجيا",track:"GC",sem:"S1",icon:"🪨",desc:"الصخور والمعادن وبنية الأرض ومبادئ الجيولوجيا الهندسية."},
+  {id:"materiaux",name:"Matériaux de construction",ar:"مواد البناء",track:"GC",sem:"S1",icon:"🧱",desc:"خصائص مواد البناء مثل الإسمنت والخرسانة والفولاذ."},
+  {id:"mecanique1",name:"Mécanique / Statique",ar:"الميكانيك والاستاتيكا",track:"GC",sem:"S1",icon:"🏗️",desc:"القوى، العزوم، التوازن ومبادئ الميكانيك."},
+  {id:"topographie",name:"Topographie",ar:"الطبوغرافيا",track:"GC",sem:"S1",icon:"🧭",desc:"القياسات والمسافات والمناسيب وقراءة المخططات."},
+  {id:"informatiquegc",name:"Informatique appliquée",ar:"الإعلام الآلي التطبيقي",track:"GC",sem:"S1",icon:"💻",desc:"أساسيات الأدوات الرقمية حسب برنامج الهندسة المدنية."},
+  {id:"mecanique2",name:"Mécanique",ar:"الميكانيك",track:"GC",sem:"S2",icon:"🔩",desc:"تكملة الميكانيك ومفاهيم تطبيقية حسب المقرر."},
+  {id:"dessin2",name:"Dessin technique 2",ar:"الرسم التقني 2",track:"GC",sem:"S2",icon:"📐",desc:"رسومات ومقاطع تقنية وتطبيقات وفق البرنامج."},
+  {id:"construction",name:"Technologie de construction",ar:"تكنولوجيا البناء",track:"GC",sem:"S2",icon:"🏢",desc:"مبادئ عناصر البناء وتقنيات الإنجاز حسب المقرر."},
+  {id:"resistance",name:"Résistance des matériaux",ar:"مقاومة المواد",track:"GC",sem:"S2",icon:"🧰",desc:"مفاهيم الإجهاد والانفعال والسلوك الميكانيكي عند تدريسها في هذا المستوى."},
+  {id:"topographie2",name:"Topographie 2",ar:"الطبوغرافيا 2",track:"GC",sem:"S2",icon:"📍",desc:"تطبيقات قياس ومسح إضافية إذا كانت ضمن البرنامج."},
+  {id:"geotech",name:"Géotechnique / Sols",ar:"التربة والجيوتقنية",track:"GC",sem:"S2",icon:"🌍",desc:"مدخل إلى التربة وخصائصها حسب البرنامج الجامعي."},
+  {id:"materiaux2",name:"Matériaux de construction 2",ar:"مواد البناء 2",track:"GC",sem:"S2",icon:"🧱",desc:"تكملة مواد البناء وتجاربها حسب المقرر."}
+];
 
-function loadData() {
-  try {
-    const data = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
-    tasks = Array.isArray(data.tasks) ? data.tasks : [];
-    focusMinutes = Number.isFinite(data.focusMinutes)
-      ? Math.max(0, data.focusMinutes) : 0;
-  } catch (error) {
-    tasks = [];
-    focusMinutes = 0;
-  }
+const DATA_KEY="lovespace_study_v2";
+const RESOURCE_KEY="lovespace_study_resources_v2";
+let trackFilter="ALL", semFilter="ALL", resourceFilter="ALL", currentCourse=null;
+let progress=loadJSON(DATA_KEY,{});
+let resources=loadJSON(RESOURCE_KEY,[]);
+
+function loadJSON(key,fallback){
+  try{const v=localStorage.getItem(key);return v?JSON.parse(v):fallback}catch(e){return fallback}
 }
-
-function saveData() {
-  try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify({
-      tasks,
-      focusMinutes
-    }));
-  } catch (error) {
-    alert("ما قدرناش نحفظو البيانات. تأكد من مساحة التخزين في المتصفح.");
-  }
-}
-
-function escapeHTML(value) {
-  return String(value).replace(/[&<>"']/g, char => ({
-    "&": "&amp;",
-    "<": "&lt;",
-    ">": "&gt;",
-    '"': "&quot;",
-    "'": "&#39;"
-  })[char]);
-}
-
-function priorityLabel(priority) {
-  if (priority === "high") return "مهمة جداً";
-  if (priority === "low") return "منخفضة";
-  return "عادية";
-}
-
-function render() {
-  const completed = tasks.filter(task => task.done).length;
-  const percent = tasks.length
-    ? Math.round(completed / tasks.length * 100) : 0;
-
-  $("totalTasks").textContent = tasks.length;
-  $("doneTasks").textContent = completed;
-  $("studyMinutes").textContent = focusMinutes;
-  $("progressText").textContent = percent + "%";
-  $("progressBar").style.width = percent + "%";
-
-  const filtered = tasks.filter(task => {
-    if (currentFilter === "pending") return !task.done;
-    if (currentFilter === "done") return task.done;
+function saveData(){
+  try{
+    localStorage.setItem(DATA_KEY,JSON.stringify(progress));
+    localStorage.setItem(RESOURCE_KEY,JSON.stringify(resources));
     return true;
-  });
-
-  if (!filtered.length) {
-    $("taskList").innerHTML = `
-      <div class="empty">
-        📚 ما كاين حتى مهمة هنا حالياً.<br>
-        أضف أول مهمة وابدأ رحلتك!
-      </div>`;
-    return;
+  }catch(e){
+    toast("المساحة ممتلئة. جرّب ملفًا أصغر أو صدّر بياناتك.");
+    return false;
   }
+}
+function esc(s=""){
+  return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+}
+function toast(message){
+  const t=document.getElementById("toast");
+  t.textContent=message;t.classList.add("show");
+  clearTimeout(window.toastTimer);
+  window.toastTimer=setTimeout(()=>t.classList.remove("show"),2800);
+}
+function courseName(id){return COURSES.find(c=>c.id===id)?.name||"مادة غير معروفة"}
+function trackName(t){return t==="MI"?"MI":t==="GC"?"Génie Civil":"مشتركة"}
 
-  $("taskList").innerHTML = filtered.map(task => `
-    <div class="task ${task.done ? "done" : ""}">
-      <input class="task-check" type="checkbox"
-        data-action="toggle" data-id="${task.id}"
-        ${task.done ? "checked" : ""}
-        aria-label="تحديد المهمة كمكتملة">
-
-      <div class="task-content">
-        <div class="task-name">${escapeHTML(task.title)}</div>
-        <div class="task-meta">
-          📘 ${escapeHTML(task.subject)}
-          · ⏱️ ${task.duration} دقيقة
-          ${task.date ? "<br>📅 " + escapeHTML(task.date) : ""}
-        </div>
-        <span class="priority ${task.priority}">
-          ${priorityLabel(task.priority)}
-        </span>
+function filteredCourses(){
+  const q=document.getElementById("search").value.trim().toLowerCase();
+  const kind=document.getElementById("kind").value;
+  const sem=document.getElementById("semester").value;
+  return COURSES.filter(c=>{
+    const text=(c.name+" "+c.ar+" "+c.desc).toLowerCase();
+    const trackOK=trackFilter==="ALL"||c.track==="COMMON"||c.track===trackFilter;
+    const kindOK=kind==="ALL"||(kind==="COMMON"?c.track==="COMMON":c.track===kind);
+    const semOK=sem==="ALL"&&semFilter==="ALL"||(sem==="ALL"?c.sem===semFilter:semFilter==="ALL"?c.sem===sem: c.sem===sem&&c.sem===semFilter);
+    return trackOK&&kindOK&&semOK&&text.includes(q);
+  });
+}
+function renderCourses(){
+  const list=filteredCourses();
+  document.getElementById("resultsLabel").textContent=`عرض ${list.length} مادة`;
+  document.getElementById("totalCount").textContent=list.length;
+  const done=COURSES.filter(c=>progress[c.id]?.done).length;
+  document.getElementById("doneCount").textContent=done;
+  document.getElementById("progressCount").textContent=Math.round(done/COURSES.length*100)+"%";
+  document.getElementById("resourceCount").textContent=resources.length;
+  const grid=document.getElementById("courseGrid");
+  if(!list.length){grid.innerHTML='<div class="empty" style="grid-column:1/-1">ما لقينا حتى مادة بهذه الفلاتر. جرّب اختيارًا آخر.</div>';return}
+  grid.innerHTML=list.map(c=>{
+    const p=progress[c.id]||{done:false,percent:0};
+    const pct=p.done?100:Number(p.percent||0);
+    return `<article class="course-card">
+      <div class="course-top"><span class="course-icon">${c.icon}</span><span class="tag">${c.sem} · ${trackName(c.track)}</span></div>
+      <h3>${esc(c.name)}</h3><div class="english">${esc(c.ar)}</div>
+      <p>${esc(c.desc)}</p>
+      <div class="progress-label"><span>التقدم</span><span>${pct}%</span></div>
+      <div class="progress"><span style="width:${pct}%"></span></div>
+      <div class="card-actions">
+        <button class="btn primary small" onclick="openCourse('${c.id}')">فتح المادة</button>
+        <button class="btn small" onclick="toggleDone('${c.id}')">${p.done?"✓ تمت":"تمت المراجعة"}</button>
       </div>
+    </article>`;
+  }).join("");
+  fillCourseSelect();
+}
+function fillCourseSelect(){
+  const sel=document.getElementById("resourceCourse");
+  const old=sel.value;
+  sel.innerHTML=COURSES.map(c=>`<option value="${c.id}">${esc(c.name)} · ${c.sem} · ${trackName(c.track)}</option>`).join("");
+  if(COURSES.some(c=>c.id===old))sel.value=old;
+}
+function toggleDone(id){
+  progress[id]=progress[id]||{done:false,percent:0};
+  progress[id].done=!progress[id].done;
+  if(progress[id].done)progress[id].percent=100;
+  else if(progress[id].percent===100)progress[id].percent=0;
+  saveData();renderCourses();
+  toast(progress[id].done?"يعطيك الصحة! سجلنا إكمال المادة 🎉":"رجعنا المادة لقائمة المراجعة");
+}
+function openCourse(id){
+  const c=COURSES.find(x=>x.id===id);if(!c)return;
+  currentCourse=id;
+  const p=progress[id]||{done:false,percent:0};
+  const items=resources.filter(r=>r.courseId===id);
+  document.getElementById("dialogTitle").textContent=c.name;
+  document.getElementById("dialogBody").innerHTML=`
+    <p class="muted">${esc(c.ar)} · ${c.sem} · ${trackName(c.track)}</p>
+    <p class="muted">${esc(c.desc)}</p>
+    <label for="coursePercent">نسبة تقدمك في هذه المادة: <strong id="percentValue">${p.done?100:p.percent||0}%</strong></label>
+    <input class="field" type="range" id="coursePercent" min="0" max="100" step="5" value="${p.done?100:p.percent||0}">
+    <label class="checkrow"><input type="checkbox" id="courseDone" ${p.done?"checked":""}> أكملت مراجعة المادة</label>
+    <button class="btn primary" id="saveProgress" style="margin-top:12px">حفظ التقدم</button>
+    <h3 style="font-size:14px;margin-top:25px">📚 موارد هذه المادة</h3>
+    <div class="lesson-list">${items.length?items.map(r=>`
+      <div class="lesson"><strong>${esc(r.type)} · ${esc(r.title)}</strong>
+      <p>${esc(r.description||"بدون ملاحظات")}</p>
+      ${r.url?`<a href="${esc(r.url)}" target="_blank" rel="noopener noreferrer">فتح الرابط</a>`:""}
+      ${r.dataUrl?`<a href="${r.dataUrl}" download="${esc(r.fileName||r.title)}">فتح / تحميل الملف</a>`:""}
+      </div>`).join(""):'<p class="muted">مازال ما ضفت حتى مورد لهذه المادة.</p>'}</div>
+    <button class="btn" id="addForCourse">＋ إضافة مورد لهذه المادة</button>`;
+  const dialog=document.getElementById("courseDialog");
+  dialog.showModal();
+  document.getElementById("coursePercent").addEventListener("input",e=>{
+    document.getElementById("percentValue").textContent=e.target.value+"%";
+    if(Number(e.target.value)===100)document.getElementById("courseDone").checked=true;
+    else document.getElementById("courseDone").checked=false;
+  });
+  document.getElementById("saveProgress").onclick=()=>{
+    const percent=Number(document.getElementById("coursePercent").value);
+    const done=document.getElementById("courseDone").checked;
+    progress[id]={percent:done?100:percent,done};
+    if(saveData()){renderCourses();dialog.close();toast("تم حفظ تقدمك");}
+  };
+  document.getElementById("addForCourse").onclick=()=>{
+    dialog.close();
+    document.getElementById("resourceCourse").value=id;
+    document.getElementById("resourcePanel").scrollIntoView({behavior:"smooth"});
+    document.getElementById("resourceTitle").focus();
+  };
+}
+document.getElementById("closeDialog").onclick=()=>document.getElementById("courseDialog").close();
 
-      <button class="delete-btn"
-        data-action="delete" data-id="${task.id}">
-        حذف
-      </button>
+document.querySelectorAll("[data-track]").forEach(b=>b.addEventListener("click",()=>{
+  trackFilter=b.dataset.track;
+  document.querySelectorAll("[data-track]").forEach(x=>x.classList.toggle("active",x===b));
+  renderCourses();
+}));
+document.querySelectorAll("[data-sem]").forEach(b=>b.addEventListener("click",()=>{
+  semFilter=b.dataset.sem;
+  document.getElementById("semester").value=semFilter;
+  document.querySelectorAll("[data-sem]").forEach(x=>x.classList.toggle("active",x===b));
+  renderCourses();
+}));
+document.getElementById("semester").addEventListener("change",e=>{
+  semFilter=e.target.value;
+  document.querySelectorAll("[data-sem]").forEach(x=>x.classList.toggle("active",x.dataset.sem===semFilter));
+  renderCourses();
+});
+["search","kind"].forEach(id=>document.getElementById(id).addEventListener("input",renderCourses));
+
+document.getElementById("resourceForm").addEventListener("submit",async e=>{
+  e.preventDefault();
+  const file=document.getElementById("resourceFile").files[0];
+  const url=document.getElementById("resourceUrl").value.trim();
+  if(!file&&!url&&document.getElementById("resourceType").value==="رابط"){
+    toast("أدخل رابطًا لهذا المورد.");return;
+  }
+  // Limit embedded files to 1 MB to reduce local storage quota errors.
+  if(file&&file.size>1024*1024){
+    toast("الملف أكبر من 1MB. استعمل رابطًا للملف أو صغّر حجمه.");return;
+  }
+  let dataUrl="";
+  if(file){
+    dataUrl=await new Promise((resolve,reject)=>{
+      const reader=new FileReader();
+      reader.onload=()=>resolve(reader.result);
+      reader.onerror=reject;
+      reader.readAsDataURL(file);
+    }).catch(()=> "");
+    if(!dataUrl){toast("تعذر قراءة الملف.");return}
+  }
+  const item={
+    id:Date.now().toString(36)+Math.random().toString(36).slice(2,7),
+    courseId:document.getElementById("resourceCourse").value,
+    type:document.getElementById("resourceType").value,
+    title:document.getElementById("resourceTitle").value.trim(),
+    description:document.getElementById("resourceDescription").value.trim(),
+    url, dataUrl, fileName:file?file.name:"",
+    createdAt:new Date().toISOString()
+  };
+  resources.unshift(item);
+  if(saveData()){
+    e.target.reset();renderResources();renderCourses();
+    toast("تمت إضافة المورد بنجاح 📚");
+  }else{
+    resources.shift();
+  }
+});
+function renderResources(){
+  const q=document.getElementById("resourceSearch").value.trim().toLowerCase();
+  const list=resources.filter(r=>(resourceFilter==="ALL"||r.type===resourceFilter)&&
+    (r.title+" "+r.description+" "+courseName(r.courseId)).toLowerCase().includes(q));
+  const el=document.getElementById("resourceList");
+  if(!list.length){el.innerHTML='<div class="empty">ما كاين حتى مورد مطابق.</div>';return}
+  el.innerHTML=list.map(r=>`<div class="resource-item">
+    <div><strong>${esc(r.title)}</strong><small>${esc(courseName(r.courseId))} · ${esc(r.type)}${r.fileName?" · "+esc(r.fileName):""}</small></div>
+    <div class="resource-buttons">
+      ${r.url?`<a class="btn small" href="${esc(r.url)}" target="_blank" rel="noopener noreferrer">فتح الرابط</a>`:""}
+      ${r.dataUrl?`<a class="btn small" href="${r.dataUrl}" download="${esc(r.fileName||r.title)}">فتح الملف</a>`:""}
+      <button class="btn small" onclick="deleteResource('${r.id}')">حذف</button>
     </div>
-  `).join("");
+  </div>`).join("");
 }
-
-$("taskForm").addEventListener("submit", event => {
-  event.preventDefault();
-
-  const title = $("taskTitle").value.trim();
-  if (!title) return;
-
-  const duration = Number($("taskDuration").value);
-  if (!Number.isFinite(duration) || duration < 5 || duration > 600) {
-    alert("أدخل مدة بين 5 و600 دقيقة.");
-    return;
-  }
-
-  tasks.unshift({
-    id: Date.now().toString() + Math.random().toString(36).slice(2, 7),
-    title,
-    subject: $("taskSubject").value,
-    date: $("taskDate").value,
-    duration,
-    priority: $("taskPriority").value,
-    done: false
-  });
-
-  saveData();
-  render();
-  $("taskTitle").value = "";
-});
-
-$("taskList").addEventListener("change", event => {
-  const checkbox = event.target.closest('[data-action="toggle"]');
-  if (!checkbox) return;
-
-  const task = tasks.find(item => item.id === checkbox.dataset.id);
-  if (!task) return;
-
-  task.done = checkbox.checked;
-  saveData();
-  render();
-});
-
-$("taskList").addEventListener("click", event => {
-  const button = event.target.closest('[data-action="delete"]');
-  if (!button) return;
-
-  tasks = tasks.filter(task => task.id !== button.dataset.id);
-  saveData();
-  render();
-});
-
-document.querySelectorAll(".filter-btn").forEach(button => {
-  button.addEventListener("click", () => {
-    currentFilter = button.dataset.filter;
-
-    document.querySelectorAll(".filter-btn").forEach(item => {
-      item.classList.toggle("active", item === button);
-    });
-
-    render();
-  });
-});
-
-function updateTimerDisplay() {
-  const minutes = Math.floor(timerSeconds / 60);
-  const seconds = timerSeconds % 60;
-
-  $("timerDisplay").textContent =
-    String(minutes).padStart(2, "0") + ":" +
-    String(seconds).padStart(2, "0");
+function deleteResource(id){
+  if(!confirm("تحب تحذف هذا المورد؟"))return;
+  resources=resources.filter(r=>r.id!==id);
+  saveData();renderResources();renderCourses();toast("تم حذف المورد");
 }
-
-function stopTimer() {
-  timerRunning = false;
-
-  if (timerInterval !== null) {
-    clearInterval(timerInterval);
-    timerInterval = null;
-  }
-}
-
-function startTimer() {
-  if (timerRunning) return;
-
-  if (timerSeconds <= 0) {
-    const minutes = Number($("timerMinutes").value);
-    if (!Number.isFinite(minutes) || minutes < 1 || minutes > 180) {
-      alert("اختار مدة بين دقيقة واحدة و180 دقيقة.");
-      return;
-    }
-    timerSeconds = Math.round(minutes * 60);
-  }
-
-  timerRunning = true;
-  lastTick = Date.now();
-  $("timerLabel").textContent = "ركز، راك قادر! 💪";
-
-  timerInterval = setInterval(() => {
-    if (!timerRunning) return;
-
-    const now = Date.now();
-    const elapsed = Math.floor((now - lastTick) / 1000);
-
-    if (elapsed < 1) return;
-
-    lastTick += elapsed * 1000;
-    timerSeconds = Math.max(0, timerSeconds - elapsed);
-
-    updateTimerDisplay();
-
-    if (timerSeconds <= 0) {
-      stopTimer();
-      focusMinutes += Math.max(1, Math.round(
-        Number($("timerMinutes").value) || 25
-      ));
-      saveData();
-      render();
-      $("timerLabel").textContent = "برافو! كملت جلسة التركيز 🎉";
-      alert("برافو! كملت جلسة المذاكرة. خذ استراحة صغيرة.");
-    }
-  }, 250);
-}
-
-$("startTimer").addEventListener("click", startTimer);
-
-$("pauseTimer").addEventListener("click", () => {
-  stopTimer();
-  $("timerLabel").textContent = "المؤقّت متوقف مؤقتاً";
+document.getElementById("resourceSearch").addEventListener("input",renderResources);
+document.querySelectorAll("[data-resource-filter]").forEach(b=>b.addEventListener("click",()=>{
+  resourceFilter=b.dataset.resourceFilter;
+  document.querySelectorAll("[data-resource-filter]").forEach(x=>x.classList.toggle("active",x===b));
+  renderResources();
+}));
+document.getElementById("exportBtn").addEventListener("click",()=>{
+  const backup={
+    app:"LoveSpace Study Hub",version:2,exportedAt:new Date().toISOString(),
+    progress,resources:resources.map(r=>({...r}))
+  };
+  const blob=new Blob([JSON.stringify(backup,null,2)],{type:"application/json"});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement("a");
+  a.href=url;a.download="lovespace-study-backup.json";a.click();
+  URL.revokeObjectURL(url);
+  toast("تم إنشاء نسخة احتياطية");
 });
 
-$("resetTimer").addEventListener("click", () => {
-  stopTimer();
-
-  const minutes = Number($("timerMinutes").value);
-  if (!Number.isFinite(minutes) || minutes < 1 || minutes > 180) {
-    alert("اختار مدة بين دقيقة واحدة و180 دقيقة.");
-    return;
-  }
-
-  timerSeconds = Math.round(minutes * 60);
-  $("timerLabel").textContent = "وقت المذاكرة";
-  updateTimerDisplay();
-});
-
-$("timerMinutes").addEventListener("change", () => {
-  if (timerRunning) return;
-
-  const minutes = Number($("timerMinutes").value);
-  if (!Number.isFinite(minutes) || minutes < 1 || minutes > 180) {
-    $("timerMinutes").value = 25;
-    timerSeconds = 25 * 60;
-  } else {
-    timerSeconds = Math.round(minutes * 60);
-  }
-
-  updateTimerDisplay();
-});
-
-loadData();
-render();
-updateTimerDisplay();
+renderCourses();
+renderResources();
 </script>
 </body>
 </html>
