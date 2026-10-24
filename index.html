@@ -1,68 +1,487 @@
-const questions = [
-  'شكون فيكم يضحك أكثر؟ 😂',
-  'واش هي أجمل ذكرى عندكم؟ 💗',
-  'شكون يختار الفيلم لي تتفرجوا فيه؟ 🎬',
-  'واش الحاجة الجديدة لي حابين تجربوها مع بعض؟ ✨',
-  'شكون يتفكر التفاصيل الصغيرة أكثر؟ 🥹',
-  'لو تقدروا تزوروا مكان جديد، وين تروحوا؟ 🌍',
-  'واش أكثر حاجة تفرحكم في نهار عادي؟ 💌'
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<meta name="theme-color" content="#241044">
+<title>LoveSpace 💜 | عالمنا الخاص</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg:#160c27;
+  --bg2:#211038;
+  --panel:#291644;
+  --panel2:#352052;
+  --purple:#713bc0;
+  --purple2:#a77ae9;
+  --light:#d9c2ff;
+  --silver:#eee6ff;
+  --text:#faf6ff;
+  --muted:#c0aed8;
+  --border:rgba(202,169,255,.2);
+  --danger:#ff8eae;
+  --shadow:0 12px 35px #08041155;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Tajawal',sans-serif;
+  color:var(--text);
+  background:
+    radial-gradient(ellipse at 15% 0%,#57328a66,transparent 38%),
+    radial-gradient(ellipse at 100% 60%,#6a36a633,transparent 38%),
+    var(--bg);
+  min-height:100vh;
+  overflow-x:hidden;
+  transition:background .3s,color .3s;
+}
+button,input,textarea,select{font:inherit}
+button{cursor:pointer}
+button:focus-visible,input:focus-visible,textarea:focus-visible{
+  outline:2px solid var(--light);outline-offset:3px
+}
+#effects{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:0}
+.particle{
+  position:absolute;top:-40px;color:var(--purple2);opacity:.25;
+  animation:fall linear infinite
+}
+@keyframes fall{
+  to{transform:translateY(110vh) rotate(400deg)}
+}
+@keyframes pulse{
+  0%,100%{transform:scale(1)}
+  50%{transform:scale(1.13)}
+}
+@keyframes appear{
+  from{opacity:0;transform:translateY(10px)}
+  to{opacity:1;transform:translateY(0)}
+}
+@keyframes glow{
+  0%,100%{box-shadow:0 0 15px #a77ae922}
+  50%{box-shadow:0 0 30px #a77ae944}
+}
+.app{
+  position:relative;z-index:1;
+  width:min(100%,780px);margin:auto;
+  padding:18px 14px 110px
+}
+header{
+  display:flex;justify-content:space-between;align-items:center;
+  gap:10px;margin-bottom:22px
+}
+.brand{display:flex;align-items:center;gap:11px}
+.logo{
+  width:49px;height:49px;border-radius:17px;
+  display:grid;place-items:center;font-size:27px;
+  background:linear-gradient(145deg,#d9c2ff,#7843c2);
+  color:#24103c;box-shadow:0 5px 25px #a77ae933
+}
+.brand h1{font-size:23px;font-weight:800;color:var(--silver)}
+.brand p{font-size:12px;color:var(--muted)}
+.badge{
+  padding:8px 11px;border:1px solid var(--border);
+  border-radius:30px;background:#a77ae910;
+  color:var(--light);font-size:12px
+}
+.page{display:none;animation:appear .3s ease}
+.page.active{display:block}
+.hero{
+  position:relative;overflow:hidden;
+  border:1px solid var(--border);border-radius:27px;
+  padding:27px 21px;
+  background:
+    radial-gradient(circle at 90% 5%,#d9c2ff22,transparent 35%),
+    linear-gradient(145deg,#4b2874,#26143e 70%);
+  box-shadow:var(--shadow)
+}
+.hero:after{
+  content:"♡";position:absolute;left:-10px;bottom:-65px;
+  font-size:190px;color:#fff1;pointer-events:none
+}
+.eyebrow{color:var(--light);font-size:13px;margin-bottom:9px}
+.hero h2{font-size:clamp(27px,6vw,39px);line-height:1.45;margin-bottom:9px}
+.hero h2 span{color:var(--light)}
+.hero p{color:#e2d4f5;line-height:1.9;font-size:15px;max-width:460px}
+.hero-heart{font-size:40px;display:inline-block;margin-top:13px;animation:pulse 1.8s infinite}
+.section-title{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:10px;margin:24px 0 13px
+}
+.section-title h3{font-size:19px;font-weight:800}
+.section-title span{font-size:12px;color:var(--muted)}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:13px}
+.stat{
+  padding:14px 6px;text-align:center;border-radius:17px;
+  background:#a77ae90b;border:1px solid var(--border)
+}
+.stat strong{display:block;font-size:25px;color:var(--light)}
+.stat small{font-size:12px;color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
+.tile,.card{
+  border:1px solid var(--border);border-radius:20px;
+  background:linear-gradient(145deg,var(--panel2),var(--panel));
+  box-shadow:var(--shadow)
+}
+.tile{
+  padding:16px 13px;text-align:right;color:var(--text);
+  transition:transform .2s,border-color .2s
+}
+.tile:active{transform:scale(.97)}
+.tile:hover{border-color:#caa9ff77}
+.tile .emoji{font-size:27px;display:block;margin-bottom:9px}
+.tile strong{display:block;font-size:15px;margin-bottom:4px}
+.tile small{color:var(--muted);font-size:12px}
+.card{padding:17px;margin-bottom:12px}
+.card h3{font-size:18px;margin-bottom:8px}
+.card p{color:var(--muted);line-height:1.85}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:6px;
+  border:0;border-radius:13px;padding:11px 15px;
+  font-weight:700;font-size:14px;transition:transform .15s,filter .15s
+}
+.btn:active{transform:scale(.97)}
+.btn-primary{background:linear-gradient(135deg,#d9c2ff,#9863dc);color:#25113d}
+.btn-soft{background:#a77ae918;border:1px solid var(--border);color:var(--light)}
+.btn-danger{background:#ff8eae15;border:1px solid #ff8eae44;color:var(--danger)}
+.btn-small{padding:7px 11px;font-size:12px}
+.full{width:100%}
+.field{
+  width:100%;padding:12px 13px;margin:7px 0 12px;
+  color:var(--text);background:#170d27;
+  border:1px solid var(--border);border-radius:13px;outline:none
+}
+.field:focus{border-color:var(--purple2)}
+.field::placeholder{color:#9985b2}
+textarea.field{min-height:110px;resize:vertical}
+label{display:block;color:var(--light);font-size:14px;margin-top:6px}
+.row{display:flex;gap:9px;flex-wrap:wrap}
+.row>*{flex:1;min-width:0}
+.empty{text-align:center;padding:27px 12px;color:var(--muted);line-height:2}
+.memory{
+  padding:14px;border-radius:16px;background:#ffffff05;
+  border:1px solid var(--border);margin-bottom:10px
+}
+.memory-date{font-size:12px;color:var(--light);margin-bottom:7px}
+.memory-text{white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.85;color:var(--text)}
+.actions{display:flex;gap:7px;justify-content:flex-end;flex-wrap:wrap;margin-top:12px}
+.question-box{
+  padding:23px 15px;text-align:center;border-radius:21px;
+  background:linear-gradient(145deg,#613b8c66,#a77ae90a);
+  border:1px solid var(--border);margin-bottom:13px
+}
+.question-box .big{font-size:35px}
+.question-box h3{color:var(--light);line-height:1.8;margin:10px 0 15px}
+.gallery{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.photo{overflow:hidden;border:1px solid var(--border);border-radius:16px;background:var(--panel)}
+.photo img{display:block;width:100%;aspect-ratio:1;object-fit:cover}
+.photo p{padding:9px;font-size:13px;overflow-wrap:anywhere}
+.photo .btn{margin:0 8px 9px}
+.countdown{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:15px
+}
+.count{
+  padding:13px 4px;border:1px solid var(--border);
+  border-radius:14px;background:#ffffff07;text-align:center
+}
+.count strong{display:block;color:var(--light);font-size:24px}
+.count small{font-size:11px;color:var(--muted)}
+.progress{
+  height:9px;border-radius:20px;background:#ffffff12;overflow:hidden;margin:12px 0
+}
+.progress div{
+  height:100%;width:0;border-radius:20px;
+  background:linear-gradient(90deg,#7443b6,#ddc7ff);transition:width .4s
+}
+.nav{
+  position:fixed;z-index:10;bottom:10px;left:50%;transform:translateX(-50%);
+  width:min(calc(100% - 20px),570px);
+  display:grid;grid-template-columns:repeat(5,1fr);gap:3px;
+  padding:7px;border:1px solid #caa9ff33;border-radius:21px;
+  background:#1b1028ed;backdrop-filter:blur(18px);
+  box-shadow:0 10px 40px #0006
+}
+.nav button{
+  border:0;border-radius:14px;padding:7px 1px;
+  color:var(--muted);background:transparent;font-size:11px
+}
+.nav button span{display:block;font-size:19px;margin-bottom:3px}
+.nav button.active{color:var(--light);background:#a77ae91b}
+.toast{
+  position:fixed;z-index:30;bottom:94px;left:50%;
+  transform:translate(-50%,15px);opacity:0;pointer-events:none;
+  background:#e1ccff;color:#281340;border-radius:14px;
+  padding:11px 17px;font-weight:700;font-size:14px;
+  max-width:calc(100% - 30px);text-align:center;
+  transition:.25s
+}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+.footer{text-align:center;color:#9b87b6;font-size:12px;padding:23px 0 0}
+.music-info{font-size:13px;color:var(--muted);margin:8px 0;overflow-wrap:anywhere}
+.divider{height:1px;background:var(--border);margin:15px 0}
+body.light{
+  --bg:#f4effc;--bg2:#ebe1fa;--panel:#fff;--panel2:#f8f2ff;
+  --text:#2a1740;--muted:#78658e;--border:#8b63ba30;
+  --silver:#3e205c;--light:#7540b5;--shadow:0 8px 25px #38205210
+}
+body.light .hero{background:linear-gradient(145deg,#8053b5,#d9c2f5)}
+body.light .hero p{color:#fff}
+body.light .field{background:#fff;color:#2a1740}
+body.light .nav{background:#f9f4ffed}
+body.light .memory-text{color:var(--text)}
+body.light .toast{background:#7041aa;color:white}
+@media(max-width:380px){
+  .app{padding-inline:10px}.hero{padding:22px 16px}
+  .tile{padding:12px 10px}.nav button{font-size:10px}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*:before,*:after{animation:none!important;scroll-behavior:auto!important;transition:none!important}
+}
+</style>
+</head>
+<body>
+<div id="effects"></div>
+
+<main class="app">
+<header>
+  <div class="brand">
+    <div class="logo">♡</div>
+    <div><h1>LoveSpace</h1><p>عالمنا الصغير 💜</p></div>
+  </div>
+  <div class="badge">✦ مساحتنا الخاصة</div>
+</header>
+
+<!-- الرئيسية -->
+<section class="page active" id="home">
+  <div class="hero">
+    <div class="eyebrow">✦ ذكرياتنا، حكايتنا ✦</div>
+    <h2 id="heroTitle">عالم صغير يجمعنا<br><span>بكل حب 💜</span></h2>
+    <p id="heroText">هنا نخبيو أجمل الذكريات، الرسائل، الصور واللحظات اللي تستاهل تبقى في القلب.</p>
+    <div class="hero-heart">💜</div>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><strong id="memStat">0</strong><small>ذكرى</small></div>
+    <div class="stat"><strong id="photoStat">0</strong><small>صورة</small></div>
+    <div class="stat"><strong id="favStat">0</strong><small>رسالة مفضلة</small></div>
+  </div>
+
+  <div class="section-title"><h3>مساحتنا ✨</h3><span>اختار وجهتك</span></div>
+  <div class="grid">
+    <button class="tile" onclick="go('diary')"><span class="emoji">📖</span><strong>يومياتنا</strong><small>سجّلوا لحظاتكم</small></button>
+    <button class="tile" onclick="go('messages')"><span class="emoji">💌</span><strong>رسائل وعبارات</strong><small>كلام من القلب</small></button>
+    <button class="tile" onclick="go('gallery')"><span class="emoji">📸</span><strong>معرض الصور</strong><small>أجمل الذكريات</small></button>
+    <button class="tile" onclick="go('games')"><span class="emoji">🎲</span><strong>أسئلة وتحديات</strong><small>اكتشفوا بعضاكم</small></button>
+    <button class="tile" onclick="go('dates')"><span class="emoji">🗓️</span><strong>تواريخنا</strong><small>أيام مهمة</small></button>
+    <button class="tile" onclick="go('music')"><span class="emoji">🎵</span><strong>موسيقى</strong><small>أغانيكم المفضلة</small></button>
+  </div>
+
+  <div class="section-title"><h3>رسالة اليوم 💜</h3></div>
+  <div class="card">
+    <p id="dailyMessage">أجمل التفاصيل هي اللي تصنع أجمل الذكريات. ✨</p>
+    <button class="btn btn-soft" style="margin-top:13px" onclick="changeDaily()">رسالة أخرى ↻</button>
+  </div>
+
+  <div class="section-title"><h3>هدف صغير لليوم 🌷</h3></div>
+  <div class="card">
+    <p id="dailyGoal">قول كلمة طيبة لشخص عزيز عليك.</p>
+    <button class="btn btn-soft" style="margin-top:12px" onclick="changeGoal()">بدّل الهدف</button>
+  </div>
+</section>
+
+<!-- اليوميات -->
+<section class="page" id="diary">
+  <div class="section-title"><h3>📖 يومياتنا</h3><span>ذكريات ما تتنساش</span></div>
+  <div class="card">
+    <h3 id="memoryFormTitle">أضف ذكرى جديدة 💜</h3>
+    <label for="memoryTitle">عنوان الذكرى</label>
+    <input class="field" id="memoryTitle" maxlength="100" placeholder="مثلاً: نهار مميز">
+    <label for="memoryText">احكيلنا الحكاية</label>
+    <textarea class="field" id="memoryText" maxlength="5000" placeholder="اكتب الذكرى هنا..."></textarea>
+    <div class="row">
+      <button class="btn btn-primary" id="memorySubmit" onclick="saveMemory()">احفظ الذكرى ♡</button>
+      <button class="btn btn-soft" id="memoryCancel" style="display:none" onclick="cancelEdit()">إلغاء التعديل</button>
+    </div>
+  </div>
+  <div class="section-title"><h3>أرشيف الذكريات</h3><span id="memTotal">0 ذكرى</span></div>
+  <div id="memories"></div>
+</section>
+
+<!-- الرسائل -->
+<section class="page" id="messages">
+  <div class="section-title"><h3>💌 رسائل من القلب</h3></div>
+  <div class="card">
+    <h3>رسالة جاهزة</h3>
+    <p id="loveMessage" style="color:var(--text);margin:13px 0;line-height:2">وجودك في حياتي يضيف للتفاصيل البسيطة معنى أجمل. 💜</p>
+    <div class="row">
+      <button class="btn btn-primary" onclick="newLoveMessage()">رسالة أخرى ✨</button>
+      <button class="btn btn-soft" onclick="copyText($('loveMessage').textContent)">نسخ الرسالة</button>
+      <button class="btn btn-soft" onclick="favoriteMessage()">♡ أضف للمفضلة</button>
+    </div>
+  </div>
+  <div class="section-title"><h3>رسائلي المفضلة ⭐</h3></div>
+  <div id="favorites"></div>
+  <div class="card">
+    <h3>اكتب رسالة خاصة</h3>
+    <label for="customMessage">رسالتك</label>
+    <textarea id="customMessage" class="field" maxlength="3000" placeholder="اكتب كلماتك..."></textarea>
+    <button class="btn btn-primary full" onclick="saveCustomMessage()">احفظ في المفضلة</button>
+  </div>
+</section>
+
+<!-- الألعاب والأسئلة -->
+<section class="page" id="games">
+  <div class="section-title"><h3>🎲 أسئلة وتحديات</h3></div>
+  <div class="question-box">
+    <div class="big">💜</div>
+    <h3 id="question">وش هي حاجة بسيطة تفرحك بزاف؟</h3>
+    <button class="btn btn-primary" onclick="newQuestion()">سؤال جديد ↻</button>
+  </div>
+  <div class="card">
+    <h3>🎯 تحدي اليوم</h3>
+    <p id="challenge" style="margin:12px 0">كل واحد يذكر 3 حاجات يقدّرها في الآخر.</p>
+    <button class="btn btn-soft" onclick="newChallenge()">تحدي جديد</button>
+  </div>
+  <div class="card">
+    <h3>🌷 تحديات إضافية</h3>
+    <p>• احكوا على هدف تتمنّاو تحققوه.</p>
+    <p>• شاركوا ذكرى مضحكة.</p>
+    <p>• اقترحوا نشاطاً ممتعاً تديروه مع بعض.</p>
+    <p>• كل واحد يقول صفة مليحة تعلّمها من الآخر.</p>
+  </div>
+</section>
+
+<!-- الصور -->
+<section class="page" id="gallery">
+  <div class="section-title"><h3>📸 معرضنا</h3><span id="photoTotal">0 صورة</span></div>
+  <div class="card">
+    <h3>أضف صورة جديدة</h3>
+    <p>الصور محفوظة محلياً على هذا الجهاز. اختار صوراً صغيرة باش ما تعمرش مساحة التخزين.</p>
+    <label for="photoFile">اختيار صورة</label>
+    <input type="file" class="field" id="photoFile" accept="image/*">
+    <label for="photoCaption">عنوان الصورة</label>
+    <input class="field" id="photoCaption" maxlength="100" placeholder="ذكرى جميلة 💜">
+    <button class="btn btn-primary full" onclick="addPhoto()">أضف للمعرض</button>
+  </div>
+  <div class="gallery" id="photos"></div>
+</section>
+
+<!-- التواريخ -->
+<section class="page" id="dates">
+  <div class="section-title"><h3>🗓️ تواريخنا المهمة</h3></div>
+  <div class="card">
+    <h3>عدّاد الأيام</h3>
+    <p>اختار تاريخاً تحب تحسب المدة انطلاقاً منه.</p>
+    <label for="startDate">تاريخ البداية</label>
+    <input class="field" type="date" id="startDate">
+    <button class="btn btn-primary full" onclick="saveStartDate()">احسب واحفظ التاريخ</button>
+    <div class="countdown" id="dayCounter">
+      <div class="count"><strong>—</strong><small>الأيام</small></div>
+      <div class="count"><strong>—</strong><small>الساعات</small></div>
+      <div class="count"><strong>—</strong><small>الدقائق</small></div>
+      <div class="count"><strong>—</strong><small>الثواني</small></div>
+    </div>
+    <p id="dateMessage" style="margin-top:12px"></p>
+  </div>
+  <div class="card">
+    <h3>أضف مناسبة مهمة 🎂</h3>
+    <label for="eventName">اسم المناسبة</label>
+    <input class="field" id="eventName" maxlength="100" placeholder="عيد ميلاد...">
+    <label for="eventDate">تاريخ المناسبة</label>
+    <input class="field" id="eventDate" type="date">
+    <button class="btn btn-primary full" onclick="addEvent()">أضف المناسبة</button>
+  </div>
+  <div class="section-title"><h3>المناسبات المحفوظة</h3></div>
+  <div id="events"></div>
+</section>
+
+<!-- الموسيقى -->
+<section class="page" id="music">
+  <div class="section-title"><h3>🎵 ركن الموسيقى</h3></div>
+  <div class="card">
+    <h3>شغّل أغنيتك المفضلة</h3>
+    <p>اختار ملف صوتي من جهازك. الملف يبقى على جهازك وما يتمش رفعه للموقع.</p>
+    <label for="audioFile">اختيار ملف صوتي</label>
+    <input class="field" type="file" id="audioFile" accept="audio/*">
+    <p class="music-info" id="audioName">ما كاين حتى ملف مختار.</p>
+    <audio id="audioPlayer" controls style="width:100%;margin:10px 0;display:none"></audio>
+    <button class="btn btn-soft" onclick="stopMusic()">إيقاف الصوت</button>
+  </div>
+  <div class="card">
+    <h3>🎧 اقتراح صغير</h3>
+    <p>حضّر قائمة أغاني هادئة تحب تسمعها وقت تدوّن ذكرياتك أو ترتاح. الموسيقى اختيارية، وتقدر تستعمل أي ملف صوتي عندك.</p>
+  </div>
+</section>
+
+<!-- الإعدادات -->
+<section class="page" id="settings">
+  <div class="section-title"><h3>⚙️ الإعدادات</h3></div>
+  <div class="card">
+    <h3>أسماء المساحة 💜</h3>
+    <label for="nameOne">الاسم الأول</label>
+    <input class="field" id="nameOne" maxlength="35" placeholder="اسمك">
+    <label for="nameTwo">الاسم الثاني</label>
+    <input class="field" id="nameTwo" maxlength="35" placeholder="الاسم الثاني">
+    <label for="welcomeText">رسالة الصفحة الرئيسية</label>
+    <textarea class="field" id="welcomeText" maxlength="500" placeholder="رسالة ترحيبية..."></textarea>
+    <button class="btn btn-primary full" onclick="saveSettings()">حفظ التغييرات</button>
+  </div>
+  <div class="card">
+    <h3>المظهر 🎨</h3>
+    <p>اختار الدرجة اللي تعجبك.</p>
+    <div class="grid" style="margin-top:12px">
+      <button class="tile" onclick="setTheme('purple')"><span class="emoji">💜</span><strong>بنفسجي ملكي</strong><small>المظهر الأصلي</small></button>
+      <button class="tile" onclick="setTheme('light')"><span class="emoji">🪻</span><strong>بنفسجي فاتح</strong><small>مظهر هادئ</small></button>
+    </div>
+    <div class="divider"></div>
+    <button class="btn btn-soft full" onclick="toggleMotion()">تشغيل / إيقاف حركة الأوراق</button>
+  </div>
+  <div class="card">
+    <h3>النسخ الاحتياطي 💾</h3>
+    <p>نزّل نسخة JSON من اليوميات والأسماء والتواريخ والرسائل المفضلة. الصور المحلية لا تدخل في النسخة لتفادي حجم كبير.</p>
+    <button class="btn btn-primary full" style="margin-top:12px" onclick="exportData()">تصدير البيانات</button>
+    <label for="importFile">استرجاع نسخة JSON</label>
+    <input class="field" type="file" id="importFile" accept=".json,application/json">
+    <button class="btn btn-soft full" onclick="importData()">استرجاع البيانات</button>
+  </div>
+  <div class="card">
+    <h3>إعادة ضبط</h3>
+    <p>يمسح هذا الخيار بيانات LoveSpace المحفوظة في هذا المتصفح، بما فيها الصور.</p>
+    <button class="btn btn-danger full" style="margin-top:12px" onclick="resetAll()">مسح جميع البيانات</button>
+  </div>
+</section>
+
+<div class="footer">صُنعت بكل حب ♡ LoveSpace</div>
+</main>
+
+<nav class="nav">
+  <button class="active" data-page="home" onclick="go('home')"><span>⌂</span>الرئيسية</button>
+  <button data-page="diary" onclick="go('diary')"><span>📖</span>اليوميات</button>
+  <button data-page="messages" onclick="go('messages')"><span>💌</span>الرسائل</button>
+  <button data-page="gallery" onclick="go('gallery')"><span>📸</span>الصور</button>
+  <button data-page="settings" onclick="go('settings')"><span>⚙️</span>الإعدادات</button>
+</nav>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const $ = id => document.getElementById(id);
+const KEYS = [
+  'ls_memories','ls_photos','ls_favorites','ls_names',
+  'ls_settings','ls_events','ls_start','ls_theme','ls_motion'
 ];
-let qIndex = 0;
 
-function nextQuestion() {
-  qIndex = (qIndex + 1) % questions.length;
-  $('gameQuestion').textContent = questions[qIndex];
-  celebrate();
+function read(key,fallback){
+  try{
+    const value=localStorage.getItem(key);
+    return value===null?fallback:JSON.parse(value);
+  }catch(e){return fallback}
 }
-
-const dailyQuestions = [
-  'واش هي أجمل ذكرى عشتها وحاب تعاودها؟',
-  'واش الحاجة لي تحب تتعلمها هاذ العام؟',
-  'واش هو المكان لي ترتاح فيه أكثر؟',
-  'واش أبسط حاجة تقدر تبدل مزاجك للأحسن؟',
-  'كيفاش تتخيل نهار مثالي بالنسبة ليك؟',
-  'واش هي صفة تقدرها بزاف في الناس؟'
-];
-let dailyIndex = 0;
-
-function newDailyQuestion() {
-  dailyIndex = (dailyIndex + 1) % dailyQuestions.length;
-  $('dailyQuestion').textContent = dailyQuestions[dailyIndex];
-}
-
-function saveLetter() {
-  const title = $('letterTitle').value.trim();
-  const text = $('letterText').value.trim();
-  if (!title || !text) return alert('اكتب عنوان ورسالة أولاً 💌');
-
-  const entry = document.createElement('div');
-  entry.className = 'entry';
-  const heading = document.createElement('h3');
-  heading.textContent = '💌 ' + title;
-  const body = document.createElement('p');
-  body.textContent = text;
-  entry.append(heading, body);
-  $('letterList').prepend(entry);
-
-  $('letterTitle').value = '';
-  $('letterText').value = '';
-  celebrate();
-}
-
-$('photoInput').addEventListener('change', event => {
-  const files = Array.from(event.target.files || []).slice(0, 12);
-  $('photoGallery').replaceChildren();
-
-  files.forEach(file => {
-    if (!file.type.startsWith('image/')) return;
-    const img = document.createElement('img');
-    img.alt = 'صورة من الألبوم';
-    img.src = URL.createObjectURL(file);
-    $('photoGallery').appendChild(img);
-  });
-});
-</script>
-
-</body>
-</html>
-
+function save(key,value){
+  try{
+    localStorage.setItem(key,JSON.stringify(value));
+    return true;
+  }catch(e){
+    noti
