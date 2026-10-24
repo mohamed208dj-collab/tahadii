@@ -1,1 +1,354 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#100d20">
+<title>رسالة من القلب ❤️ | LoveSpace</title>
 
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --bg: #100d20;
+  --card: #1b1530;
+  --pink: #ff78b7;
+  --purple: #a78bfa;
+  --text: #fff0f7;
+  --muted: #c6b8d8;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  font-family: 'Alexandria', sans-serif;
+  background:
+    radial-gradient(circle at 15% 15%, #4a245b55, transparent 35%),
+    radial-gradient(circle at 85% 85%, #8d286355, transparent 35%),
+    var(--bg);
+  color: var(--text);
+  padding: 25px 16px;
+  overflow-x: hidden;
+}
+
+.heart {
+  position: fixed;
+  bottom: -40px;
+  color: #ff78b7;
+  opacity: .35;
+  pointer-events: none;
+  animation: floatUp linear infinite;
+  z-index: 0;
+}
+
+@keyframes floatUp {
+  from { transform: translateY(0) rotate(0deg); }
+  to { transform: translateY(-115vh) rotate(35deg); }
+}
+
+.container {
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.top {
+  text-align: center;
+  margin: 20px 0 25px;
+}
+
+.logo {
+  width: 72px;
+  height: 72px;
+  display: grid;
+  place-items: center;
+  margin: 0 auto 18px;
+  border-radius: 24px;
+  font-size: 34px;
+  background: linear-gradient(135deg, #ff78b7, #8b5cf6);
+  box-shadow: 0 0 35px #ff78b744;
+}
+
+h1 {
+  font-size: clamp(25px, 5vw, 36px);
+  margin-bottom: 12px;
+  background: linear-gradient(90deg, #fff, #ff9dce, #c4b5fd);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.subtitle {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 2;
+}
+
+.card {
+  background: linear-gradient(145deg, #211832ee, #171225f5);
+  border: 1px solid #ffffff13;
+  border-radius: 27px;
+  padding: clamp(22px, 5vw, 38px);
+  box-shadow: 0 20px 60px #00000035;
+}
+
+.to {
+  text-align: center;
+  padding-bottom: 23px;
+  border-bottom: 1px solid #ffffff14;
+}
+
+.to small {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.to h2 {
+  color: var(--pink);
+  font-size: 27px;
+  margin-top: 10px;
+}
+
+.envelope {
+  font-size: 50px;
+  text-align: center;
+  margin: 25px 0 15px;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+}
+
+.intro {
+  text-align: center;
+  color: var(--muted);
+  line-height: 2.2;
+  font-size: 13px;
+  margin-bottom: 22px;
+}
+
+button {
+  border: 0;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: 15px;
+  padding: 15px 20px;
+  transition: .25s;
+}
+
+button:active {
+  transform: scale(.97);
+}
+
+.primary {
+  color: #fff;
+  background: linear-gradient(100deg, #ec4899, #8b5cf6);
+  box-shadow: 0 8px 25px #d9468c30;
+}
+
+.primary:hover {
+  filter: brightness(1.1);
+  transform: translateY(-2px);
+}
+
+.open-btn {
+  width: 100%;
+}
+
+.letter {
+  display: none;
+  margin-top: 27px;
+  padding: 24px 20px;
+  border-radius: 20px;
+  background: #100d2080;
+  border: 1px solid #ff78b72c;
+  line-height: 2.5;
+  font-size: 14px;
+  color: #fce7f3;
+  white-space: pre-line;
+  animation: appear .7s ease;
+}
+
+.letter.show {
+  display: block;
+}
+
+@keyframes appear {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.signature {
+  text-align: center;
+  margin-top: 25px;
+  color: var(--pink);
+  font-size: 17px;
+  line-height: 2.2;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.actions button {
+  flex: 1;
+}
+
+.secondary {
+  background: #ffffff0c;
+  border: 1px solid #ffffff1c;
+  color: #f5d9ec;
+}
+
+footer {
+  text-align: center;
+  color: #9f91b2;
+  font-size: 11px;
+  margin: 24px 0 8px;
+  line-height: 2;
+}
+
+@media (max-width: 480px) {
+  body { padding: 15px 12px; }
+  .card { border-radius: 22px; }
+  .actions { flex-direction: column; }
+}
+</style>
+</head>
+
+<body>
+
+<div id="hearts"></div>
+
+<main class="container">
+  <header class="top">
+    <div class="logo">💌</div>
+    <h1>رسالة من القلب</h1>
+    <p class="subtitle">
+      كاين كلام ما يكفيه حتى كتاب… بصح حبيت نكتبلك شوية من واش في قلبي ❤️
+    </p>
+  </header>
+
+  <section class="card">
+    <div class="to">
+      <small>إلى أغلى إنسانة عندي</small>
+      <h2>أميمة 🎀</h2>
+    </div>
+
+    <div class="envelope">💌</div>
+
+    <p class="intro">
+      هذي رسالة صغيرة، بصح المعنى اللي فيها كبير…
+      افتحيها واقرايها من قلبك ❤️
+    </p>
+
+    <button class="primary open-btn" id="openBtn" onclick="openLetter()">
+      افتحي رسالتك ❤️
+    </button>
+
+    <article class="letter" id="letter">
+      حبيبتي أميمة، ❤️
+
+      ما نعرفش كيفاش نبدا كلامي، خاطر مهما نقولك تبقاي أغلى من كل كلمة نقدر نكتبها. وجودك في حياتي حاجة نفرح بيها، وابتسامتك وحدها تقدر تبدل نهاري للأحسن. 🥹💗
+
+      نحبك تعرفي بلي راكي إنسانة عندها مكانة خاصة في قلبي، ونحب نشوفك ديما فرحانة ومرتاحة، وتحققي كل حاجة تتمنايها. وإذا جاك نهار صعيب، نتمنى تلقاي في كلامي شوية راحة، وفي وجودي شوية أمان.
+
+      نحب تفاصيلك الصغيرة، ضحكتك، طريقتك في الكلام، وحتى الحوايج البسيطة اللي يمكن ما تنتبهيش ليها. بالنسبة ليا، أجمل اللحظات هي اللي يكون فيها بيناتنا صدق واهتمام وضحكة من القلب. 🎀
+
+      ما نقدرش نوعدك بلي كل يوم يكون كامل، بصح نقدر نقولك بلي الاحترام والصدق والاهتمام يبقاو أساس أي حاجة جميلة بيناتنا. ونتمنى ديما نكون سبب في فرحتك، ماشي في حزنك.
+
+      يا أميرتي أميمة، ربي يحفظك ويهني قلبك، ويكتبلك الخير وين ما تروحي، ويخلي ضحكتك منورة دنياك. وتبقي ديما عزيزة وغالية، اليوم وغدوة وكل يوم. 💞
+
+      نحبك بزاف يا بقلواتي الصغيرة. ❤️🎀
+    </article>
+
+    <div class="signature" id="signature" style="display:none">
+      بكل الحب، من صهيب إلى أميمة ❤️
+      <div>إنتِ حكاية جميلة في قلبي 💗</div>
+    </div>
+
+    <div class="actions" id="actions" style="display:none">
+      <button class="secondary" onclick="copyLetter()">📋 نسخ الرسالة</button>
+      <button class="secondary" onclick="closeLetter()">💌 غلقي الرسالة</button>
+    </div>
+  </section>
+
+  <footer>
+    صُنعت بكل حب ❤️
+    <br>
+    LoveSpace · مساحتنا الخاصة
+  </footer>
+</main>
+
+<script>
+const hearts = document.getElementById('hearts');
+
+for (let i = 0; i < 18; i++) {
+  const heart = document.createElement('span');
+  heart.className = 'heart';
+  heart.textContent = ['♡', '♥', '💗', '✦'][i % 4];
+  heart.style.left = Math.random() * 100 + '%';
+  heart.style.animationDuration = (8 + Math.random() * 12) + 's';
+  heart.style.animationDelay = (-Math.random() * 15) + 's';
+  heart.style.fontSize = (14 + Math.random() * 20) + 'px';
+  hearts.appendChild(heart);
+}
+
+function openLetter() {
+  document.getElementById('letter').classList.add('show');
+  document.getElementById('signature').style.display = 'block';
+  document.getElementById('actions').style.display = 'flex';
+  document.getElementById('openBtn').style.display = 'none';
+
+  setTimeout(() => {
+    document.getElementById('letter').scrollIntoView({
+      behavior: 'smooth',
+      block: 'start'
+    });
+  }, 150);
+}
+
+function closeLetter() {
+  document.getElementById('letter').classList.remove('show');
+  document.getElementById('signature').style.display = 'none';
+  document.getElementById('actions').style.display = 'none';
+  document.getElementById('openBtn').style.display = 'block';
+  document.getElementById('openBtn').scrollIntoView({
+    behavior: 'smooth',
+    block: 'center'
+  });
+}
+
+async function copyLetter() {
+  const text = document.getElementById('letter').innerText;
+
+  try {
+    await navigator.clipboard.writeText(text);
+    alert('تم نسخ الرسالة ❤️');
+  } catch (error) {
+    const area = document.createElement('textarea');
+    area.value = text;
+    document.body.appendChild(area);
+    area.select();
+    document.execCommand('copy');
+    area.remove();
+    alert('تم نسخ الرسالة ❤️');
+  }
+}
+</script>
+
+</body>
+</html>
