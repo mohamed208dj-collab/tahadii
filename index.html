@@ -1,1 +1,68 @@
+const questions = [
+  'شكون فيكم يضحك أكثر؟ 😂',
+  'واش هي أجمل ذكرى عندكم؟ 💗',
+  'شكون يختار الفيلم لي تتفرجوا فيه؟ 🎬',
+  'واش الحاجة الجديدة لي حابين تجربوها مع بعض؟ ✨',
+  'شكون يتفكر التفاصيل الصغيرة أكثر؟ 🥹',
+  'لو تقدروا تزوروا مكان جديد، وين تروحوا؟ 🌍',
+  'واش أكثر حاجة تفرحكم في نهار عادي؟ 💌'
+];
+let qIndex = 0;
+
+function nextQuestion() {
+  qIndex = (qIndex + 1) % questions.length;
+  $('gameQuestion').textContent = questions[qIndex];
+  celebrate();
+}
+
+const dailyQuestions = [
+  'واش هي أجمل ذكرى عشتها وحاب تعاودها؟',
+  'واش الحاجة لي تحب تتعلمها هاذ العام؟',
+  'واش هو المكان لي ترتاح فيه أكثر؟',
+  'واش أبسط حاجة تقدر تبدل مزاجك للأحسن؟',
+  'كيفاش تتخيل نهار مثالي بالنسبة ليك؟',
+  'واش هي صفة تقدرها بزاف في الناس؟'
+];
+let dailyIndex = 0;
+
+function newDailyQuestion() {
+  dailyIndex = (dailyIndex + 1) % dailyQuestions.length;
+  $('dailyQuestion').textContent = dailyQuestions[dailyIndex];
+}
+
+function saveLetter() {
+  const title = $('letterTitle').value.trim();
+  const text = $('letterText').value.trim();
+  if (!title || !text) return alert('اكتب عنوان ورسالة أولاً 💌');
+
+  const entry = document.createElement('div');
+  entry.className = 'entry';
+  const heading = document.createElement('h3');
+  heading.textContent = '💌 ' + title;
+  const body = document.createElement('p');
+  body.textContent = text;
+  entry.append(heading, body);
+  $('letterList').prepend(entry);
+
+  $('letterTitle').value = '';
+  $('letterText').value = '';
+  celebrate();
+}
+
+$('photoInput').addEventListener('change', event => {
+  const files = Array.from(event.target.files || []).slice(0, 12);
+  $('photoGallery').replaceChildren();
+
+  files.forEach(file => {
+    if (!file.type.startsWith('image/')) return;
+    const img = document.createElement('img');
+    img.alt = 'صورة من الألبوم';
+    img.src = URL.createObjectURL(file);
+    $('photoGallery').appendChild(img);
+  });
+});
+</script>
+
+</body>
+</html>
 
