@@ -1,1 +1,702 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#100d20">
+<title>هدايانا 🎁 | LoveSpace</title>
 
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+  --bg: #100d20;
+  --card: rgba(255,255,255,.055);
+  --border: rgba(255,255,255,.10);
+  --pink: #ff70b8;
+  --purple: #a78bfa;
+  --text: #f7f2ff;
+  --muted: #aaa3c2;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Alexandria', sans-serif;
+  color: var(--text);
+  min-height: 100vh;
+  padding: 22px 15px 40px;
+  background:
+    radial-gradient(circle at 10% 10%, #352052 0, transparent 35%),
+    radial-gradient(circle at 90% 80%, #291638 0, transparent 35%),
+    var(--bg);
+}
+
+.container {
+  max-width: 1000px;
+  margin: auto;
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.back {
+  color: var(--text);
+  text-decoration: none;
+  padding: 11px 14px;
+  border: 1px solid var(--border);
+  border-radius: 13px;
+  background: var(--card);
+  font-size: 12px;
+}
+
+.logo {
+  font-weight: 800;
+  color: var(--pink);
+  font-size: 16px;
+}
+
+.hero {
+  text-align: center;
+  padding: 35px 18px;
+  border: 1px solid var(--border);
+  border-radius: 26px;
+  background: linear-gradient(135deg, #a78bfa20, #ff70b815);
+  margin-bottom: 22px;
+}
+
+.hero-icon {
+  font-size: 52px;
+  margin-bottom: 12px;
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+h1 {
+  font-size: clamp(24px, 5vw, 34px);
+  margin-bottom: 12px;
+}
+
+h1 span {
+  color: var(--pink);
+}
+
+.hero p {
+  font-size: 12px;
+  line-height: 2.1;
+  color: var(--muted);
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 25px;
+}
+
+.stat {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 17px;
+  text-align: center;
+  padding: 17px 8px;
+}
+
+.stat strong {
+  display: block;
+  color: var(--pink);
+  font-size: 24px;
+  margin-bottom: 6px;
+}
+
+.stat span {
+  color: var(--muted);
+  font-size: 10px;
+}
+
+.section-title {
+  font-size: 17px;
+  margin: 25px 0 15px;
+}
+
+.filters {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 17px;
+}
+
+.filter {
+  border: 1px solid var(--border);
+  color: var(--muted);
+  background: var(--card);
+  padding: 10px 13px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 11px;
+}
+
+.filter.active {
+  color: white;
+  border-color: var(--pink);
+  background: #ff70b820;
+}
+
+.gifts-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.gift {
+  position: relative;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 19px;
+  transition: .25s;
+  overflow: hidden;
+}
+
+.gift:hover {
+  transform: translateY(-4px);
+  border-color: #ff70b866;
+}
+
+.gift-emoji {
+  height: 100px;
+  display: grid;
+  place-items: center;
+  border-radius: 15px;
+  background: linear-gradient(135deg, #a78bfa19, #ff70b819);
+  font-size: 46px;
+  margin-bottom: 15px;
+}
+
+.gift h3 {
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.gift p {
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 2;
+  min-height: 43px;
+  margin-bottom: 13px;
+}
+
+.status {
+  display: inline-block;
+  border-radius: 8px;
+  padding: 6px 9px;
+  font-size: 10px;
+  margin-bottom: 13px;
+  background: #a78bfa18;
+  color: var(--purple);
+}
+
+.status.done {
+  background: #63e6be18;
+  color: #63e6be;
+}
+
+.gift-actions {
+  display: flex;
+  gap: 7px;
+}
+
+.btn {
+  flex: 1;
+  padding: 10px 7px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: rgba(255,255,255,.04);
+  color: var(--text);
+  font: inherit;
+  font-size: 10px;
+  cursor: pointer;
+}
+
+.btn.primary {
+  background: linear-gradient(135deg, var(--pink), var(--purple));
+  color: #21112d;
+  border: none;
+  font-weight: 700;
+}
+
+.btn:active {
+  transform: scale(.97);
+}
+
+.add-panel {
+  margin-top: 28px;
+  padding: 22px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 22px;
+}
+
+.add-panel h2 {
+  font-size: 17px;
+  margin-bottom: 8px;
+}
+
+.add-panel > p {
+  font-size: 11px;
+  color: var(--muted);
+  line-height: 2;
+  margin-bottom: 18px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.field.full {
+  grid-column: 1 / -1;
+}
+
+label {
+  font-size: 11px;
+  color: var(--muted);
+}
+
+input, textarea, select {
+  width: 100%;
+  padding: 13px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  outline: none;
+  background: #100d20;
+  color: white;
+  font-family: inherit;
+  font-size: 12px;
+}
+
+input:focus, textarea:focus, select:focus {
+  border-color: var(--pink);
+}
+
+textarea {
+  resize: vertical;
+  min-height: 85px;
+}
+
+.add-btn {
+  width: 100%;
+  margin-top: 15px;
+  padding: 14px;
+  border: none;
+  border-radius: 13px;
+  cursor: pointer;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  color: #21112d;
+  background: linear-gradient(135deg, var(--pink), var(--purple));
+}
+
+.empty {
+  display: none;
+  text-align: center;
+  color: var(--muted);
+  padding: 25px;
+  font-size: 12px;
+}
+
+footer {
+  text-align: center;
+  margin-top: 30px;
+  color: #807896;
+  font-size: 10px;
+  line-height: 2;
+}
+
+@media(max-width: 700px) {
+  .gifts-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media(max-width: 420px) {
+  .gifts-grid {
+    grid-template-columns: 1fr;
+  }
+  .gift-emoji {
+    height: 115px;
+  }
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+  .field.full {
+    grid-column: auto;
+  }
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+
+  <header class="topbar">
+    <a href="home.html" class="back">→ الرجوع للرئيسية</a>
+    <div class="logo">LoveSpace ❤️</div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-icon">🎁</div>
+    <h1>ركن <span>الهدايا</span></h1>
+    <p>
+      أجمل الهدايا ماشي بقيمتها، بل بالحب اللي فيها ❤️<br>
+      هنا نجمعو أفكار الهدايا واللحظات اللي نحبّو نتفكروها.
+    </p>
+  </section>
+
+  <div class="stats">
+    <div class="stat">
+      <strong id="totalCount">0</strong>
+      <span>مجموع الهدايا</span>
+    </div>
+    <div class="stat">
+      <strong id="doneCount">0</strong>
+      <span>هدايا تمّت</span>
+    </div>
+    <div class="stat">
+      <strong id="todoCount">0</strong>
+      <span>أفكار مستقبلاً</span>
+    </div>
+  </div>
+
+  <h2 class="section-title">💝 مجموعة الهدايا</h2>
+
+  <div class="filters">
+    <button class="filter active" data-filter="all">الكل</button>
+    <button class="filter" data-filter="todo">أفكار الهدايا</button>
+    <button class="filter" data-filter="done">تمّت الهدية</button>
+  </div>
+
+  <div class="gifts-grid" id="giftsGrid"></div>
+
+  <div class="empty" id="emptyState">
+    ما كاين حتى هدية هنا حالياً 🎁
+  </div>
+
+  <section class="add-panel">
+    <h2>✨ زيد هدية جديدة</h2>
+    <p>سجّل فكرة هدية جميلة باش ما تنساهاش.</p>
+
+    <form id="giftForm">
+      <div class="form-grid">
+
+        <div class="field">
+          <label for="giftName">اسم الهدية *</label>
+          <input id="giftName" maxlength="70"
+                 placeholder="مثلاً: رسالة حب" required>
+        </div>
+
+        <div class="field">
+          <label for="giftEmoji">رمز الهدية</label>
+          <select id="giftEmoji">
+            <option value="🎁">🎁 هدية</option>
+            <option value="🌹">🌹 وردة</option>
+            <option value="💌">💌 رسالة</option>
+            <option value="🍫">🍫 شوكولاتة</option>
+            <option value="🧸">🧸 دمية</option>
+            <option value="💍">💍 تذكار</option>
+            <option value="🎂">🎂 عيد ميلاد</option>
+            <option value="📸">📸 صورة</option>
+            <option value="🎧">🎧 موسيقى</option>
+            <option value="✨">✨ مفاجأة</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="giftCategory">نوع الهدية</label>
+          <select id="giftCategory">
+            <option value="رومانسية">رومانسية ❤️</option>
+            <option value="مناسبة">مناسبة 🎂</option>
+            <option value="مفاجأة">مفاجأة ✨</option>
+            <option value="ذكرى">ذكرى جميلة 📸</option>
+            <option value="أخرى">أخرى 🎁</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="giftDate">التاريخ (اختياري)</label>
+          <input id="giftDate" type="date">
+        </div>
+
+        <div class="field full">
+          <label for="giftNote">تفاصيل الهدية</label>
+          <textarea id="giftNote" maxlength="500"
+                    placeholder="اكتب علاش اخترت هذي الهدية..."></textarea>
+        </div>
+
+      </div>
+
+      <button class="add-btn" type="submit">
+        ＋ إضافة الهدية
+      </button>
+    </form>
+  </section>
+
+  <footer>
+    كل هدية فيها حكاية، وكل حكاية فيها ذكرى ❤️<br>
+    LoveSpace — مساحتنا الخاصة
+  </footer>
+
+</div>
+
+<script>
+const STORAGE_KEY = 'lovespace_gifts_v1';
+
+const starterGifts = [
+  {
+    id: 'starter-1',
+    name: 'رسالة من القلب',
+    emoji: '💌',
+    category: 'رومانسية',
+    date: '',
+    note: 'اكتب كلمات صادقة تعبّر فيها على مشاعرك.',
+    done: false
+  },
+  {
+    id: 'starter-2',
+    name: 'وردة جميلة',
+    emoji: '🌹',
+    category: 'رومانسية',
+    date: '',
+    note: 'لفتة بسيطة تقدر تفرّح شخص عزيز عليك.',
+    done: false
+  },
+  {
+    id: 'starter-3',
+    name: 'ألبوم الذكريات',
+    emoji: '📸',
+    category: 'ذكرى',
+    date: '',
+    note: 'اجمع صور ولحظات جميلة في ألبوم واحد.',
+    done: false
+  },
+  {
+    id: 'starter-4',
+    name: 'مفاجأة عيد الميلاد',
+    emoji: '🎂',
+    category: 'مناسبة',
+    date: '',
+    note: 'حضّر مفاجأة تناسب الشخص اللي تحب تفرّحو.',
+    done: false
+  },
+  {
+    id: 'starter-5',
+    name: 'هدية من اختيارك',
+    emoji: '🎁',
+    category: 'مفاجأة',
+    date: '',
+    note: 'اختار شيئاً يناسب اهتمامات الشخص الآخر.',
+    done: false
+  },
+  {
+    id: 'starter-6',
+    name: 'قائمة الأغاني',
+    emoji: '🎧',
+    category: 'ذكرى',
+    date: '',
+    note: 'اجمع الأغاني اللي عندها معنى جميل بالنسبة ليكم.',
+    done: false
+  }
+];
+
+let gifts = loadGifts();
+let currentFilter = 'all';
+
+function loadGifts() {
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved !== null) {
+      const parsed = JSON.parse(saved);
+      if (Array.isArray(parsed)) return parsed;
+    }
+  } catch (error) {
+    console.warn('تعذر تحميل الهدايا المحفوظة.');
+  }
+
+  return starterGifts.map(gift => ({ ...gift }));
+}
+
+function saveGifts() {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(gifts));
+    return true;
+  } catch (error) {
+    alert('ما قدرناش نحفظو التغييرات. تأكد من مساحة التخزين في المتصفح.');
+    return false;
+  }
+}
+
+function safeText(value) {
+  return String(value ?? '').replace(/[&<>"']/g, char => ({
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;'
+  })[char]);
+}
+
+function renderGifts() {
+  const grid = document.getElementById('giftsGrid');
+
+  const filtered = gifts.filter(gift => {
+    if (currentFilter === 'todo') return !gift.done;
+    if (currentFilter === 'done') return gift.done;
+    return true;
+  });
+
+  document.getElementById('totalCount').textContent = gifts.length;
+  document.getElementById('doneCount').textContent =
+    gifts.filter(gift => gift.done).length;
+  document.getElementById('todoCount').textContent =
+    gifts.filter(gift => !gift.done).length;
+
+  document.getElementById('emptyState').style.display =
+    filtered.length ? 'none' : 'block';
+
+  grid.innerHTML = filtered.map(gift => `
+    <article class="gift">
+      <div class="gift-emoji">${safeText(gift.emoji)}</div>
+
+      <h3>${safeText(gift.name)}</h3>
+
+      <p>
+        ${safeText(gift.note || 'هدية جميلة تستحق التذكّر.')}
+      </p>
+
+      <div>
+        <span class="status ${gift.done ? 'done' : ''}">
+          ${gift.done ? '✓ تمّت الهدية' : '♡ فكرة هدية'}
+        </span>
+      </div>
+
+      <p>
+        النوع: ${safeText(gift.category)}
+        ${gift.date ? '<br>التاريخ: ' + safeText(gift.date) : ''}
+      </p>
+
+      <div class="gift-actions">
+        <button class="btn primary"
+          data-action="toggle"
+          data-id="${safeText(gift.id)}">
+          ${gift.done ? 'إرجاع لفكرة' : '✓ تمّت'}
+        </button>
+
+        <button class="btn"
+          data-action="delete"
+          data-id="${safeText(gift.id)}">
+          حذف
+        </button>
+      </div>
+    </article>
+  `).join('');
+}
+
+document.getElementById('giftForm').addEventListener('submit', event => {
+  event.preventDefault();
+
+  const name = document.getElementById('giftName').value.trim();
+  if (!name) return;
+
+  const gift = {
+    id: Date.now().toString() + Math.random().toString(16).slice(2),
+    name,
+    emoji: document.getElementById('giftEmoji').value,
+    category: document.getElementById('giftCategory').value,
+    date: document.getElementById('giftDate').value,
+    note: document.getElementById('giftNote').value.trim(),
+    done: false
+  };
+
+  gifts.unshift(gift);
+
+  if (saveGifts()) {
+    event.target.reset();
+    renderGifts();
+    alert('تمت إضافة الهدية بنجاح 🎁');
+  } else {
+    gifts.shift();
+    renderGifts();
+  }
+});
+
+document.getElementById('giftsGrid').addEventListener('click', event => {
+  const button = event.target.closest('button[data-action]');
+  if (!button) return;
+
+  const id = button.dataset.id;
+  const index = gifts.findIndex(gift => gift.id === id);
+  if (index === -1) return;
+
+  if (button.dataset.action === 'toggle') {
+    gifts[index].done = !gifts[index].done;
+
+    if (!saveGifts()) {
+      gifts[index].done = !gifts[index].done;
+      return;
+    }
+
+    renderGifts();
+  }
+
+  if (button.dataset.action === 'delete') {
+    if (!confirm('متأكد بلي حاب تحذف هذي الهدية؟')) return;
+
+    const removed = gifts.splice(index, 1)[0];
+
+    if (!saveGifts()) {
+      gifts.splice(index, 0, removed);
+      return;
+    }
+
+    renderGifts();
+  }
+});
+
+document.querySelectorAll('.filter').forEach(button => {
+  button.addEventListener('click', () => {
+    currentFilter = button.dataset.filter;
+
+    document.querySelectorAll('.filter').forEach(item => {
+      item.classList.toggle('active', item === button);
+    });
+
+    renderGifts();
+  });
+});
+
+renderGifts();
+</script>
+</body>
+</html>
