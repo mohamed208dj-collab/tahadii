@@ -1,1 +1,592 @@
+<!DOCTYPE html><html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#100d20">
+<title>أسئلتنا ❤️ | LoveSpace</title><style>
+@import url('https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;600;700;800&display=swap');
 
+:root {
+  --bg: #100d20;
+  --panel: #1b1630;
+  --panel2: #241c3c;
+  --pink: #ff78b7;
+  --purple: #b69aff;
+  --text: #fff3fb;
+  --muted: #b9adc9;
+  --border: rgba(255,255,255,.09);
+  --danger: #ff7590;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: 'Alexandria', sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(ellipse at 10% 0%, rgba(153,95,255,.17), transparent 40%),
+    radial-gradient(ellipse at 90% 15%, rgba(255,90,170,.12), transparent 35%),
+    var(--bg);
+}
+
+button, input, textarea, select { font: inherit; }
+button { cursor: pointer; }
+
+.container {
+  width: min(900px, 92%);
+  margin: auto;
+  padding: 25px 0 55px;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 25px;
+}
+
+.back {
+  color: var(--text);
+  text-decoration: none;
+  background: rgba(255,255,255,.06);
+  border: 1px solid var(--border);
+  border-radius: 13px;
+  padding: 11px 15px;
+  font-size: 12px;
+}
+
+.brand {
+  color: var(--purple);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.hero {
+  text-align: center;
+  padding: 30px 18px;
+  border: 1px solid var(--border);
+  border-radius: 25px;
+  background: linear-gradient(145deg, rgba(182,154,255,.12), rgba(255,120,183,.07));
+}
+
+.hero-icon {
+  font-size: 42px;
+  animation: float 2.5s ease-in-out infinite;
+  display: inline-block;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-7px); }
+}
+
+h1 { font-size: clamp(24px, 5vw, 35px); margin: 12px 0; }
+.hero p { color: var(--muted); font-size: 13px; line-height: 2; margin: 0; }
+
+.names { margin-top: 15px; color: var(--pink); font-size: 15px; font-weight: 700; }
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin: 18px 0 25px;
+}
+
+.stat {
+  text-align: center;
+  background: rgba(255,255,255,.045);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 15px 6px;
+}
+
+.stat strong { display: block; color: var(--pink); font-size: 22px; }
+.stat span { color: var(--muted); font-size: 10px; }
+
+.toolbar {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 17px;
+}
+
+.search {
+  flex: 1;
+  min-width: 170px;
+  color: var(--text);
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px 14px;
+  outline: none;
+}
+
+.search:focus { border-color: var(--purple); }
+
+.btn {
+  border: 0;
+  color: #241329;
+  background: linear-gradient(135deg, var(--pink), var(--purple));
+  border-radius: 12px;
+  padding: 11px 15px;
+  font-weight: 700;
+  font-size: 12px;
+}
+
+.btn.secondary {
+  color: var(--text);
+  background: rgba(255,255,255,.07);
+  border: 1px solid var(--border);
+}
+
+.categories {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 12px;
+  margin-bottom: 8px;
+}
+
+.chip {
+  flex-shrink: 0;
+  padding: 9px 13px;
+  border-radius: 30px;
+  color: var(--muted);
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,.04);
+  font-size: 11px;
+}
+
+.chip.active {
+  color: var(--text);
+  border-color: rgba(255,120,183,.45);
+  background: rgba(255,120,183,.12);
+}
+
+.question-card {
+  background: linear-gradient(145deg, rgba(36,28,60,.95), rgba(27,22,48,.95));
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 17px;
+  margin-bottom: 13px;
+  animation: appear .3s ease;
+}
+
+@keyframes appear {
+  from { opacity: 0; transform: translateY(7px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.question-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.category {
+  color: var(--purple);
+  font-size: 10px;
+  margin-bottom: 9px;
+}
+
+.question-card h3 {
+  font-size: 14px;
+  line-height: 1.9;
+  margin: 0 0 12px;
+}
+
+.answer {
+  width: 100%;
+  min-height: 85px;
+  resize: vertical;
+  background: rgba(10,8,20,.55);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px;
+  color: var(--text);
+  outline: none;
+  font-size: 12px;
+  line-height: 1.9;
+}
+
+.answer:focus { border-color: var(--purple); }
+.answer::placeholder { color: #80748f; }
+
+.card-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 11px;
+}
+
+.small-btn {
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  background: rgba(255,255,255,.05);
+  color: var(--text);
+  padding: 8px 11px;
+  font-size: 10px;
+}
+
+.small-btn.delete { color: var(--danger); }
+.small-btn.favorite { color: var(--pink); }
+
+.empty {
+  text-align: center;
+  color: var(--muted);
+  padding: 30px 15px;
+  border: 1px dashed var(--border);
+  border-radius: 16px;
+  font-size: 13px;
+  line-height: 2;
+}
+
+.footer-note {
+  text-align: center;
+  margin-top: 25px;
+  color: var(--pink);
+  line-height: 2.2;
+  font-size: 13px;
+  padding: 20px;
+  background: rgba(255,120,183,.05);
+  border-radius: 17px;
+}
+
+footer { text-align: center; color: #81758f; font-size: 11px; margin-top: 25px; }
+
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 5;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  background: rgba(5,3,12,.82);
+}
+
+.modal.show { display: flex; }
+
+.modal-box {
+  width: min(480px, 100%);
+  max-height: 90vh;
+  overflow-y: auto;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 21px;
+  padding: 22px;
+}
+
+.modal-box h2 { margin-top: 0; font-size: 19px; }
+
+.field { margin: 14px 0; }
+.field label { display: block; color: var(--muted); font-size: 12px; margin-bottom: 8px; }
+
+.field input, .field textarea, .field select {
+  width: 100%;
+  padding: 12px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 11px;
+  color: var(--text);
+  outline: none;
+  font-size: 12px;
+}
+
+.field textarea { min-height: 100px; resize: vertical; }
+
+.modal-actions { display: flex; gap: 9px; margin-top: 18px; }
+.modal-actions button { flex: 1; }
+
+@media (max-width: 520px) {
+  .container { width: 94%; padding-top: 16px; }
+  .hero { padding: 25px 13px; }
+  .stat { padding: 12px 4px; }
+  .stat strong { font-size: 19px; }
+  .stat span { font-size: 9px; }
+  .question-card { padding: 14px; }
+}
+</style></head><body>
+<div class="container">  <header class="topbar">
+    <a class="back" href="home.html">← الرئيسية</a>
+    <div class="brand">LoveSpace ♡</div>
+  </header>  <section class="hero">
+    <div class="hero-icon">💌</div>
+    <h1>أسئلة بيناتنا</h1>
+    <p>أسئلة تفتح القلب، تقرّب الأفكار،<br>وتخلينا نفهمو بعضانا أكثر، سؤال بسؤال.</p>
+    <div class="names">صهيب ♥ أميمة</div>
+  </section>  <section class="stats">
+    <div class="stat">
+      <strong id="total">0</strong>
+      <span>مجموع الأسئلة</span>
+    </div>
+    <div class="stat">
+      <strong id="answered">0</strong>
+      <span>عندها إجابة</span>
+    </div>
+    <div class="stat">
+      <strong id="favorites">0</strong>
+      <span>أسئلة مفضلة</span>
+    </div>
+  </section>  <div class="toolbar">
+    <input class="search" id="search" placeholder="🔎 قلب على سؤال..." oninput="render()">
+    <button class="btn" onclick="openModal()">＋ سؤال جديد</button>
+  </div>  <div class="categories" id="categories">
+    <button class="chip active" data-category="الكل" onclick="setCategory('الكل',this)">الكل</button>
+    <button class="chip" data-category="التعارف" onclick="setCategory('التعارف',this)">🤍 التعارف</button>
+    <button class="chip" data-category="المشاعر" onclick="setCategory('المشاعر',this)">💗 المشاعر</button>
+    <button class="chip" data-category="الذكريات" onclick="setCategory('الذكريات',this)">📸 الذكريات</button>
+    <button class="chip" data-category="المستقبل" onclick="setCategory('المستقبل',this)">🌙 المستقبل</button>
+    <button class="chip" data-category="المفضلة" onclick="setCategory('المفضلة',this)">⭐ المفضلة</button>
+  </div>  <div id="questionsList"></div>  <div class="footer-note">
+    ماشي لازم تكون عندنا نفس الإجابات على كل شيء،<br>
+    المهم نسمعو لبعضانا باحترام ونتفهمو بعضانا. 💕
+  </div>  <footer>LoveSpace ♡ مساحة خاصة للأسئلة والذكريات</footer>
+</div><div class="modal" id="modal">
+  <div class="modal-box">
+    <h2 id="modalHeading">✨ زيد سؤال جديد</h2>
+    <form id="questionForm">
+      <input type="hidden" id="questionId">  <div class="field">
+    <label for="questionText">السؤال</label>
+    <textarea id="questionText" maxlength="500" placeholder="اكتب السؤال هنا..." required></textarea>
+  </div>
+
+  <div class="field">
+    <label for="questionCategory">التصنيف</label>
+    <select id="questionCategory">
+      <option value="التعارف">🤍 التعارف</option>
+      <option value="المشاعر">💗 المشاعر</option>
+      <option value="الذكريات">📸 الذكريات</option>
+      <option value="المستقبل">🌙 المستقبل</option>
+    </select>
+  </div>
+
+  <div class="modal-actions">
+    <button class="btn" type="submit">💗 حفظ السؤال</button>
+    <button class="btn secondary" type="button" onclick="closeModal()">إلغاء</button>
+  </div>
+</form>
+
+  </div>
+</div><script>
+const STORAGE_KEY = 'lovespace_questions_v1';
+
+const defaultQuestions = [
+  {id:'q1', text:'واش كان أول انطباع خذيتيه عليّا؟', category:'التعارف', answer:'', favorite:false, custom:false},
+  {id:'q2', text:'واش هي الحاجة اللي تخليك تحسي بالراحة كي تهدري معايا؟', category:'المشاعر', answer:'', favorite:false, custom:false},
+  {id:'q3', text:'واش هي أجمل ذكرى بقات في بالك حتى اليوم؟', category:'الذكريات', answer:'', favorite:false, custom:false},
+  {id:'q4', text:'كيفاش تتصوري حياتك بعد خمس سنين؟', category:'المستقبل', answer:'', favorite:false, custom:false},
+  {id:'q5', text:'واش هي حاجة صغيرة نفرحك كي يديرها شخص عزيز عليك؟', category:'المشاعر', answer:'', favorite:false, custom:false},
+  {id:'q6', text:'واش هو الشيء اللي حابة الناس يفهموه عليك أكثر؟', category:'التعارف', answer:'', favorite:false, custom:false},
+  {id:'q7', text:'لوكان نعاودو نعيشو نهار جميل من ذكرياتنا، أي نهار تختاري؟', category:'الذكريات', answer:'', favorite:false, custom:false},
+  {id:'q8', text:'واش هو الحلم اللي حابة تحققيه مهما طال الوقت؟', category:'المستقبل', answer:'', favorite:false, custom:false},
+  {id:'q9', text:'كيفاش تحبي الشخص القريب ليك يساندك كي تكوني متقلقة؟', category:'المشاعر', answer:'', favorite:false, custom:false},
+  {id:'q10', text:'واش هي الصفة اللي تقدريها بزاف في الإنسان؟', category:'التعارف', answer:'', favorite:false, custom:false},
+  {id:'q11', text:'واش هي كلمة سمعتها وفرحاتك وما نسيتيهاش؟', category:'الذكريات', answer:'', favorite:false, custom:false},
+  {id:'q12', text:'واش هي الأمور اللي تحبي تكون موجودة في علاقة صحية؟', category:'المشاعر', answer:'', favorite:false, custom:false},
+  {id:'q13', text:'كيفاش تحبي تحتافلي باللحظات المميزة؟', category:'الذكريات', answer:'', favorite:false, custom:false},
+  {id:'q14', text:'واش هو المكان اللي تتمني تزوريه في المستقبل؟', category:'المستقبل', answer:'', favorite:false, custom:false},
+  {id:'q15', text:'واش الحاجة اللي تتمني تتعلميها على نفسك مع الوقت؟', category:'التعارف', answer:'', favorite:false, custom:false}
+];
+
+let questions = [];
+let activeCategory = 'الكل';
+
+try {
+  const saved = localStorage.getItem(STORAGE_KEY);
+  if (saved !== null) {
+    const parsed = JSON.parse(saved);
+    questions = Array.isArray(parsed) ? parsed : defaultQuestions.map(q => ({...q}));
+  } else {
+    questions = defaultQuestions.map(q => ({...q}));
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(questions));
+  }
+} catch {
+  questions = defaultQuestions.map(q => ({...q}));
+}
+
+function persist() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(questions));
+}
+
+function escapeHTML(value) {
+  return String(value).replace(/[&<>"']/g, char => ({
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;'
+  }[char]));
+}
+
+function updateStats() {
+  document.getElementById('total').textContent = questions.length;
+  document.getElementById('answered').textContent =
+    questions.filter(q => q.answer && q.answer.trim()).length;
+  document.getElementById('favorites').textContent =
+    questions.filter(q => q.favorite).length;
+}
+
+function render() {
+  const list = document.getElementById('questionsList');
+  const search = document.getElementById('search').value.trim().toLowerCase();
+
+  const filtered = questions.filter(q => {
+    const matchesSearch = q.text.toLowerCase().includes(search) ||
+      (q.answer || '').toLowerCase().includes(search);
+    const matchesCategory =
+      activeCategory === 'الكل' ||
+      (activeCategory === 'المفضلة' ? q.favorite : q.category === activeCategory);
+
+    return matchesSearch && matchesCategory;
+  });
+
+  updateStats();
+
+  if (!filtered.length) {
+    list.innerHTML = `<div class="empty">💌 ما لقيناش أسئلة هنا.<br>جرّب تصنيف آخر أو زيد سؤال جديد.</div>`;
+    return;
+  }
+
+  list.innerHTML = filtered.map((q, index) => `
+    <article class="question-card">
+      <div class="question-top">
+        <div>
+          <div class="category">${escapeHTML(q.category)} · سؤال ${index + 1}</div>
+          <h3>${escapeHTML(q.text)}</h3>
+        </div>
+        <span>${q.favorite ? '⭐' : '💭'}</span>
+      </div>
+
+      <textarea class="answer"
+        aria-label="الإجابة عن السؤال"
+        placeholder="اكتب إجابتك هنا..."
+        onchange="saveAnswer('${q.id}',this.value)">${escapeHTML(q.answer || '')}</textarea>  <div class="card-actions">
+    <button class="small-btn favorite" onclick="toggleFavorite('${q.id}')">
+      ${q.favorite ? '⭐ إزالة من المفضلة' : '☆ أضف للمفضلة'}
+    </button>
+    <button class="small-btn" onclick="copyQuestion('${q.id}')">📋 نسخ السؤال</button>
+    ${q.custom ? `<button class="small-btn" onclick="editQuestion('${q.id}')">✏️ تعديل</button>
+    <button class="small-btn delete" onclick="deleteQuestion('${q.id}')">🗑️ حذف</button>` : ''}
+  </div>
+</article>
+
+`).join('');
+}
+
+function setCategory(category, button) {
+activeCategory = category;
+document.querySelectorAll('.chip').forEach(chip => chip.classList.remove('active'));
+button.classList.add('active');
+render();
+}
+
+function saveAnswer(id, answer) {
+const question = questions.find(q => q.id === id);
+if (!question) return;
+question.answer = answer;
+persist();
+updateStats();
+}
+
+function toggleFavorite(id) {
+const question = questions.find(q => q.id === id);
+if (!question) return;
+question.favorite = !question.favorite;
+persist();
+render();
+}
+
+function openModal(question = null) {
+document.getElementById('questionForm').reset();
+document.getElementById('questionId').value = question ? question.id : '';
+document.getElementById('questionText').value = question ? question.text : '';
+document.getElementById('questionCategory').value = question ? question.category : 'المشاعر';
+document.getElementById('modalHeading').textContent = question ? '✏️ تعديل السؤال' : '✨ زيد سؤال جديد';
+document.getElementById('modal').classList.add('show');
+}
+
+function closeModal() {
+document.getElementById('modal').classList.remove('show');
+}
+
+document.getElementById('questionForm').addEventListener('submit', event => {
+event.preventDefault();
+
+const id = document.getElementById('questionId').value;
+const text = document.getElementById('questionText').value.trim();
+const category = document.getElementById('questionCategory').value;
+
+if (!text) return;
+
+if (id) {
+const question = questions.find(q => q.id === id);
+if (question) {
+question.text = text;
+question.category = category;
+}
+} else {
+questions.push({
+id: (crypto.randomUUID ? crypto.randomUUID() : String(Date.now())),
+text,
+category,
+answer: '',
+favorite: false,
+custom: true
+});
+}
+
+persist();
+closeModal();
+render();
+});
+
+function editQuestion(id) {
+const question = questions.find(q => q.id === id);
+if (question) openModal(question);
+}
+
+function deleteQuestion(id) {
+if (!confirm('متأكد بلي حاب تحذف هذا السؤال مع إجابته؟')) return;
+questions = questions.filter(q => q.id !== id);
+persist();
+render();
+}
+
+async function copyQuestion(id) {
+const question = questions.find(q => q.id === id);
+if (!question) return;
+
+const text = question.text + (question.answer ? '\n\nإجابتي: ' + question.answer : '');
+
+try {
+await navigator.clipboard.writeText(text);
+alert('تم نسخ السؤال 💗');
+} catch {
+const area = document.createElement('textarea');
+area.value = text;
+document.body.appendChild(area);
+area.select();
+document.execCommand('copy');
+area.remove();
+alert('تم نسخ السؤال 💗');
+}
+}
+
+document.getElementById('modal').addEventListener('click', event => {
+if (event.target.id === 'modal') closeModal();
+});
+
+document.addEventListener('keydown', event => {
+if (event.key === 'Escape') closeModal();
+});
+
+render();
+</script>
+
+</body>
+</html>
