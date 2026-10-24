@@ -1,1 +1,625 @@
+<!DOCTYPE html><html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#100d20">
+<title>اختبار الحب ❤️ | LoveSpace</title><style>
+@import url('https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;600;700;800&display=swap');
 
+:root {
+  --bg: #100d20;
+  --card: #1c1730;
+  --card2: #251c3e;
+  --pink: #ff70b8;
+  --purple: #a78bfa;
+  --text: #fff5fc;
+  --muted: #b9adc9;
+  --border: rgba(255,255,255,.09);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Alexandria', sans-serif;
+  min-height: 100vh;
+  color: var(--text);
+  padding: 20px;
+  background:
+    radial-gradient(ellipse at top right, rgba(167,139,250,.15), transparent 38%),
+    radial-gradient(ellipse at bottom left, rgba(255,112,184,.10), transparent 35%),
+    var(--bg);
+}
+
+button { font: inherit; cursor: pointer; }
+
+.container { max-width: 760px; margin: auto; }
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 28px;
+}
+
+.back {
+  text-decoration: none;
+  color: var(--muted);
+  background: var(--card);
+  border: 1px solid var(--border);
+  padding: 10px 15px;
+  border-radius: 13px;
+  font-size: 12px;
+}
+
+.brand { color: var(--pink); font-size: 13px; }
+
+.hero { text-align: center; padding: 20px 10px 28px; }
+
+.hero-icon {
+  width: 78px;
+  height: 78px;
+  margin: 0 auto 18px;
+  display: grid;
+  place-items: center;
+  border-radius: 25px;
+  font-size: 36px;
+  background: linear-gradient(135deg, rgba(255,112,184,.2), rgba(167,139,250,.2));
+  border: 1px solid rgba(255,112,184,.22);
+  box-shadow: 0 0 38px rgba(255,112,184,.10);
+}
+
+h1 { font-size: clamp(25px, 5vw, 35px); margin-bottom: 12px; }
+h1 span { color: var(--pink); }
+
+.subtitle {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 2.1;
+}
+
+.card {
+  background: rgba(28,23,48,.93);
+  border: 1px solid var(--border);
+  border-radius: 23px;
+  padding: 25px;
+  box-shadow: 0 18px 50px rgba(0,0,0,.15);
+}
+
+.intro { text-align: center; }
+
+.intro-emoji { font-size: 42px; margin-bottom: 15px; }
+
+.intro h2 { font-size: 20px; margin-bottom: 12px; }
+
+.intro p {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 2.2;
+  margin-bottom: 22px;
+}
+
+.info-row {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 9px;
+  margin-bottom: 24px;
+}
+
+.info {
+  padding: 9px 12px;
+  border-radius: 12px;
+  background: var(--card2);
+  color: #e5d7f6;
+  font-size: 11px;
+}
+
+.btn {
+  border: none;
+  border-radius: 13px;
+  padding: 13px 20px;
+  font-size: 12px;
+  font-weight: 700;
+  transition: .2s;
+}
+
+.btn:hover { transform: translateY(-2px); filter: brightness(1.08); }
+
+.primary {
+  background: linear-gradient(135deg, var(--pink), #d85eff);
+  color: #24102a;
+}
+
+.secondary {
+  background: var(--card2);
+  border: 1px solid var(--border);
+  color: var(--text);
+}
+
+.full { width: 100%; }
+
+.progress-area { margin-bottom: 25px; }
+
+.progress-label {
+  display: flex;
+  justify-content: space-between;
+  color: var(--muted);
+  font-size: 11px;
+  margin-bottom: 10px;
+}
+
+.progress {
+  height: 7px;
+  border-radius: 20px;
+  background: #302543;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  width: 0%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--purple), var(--pink));
+  transition: width .3s;
+}
+
+.question-number {
+  color: var(--pink);
+  font-size: 12px;
+  margin-bottom: 12px;
+}
+
+.question {
+  font-size: clamp(17px, 4vw, 22px);
+  line-height: 1.9;
+  margin-bottom: 23px;
+}
+
+.answers { display: grid; gap: 12px; }
+
+.answer {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  width: 100%;
+  padding: 15px;
+  text-align: right;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: #171226;
+  color: var(--text);
+  font-size: 12px;
+  line-height: 1.8;
+  transition: .2s;
+}
+
+.answer:hover:not(:disabled) {
+  border-color: var(--pink);
+  background: #251832;
+}
+
+.answer.selected {
+  border-color: var(--pink);
+  background: rgba(255,112,184,.10);
+}
+
+.answer:disabled { cursor: default; }
+
+.answer-letter {
+  display: grid;
+  place-items: center;
+  min-width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  color: var(--pink);
+  background: rgba(255,112,184,.10);
+  font-size: 11px;
+}
+
+.feedback {
+  display: none;
+  margin-top: 17px;
+  padding: 13px;
+  border-radius: 13px;
+  background: rgba(167,139,250,.09);
+  border: 1px solid rgba(167,139,250,.18);
+  color: #e0d4f7;
+  font-size: 12px;
+  line-height: 2;
+}
+
+.feedback.show { display: block; }
+
+.question-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-top: 23px;
+}
+
+.small-muted { color: var(--muted); font-size: 10px; }
+
+.result { text-align: center; }
+
+.result-heart {
+  font-size: 55px;
+  margin-bottom: 15px;
+  animation: heartbeat 1.3s infinite;
+}
+
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.09); }
+}
+
+.score-circle {
+  width: 145px;
+  height: 145px;
+  margin: 20px auto;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: radial-gradient(circle, #251a3b, #171125);
+  border: 4px solid var(--pink);
+  box-shadow: 0 0 35px rgba(255,112,184,.15);
+}
+
+.score-circle strong { font-size: 35px; display: block; }
+.score-circle span { color: var(--muted); font-size: 11px; }
+
+.result h2 { font-size: 23px; margin-bottom: 12px; }
+.result p { color: var(--muted); font-size: 12px; line-height: 2.2; }
+
+.result-message {
+  background: var(--card2);
+  border: 1px solid var(--border);
+  padding: 17px;
+  border-radius: 16px;
+  margin: 20px 0;
+  line-height: 2.1;
+  font-size: 13px;
+}
+
+.result-actions { display: grid; gap: 10px; margin-top: 20px; }
+
+.hidden { display: none !important; }
+
+.footer {
+  text-align: center;
+  padding: 24px 0 6px;
+  color: #776b8c;
+  font-size: 11px;
+}
+
+@media(max-width: 520px) {
+  body { padding: 13px; }
+  .card { padding: 19px; border-radius: 19px; }
+  .hero { padding-top: 14px; }
+  .question-actions .btn { padding: 12px; }
+}
+</style></head><body>
+<div class="container">  <header class="topbar">
+    <a href="home.html" class="back">← الرئيسية</a>
+    <div class="brand">LoveSpace ♥</div>
+  </header>  <section class="hero">
+    <div class="hero-icon">💗</div>
+    <h1>اختبار <span>الحب</span></h1>
+    <p class="subtitle">أسئلة صغيرة، لحظات جميلة، وذكريات تجمع قلبين ❤️</p>
+  </section>  <main class="card"><section id="intro" class="intro">
+  <div class="intro-emoji">💌</div>
+  <h2>قدّاه تعرف الشخص اللي تحبّه؟</h2>
+  <p>
+    جاوب على الأسئلة وشوف نتيجتك في النهاية!<br>
+    تقدر تلعب وحدك أو تتحدّى أميمة وتشوفو شكون يعرف الآخر أكثر 🥹
+  </p>
+  <div class="info-row">
+    <span class="info">💞 10 أسئلة</span>
+    <span class="info">⭐ نقطة لكل إجابة</span>
+    <span class="info">🎯 نتيجة في النهاية</span>
+  </div>
+  <button class="btn primary full" id="startBtn">ابدأ الاختبار ❤️</button>
+</section>
+
+<section id="quiz" class="hidden">
+  <div class="progress-area">
+    <div class="progress-label">
+      <span id="progressText">السؤال 1 من 10</span>
+      <span id="scoreText">النقاط: 0</span>
+    </div>
+    <div class="progress">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
+  </div>
+
+  <div class="question-number" id="questionNumber">السؤال 01</div>
+  <h2 class="question" id="questionText"></h2>
+  <div class="answers" id="answers"></div>
+  <div class="feedback" id="feedback" aria-live="polite"></div>
+
+  <div class="question-actions">
+    <span class="small-muted" id="answerStatus">اختار إجابة واحدة</span>
+    <button class="btn primary" id="nextBtn" disabled>السؤال التالي ←</button>
+  </div>
+</section>
+
+<section id="result" class="result hidden">
+  <div class="result-heart" id="resultEmoji">💖</div>
+  <h2 id="resultTitle">نتيجتك</h2>
+  <p>هذي نتيجتك في الاختبار الحالي</p>
+
+  <div class="score-circle">
+    <div>
+      <strong id="finalScore">0/10</strong>
+      <span id="percentage">0%</span>
+    </div>
+  </div>
+
+  <div class="result-message" id="resultMessage"></div>
+  <p id="bestScoreText"></p>
+
+  <div class="result-actions">
+    <button class="btn primary full" id="retryBtn">🔄 عاود الاختبار</button>
+    <button class="btn secondary full" id="shareBtn">📋 انسخ نتيجتي</button>
+    <a class="back" href="home.html" style="text-align:center">العودة للرئيسية</a>
+  </div>
+</section>
+
+  </main>  <footer class="footer">
+    LoveSpace — لحظاتكم الصغيرة تصنع حكاية كبيرة ❤️
+  </footer>
+</div><script>
+const questions = [
+  {
+    question: "واش هو أهم شيء يخلي العلاقة ناجحة؟",
+    answers: ["الثقة والتفاهم", "الهدايا الغالية فقط", "الغيرة طول الوقت", "الكلام بلا أفعال"],
+    correct: 0,
+    explanation: "الثقة والتفاهم والاحترام المتبادل يساعدوا العلاقة تكون صحية وقوية."
+  },
+  {
+    question: "إذا الشخص اللي تحبّه كان نهاره صعيب، واش أحسن تصرّف؟",
+    answers: ["نلومه على مزاجه", "نسمعله ونسانده", "نتجاهله تمامًا", "نزيد نضغط عليه"],
+    correct: 1,
+    explanation: "الاستماع والدعم من غير ضغط يقدر يساعد الشخص يحس بالراحة."
+  },
+  {
+    question: "واش هي الطريقة الأفضل لحل خلاف بين زوج أشخاص؟",
+    answers: ["العناد حتى يربح واحد", "التجاهل لأيام", "حوار هادئ واحترام", "إدخال الناس كامل"],
+    correct: 2,
+    explanation: "الحوار الهادئ يسمح لكل طرف يشرح وجهة نظره ويسمع للطرف الآخر."
+  },
+  {
+    question: "هل لازم كل واحد يحتفظ بمساحته الخاصة حتى داخل العلاقة؟",
+    answers: ["نعم، مع احترام الطرفين", "لا، لازم يكونوا مع بعض دائمًا", "لازم يشارك كل كلمة سر", "ما يكون عند حتى واحد أصدقاء"],
+    correct: 0,
+    explanation: "المساحة الشخصية والخصوصية مهمة حتى في العلاقات القريبة."
+  },
+  {
+    question: "واش يعبّر على الاهتمام أكثر؟",
+    answers: ["الوعود فقط", "الهدايا فقط", "التحكم في قرارات الآخر", "الاهتمام بالأفعال والاستماع"],
+    correct: 3,
+    explanation: "الاهتمام يظهر في الأفعال والاستماع واحترام احتياجات الشخص."
+  },
+  {
+    question: "إذا صار سوء تفاهم، واش الأفضل؟",
+    answers: ["نفترض الأسوأ مباشرة", "نسقسي ونوضح قبل الحكم", "ننشر الخلاف للناس", "نرفض نسمع التوضيح"],
+    correct: 1,
+    explanation: "السؤال والتوضيح يساعدان على تجنّب الأحكام المبنية على التخمين."
+  },
+  {
+    question: "هل الاعتذار عند الخطأ علامة ضعف؟",
+    answers: ["نعم دائمًا", "نعم إذا كان الشخص يحب", "لا، الاعتراف بالخطأ مسؤولية", "الاعتذار ممنوع في العلاقة"],
+    correct: 2,
+    explanation: "الاعتذار الصادق يبيّن المسؤولية والرغبة في إصلاح الخطأ."
+  },
+  {
+    question: "واش من هاذو يعتبر حدًّا صحيًا في العلاقة؟",
+    answers: ["احترام كلمة لا", "فرض القرارات", "مراقبة الهاتف بلا إذن", "منع الطرف الآخر من نشاطاته"],
+    correct: 0,
+    explanation: "احترام الحدود والموافقة المتبادلة أساس العلاقة الصحية."
+  },
+  {
+    question: "كيفاش تقدر تبني الثقة مع الوقت؟",
+    answers: ["بالشك المستمر", "بإخفاء الحقائق دائمًا", "بالتجسس", "بالصدق والوفاء بالوعود"],
+    correct: 3,
+    explanation: "الصدق والالتزام بالوعود يساعدان على بناء الثقة تدريجيًا."
+  },
+  {
+    question: "واش هو المعنى الأصح للحب الصحي؟",
+    answers: ["التحكم في حياة الآخر", "المودة والاحترام والدعم المتبادل", "التضحية بكل الحدود الشخصية", "الغيرة كشرط أساسي"],
+    correct: 1,
+    explanation: "الحب الصحي يجمع المودة والاحترام والدعم مع الحفاظ على استقلالية كل شخص."
+  }
+];
+
+const intro = document.getElementById('intro');
+const quiz = document.getElementById('quiz');
+const result = document.getElementById('result');
+const startBtn = document.getElementById('startBtn');
+const nextBtn = document.getElementById('nextBtn');
+const retryBtn = document.getElementById('retryBtn');
+const shareBtn = document.getElementById('shareBtn');
+
+let current = 0;
+let score = 0;
+let selected = null;
+let finished = false;
+
+const BEST_KEY = 'lovespace_quiz_best';
+
+function showSection(section) {
+  intro.classList.add('hidden');
+  quiz.classList.add('hidden');
+  result.classList.add('hidden');
+  section.classList.remove('hidden');
+}
+
+function startQuiz() {
+  current = 0;
+  score = 0;
+  selected = null;
+  finished = false;
+  showSection(quiz);
+  renderQuestion();
+}
+
+function renderQuestion() {
+  selected = null;
+  nextBtn.disabled = true;
+  nextBtn.textContent = current === questions.length - 1
+    ? 'شوف النتيجة ❤️'
+    : 'السؤال التالي ←';
+
+  document.getElementById('feedback').classList.remove('show');
+  document.getElementById('feedback').textContent = '';
+  document.getElementById('answerStatus').textContent = 'اختار إجابة واحدة';
+  document.getElementById('progressText').textContent =
+    `السؤال ${current + 1} من ${questions.length}`;
+  document.getElementById('scoreText').textContent = `النقاط: ${score}`;
+  document.getElementById('questionNumber').textContent =
+    `السؤال ${String(current + 1).padStart(2, '0')}`;
+  document.getElementById('progressFill').style.width =
+    `${(current / questions.length) * 100}%`;
+
+  const q = questions[current];
+  document.getElementById('questionText').textContent = q.question;
+
+  const letters = ['A', 'B', 'C', 'D'];
+  const answers = document.getElementById('answers');
+  answers.replaceChildren();
+
+  q.answers.forEach((answer, index) => {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'answer';
+
+    const letter = document.createElement('span');
+    letter.className = 'answer-letter';
+    letter.textContent = letters[index];
+
+    const text = document.createElement('span');
+    text.textContent = answer;
+
+    button.append(letter, text);
+    button.addEventListener('click', () => chooseAnswer(index));
+    answers.appendChild(button);
+  });
+}
+
+function chooseAnswer(index) {
+  if (selected !== null || finished) return;
+
+  selected = index;
+  const q = questions[current];
+  const buttons = document.querySelectorAll('.answer');
+
+  buttons.forEach((button, i) => {
+    button.disabled = true;
+    if (i === index) button.classList.add('selected');
+  });
+
+  if (index === q.correct) {
+    score++;
+    document.getElementById('answerStatus').textContent = 'إجابة صحيحة ✨';
+  } else {
+    document.getElementById('answerStatus').textContent = 'وصلنا للفكرة التالية 💗';
+  }
+
+  document.getElementById('scoreText').textContent = `النقاط: ${score}`;
+  document.getElementById('feedback').textContent = q.explanation;
+  document.getElementById('feedback').classList.add('show');
+  document.getElementById('progressFill').style.width =
+    `${((current + 1) / questions.length) * 100}%`;
+
+  nextBtn.disabled = false;
+}
+
+function finishQuiz() {
+  finished = true;
+  showSection(result);
+
+  const total = questions.length;
+  const percentage = Math.round((score / total) * 100);
+
+  document.getElementById('finalScore').textContent = `${score}/${total}`;
+  document.getElementById('percentage').textContent = `${percentage}%`;
+
+  let emoji, title, message;
+
+  if (score >= 9) {
+    emoji = '🏆';
+    title = 'رائع جدًا!';
+    message = 'نتيجة ممتازة! باين عليك فاهم قيمة الاحترام والثقة والاهتمام في العلاقة ❤️';
+  } else if (score >= 7) {
+    emoji = '💖';
+    title = 'نتيجة هايلة!';
+    message = 'راك في الطريق الصحيح! كل يوم فرصة باش تتعلم أكثر على التواصل والاهتمام.';
+  } else if (score >= 5) {
+    emoji = '🌷';
+    title = 'بداية مليحة!';
+    message = 'عندك أفكار مليحة، ومع شوية مراجعة لمفاهيم الثقة والحدود الصحية تزيد تتعلم.';
+  } else {
+    emoji = '💌';
+    title = 'التعلّم ما يكملش!';
+    message = 'ما تقلقش من النتيجة. العلاقات الصحية تتبنى بالتعلّم والحوار والاحترام المتبادل.';
+  }
+
+  document.getElementById('resultEmoji').textContent = emoji;
+  document.getElementById('resultTitle').textContent = title;
+  document.getElementById('resultMessage').textContent = message;
+
+  let best = score;
+  try {
+    const oldBest = Number(localStorage.getItem(BEST_KEY) || 0);
+    best = Math.max(oldBest, score);
+    localStorage.setItem(BEST_KEY, String(best));
+  } catch {}
+
+  document.getElementById('bestScoreText').textContent =
+    `🏅 أفضل نتيجة محفوظة على هذا الجهاز: ${best}/${total}`;
+}
+
+startBtn.addEventListener('click', startQuiz);
+
+nextBtn.addEventListener('click', () => {
+  if (selected === null) return;
+
+  if (current < questions.length - 1) {
+    current++;
+    renderQuestion();
+  } else {
+    finishQuiz();
+  }
+});
+
+retryBtn.addEventListener('click', startQuiz);
+
+shareBtn.addEventListener('click', async () => {
+  const percentage = Math.round((score / questions.length) * 100);
+  const text = `❤️ اختبار LoveSpace\nنتيجتي: ${score}/${questions.length} (${percentage}%)\nجرب الاختبار أنت ثاني!`;
+
+  try {
+    if (navigator.clipboard && window.isSecureContext) {
+      await navigator.clipboard.writeText(text);
+    } else {
+      const helper = document.createElement('textarea');
+      helper.value = text;
+      helper.style.position = 'fixed';
+      helper.style.opacity = '0';
+      document.body.appendChild(helper);
+      helper.select();
+      const copied = document.execCommand('copy');
+      helper.remove();
+      if (!copied) throw new Error('Copy failed');
+    }
+
+    shareBtn.textContent = '✅ تم نسخ النتيجة';
+    setTimeout(() => shareBtn.textContent = '📋 انسخ نتيجتي', 2000);
+  } catch {
+    shareBtn.textContent = 'تعذّر النسخ';
+    setTimeout(() => shareBtn.textContent = '📋 انسخ نتيجتي', 2000);
+  }
+});
+</script></body>
+</html>
