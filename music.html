@@ -1,1 +1,634 @@
 
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#100d20">
+<title>موسيقتنا 🎵 | LoveSpace</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;600;700;800&display=swap');
+
+:root{
+  --bg:#100d20;
+  --card:#1b1630;
+  --pink:#ff6fae;
+  --purple:#a78bfa;
+  --text:#f8f3ff;
+  --muted:#b6abc9;
+  --border:rgba(255,255,255,.09);
+  --green:#6ee7b7;
+}
+
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  min-height:100vh;
+  font-family:'Alexandria',sans-serif;
+  color:var(--text);
+  background:
+    radial-gradient(ellipse at top right,#382052 0%,transparent 40%),
+    radial-gradient(ellipse at bottom left,#251641 0%,transparent 38%),
+    var(--bg);
+}
+
+button,input{font:inherit}
+button{cursor:pointer;transition:.2s}
+button:hover{transform:translateY(-2px)}
+
+.container{width:min(100% - 28px,1000px);margin:auto;padding:24px 0 45px}
+
+.topbar{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:12px;margin-bottom:24px
+}
+
+.back{
+  text-decoration:none;color:white;background:#ffffff10;
+  border:1px solid var(--border);padding:10px 14px;
+  border-radius:13px;font-size:12px
+}
+
+.logo{font-weight:800;color:var(--pink)}
+
+.hero{text-align:center;padding:18px 10px 28px}
+.hero-icon{
+  width:78px;height:78px;display:grid;place-items:center;
+  margin:0 auto 15px;border-radius:26px;font-size:36px;
+  background:linear-gradient(135deg,#ff6fae30,#a78bfa30);
+  border:1px solid #ff6fae40;
+  box-shadow:0 0 35px #ff6fae12
+}
+h1{font-size:clamp(24px,4vw,33px);margin:0 0 10px}
+.hero p{font-size:12px;color:var(--muted);line-height:2;margin:0}
+
+.layout{
+  display:grid;grid-template-columns:minmax(0,1fr) minmax(280px,.9fr);
+  gap:18px;align-items:start
+}
+
+.panel{
+  background:linear-gradient(145deg,#211a37ee,#171327ee);
+  border:1px solid var(--border);border-radius:23px;
+  padding:21px;margin-bottom:18px
+}
+
+.panel h2{font-size:15px;margin:0 0 17px}
+
+.player{text-align:center}
+.cover{
+  width:min(100%,260px);aspect-ratio:1;
+  margin:0 auto 20px;border-radius:30px;
+  display:grid;place-items:center;position:relative;overflow:hidden;
+  background:linear-gradient(145deg,#ff6fae,#9d77ed 55%,#32204f);
+  box-shadow:0 18px 45px #0004;
+  border:1px solid #ffffff20
+}
+.cover::before,.cover::after{
+  content:"";position:absolute;border:1px solid #ffffff25;
+  border-radius:50%;width:210px;height:210px
+}
+.cover::after{width:150px;height:150px}
+.cover span{font-size:76px;z-index:1;filter:drop-shadow(0 5px 10px #0003)}
+.cover.playing span{animation:float 2s ease-in-out infinite}
+@keyframes float{50%{transform:translateY(-7px) rotate(5deg)}}
+
+.song-title{font-size:17px;font-weight:700;margin-bottom:7px;overflow-wrap:anywhere}
+.song-artist{font-size:11px;color:var(--muted);margin-bottom:22px}
+
+.progress-wrap{margin:0 auto 15px}
+.progress{
+  width:100%;height:6px;border-radius:20px;
+  appearance:none;background:#ffffff18;outline:none;cursor:pointer
+}
+.progress::-webkit-slider-thumb{
+  appearance:none;width:13px;height:13px;border-radius:50%;
+  background:var(--pink);box-shadow:0 0 10px #ff6fae80
+}
+.times{display:flex;justify-content:space-between;font-size:10px;color:var(--muted);margin-top:7px;direction:ltr}
+
+.controls{
+  display:flex;align-items:center;justify-content:center;
+  gap:15px;margin:20px 0
+}
+.control{
+  width:42px;height:42px;border-radius:50%;
+  background:#ffffff0c;border:1px solid var(--border);color:white;font-size:16px
+}
+.control.main{
+  width:58px;height:58px;font-size:22px;color:#1a1027;
+  background:linear-gradient(135deg,var(--pink),var(--purple));
+  border:0
+}
+.volume-row{display:flex;align-items:center;gap:10px;margin-top:15px}
+.volume-row span{font-size:13px}
+.volume-row input{flex:1;min-width:0;accent-color:var(--pink)}
+
+.message{
+  color:var(--muted);font-size:11px;line-height:1.9;
+  background:#ffffff07;border-radius:12px;padding:11px;margin-top:13px;
+  overflow-wrap:anywhere
+}
+
+.search{
+  width:100%;padding:12px 14px;border-radius:12px;
+  background:#100d20;color:white;border:1px solid var(--border);
+  outline:none;margin-bottom:12px
+}
+.search:focus{border-color:var(--purple)}
+
+.track-list{display:flex;flex-direction:column;gap:9px}
+.track{
+  display:flex;align-items:center;gap:11px;padding:11px;
+  border:1px solid var(--border);border-radius:15px;
+  background:#ffffff06;cursor:pointer;min-width:0
+}
+.track.active{border-color:#ff6fae80;background:#ff6fae0c}
+.track-cover{
+  flex-shrink:0;width:45px;height:45px;display:grid;place-items:center;
+  border-radius:12px;background:linear-gradient(135deg,#ff6fae30,#a78bfa40);
+  font-size:21px
+}
+.track-info{flex:1;min-width:0}
+.track-info strong{display:block;font-size:11px;overflow-wrap:anywhere}
+.track-info small{display:block;color:var(--muted);font-size:10px;margin-top:5px;overflow-wrap:anywhere}
+.track-play{font-size:15px;color:var(--pink);flex-shrink:0}
+
+.field{margin-bottom:12px}
+.field label{display:block;font-size:11px;color:var(--muted);margin-bottom:7px}
+.field input{
+  width:100%;padding:12px;border-radius:12px;
+  background:#100d20;color:white;border:1px solid var(--border);outline:none
+}
+.field input:focus{border-color:var(--purple)}
+
+.btn{
+  border:0;border-radius:12px;padding:12px;
+  font-weight:700;font-size:11px;color:white
+}
+.primary{background:linear-gradient(135deg,var(--pink),var(--purple));color:#190f28}
+.secondary{background:#ffffff0c;border:1px solid var(--border)}
+.danger{background:#ff557018;border:1px solid #ff557033;color:#ff9bb0}
+.full{width:100%}
+.empty{text-align:center;color:var(--muted);padding:24px 10px;font-size:12px;line-height:2}
+
+.notice{
+  font-size:10px;color:var(--muted);line-height:2;
+  background:#fcd34d0b;border:1px solid #fcd34d20;
+  padding:12px;border-radius:13px;margin-top:14px
+}
+
+footer{text-align:center;color:#8f84a7;font-size:10px;margin-top:24px}
+
+@media(max-width:720px){
+  .layout{grid-template-columns:1fr}
+  .panel{padding:17px}
+  .cover{width:min(100%,230px)}
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+
+  <header class="topbar">
+    <a class="back" href="home.html">← الرئيسية</a>
+    <div class="logo">LoveSpace ♡</div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-icon">🎵</div>
+    <h1>موسيقتنا الخاصة</h1>
+    <p>كل أغنية عندها حكاية، وكل لحن يقدر يخلّي لحظة عادية ذكرى جميلة 💜</p>
+  </section>
+
+  <div class="layout">
+
+    <main>
+      <section class="panel player">
+        <div class="cover" id="cover"><span>🎧</span></div>
+
+        <div class="song-title" id="songTitle">اختَر أغنيتك الأولى</div>
+        <div class="song-artist" id="songArtist">مساحتنا الموسيقية ❤️</div>
+
+        <audio id="audio" preload="metadata"></audio>
+
+        <div class="progress-wrap">
+          <input class="progress" id="progress" type="range"
+            min="0" max="100" value="0" aria-label="تقدم الأغنية">
+          <div class="times">
+            <span id="currentTime">0:00</span>
+            <span id="duration">0:00</span>
+          </div>
+        </div>
+
+        <div class="controls">
+          <button class="control" id="shuffleBtn" title="تشغيل عشوائي" aria-label="تشغيل عشوائي">🔀</button>
+          <button class="control" id="prevBtn" title="السابق" aria-label="الأغنية السابقة">⏮</button>
+          <button class="control main" id="playBtn" title="تشغيل" aria-label="تشغيل أو إيقاف">▶</button>
+          <button class="control" id="nextBtn" title="التالي" aria-label="الأغنية التالية">⏭</button>
+          <button class="control" id="repeatBtn" title="تكرار" aria-label="تكرار الأغنية">🔁</button>
+        </div>
+
+        <div class="volume-row">
+          <span>🔉</span>
+          <input id="volume" type="range" min="0" max="1" step="0.05" value="0.8" aria-label="مستوى الصوت">
+          <span>🔊</span>
+        </div>
+
+        <div class="message" id="playerMessage" role="status">
+          أضف رابط ملف صوتي مباشر أو رابطًا صالحًا لملف MP3 لتشغيل الموسيقى.
+        </div>
+      </section>
+
+      <section class="panel">
+        <h2>💿 أضف أغنية إلى قائمتك</h2>
+        <form id="addForm">
+          <div class="field">
+            <label for="newTitle">اسم الأغنية</label>
+            <input id="newTitle" maxlength="100" required placeholder="مثال: أغنيتنا المفضلة">
+          </div>
+          <div class="field">
+            <label for="newArtist">اسم الفنان أو وصف الأغنية</label>
+            <input id="newArtist" maxlength="100" placeholder="اختياري">
+          </div>
+          <div class="field">
+            <label for="newUrl">رابط ملف الصوت المباشر</label>
+            <input id="newUrl" type="url" maxlength="1500" required
+              placeholder="https://example.com/song.mp3">
+          </div>
+          <button class="btn primary full" type="submit">＋ إضافة الأغنية</button>
+        </form>
+        <div class="notice">
+          💡 استعمل رابط ملف صوتي تملك حق استعماله، مثل ملف MP3 مستضاف على موقع يسمح بالتشغيل المباشر. روابط صفحات YouTube أو Spotify العادية ماشي روابط ملفات صوتية مباشرة.
+        </div>
+      </section>
+    </main>
+
+    <aside>
+      <section class="panel">
+        <h2>🎼 قائمة الأغاني</h2>
+        <input class="search" id="search" type="search" placeholder="🔎 ابحث عن أغنية...">
+        <div class="track-list" id="trackList"></div>
+      </section>
+
+      <section class="panel">
+        <h2>💗 لحظاتنا الموسيقية</h2>
+        <p style="font-size:12px;color:var(--muted);line-height:2;margin:0">
+          دير قائمة بالأغاني اللي تحبها، الأغاني اللي تفكّرك بذكريات جميلة، أو الألحان اللي تحب تسمعها وقت الراحة.
+        </p>
+      </section>
+    </aside>
+
+  </div>
+
+  <footer>صُنعت بكل حب ❤️ LoveSpace</footer>
+</div>
+
+<script>
+const STORAGE_KEY = 'lovespace_music_v1';
+
+const audio = document.getElementById('audio');
+const $ = id => document.getElementById(id);
+
+let songs = [];
+let currentId = null;
+let shuffle = false;
+let repeat = false;
+
+function safeId() {
+  return (crypto.randomUUID ? crypto.randomUUID() :
+    Date.now().toString(36) + Math.random().toString(36).slice(2));
+}
+
+function safeUrl(value) {
+  try {
+    const url = new URL(value);
+    return ['https:', 'http:'].includes(url.protocol) ? url.href : null;
+  } catch {
+    return null;
+  }
+}
+
+function escapeHTML(value) {
+  return String(value ?? '').replace(/[&<>"']/g, char => ({
+    '&':'&amp;',
+    '<':'&lt;',
+    '>':'&gt;',
+    '"':'&quot;',
+    "'":'&#39;'
+  }[char]));
+}
+
+try {
+  const stored = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+  if (Array.isArray(stored)) {
+    songs = stored.filter(song =>
+      song &&
+      typeof song.title === 'string' &&
+      typeof song.artist === 'string' &&
+      typeof song.url === 'string' &&
+      safeUrl(song.url)
+    ).map(song => ({
+      id: typeof song.id === 'string' ? song.id : safeId(),
+      title: song.title,
+      artist: song.artist,
+      url: safeUrl(song.url)
+    }));
+  }
+} catch {
+  songs = [];
+}
+
+function saveSongs() {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(songs));
+    return true;
+  } catch {
+    showMessage('ما قدرناش نحفظ القائمة. تحقق من مساحة التخزين في المتصفح.');
+    return false;
+  }
+}
+
+function showMessage(text) {
+  $('playerMessage').textContent = text;
+}
+
+function currentIndex() {
+  return songs.findIndex(song => song.id === currentId);
+}
+
+function formatTime(seconds) {
+  if (!Number.isFinite(seconds) || seconds < 0) return '0:00';
+  const mins = Math.floor(seconds / 60);
+  const secs = Math.floor(seconds % 60);
+  return mins + ':' + String(secs).padStart(2, '0');
+}
+
+function renderSongs() {
+  const query = $('search').value.trim().toLowerCase();
+  const filtered = songs.filter(song =>
+    (song.title + ' ' + song.artist).toLowerCase().includes(query)
+  );
+
+  if (!filtered.length) {
+    $('trackList').innerHTML = `
+      <div class="empty">
+        ${songs.length ? 'ما لقينا حتى أغنية بهذا الاسم.' : '🎶 القائمة ما زالت فارغة.<br>أضف أول أغنية من النموذج!'}
+      </div>`;
+    return;
+  }
+
+  $('trackList').innerHTML = filtered.map(song => `
+    <div class="track ${song.id === currentId ? 'active' : ''}"
+      data-play="${escapeHTML(song.id)}" role="button" tabindex="0">
+      <div class="track-cover">🎵</div>
+      <div class="track-info">
+        <strong>${escapeHTML(song.title)}</strong>
+        <small>${escapeHTML(song.artist || 'فنان غير محدد')}</small>
+      </div>
+      <span class="track-play">${song.id === currentId && !audio.paused ? '⏸' : '▶'}</span>
+      <button class="small-btn danger" type="button"
+        data-delete="${escapeHTML(song.id)}" aria-label="حذف الأغنية">✕</button>
+    </div>
+  `).join('');
+}
+
+function loadSong(id, autoplay = false) {
+  const song = songs.find(item => item.id === id);
+  if (!song) return;
+
+  currentId = song.id;
+  audio.pause();
+  audio.src = song.url;
+  audio.load();
+
+  $('songTitle').textContent = song.title;
+  $('songArtist').textContent = song.artist || 'مساحتنا الموسيقية ❤️';
+  $('progress').value = 0;
+  $('currentTime').textContent = '0:00';
+  $('duration').textContent = '0:00';
+  $('cover').classList.remove('playing');
+
+  showMessage('تم اختيار الأغنية. اضغط تشغيل لبدء الاستماع.');
+
+  renderSongs();
+
+  if (autoplay) playSong();
+}
+
+async function playSong() {
+  if (!songs.length) {
+    showMessage('أضف أغنية أولًا باستعمال رابط ملف صوتي مباشر.');
+    return;
+  }
+
+  if (currentIndex() === -1) {
+    loadSong(songs[0].id);
+  }
+
+  try {
+    await audio.play();
+    $('playBtn').textContent = 'Ⅱ';
+    $('cover').classList.add('playing');
+    renderSongs();
+    showMessage('استمتع بالموسيقى 🎶');
+  } catch {
+    showMessage('تعذّر تشغيل الملف. تحقق من الرابط والاتصال بالإنترنت أو جرّب ملف MP3 آخر.');
+  }
+}
+
+function pauseSong() {
+  audio.pause();
+  $('playBtn').textContent = '▶';
+  $('cover').classList.remove('playing');
+  renderSongs();
+}
+
+function playNext() {
+  if (!songs.length) return;
+
+  let index = currentIndex();
+
+  if (shuffle && songs.length > 1) {
+    let nextIndex;
+    do {
+      nextIndex = Math.floor(Math.random() * songs.length);
+    } while (nextIndex === index);
+    index = nextIndex;
+  } else {
+    index = (index + 1 + songs.length) % songs.length;
+  }
+
+  loadSong(songs[index].id, true);
+}
+
+function playPrevious() {
+  if (!songs.length) return;
+
+  if (audio.currentTime > 3) {
+    audio.currentTime = 0;
+    return;
+  }
+
+  const index = (currentIndex() - 1 + songs.length) % songs.length;
+  loadSong(songs[index].id, true);
+}
+
+$('addForm').addEventListener('submit', event => {
+  event.preventDefault();
+
+  const title = $('newTitle').value.trim();
+  const artist = $('newArtist').value.trim() || 'فنان غير محدد';
+  const url = safeUrl($('newUrl').value.trim());
+
+  if (!title || !url) {
+    showMessage('أدخل اسم الأغنية ورابطًا صحيحًا يبدأ بـ http:// أو https://');
+    return;
+  }
+
+  const song = { id: safeId(), title, artist, url };
+  songs.push(song);
+
+  if (!saveSongs()) {
+    songs.pop();
+    return;
+  }
+
+  $('addForm').reset();
+  renderSongs();
+  loadSong(song.id);
+});
+
+$('trackList').addEventListener('click', event => {
+  const deleteButton = event.target.closest('[data-delete]');
+
+  if (deleteButton) {
+    event.stopPropagation();
+    const id = deleteButton.dataset.delete;
+    const song = songs.find(item => item.id === id);
+    if (!song || !confirm('تحب تحذف "' + song.title + '" من القائمة؟')) return;
+
+    const previousSongs = [...songs];
+    songs = songs.filter(item => item.id !== id);
+
+    if (!saveSongs()) {
+      songs = previousSongs;
+      return;
+    }
+
+    if (currentId === id) {
+      audio.pause();
+      currentId = null;
+      audio.removeAttribute('src');
+      audio.load();
+      $('songTitle').textContent = 'اختَر أغنيتك الأولى';
+      $('songArtist').textContent = 'مساحتنا الموسيقية ❤️';
+      $('playBtn').textContent = '▶';
+      $('cover').classList.remove('playing');
+      $('progress').value = 0;
+      $('currentTime').textContent = '0:00';
+      $('duration').textContent = '0:00';
+      showMessage('تم حذف الأغنية من القائمة.');
+    }
+
+    renderSongs();
+    return;
+  }
+
+  const track = event.target.closest('[data-play]');
+  if (!track) return;
+
+  const id = track.dataset.play;
+  if (id === currentId && !audio.paused) {
+    pauseSong();
+  } else if (id === currentId && audio.paused && audio.src) {
+    playSong();
+  } else {
+    loadSong(id, true);
+  }
+});
+
+$('trackList').addEventListener('keydown', event => {
+  if ((event.key === 'Enter' || event.key === ' ') &&
+      event.target.matches('[data-play]')) {
+    event.preventDefault();
+    const id = event.target.dataset.play;
+    if (id === currentId && !audio.paused) pauseSong();
+    else loadSong(id, true);
+  }
+});
+
+$('playBtn').addEventListener('click', () => {
+  if (audio.paused) playSong();
+  else pauseSong();
+});
+
+$('nextBtn').addEventListener('click', playNext);
+$('prevBtn').addEventListener('click', playPrevious);
+
+$('shuffleBtn').addEventListener('click', () => {
+  shuffle = !shuffle;
+  $('shuffleBtn').style.color = shuffle ? '#ff6fae' : 'white';
+  showMessage(shuffle ? 'تم تفعيل التشغيل العشوائي.' : 'تم إيقاف التشغيل العشوائي.');
+});
+
+$('repeatBtn').addEventListener('click', () => {
+  repeat = !repeat;
+  audio.loop = repeat;
+  $('repeatBtn').style.color = repeat ? '#ff6fae' : 'white';
+  showMessage(repeat ? 'سيتم تكرار الأغنية الحالية.' : 'تم إيقاف التكرار.');
+});
+
+$('volume').addEventListener('input', () => {
+  audio.volume = Number($('volume').value);
+});
+
+audio.volume = 0.8;
+
+audio.addEventListener('timeupdate', () => {
+  if (!Number.isFinite(audio.duration) || audio.duration <= 0) return;
+  $('progress').value = (audio.currentTime / audio.duration) * 100;
+  $('currentTime').textContent = formatTime(audio.currentTime);
+  $('duration').textContent = formatTime(audio.duration);
+});
+
+audio.addEventListener('loadedmetadata', () => {
+  $('duration').textContent = formatTime(audio.duration);
+});
+
+$('progress').addEventListener('input', () => {
+  if (Number.isFinite(audio.duration) && audio.duration > 0) {
+    audio.currentTime = (Number($('progress').value) / 100) * audio.duration;
+  }
+});
+
+audio.addEventListener('play', () => {
+  $('playBtn').textContent = 'Ⅱ';
+  $('cover').classList.add('playing');
+  renderSongs();
+});
+
+audio.addEventListener('pause', () => {
+  $('playBtn').textContent = '▶';
+  $('cover').classList.remove('playing');
+  renderSongs();
+});
+
+audio.addEventListener('ended', () => {
+  if (!repeat) playNext();
+});
+
+audio.addEventListener('error', () => {
+  if (currentId) showMessage('ما قدرناش نشغّل هذا الملف. الرابط قد لا يكون مباشرًا أو قد يمنع الموقع تشغيله.');
+});
+
+$('search').addEventListener('input', renderSongs);
+
+renderSongs();
+</script>
+</body>
+</html>
+
