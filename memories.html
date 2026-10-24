@@ -1,1 +1,562 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#100d20">
+<title>ذكرياتنا ❤️ | LoveSpace</title>
+<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
+<style>
+:root{
+  --bg:#100d20;
+  --card:#211832;
+  --text:#fff5ff;
+  --muted:#b9abc9;
+  --primary:#e879f9;
+  --secondary:#a78bfa;
+  --border:rgba(232,121,249,.2);
+  --danger:#fb7185;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:'Alexandria',sans-serif;color:var(--text);min-height:100vh;
+  background:radial-gradient(ellipse at top,#301740 0%,var(--bg) 60%);
+  line-height:1.8;
+}
+button,input,textarea{font:inherit}
+button{cursor:pointer}
+.container{width:min(1100px,93%);margin:auto;padding:22px 0 50px}
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:25px}
+.back,.top-action{
+  color:var(--text);background:rgba(255,255,255,.05);
+  border:1px solid var(--border);padding:9px 13px;border-radius:13px;
+  font-size:11px;text-decoration:none;
+}
+.logo{font-weight:800;font-size:15px;color:var(--primary)}
+.hero{text-align:center;padding:20px 0 30px}
+.hero-icon{
+  width:76px;height:76px;display:grid;place-items:center;margin:0 auto 14px;
+  font-size:35px;border-radius:25px;background:rgba(232,121,249,.1);
+  border:1px solid var(--border);box-shadow:0 0 35px rgba(232,121,249,.1);
+}
+.hero h1{font-size:clamp(26px,5vw,39px);font-weight:800}
+.hero h1 span{color:var(--primary)}
+.hero p{font-size:12px;color:var(--muted);margin-top:8px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:22px}
+.stat{
+  background:rgba(255,255,255,.035);border:1px solid var(--border);
+  border-radius:17px;padding:15px;text-align:center;
+}
+.stat strong{display:block;font-size:23px;color:var(--primary)}
+.stat span{font-size:10px;color:var(--muted)}
+.panel{
+  background:rgba(35,27,57,.8);border:1px solid var(--border);
+  border-radius:22px;padding:20px;margin-bottom:20px;
+  box-shadow:0 15px 40px rgba(0,0,0,.13);
+}
+.panel-title{font-size:15px;font-weight:700;margin-bottom:15px}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+.field{display:flex;flex-direction:column;gap:6px}
+.field.full{grid-column:1/-1}
+.field label{font-size:11px;color:var(--muted)}
+.field input,.field textarea{
+  width:100%;background:rgba(10,8,20,.45);border:1px solid var(--border);
+  color:var(--text);border-radius:12px;padding:12px;outline:none;font-size:12px;
+}
+.field input:focus,.field textarea:focus{border-color:var(--primary)}
+.field textarea{resize:vertical;min-height:95px}
+input[type="date"]{color-scheme:dark}
+.upload{
+  border:1px dashed rgba(232,121,249,.4);border-radius:13px;padding:13px;
+  text-align:center;background:rgba(232,121,249,.04);font-size:11px;
+}
+.upload input{margin-top:8px;max-width:100%;font-size:10px}
+.preview{display:none;margin-top:10px;max-height:180px;max-width:100%;border-radius:12px;object-fit:cover}
+.primary-btn{
+  border:0;border-radius:13px;padding:12px 18px;color:#24122b;
+  background:linear-gradient(135deg,var(--primary),var(--secondary));
+  font-size:12px;font-weight:800;
+}
+.secondary-btn{
+  background:rgba(255,255,255,.05);border:1px solid var(--border);
+  border-radius:11px;padding:9px 12px;color:var(--text);font-size:10px;
+}
+.danger-btn{color:var(--danger);border-color:rgba(251,113,133,.25)}
+.form-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:15px}
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:17px}
+.search{
+  flex:1;min-width:180px;padding:11px 13px;border:1px solid var(--border);
+  border-radius:13px;background:rgba(255,255,255,.04);color:var(--text);
+  outline:none;font-size:11px;
+}
+.filter{
+  padding:10px 12px;border:1px solid var(--border);border-radius:13px;
+  background:var(--card);color:var(--text);font-size:11px;
+}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.memory{
+  overflow:hidden;border:1px solid var(--border);border-radius:19px;
+  background:rgba(35,27,57,.85);transition:transform .2s,border-color .2s;
+}
+.memory:hover{transform:translateY(-3px);border-color:rgba(232,121,249,.5)}
+.memory-image{
+  width:100%;height:190px;object-fit:cover;display:block;
+  background:linear-gradient(135deg,#32183d,#19142d);cursor:pointer;
+}
+.memory-image.placeholder{display:grid;place-items:center;font-size:48px;cursor:default}
+.memory-content{padding:15px}
+.memory-date{font-size:10px;color:var(--primary);margin-bottom:5px}
+.memory h3{font-size:14px;margin-bottom:8px;overflow-wrap:anywhere}
+.memory-desc{font-size:11px;color:var(--muted);white-space:pre-wrap;overflow-wrap:anywhere}
+.memory-actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:14px}
+.memory-actions button{flex:1;min-width:58px}
+.memory-footer{display:flex;justify-content:space-between;gap:8px;margin-top:12px;font-size:10px;color:var(--muted)}
+.empty{text-align:center;padding:45px 15px;color:var(--muted)}
+.empty .emoji{font-size:40px;margin-bottom:12px}
+.empty h3{color:var(--text);font-size:15px;margin-bottom:6px}
+.empty p{font-size:11px}
+.hidden{display:none!important}
+.toast{
+  position:fixed;bottom:22px;left:50%;transform:translate(-50%,20px);
+  background:#291a3b;border:1px solid var(--border);border-radius:13px;
+  padding:12px 18px;font-size:11px;opacity:0;pointer-events:none;
+  transition:.25s;z-index:30;text-align:center;max-width:90%;
+}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+.modal{
+  position:fixed;inset:0;background:rgba(5,3,12,.86);z-index:40;
+  display:none;align-items:center;justify-content:center;padding:18px;
+}
+.modal.open{display:flex}
+.modal-box{
+  width:min(650px,100%);max-height:90vh;overflow:auto;background:#1c142c;
+  border:1px solid var(--border);border-radius:20px;padding:18px;
+}
+.modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.modal-head h3{font-size:14px}
+.close{background:transparent;border:0;color:var(--text);font-size:25px}
+.lightbox-img{display:block;max-width:100%;max-height:65vh;object-fit:contain;margin:auto;border-radius:12px}
+.foot{text-align:center;color:var(--muted);font-size:10px;padding:25px 0}
+.foot span{color:var(--primary)}
+@media(max-width:800px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:520px){
+  .container{width:94%;padding-top:15px}
+  .grid{grid-template-columns:1fr}
+  .memory-image{height:220px}
+  .form-grid{grid-template-columns:1fr}
+  .field.full{grid-column:auto}
+  .panel{padding:15px;border-radius:18px}
+  .stats{gap:7px}
+  .stat{padding:11px 5px}
+  .stat strong{font-size:20px}
+  .stat span{font-size:9px}
+}
+</style>
+</head>
+
+<body>
+<main class="container">
+  <header class="topbar">
+    <a class="back" href="home.html">→ الرئيسية</a>
+    <div class="logo">LoveSpace ♥</div>
+    <button class="top-action" id="exportBtn">تصدير البيانات ⤓</button>
+  </header>
+
+  <section class="hero">
+    <div class="hero-icon">📸</div>
+    <h1>ألبوم <span>ذكرياتنا</span></h1>
+    <p>كل لحظة جميلة تستحق تبقى محفورة في قلوبنا ❤️</p>
+  </section>
+
+  <section class="stats">
+    <div class="stat"><strong id="totalCount">0</strong><span>كل الذكريات</span></div>
+    <div class="stat"><strong id="favoriteCount">0</strong><span>المفضلة ❤️</span></div>
+    <div class="stat"><strong id="photoCount">0</strong><span>ذكريات بالصور</span></div>
+  </section>
+
+  <section class="panel" id="formPanel">
+    <h2 class="panel-title" id="formHeading">✨ أضف ذكرى جديدة</h2>
+    <form id="memoryForm">
+      <div class="form-grid">
+        <div class="field">
+          <label for="memoryTitle">عنوان الذكرى *</label>
+          <input id="memoryTitle" maxlength="100" required placeholder="مثلاً: أجمل يوم في حياتنا">
+        </div>
+        <div class="field">
+          <label for="memoryDate">تاريخ الذكرى</label>
+          <input id="memoryDate" type="date">
+        </div>
+        <div class="field full">
+          <label for="memoryDescription">احكيلنا على هذي اللحظة</label>
+          <textarea id="memoryDescription" maxlength="3000" placeholder="اكتب تفاصيل الذكرى، واش حسّيت، وواش خلاها مميزة..."></textarea>
+        </div>
+        <div class="field full">
+          <label for="memoryImage">صورة الذكرى (اختياري)</label>
+          <div class="upload">
+            <div>🖼️ اختار صورة من جهازك</div>
+            <input id="memoryImage" type="file" accept="image/jpeg,image/png,image/webp,image/gif">
+            <img id="imagePreview" class="preview" alt="معاينة الصورة">
+          </div>
+        </div>
+      </div>
+      <div class="form-actions">
+        <button type="submit" class="primary-btn" id="submitBtn">💗 حفظ الذكرى</button>
+        <button type="button" class="secondary-btn hidden" id="cancelEdit">إلغاء التعديل</button>
+      </div>
+    </form>
+  </section>
+
+  <section>
+    <h2 class="panel-title">💌 صندوق لحظاتنا</h2>
+    <div class="toolbar">
+      <input id="searchInput" class="search" type="search" placeholder="🔍 ابحث عن ذكرى...">
+      <select id="filterSelect" class="filter" aria-label="تصفية الذكريات">
+        <option value="all">كل الذكريات</option>
+        <option value="favorites">المفضلة فقط ❤️</option>
+        <option value="photos">الذكريات بالصور 📸</option>
+        <option value="no-photos">بدون صور ✍️</option>
+      </select>
+      <select id="sortSelect" class="filter" aria-label="ترتيب الذكريات">
+        <option value="newest">الأحدث أولاً</option>
+        <option value="oldest">الأقدم أولاً</option>
+        <option value="created">المضافة مؤخراً</option>
+      </select>
+    </div>
+    <div id="memoryGrid" class="grid"></div>
+    <div id="emptyState" class="empty hidden">
+      <div class="emoji">💌</div>
+      <h3 id="emptyTitle">ما زال ما عندك حتى ذكرى</h3>
+      <p id="emptyText">ابدأ بإضافة أول ذكرى جميلة وخليها تعيش معاك.</p>
+    </div>
+  </section>
+
+  <footer class="foot">كل ذكرى حكاية، وكل حكاية عندها مكان في القلب <span>♥</span><br>LoveSpace © 2026</footer>
+</main>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<div class="modal" id="lightbox" role="dialog" aria-modal="true" aria-label="عرض صورة الذكرى">
+  <div class="modal-box">
+    <div class="modal-head">
+      <h3 id="lightboxTitle">ذكرى جميلة ❤️</h3>
+      <button class="close" id="closeLightbox" aria-label="إغلاق">×</button>
+    </div>
+    <img class="lightbox-img" id="lightboxImage" alt="صورة الذكرى">
+    <p id="lightboxDescription" style="font-size:12px;color:#b9abc9;margin-top:12px;white-space:pre-wrap"></p>
+  </div>
+</div>
+
+<script>
+(() => {
+  'use strict';
+
+  const STORAGE_KEY = 'lovespace_memories_v1';
+  const MAX_IMAGE_BYTES = 3 * 1024 * 1024;
+  const MAX_MEMORIES = 200;
+  const $ = id => document.getElementById(id);
+
+  let memories = loadMemories();
+  let editingId = null;
+  let selectedImage = '';
+  let toastTimer;
+
+  function loadMemories(){
+    try{
+      const data = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+      return Array.isArray(data) ? data.slice(0, MAX_MEMORIES) : [];
+    }catch{
+      return [];
+    }
+  }
+
+  function saveMemories(){
+    try{
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(memories));
+      return true;
+    }catch(error){
+      toast('تعذر الحفظ. ربما مساحة التخزين ممتلئة؛ جرّب صورة أصغر.');
+      return false;
+    }
+  }
+
+  function toast(message){
+    const el = $('toast');
+    el.textContent = message;
+    el.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => el.classList.remove('show'), 2600);
+  }
+
+  function escapeHTML(value){
+    return String(value ?? '').replace(/[&<>"']/g, char => ({
+      '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+    })[char]);
+  }
+
+  function formatDate(date){
+    if(!date) return 'بدون تاريخ محدد';
+    const parts = date.split('-').map(Number);
+    if(parts.length !== 3 || parts.some(n => !n)) return 'بدون تاريخ محدد';
+    return new Intl.DateTimeFormat('ar-DZ',{
+      day:'numeric',month:'long',year:'numeric'
+    }).format(new Date(parts[0],parts[1]-1,parts[2]));
+  }
+
+  function updateStats(){
+    $('totalCount').textContent = memories.length;
+    $('favoriteCount').textContent = memories.filter(m => m.favorite).length;
+    $('photoCount').textContent = memories.filter(m => !!m.image).length;
+  }
+
+  function getFiltered(){
+    const query = $('searchInput').value.trim().toLocaleLowerCase();
+    const filter = $('filterSelect').value;
+    const sort = $('sortSelect').value;
+
+    let result = memories.filter(m => {
+      const matchesQuery = [m.title,m.description,m.date]
+        .some(v => String(v || '').toLocaleLowerCase().includes(query));
+      const matchesFilter =
+        filter === 'all' ||
+        (filter === 'favorites' && m.favorite) ||
+        (filter === 'photos' && !!m.image) ||
+        (filter === 'no-photos' && !m.image);
+      return matchesQuery && matchesFilter;
+    });
+
+    result.sort((a,b) => {
+      if(sort === 'oldest') return (a.date || '9999').localeCompare(b.date || '9999');
+      if(sort === 'created') return (b.createdAt || 0) - (a.createdAt || 0);
+      return (b.date || '').localeCompare(a.date || '') ||
+        (b.createdAt || 0) - (a.createdAt || 0);
+    });
+    return result;
+  }
+
+  function render(){
+    updateStats();
+    const grid = $('memoryGrid');
+    const result = getFiltered();
+
+    grid.innerHTML = result.map(memory => `
+      <article class="memory">
+        ${memory.image
+          ? `<img class="memory-image" src="${escapeHTML(memory.image)}" alt="${escapeHTML(memory.title)}" data-view="${escapeHTML(memory.id)}" loading="lazy">`
+          : `<div class="memory-image placeholder" role="img" aria-label="بدون صورة">💌</div>`
+        }
+        <div class="memory-content">
+          <div class="memory-date">📅 ${escapeHTML(formatDate(memory.date))}</div>
+          <h3>${escapeHTML(memory.title)}</h3>
+          <div class="memory-desc">${escapeHTML(memory.description || 'ذكرى جميلة بلا وصف مكتوب.')}</div>
+          <div class="memory-footer">
+            <span>${memory.image ? '📸 فيها صورة' : '✍️ ذكرى مكتوبة'}</span>
+            <span>${memory.favorite ? '❤️ مفضلة' : '🤍 ذكرى خاصة'}</span>
+          </div>
+          <div class="memory-actions">
+            <button class="secondary-btn" data-favorite="${escapeHTML(memory.id)}">${memory.favorite ? '💖' : '🤍'}</button>
+            <button class="secondary-btn" data-edit="${escapeHTML(memory.id)}">✏️ تعديل</button>
+            <button class="secondary-btn danger-btn" data-delete="${escapeHTML(memory.id)}">🗑️ حذف</button>
+          </div>
+        </div>
+      </article>
+    `).join('');
+
+    $('emptyState').classList.toggle('hidden', result.length > 0);
+    grid.classList.toggle('hidden', result.length === 0);
+
+    if(result.length === 0){
+      const hasAny = memories.length > 0;
+      $('emptyTitle').textContent = hasAny ? 'ما لقينا حتى نتيجة' : 'ما زال ما عندك حتى ذكرى';
+      $('emptyText').textContent = hasAny
+        ? 'بدّل كلمات البحث أو الفلتر وشوف من جديد.'
+        : 'ابدأ بإضافة أول ذكرى جميلة وخليها تعيش معاك.';
+    }
+  }
+
+  function resetForm(){
+    $('memoryForm').reset();
+    selectedImage = '';
+    $('imagePreview').src = '';
+    $('imagePreview').style.display = 'none';
+    editingId = null;
+    $('formHeading').textContent = '✨ أضف ذكرى جديدة';
+    $('submitBtn').textContent = '💗 حفظ الذكرى';
+    $('cancelEdit').classList.add('hidden');
+  }
+
+  $('memoryImage').addEventListener('change', event => {
+    const file = event.target.files && event.target.files[0];
+    if(!file){
+      selectedImage = '';
+      $('imagePreview').style.display = 'none';
+      return;
+    }
+    if(!['image/jpeg','image/png','image/webp','image/gif'].includes(file.type)){
+      toast('اختار صورة بصيغة JPG أو PNG أو WEBP أو GIF.');
+      event.target.value = '';
+      return;
+    }
+    if(file.size > MAX_IMAGE_BYTES){
+      toast('الصورة كبيرة بزاف. الحد الأقصى 3 ميغابايت.');
+      event.target.value = '';
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      selectedImage = String(reader.result || '');
+      $('imagePreview').src = selectedImage;
+      $('imagePreview').style.display = 'block';
+    };
+    reader.onerror = () => toast('ما قدرناش نقراو الصورة.');
+    reader.readAsDataURL(file);
+  });
+
+  $('memoryForm').addEventListener('submit', event => {
+    event.preventDefault();
+
+    const title = $('memoryTitle').value.trim();
+    if(!title){
+      toast('اكتب عنوان الذكرى أولاً.');
+      return;
+    }
+
+    const existing = memories.find(m => m.id === editingId);
+    const image = selectedImage || (existing ? existing.image : '');
+
+    const memory = {
+      id: editingId || (Date.now().toString(36) + Math.random().toString(36).slice(2,8)),
+      title,
+      date: $('memoryDate').value,
+      description: $('memoryDescription').value.trim(),
+      image,
+      favorite: existing ? !!existing.favorite : false,
+      createdAt: existing ? existing.createdAt : Date.now(),
+      updatedAt: Date.now()
+    };
+
+    if(existing){
+      memories = memories.map(m => m.id === editingId ? memory : m);
+    }else{
+      if(memories.length >= MAX_MEMORIES){
+        toast('وصلت للحد الأقصى من الذكريات في هذه الصفحة.');
+        return;
+      }
+      memories.unshift(memory);
+    }
+
+    if(!saveMemories()) return;
+
+    resetForm();
+    render();
+    toast(existing ? 'تم تعديل الذكرى ❤️' : 'تحفظت الذكرى بنجاح ❤️');
+    document.querySelector('.toolbar').scrollIntoView({behavior:'smooth',block:'start'});
+  });
+
+  $('cancelEdit').addEventListener('click', resetForm);
+
+  $('memoryGrid').addEventListener('click', event => {
+    const button = event.target.closest('button');
+    const image = event.target.closest('img[data-view]');
+
+    if(image){
+      const memory = memories.find(m => m.id === image.dataset.view);
+      if(memory && memory.image){
+        $('lightboxImage').src = memory.image;
+        $('lightboxTitle').textContent = memory.title;
+        $('lightboxDescription').textContent = memory.description || '';
+        $('lightbox').classList.add('open');
+        $('closeLightbox').focus();
+      }
+      return;
+    }
+
+    if(!button) return;
+    const favoriteId = button.dataset.favorite;
+    const editId = button.dataset.edit;
+    const deleteId = button.dataset.delete;
+
+    if(favoriteId){
+      memories = memories.map(m => m.id === favoriteId
+        ? {...m, favorite: !m.favorite, updatedAt: Date.now()} : m);
+      if(saveMemories()){
+        render();
+        toast('تبدلت حالة المفضلة ❤️');
+      }
+    }
+
+    if(editId){
+      const memory = memories.find(m => m.id === editId);
+      if(!memory) return;
+      editingId = memory.id;
+      $('memoryTitle').value = memory.title;
+      $('memoryDate').value = memory.date || '';
+      $('memoryDescription').value = memory.description || '';
+      selectedImage = '';
+      $('memoryImage').value = '';
+      $('imagePreview').src = memory.image || '';
+      $('imagePreview').style.display = memory.image ? 'block' : 'none';
+      $('formHeading').textContent = '✏️ تعديل الذكرى';
+      $('submitBtn').textContent = '💗 حفظ التعديلات';
+      $('cancelEdit').classList.remove('hidden');
+      $('formPanel').scrollIntoView({behavior:'smooth',block:'start'});
+    }
+
+    if(deleteId){
+      const memory = memories.find(m => m.id === deleteId);
+      if(!memory) return;
+      if(!window.confirm(`متأكد بلي تحب تحذف ذكرى "${memory.title}"؟`)) return;
+      const old = memories;
+      memories = memories.filter(m => m.id !== deleteId);
+      if(!saveMemories()){
+        memories = old;
+        return;
+      }
+      if(editingId === deleteId) resetForm();
+      render();
+      toast('تم حذف الذكرى.');
+    }
+  });
+
+  $('searchInput').addEventListener('input', render);
+  $('filterSelect').addEventListener('change', render);
+  $('sortSelect').addEventListener('change', render);
+
+  $('closeLightbox').addEventListener('click', closeLightbox);
+  $('lightbox').addEventListener('click', event => {
+    if(event.target === $('lightbox')) closeLightbox();
+  });
+  document.addEventListener('keydown', event => {
+    if(event.key === 'Escape') closeLightbox();
+  });
+
+  function closeLightbox(){
+    $('lightbox').classList.remove('open');
+    $('lightboxImage').src = '';
+  }
+
+  $('exportBtn').addEventListener('click', () => {
+    try{
+      const blob = new Blob([JSON.stringify(memories,null,2)],{
+        type:'application/json;charset=utf-8'
+      });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'lovespace-memories.json';
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      setTimeout(() => URL.revokeObjectURL(url),1000);
+      toast('تم تجهيز نسخة الذكريات للتصدير.');
+    }catch{
+      toast('ما قدرناش نصدّر البيانات.');
+    }
+  });
+
+  render();
+})();
+</script>
+</body>
+</html>
