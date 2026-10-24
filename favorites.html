@@ -1,1 +1,706 @@
 
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#100d20">
+<title>المفضلة 💖 | LoveSpace</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+  --bg: #100d20;
+  --panel: rgba(255,255,255,.055);
+  --pink: #ff80b5;
+  --purple: #a78bfa;
+  --text: #fff5fb;
+  --muted: #bcb2ce;
+  --border: rgba(255,255,255,.10);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  min-height: 100vh;
+  font-family: 'Alexandria', sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(ellipse at 10% 5%, #49245c 0, transparent 40%),
+    radial-gradient(ellipse at 90% 85%, #311d57 0, transparent 40%),
+    var(--bg);
+}
+
+button, input, textarea, select { font: inherit; }
+a { color: inherit; text-decoration: none; }
+
+.container {
+  width: min(1000px, 92%);
+  margin: auto;
+  position: relative;
+  z-index: 1;
+}
+
+.orb {
+  position: fixed;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  filter: blur(85px);
+  opacity: .17;
+  pointer-events: none;
+  animation: float 10s ease-in-out infinite alternate;
+}
+.orb.one { background: #ff4fa3; top: 5%; right: -100px; }
+.orb.two { background: #875bff; bottom: 0; left: -100px; animation-delay: -4s; }
+
+@keyframes float {
+  to { transform: translate(25px,-25px) scale(1.15); }
+}
+@keyframes appear {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 22px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  font-weight: 800;
+  font-size: 18px;
+}
+
+.logo {
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border-radius: 15px;
+  background: linear-gradient(135deg, var(--pink), var(--purple));
+  box-shadow: 0 0 25px #ff80b533;
+  font-size: 22px;
+}
+
+.back {
+  color: var(--pink);
+  font-size: 11px;
+  padding: 10px 14px;
+  border: 1px solid #ff80b544;
+  border-radius: 25px;
+  transition: .2s;
+}
+.back:hover { background: #ff80b518; transform: translateY(-2px); }
+
+.hero {
+  padding: 42px 0 25px;
+  animation: appear .6s ease both;
+}
+
+.tag { color: var(--pink); font-size: 12px; margin-bottom: 10px; }
+
+h1 {
+  font-size: clamp(27px, 5vw, 42px);
+  line-height: 1.7;
+}
+h1 span { color: var(--pink); }
+
+.hero p {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 2.2;
+  margin-top: 8px;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin: 12px 0 25px;
+}
+
+.stat {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 17px;
+}
+.stat strong {
+  display: block;
+  color: var(--pink);
+  font-size: 24px;
+  margin: 5px 0;
+}
+.stat small { color: var(--muted); font-size: 11px; }
+
+.panel {
+  padding: 22px;
+  margin-bottom: 22px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  backdrop-filter: blur(10px);
+}
+
+.panel h2 { font-size: 15px; margin-bottom: 18px; }
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.field { display: flex; flex-direction: column; gap: 8px; }
+.field.full { grid-column: 1 / -1; }
+
+label { color: var(--muted); font-size: 11px; }
+
+input, textarea, select {
+  width: 100%;
+  min-width: 0;
+  padding: 12px;
+  color: var(--text);
+  background: #0c0918;
+  border: 1px solid #ffffff18;
+  border-radius: 12px;
+  outline: none;
+}
+input:focus, textarea:focus, select:focus { border-color: var(--pink); }
+textarea { resize: vertical; min-height: 85px; }
+select option { background: #100d20; }
+
+.primary {
+  width: 100%;
+  padding: 14px;
+  border: 0;
+  border-radius: 13px;
+  background: linear-gradient(110deg, #ff80b5, #a78bfa);
+  color: #1b1028;
+  font-weight: 800;
+  cursor: pointer;
+  transition: .2s;
+}
+.primary:hover { transform: translateY(-2px); filter: brightness(1.08); }
+
+.toolbar {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 17px;
+}
+.toolbar input { flex: 1; }
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 18px;
+}
+
+.filter {
+  color: var(--muted);
+  background: #ffffff06;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 8px 12px;
+  font-size: 10px;
+  cursor: pointer;
+  transition: .2s;
+}
+.filter.active, .filter:hover {
+  color: var(--pink);
+  border-color: #ff80b566;
+  background: #ff80b512;
+}
+
+.favorites {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 13px;
+}
+
+.item {
+  padding: 17px;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: #ffffff04;
+  animation: appear .35s ease both;
+  min-width: 0;
+}
+
+.item-top {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.item-icon {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  font-size: 22px;
+  background: linear-gradient(135deg, #ff80b51d, #a78bfa28);
+}
+
+.item-info { flex: 1; min-width: 0; }
+.item-title { font-size: 13px; font-weight: 700; overflow-wrap: anywhere; }
+.item-category { font-size: 10px; color: var(--pink); margin-top: 6px; }
+.item-note {
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 2;
+  margin-top: 12px;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.item-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 15px;
+}
+
+.action {
+  padding: 8px 10px;
+  border-radius: 9px;
+  border: 1px solid var(--border);
+  background: #ffffff06;
+  color: var(--text);
+  cursor: pointer;
+  font-size: 10px;
+}
+.action.copy { color: #c4b5fd; }
+.action.delete { color: #ff9aaa; border-color: #ff809a30; }
+
+.empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 35px 12px;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 2.2;
+}
+.empty div { font-size: 36px; margin-bottom: 10px; }
+
+footer {
+  text-align: center;
+  color: var(--muted);
+  font-size: 10px;
+  padding: 12px 0 28px;
+}
+footer span { color: var(--pink); }
+
+.toast {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translate(-50%, 20px);
+  background: #241833;
+  border: 1px solid #ff80b555;
+  padding: 12px 18px;
+  border-radius: 13px;
+  font-size: 12px;
+  opacity: 0;
+  pointer-events: none;
+  transition: .25s;
+  z-index: 10;
+  width: max-content;
+  max-width: 90%;
+}
+.toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+@media (max-width: 650px) {
+  .favorites { grid-template-columns: 1fr; }
+  .panel { padding: 16px; }
+  .form-grid { grid-template-columns: 1fr; }
+  .field.full { grid-column: auto; }
+}
+@media (max-width: 380px) {
+  .stats { gap: 8px; }
+  .stat { padding: 12px; }
+  .toolbar { flex-direction: column; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    transition-duration: .01ms !important;
+  }
+}
+</style>
+</head>
+
+<body>
+<div class="orb one"></div>
+<div class="orb two"></div>
+
+<div class="container">
+  <header>
+    <a class="brand" href="home.html">
+      <div class="logo">❤️</div>
+      <span>LoveSpace</span>
+    </a>
+    <a class="back" href="home.html">← الرئيسية</a>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="tag">✦ الأشياء القريبة إلى قلبك ✦</div>
+      <h1>قائمة <span>المفضلة 💖</span></h1>
+      <p>
+        جمع هنا العبارات والذكريات والأشياء اللي تحب ترجع ليها في أي وقت.
+        كل ما تضيفه يتحفظ في المتصفح تاعك.
+      </p>
+    </section>
+
+    <section class="stats">
+      <div class="stat">
+        <div>💗</div>
+        <strong id="total">0</strong>
+        <small>كل العناصر المحفوظة</small>
+      </div>
+      <div class="stat">
+        <div>🏷️</div>
+        <strong id="categories">0</strong>
+        <small>عدد التصنيفات المستعملة</small>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>✨ أضف للمفضلة</h2>
+
+      <form id="favoriteForm">
+        <div class="form-grid">
+          <div class="field">
+            <label for="title">العنوان</label>
+            <input id="title" maxlength="100"
+              placeholder="مثلاً: أجمل عبارة ❤️" required>
+          </div>
+
+          <div class="field">
+            <label for="category">التصنيف</label>
+            <select id="category">
+              <option value="عبارات">💌 عبارات</option>
+              <option value="ذكريات">🌷 ذكريات</option>
+              <option value="أغاني">🎵 أغاني</option>
+              <option value="أفكار">💡 أفكار</option>
+              <option value="صور وروابط">📸 صور وروابط</option>
+              <option value="أخرى">✨ أخرى</option>
+            </select>
+          </div>
+
+          <div class="field full">
+            <label for="content">النص أو التفاصيل</label>
+            <textarea id="content" maxlength="2000"
+              placeholder="اكتب الشيء اللي حاب تحفظه..."></textarea>
+          </div>
+
+          <div class="field full">
+            <label for="link">رابط اختياري</label>
+            <input id="link" type="url" maxlength="1000"
+              placeholder="https://example.com">
+          </div>
+
+          <div class="field full">
+            <button type="submit" class="primary">＋ حفظ في المفضلة</button>
+          </div>
+        </div>
+      </form>
+    </section>
+
+    <section class="panel">
+      <h2>🔎 ابحث على المفضلة</h2>
+
+      <div class="toolbar">
+        <input id="search" type="search"
+          placeholder="اكتب عنوان أو كلمة للبحث...">
+      </div>
+
+      <div class="filters" id="filters">
+        <button class="filter active" data-filter="الكل" type="button">الكل</button>
+        <button class="filter" data-filter="عبارات" type="button">💌 عبارات</button>
+        <button class="filter" data-filter="ذكريات" type="button">🌷 ذكريات</button>
+        <button class="filter" data-filter="أغاني" type="button">🎵 أغاني</button>
+        <button class="filter" data-filter="أفكار" type="button">💡 أفكار</button>
+        <button class="filter" data-filter="صور وروابط" type="button">📸 صور وروابط</button>
+        <button class="filter" data-filter="أخرى" type="button">✨ أخرى</button>
+      </div>
+
+      <div class="favorites" id="favoriteList"></div>
+    </section>
+  </main>
+
+  <footer>
+    كل شيء غالي يستحق مكاناً خاصاً <span>♥</span> LoveSpace
+  </footer>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+const STORAGE_KEY = 'lovespace_favorites_v1';
+
+const form = document.getElementById('favoriteForm');
+const list = document.getElementById('favoriteList');
+const search = document.getElementById('search');
+const toast = document.getElementById('toast');
+
+let activeFilter = 'الكل';
+let favorites = loadFavorites();
+
+function loadFavorites() {
+  try {
+    const data = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+    return Array.isArray(data) ? data.filter(item =>
+      item &&
+      typeof item.id === 'string' &&
+      typeof item.title === 'string' &&
+      typeof item.category === 'string'
+    ) : [];
+  } catch {
+    return [];
+  }
+}
+
+function saveFavorites() {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(favorites));
+    return true;
+  } catch {
+    showToast('تعذر الحفظ. تحقق من مساحة التخزين.');
+    return false;
+  }
+}
+
+function showToast(message) {
+  toast.textContent = message;
+  toast.classList.add('show');
+  clearTimeout(showToast.timer);
+  showToast.timer = setTimeout(() => toast.classList.remove('show'), 2500);
+}
+
+function escapeHTML(value) {
+  return String(value).replace(/[&<>"']/g, char => ({
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;'
+  })[char]);
+}
+
+function iconFor(category) {
+  return {
+    'عبارات': '💌',
+    'ذكريات': '🌷',
+    'أغاني': '🎵',
+    'أفكار': '💡',
+    'صور وروابط': '📸',
+    'أخرى': '✨'
+  }[category] || '💖';
+}
+
+function safeURL(value) {
+  try {
+    const url = new URL(value);
+    if (url.protocol === 'https:' || url.protocol === 'http:') {
+      return url.href;
+    }
+  } catch {}
+  return '';
+}
+
+function render() {
+  document.getElementById('total').textContent = favorites.length;
+  document.getElementById('categories').textContent =
+    new Set(favorites.map(item => item.category)).size;
+
+  const query = search.value.trim().toLocaleLowerCase();
+
+  const visible = favorites.filter(item => {
+    const matchesCategory =
+      activeFilter === 'الكل' || item.category === activeFilter;
+
+    const searchable = (
+      item.title + ' ' + (item.content || '') + ' ' + item.category
+    ).toLocaleLowerCase();
+
+    return matchesCategory && searchable.includes(query);
+  });
+
+  if (!visible.length) {
+    list.innerHTML = `
+      <div class="empty">
+        <div>💖</div>
+        ${favorites.length
+          ? 'ما لقيناش عناصر تطابق البحث أو التصنيف.'
+          : 'ما زلت ما ضفت حتى حاجة للمفضلة.<br>أضف أول عنصر تحب تحتفظ به.'}
+      </div>`;
+    return;
+  }
+
+  list.innerHTML = visible.map(item => {
+    const url = safeURL(item.link || '');
+
+    return `
+      <article class="item">
+        <div class="item-top">
+          <div class="item-icon">${iconFor(item.category)}</div>
+          <div class="item-info">
+            <div class="item-title">${escapeHTML(item.title)}</div>
+            <div class="item-category">${escapeHTML(item.category)}</div>
+          </div>
+        </div>
+
+        ${item.content
+          ? `<div class="item-note">${escapeHTML(item.content)}</div>`
+          : ''}
+
+        <div class="item-actions">
+          <button class="action copy" type="button"
+            data-copy="${escapeHTML(item.id)}">📋 نسخ</button>
+
+          ${url
+            ? `<button class="action" type="button"
+                 data-open="${escapeHTML(item.id)}">🔗 فتح الرابط</button>`
+            : ''}
+
+          <button class="action delete" type="button"
+            data-delete="${escapeHTML(item.id)}">🗑️ حذف</button>
+        </div>
+      </article>`;
+  }).join('');
+}
+
+form.addEventListener('submit', function(event) {
+  event.preventDefault();
+
+  const title = document.getElementById('title').value.trim();
+  const category = document.getElementById('category').value;
+  const content = document.getElementById('content').value.trim();
+  const linkInput = document.getElementById('link').value.trim();
+
+  if (!title) {
+    showToast('اكتب عنوان العنصر أولاً.');
+    return;
+  }
+
+  let link = '';
+  if (linkInput) {
+    link = safeURL(linkInput);
+    if (!link) {
+      showToast('الرابط غير صالح. استعمل رابط HTTP أو HTTPS.');
+      return;
+    }
+  }
+
+  const item = {
+    id: Date.now().toString() + Math.random().toString(36).slice(2, 8),
+    title,
+    category,
+    content,
+    link
+  };
+
+  favorites.unshift(item);
+
+  if (!saveFavorites()) {
+    favorites = favorites.filter(f => f.id !== item.id);
+    return;
+  }
+
+  form.reset();
+  activeFilter = 'الكل';
+  document.querySelectorAll('.filter').forEach(button => {
+    button.classList.toggle('active', button.dataset.filter === 'الكل');
+  });
+
+  search.value = '';
+  render();
+  showToast('تحفظت في المفضلة بنجاح 💖');
+});
+
+document.getElementById('filters').addEventListener('click', function(event) {
+  const button = event.target.closest('[data-filter]');
+  if (!button) return;
+
+  activeFilter = button.dataset.filter;
+
+  document.querySelectorAll('.filter').forEach(item => {
+    item.classList.toggle('active', item === button);
+  });
+
+  render();
+});
+
+search.addEventListener('input', render);
+
+list.addEventListener('click', async function(event) {
+  const button = event.target.closest('button');
+  if (!button) return;
+
+  const id = button.dataset.copy || button.dataset.delete || button.dataset.open;
+  if (!id) return;
+
+  const item = favorites.find(f => f.id === id);
+  if (!item) return;
+
+  if (button.hasAttribute('data-copy')) {
+    const text = item.title +
+      (item.content ? '\n' + item.content : '') +
+      (item.link ? '\n' + item.link : '');
+
+    try {
+      await navigator.clipboard.writeText(text);
+      showToast('تم نسخ العنصر 💖');
+    } catch {
+      const area = document.createElement('textarea');
+      area.value = text;
+      document.body.appendChild(area);
+      area.select();
+      const success = document.execCommand('copy');
+      area.remove();
+      showToast(success ? 'تم نسخ العنصر 💖' : 'تعذر النسخ في هذا المتصفح.');
+    }
+    return;
+  }
+
+  if (button.hasAttribute('data-open')) {
+    const url = safeURL(item.link || '');
+    if (url) window.open(url, '_blank', 'noopener,noreferrer');
+    else showToast('الرابط غير صالح.');
+    return;
+  }
+
+  if (button.hasAttribute('data-delete')) {
+    if (!confirm('تحب تحذف "' + item.title + '" من المفضلة؟')) return;
+
+    const previous = favorites;
+    favorites = favorites.filter(f => f.id !== id);
+
+    if (!saveFavorites()) {
+      favorites = previous;
+      return;
+    }
+
+    render();
+    showToast('تم حذف العنصر.');
+  }
+});
+
+render();
+</script>
+</body>
+</html>
+
