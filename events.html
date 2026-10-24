@@ -1,1 +1,766 @@
 
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#100d20">
+<title>مناسباتنا 🎉 | LoveSpace</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+  --bg: #100d20;
+  --panel: rgba(255,255,255,.055);
+  --pink: #ff80b5;
+  --purple: #a78bfa;
+  --text: #fff5fb;
+  --muted: #bcb2ce;
+  --border: rgba(255,255,255,.10);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  font-family: 'Alexandria', sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(ellipse at 10% 5%, #49245c 0, transparent 40%),
+    radial-gradient(ellipse at 90% 85%, #311d57 0, transparent 40%),
+    var(--bg);
+}
+
+button, input, textarea, select {
+  font: inherit;
+}
+
+button, a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.container {
+  width: min(950px, 92%);
+  margin: auto;
+  position: relative;
+  z-index: 1;
+}
+
+.orb {
+  position: fixed;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  filter: blur(85px);
+  opacity: .17;
+  pointer-events: none;
+  animation: float 10s ease-in-out infinite alternate;
+}
+
+.orb.one {
+  background: #ff4fa3;
+  top: 5%;
+  right: -100px;
+}
+
+.orb.two {
+  background: #875bff;
+  bottom: 0;
+  left: -100px;
+  animation-delay: -4s;
+}
+
+@keyframes float {
+  to { transform: translate(25px,-25px) scale(1.15); }
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 22px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  font-weight: 800;
+  font-size: 18px;
+}
+
+.logo {
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border-radius: 15px;
+  background: linear-gradient(135deg, var(--pink), var(--purple));
+  box-shadow: 0 0 25px #ff80b533;
+  font-size: 22px;
+}
+
+.back {
+  border: 1px solid #ff80b544;
+  border-radius: 25px;
+  padding: 10px 14px;
+  color: var(--pink);
+  font-size: 11px;
+  transition: .25s;
+}
+
+.back:hover {
+  background: #ff80b518;
+  transform: translateY(-2px);
+}
+
+.hero {
+  padding: 42px 0 25px;
+  animation: appear .6s ease both;
+}
+
+@keyframes appear {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.tag {
+  color: var(--pink);
+  font-size: 12px;
+  margin-bottom: 10px;
+}
+
+h1 {
+  font-size: clamp(27px, 5vw, 42px);
+  line-height: 1.7;
+}
+
+h1 span {
+  color: var(--pink);
+}
+
+.hero p {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 2.2;
+  margin-top: 8px;
+}
+
+.summary {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin: 15px 0 28px;
+}
+
+.stat {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 17px;
+}
+
+.stat .symbol {
+  font-size: 20px;
+}
+
+.stat strong {
+  display: block;
+  color: var(--pink);
+  font-size: 23px;
+  margin: 6px 0;
+}
+
+.stat small {
+  color: var(--muted);
+  font-size: 10px;
+}
+
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 23px;
+  padding: 23px;
+  margin-bottom: 25px;
+  backdrop-filter: blur(10px);
+}
+
+.panel h2 {
+  font-size: 16px;
+  margin-bottom: 18px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.field.full {
+  grid-column: 1 / -1;
+}
+
+label {
+  color: var(--muted);
+  font-size: 11px;
+}
+
+input, textarea, select {
+  width: 100%;
+  min-width: 0;
+  padding: 13px;
+  color: var(--text);
+  background: #0c0918;
+  border: 1px solid #ffffff18;
+  border-radius: 13px;
+  outline: none;
+  transition: border-color .2s;
+}
+
+input:focus, textarea:focus, select:focus {
+  border-color: var(--pink);
+}
+
+input[type="date"], input[type="time"] {
+  color-scheme: dark;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 85px;
+}
+
+select option {
+  background: #100d20;
+}
+
+.primary {
+  width: 100%;
+  border: 0;
+  border-radius: 14px;
+  padding: 14px;
+  background: linear-gradient(110deg, #ff80b5, #a78bfa);
+  color: #1b1028;
+  font-weight: 800;
+  cursor: pointer;
+  transition: transform .2s, filter .2s;
+}
+
+.primary:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.08);
+}
+
+.list-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 17px;
+}
+
+.list-header h2 {
+  margin: 0;
+}
+
+.counter-label {
+  font-size: 10px;
+  color: var(--pink);
+  border: 1px solid #ff80b533;
+  padding: 7px 10px;
+  border-radius: 20px;
+}
+
+.events {
+  display: grid;
+  gap: 13px;
+}
+
+.event {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 17px;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: #ffffff04;
+  animation: appear .35s ease both;
+}
+
+.event-icon {
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 15px;
+  background: linear-gradient(135deg, #ff80b51d, #a78bfa28);
+  font-size: 23px;
+}
+
+.event-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.event-title {
+  font-size: 14px;
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+.event-date {
+  color: var(--pink);
+  font-size: 11px;
+  margin-top: 7px;
+}
+
+.event-note {
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.9;
+  margin-top: 8px;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.remaining {
+  display: inline-block;
+  margin-top: 9px;
+  padding: 6px 9px;
+  background: #a78bfa16;
+  color: #c4b5fd;
+  border-radius: 9px;
+  font-size: 10px;
+}
+
+.event-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.small-btn {
+  border: 1px solid var(--border);
+  background: #ffffff07;
+  color: var(--text);
+  padding: 7px 9px;
+  border-radius: 9px;
+  cursor: pointer;
+  font-size: 10px;
+}
+
+.small-btn.delete {
+  color: #ff9aaa;
+  border-color: #ff809a30;
+}
+
+.empty {
+  padding: 35px 12px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 2.2;
+}
+
+.empty div {
+  font-size: 35px;
+  margin-bottom: 10px;
+}
+
+footer {
+  text-align: center;
+  color: var(--muted);
+  font-size: 10px;
+  padding: 10px 0 28px;
+}
+
+footer span {
+  color: var(--pink);
+}
+
+.toast {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translate(-50%, 20px);
+  background: #241833;
+  border: 1px solid #ff80b555;
+  padding: 12px 18px;
+  border-radius: 13px;
+  font-size: 12px;
+  opacity: 0;
+  pointer-events: none;
+  transition: .25s;
+  z-index: 10;
+  width: max-content;
+  max-width: 90%;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+@media (max-width: 600px) {
+  .summary { gap: 8px; }
+  .stat { padding: 12px; }
+  .stat strong { font-size: 19px; }
+  .panel { padding: 16px; }
+  .form-grid { grid-template-columns: 1fr; }
+  .field.full { grid-column: auto; }
+  .event { gap: 10px; padding: 12px; }
+  .event-icon { width: 40px; height: 40px; }
+  .event-actions { flex-direction: row; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    transition-duration: .01ms !important;
+  }
+}
+</style>
+</head>
+
+<body>
+<div class="orb one"></div>
+<div class="orb two"></div>
+
+<div class="container">
+  <header>
+    <a class="brand" href="home.html">
+      <div class="logo">❤️</div>
+      <span>LoveSpace</span>
+    </a>
+    <a class="back" href="home.html">← الرئيسية</a>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="tag">✦ لحظات تستحق أن نتذكرها ✦</div>
+      <h1>مناسباتنا <span>الخاصة 🎉</span></h1>
+      <p>
+        سجّل المناسبات والأيام المميزة، وخلي كل تاريخ عنده مكان في ذاكرتك.
+        المناسبات لي تضيفها هنا تتحفظ في هذا المتصفح.
+      </p>
+    </section>
+
+    <section class="summary">
+      <div class="stat">
+        <div class="symbol">🎉</div>
+        <strong id="total">0</strong>
+        <small>كل المناسبات</small>
+      </div>
+      <div class="stat">
+        <div class="symbol">⏳</div>
+        <strong id="upcoming">0</strong>
+        <small>مناسبات جاية</small>
+      </div>
+      <div class="stat">
+        <div class="symbol">💖</div>
+        <strong id="today">0</strong>
+        <small>مناسبات اليوم</small>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>✨ أضف مناسبة جديدة</h2>
+
+      <form id="eventForm">
+        <div class="form-grid">
+          <div class="field">
+            <label for="eventName">اسم المناسبة</label>
+            <input id="eventName" maxlength="80"
+              placeholder="مثلاً: عيد الميلاد ❤️" required>
+          </div>
+
+          <div class="field">
+            <label for="eventType">نوع المناسبة</label>
+            <select id="eventType">
+              <option value="🎂">🎂 عيد ميلاد</option>
+              <option value="❤️">❤️ مناسبة خاصة</option>
+              <option value="💍">💍 ذكرى مميزة</option>
+              <option value="🎓">🎓 نجاح أو تخرج</option>
+              <option value="🎁">🎁 هدية أو مفاجأة</option>
+              <option value="🎉">🎉 مناسبة أخرى</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="eventDate">التاريخ</label>
+            <input id="eventDate" type="date" required>
+          </div>
+
+          <div class="field">
+            <label for="eventTime">الوقت (اختياري)</label>
+            <input id="eventTime" type="time">
+          </div>
+
+          <div class="field full">
+            <label for="eventNote">تفاصيل إضافية (اختياري)</label>
+            <textarea id="eventNote" maxlength="500"
+              placeholder="اكتب ذكرى أو فكرة أو ملاحظة..."></textarea>
+          </div>
+
+          <div class="field full">
+            <button class="primary" type="submit">＋ حفظ المناسبة</button>
+          </div>
+        </div>
+      </form>
+    </section>
+
+    <section class="panel">
+      <div class="list-header">
+        <h2>📅 مناسباتي</h2>
+        <span class="counter-label" id="listCount">0 مناسبة</span>
+      </div>
+
+      <div class="events" id="eventList"></div>
+    </section>
+  </main>
+
+  <footer>
+    كل تاريخ جميل يستحق أن يبقى في الذاكرة <span>♥</span>
+  </footer>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+const STORAGE_KEY = 'lovespace_events_v1';
+
+const form = document.getElementById('eventForm');
+const eventList = document.getElementById('eventList');
+const toast = document.getElementById('toast');
+
+let events = loadEvents();
+
+function loadEvents() {
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    const parsed = saved ? JSON.parse(saved) : [];
+    return Array.isArray(parsed) ? parsed.filter(item =>
+      item &&
+      typeof item.id === 'string' &&
+      typeof item.name === 'string' &&
+      typeof item.date === 'string'
+    ) : [];
+  } catch {
+    return [];
+  }
+}
+
+function saveEvents() {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(events));
+    return true;
+  } catch {
+    showToast('تعذر الحفظ في المتصفح. تحقق من مساحة التخزين.');
+    return false;
+  }
+}
+
+function showToast(message) {
+  toast.textContent = message;
+  toast.classList.add('show');
+  clearTimeout(showToast.timer);
+  showToast.timer = setTimeout(() => {
+    toast.classList.remove('show');
+  }, 2600);
+}
+
+function dateKey(date) {
+  return date.getFullYear() + '-' +
+    String(date.getMonth() + 1).padStart(2, '0') + '-' +
+    String(date.getDate()).padStart(2, '0');
+}
+
+function parseDate(value) {
+  const parts = value.split('-').map(Number);
+  if (parts.length !== 3 || parts.some(n => !Number.isFinite(n))) {
+    return null;
+  }
+  const date = new Date(parts[0], parts[1] - 1, parts[2]);
+  if (date.getFullYear() !== parts[0] ||
+      date.getMonth() !== parts[1] - 1 ||
+      date.getDate() !== parts[2]) {
+    return null;
+  }
+  return date;
+}
+
+function formatDate(value) {
+  const date = parseDate(value);
+  if (!date) return value;
+
+  return date.toLocaleDateString('ar-DZ', {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  });
+}
+
+function daysRemaining(value) {
+  const target = parseDate(value);
+  if (!target) return null;
+
+  const now = new Date();
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+
+  return Math.round((target - today) / 86400000);
+}
+
+function escapeHTML(value) {
+  return String(value).replace(/[&<>"']/g, char => ({
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;'
+  })[char]);
+}
+
+function render() {
+  const todayKey = dateKey(new Date());
+
+  events.sort((a, b) =>
+    a.date.localeCompare(b.date) ||
+    (a.time || '').localeCompare(b.time || '')
+  );
+
+  const upcoming = events.filter(item => item.date >= todayKey).length;
+  const todayCount = events.filter(item => item.date === todayKey).length;
+
+  document.getElementById('total').textContent = events.length;
+  document.getElementById('upcoming').textContent = upcoming;
+  document.getElementById('today').textContent = todayCount;
+  document.getElementById('listCount').textContent =
+    events.length + (events.length === 1 ? ' مناسبة' : ' مناسبات');
+
+  if (events.length === 0) {
+    eventList.innerHTML = `
+      <div class="empty">
+        <div>🌷</div>
+        ما زلت ما ضفت حتى مناسبة.<br>
+        ابدأ بإضافة أول تاريخ مميز عندك.
+      </div>`;
+    return;
+  }
+
+  eventList.innerHTML = events.map(item => {
+    const days = daysRemaining(item.date);
+
+    let remainingText = '';
+    if (days === 0) remainingText = '🎉 اليوم هو الموعد!';
+    else if (days === 1) remainingText = 'باقي يوم واحد';
+    else if (days > 1) remainingText = 'باقي ' + days + ' أيام';
+    else if (days === -1) remainingText = 'فات الموعد بيوم';
+    else remainingText = 'فات الموعد منذ ' + Math.abs(days) + ' يوم';
+
+    return `
+      <article class="event">
+        <div class="event-icon">${escapeHTML(item.type || '🎉')}</div>
+
+        <div class="event-content">
+          <div class="event-title">${escapeHTML(item.name)}</div>
+          <div class="event-date">
+            📅 ${escapeHTML(formatDate(item.date))}
+            ${item.time ? ' · 🕒 ' + escapeHTML(item.time) : ''}
+          </div>
+          ${item.note ? `<div class="event-note">${escapeHTML(item.note)}</div>` : ''}
+          <div class="remaining">${escapeHTML(remainingText)}</div>
+        </div>
+
+        <div class="event-actions">
+          <button class="small-btn delete"
+            data-delete="${escapeHTML(item.id)}"
+            type="button" aria-label="حذف المناسبة">🗑️ حذف</button>
+        </div>
+      </article>`;
+  }).join('');
+}
+
+form.addEventListener('submit', function(event) {
+  event.preventDefault();
+
+  const name = document.getElementById('eventName').value.trim();
+  const date = document.getElementById('eventDate').value;
+  const time = document.getElementById('eventTime').value;
+  const type = document.getElementById('eventType').value;
+  const note = document.getElementById('eventNote').value.trim();
+
+  if (!name || !date || !parseDate(date)) {
+    showToast('أدخل اسم المناسبة وتاريخاً صحيحاً.');
+    return;
+  }
+
+  const newEvent = {
+    id: Date.now().toString() + Math.random().toString(36).slice(2, 8),
+    name,
+    date,
+    time,
+    type,
+    note
+  };
+
+  events.push(newEvent);
+
+  if (!saveEvents()) {
+    events = events.filter(item => item.id !== newEvent.id);
+    return;
+  }
+
+  form.reset();
+  render();
+  showToast('تم حفظ المناسبة بنجاح ❤️');
+});
+
+eventList.addEventListener('click', function(event) {
+  const button = event.target.closest('[data-delete]');
+  if (!button) return;
+
+  const id = button.dataset.delete;
+  const selected = events.find(item => item.id === id);
+  if (!selected) return;
+
+  if (!confirm('هل تريد حذف المناسبة "' + selected.name + '"؟')) {
+    return;
+  }
+
+  const oldEvents = events;
+  events = events.filter(item => item.id !== id);
+
+  if (!saveEvents()) {
+    events = oldEvents;
+    return;
+  }
+
+  render();
+  showToast('تم حذف المناسبة.');
+});
+
+render();
+</script>
+</body>
+</html>
+
