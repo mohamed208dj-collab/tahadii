@@ -1,1 +1,524 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#100d20">
+<title>Love Wheel ❤️ | LoveSpace</title>
 
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --bg: #100d20;
+  --card: #1b1530;
+  --pink: #ff78b7;
+  --purple: #a78bfa;
+  --white: #fff0f7;
+  --muted: #bdb0d0;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  padding: 20px 14px 30px;
+  font-family: 'Alexandria', sans-serif;
+  color: var(--white);
+  background:
+    radial-gradient(circle at 15% 10%, #54265c55, transparent 35%),
+    radial-gradient(circle at 85% 80%, #6e287755, transparent 35%),
+    var(--bg);
+}
+
+.container {
+  width: 100%;
+  max-width: 760px;
+  margin: auto;
+}
+
+header {
+  text-align: center;
+  padding: 15px 0 25px;
+}
+
+.logo {
+  width: 68px;
+  height: 68px;
+  margin: 0 auto 15px;
+  border-radius: 22px;
+  display: grid;
+  place-items: center;
+  font-size: 32px;
+  background: linear-gradient(135deg, #ff78b7, #8b5cf6);
+  box-shadow: 0 0 35px #ff78b744;
+}
+
+h1 {
+  font-size: clamp(25px, 5vw, 36px);
+  background: linear-gradient(90deg, #fff, #ff8fc8, #c4b5fd);
+  color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 2;
+}
+
+.card {
+  background: linear-gradient(145deg, #211832ed, #171225f5);
+  border: 1px solid #ffffff14;
+  border-radius: 27px;
+  padding: 24px 16px;
+  box-shadow: 0 20px 60px #0004;
+  text-align: center;
+}
+
+.names {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  flex-wrap: wrap;
+}
+
+.names span {
+  color: var(--pink);
+  font-weight: 600;
+}
+
+.names b {
+  color: #ff91c9;
+  font-size: 22px;
+}
+
+.wheel-area {
+  width: min(100%, 410px);
+  aspect-ratio: 1;
+  margin: 15px auto 20px;
+  position: relative;
+  display: grid;
+  place-items: center;
+}
+
+canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 0 18px #c45bff20);
+}
+
+.pointer {
+  position: absolute;
+  top: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  width: 0;
+  height: 0;
+  border-left: 17px solid transparent;
+  border-right: 17px solid transparent;
+  border-top: 34px solid #fff0f7;
+  filter: drop-shadow(0 3px 5px #0008);
+}
+
+.spin-center {
+  position: absolute;
+  width: 65px;
+  height: 65px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(145deg, #ff8ac4, #9b70ff);
+  border: 5px solid #211832;
+  box-shadow: 0 0 20px #ff78b755;
+  font-size: 25px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: 0;
+  border-radius: 15px;
+  padding: 15px 22px;
+  font-size: 13px;
+  font-weight: 600;
+  transition: .2s;
+}
+
+button:active {
+  transform: scale(.97);
+}
+
+.spin-btn {
+  width: min(100%, 340px);
+  color: white;
+  background: linear-gradient(100deg, #ec4899, #8b5cf6);
+  box-shadow: 0 8px 28px #d9468c30;
+}
+
+.spin-btn:hover {
+  filter: brightness(1.12);
+  transform: translateY(-2px);
+}
+
+.spin-btn:disabled {
+  opacity: .6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.result {
+  display: none;
+  margin: 22px auto 0;
+  max-width: 470px;
+  padding: 23px 18px;
+  border: 1px solid #ff78b744;
+  background: #100d2099;
+  border-radius: 20px;
+  animation: show .5s ease;
+}
+
+.result.show {
+  display: block;
+}
+
+.result .emoji {
+  font-size: 36px;
+  margin-bottom: 10px;
+}
+
+.result h2 {
+  color: var(--pink);
+  font-size: 19px;
+  margin-bottom: 12px;
+}
+
+.result p {
+  color: #f5e7ff;
+  font-size: 13px;
+  line-height: 2.2;
+}
+
+.result-actions {
+  display: flex;
+  gap: 9px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 18px;
+}
+
+.secondary {
+  background: #ffffff0c;
+  border: 1px solid #ffffff20;
+  color: var(--white);
+}
+
+.small-note {
+  margin-top: 20px;
+  color: #a99bbd;
+  font-size: 11px;
+  line-height: 2;
+}
+
+footer {
+  text-align: center;
+  color: #a99bbd;
+  font-size: 11px;
+  margin-top: 24px;
+  line-height: 2;
+}
+
+@keyframes show {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 400px) {
+  .card { padding: 20px 10px; }
+  .spin-center { width: 55px; height: 55px; font-size: 21px; }
+}
+</style>
+</head>
+
+<body>
+<main class="container">
+
+<header>
+  <div class="logo">🎡</div>
+  <h1>Love Wheel</h1>
+  <p class="subtitle">
+    عجلة الحب تاع صهيب وأميمة ❤️<br>
+    دور العجلة وخلي الحظ يختار التحدي!
+  </p>
+</header>
+
+<section class="card">
+  <div class="names">
+    <span>صهيب</span>
+    <b>♥</b>
+    <span>أميمة</span>
+  </div>
+
+  <div class="wheel-area">
+    <div class="pointer"></div>
+    <canvas id="wheel" width="800" height="800"></canvas>
+    <div class="spin-center">❤️</div>
+  </div>
+
+  <button class="spin-btn" id="spinBtn" onclick="spinWheel()">
+    🎡 دوّر العجلة
+  </button>
+
+  <div class="result" id="result">
+    <div class="emoji" id="resultEmoji">💗</div>
+    <h2 id="resultTitle">التحدي تاعك!</h2>
+    <p id="resultText"></p>
+
+    <div class="result-actions">
+      <button class="spin-btn" onclick="spinWheel()">🔄 عاود الدوران</button>
+      <button class="secondary" onclick="copyChallenge()">📋 نسخ التحدي</button>
+    </div>
+  </div>
+
+  <p class="small-note">
+    💞 العبوا بالضحك والاحترام، وتقدروا تعاودوا الدوران في أي وقت.
+  </p>
+</section>
+
+<footer>
+  Made with ❤️ by sohaib26
+  <br>
+  LoveSpace · مساحتنا الخاصة
+</footer>
+
+</main>
+
+<script>
+const challenges = [
+  {
+    title: "كلمة من القلب",
+    emoji: "💌",
+    text: "قول لأميمة 3 حوايج تحبهم فيها، وخلي كلامك يخرج من قلبك."
+  },
+  {
+    title: "ذكرى جميلة",
+    emoji: "🌷",
+    text: "احكي لأميمة على أجمل ذكرى بيناتكم، وعلاش بقات غالية عليك."
+  },
+  {
+    title: "رسالة مفاجأة",
+    emoji: "💗",
+    text: "اكتب لأميمة رسالة قصيرة فيها حاجة حاب تقولها لها من زمان."
+  },
+  {
+    title: "سؤال لطيف",
+    emoji: "🥹",
+    text: "اسأل أميمة: واش هي الحاجة الصغيرة اللي تفرحك مهما كان نهارك صعيب؟"
+  },
+  {
+    title: "لقب مميز",
+    emoji: "🎀",
+    text: "اختار لأميمة لقب حلو، واشرحلها علاش اخترتو ليها."
+  },
+  {
+    title: "ضحكة من القلب",
+    emoji: "😂",
+    text: "احكي موقف مضحك صارلكم أو اخترع نكتة باش تضحك أميمة."
+  },
+  {
+    title: "أمنية جميلة",
+    emoji: "✨",
+    text: "قول لأميمة حاجة جميلة تتمنى تحققوها مع بعض في المستقبل."
+  },
+  {
+    title: "تحدي المجاملة",
+    emoji: "🌹",
+    text: "قول لأميمة مجاملة صادقة على شخصيتها أو على حاجة مميزة فيها."
+  },
+  {
+    title: "اختيار الأغنية",
+    emoji: "🎵",
+    text: "اختار أغنية تذكرك بأميمة، وقلها علاش اخترتها."
+  },
+  {
+    title: "ثلاث كلمات",
+    emoji: "💕",
+    text: "وصف علاقتكم بثلاث كلمات فقط، وبعدها اشرح اختيارك."
+  },
+  {
+    title: "سؤال للمستقبل",
+    emoji: "🌙",
+    text: "اسأل بعضاكم: واش هي أحلى حاجة تحبوا تديروها في يوم مميز؟"
+  },
+  {
+    title: "رسالة امتنان",
+    emoji: "🫶",
+    text: "قول لأميمة حاجة تقدرها فيها، حتى لو كانت تفصيلة صغيرة."
+  }
+];
+
+const canvas = document.getElementById("wheel");
+const ctx = canvas.getContext("2d");
+const count = challenges.length;
+const arc = (Math.PI * 2) / count;
+
+let rotation = 0;
+let spinning = false;
+let selectedChallenge = null;
+
+const colors = [
+  "#39204f", "#7b285e", "#29204d", "#a43d78",
+  "#45245d", "#6a2e83", "#34204c", "#913568",
+  "#43245b", "#752d72", "#30204b", "#9a407d"
+];
+
+function drawWheel() {
+  const size = canvas.width;
+  const center = size / 2;
+  const radius = center - 18;
+
+  ctx.clearRect(0, 0, size, size);
+  ctx.save();
+  ctx.translate(center, center);
+  ctx.rotate(rotation);
+
+  for (let i = 0; i < count; i++) {
+    const start = i * arc;
+    const end = start + arc;
+
+    ctx.beginPath();
+    ctx.moveTo(0, 0);
+    ctx.arc(0, 0, radius, start, end);
+    ctx.closePath();
+    ctx.fillStyle = colors[i % colors.length];
+    ctx.fill();
+
+    ctx.strokeStyle = "#f7c9ff";
+    ctx.lineWidth = 3;
+    ctx.stroke();
+
+    ctx.save();
+    ctx.rotate(start + arc / 2);
+    ctx.textAlign = "right";
+    ctx.textBaseline = "middle";
+    ctx.fillStyle = "#fff4fb";
+    ctx.font = "bold 27px Alexandria, sans-serif";
+    ctx.shadowColor = "#000";
+    ctx.shadowBlur = 4;
+
+    const label = challenges[i].title;
+    ctx.fillText(label, radius - 36, 0, radius * 0.55);
+
+    ctx.restore();
+  }
+
+  ctx.beginPath();
+  ctx.arc(0, 0, radius, 0, Math.PI * 2);
+  ctx.strokeStyle = "#ffb5df";
+  ctx.lineWidth = 10;
+  ctx.stroke();
+
+  ctx.restore();
+}
+
+function spinWheel() {
+  if (spinning) return;
+
+  spinning = true;
+  selectedChallenge = null;
+
+  const button = document.getElementById("spinBtn");
+  button.disabled = true;
+  button.textContent = "💫 العجلة راهي تدور...";
+
+  document.getElementById("result").classList.remove("show");
+
+  const startRotation = rotation;
+  const extraRotation = (Math.PI * 2) * (5 + Math.random() * 4);
+  const randomOffset = Math.random() * Math.PI * 2;
+  const targetRotation = startRotation + extraRotation + randomOffset;
+  const duration = 4200;
+  const startTime = performance.now();
+
+  function animate(now) {
+    const elapsed = Math.min((now - startTime) / duration, 1);
+    const eased = 1 - Math.pow(1 - elapsed, 4);
+
+    rotation = startRotation +
+      (targetRotation - startRotation) * eased;
+
+    drawWheel();
+
+    if (elapsed < 1) {
+      requestAnimationFrame(animate);
+    } else {
+      rotation = rotation % (Math.PI * 2);
+      drawWheel();
+
+      const pointerAngle = (Math.PI * 1.5 - rotation + Math.PI * 2)
+        % (Math.PI * 2);
+      const index = Math.floor(pointerAngle / arc) % count;
+
+      selectedChallenge = challenges[index];
+      showResult(selectedChallenge);
+
+      spinning = false;
+      button.disabled = false;
+      button.textContent = "🎡 دوّر العجلة";
+    }
+  }
+
+  requestAnimationFrame(animate);
+}
+
+function showResult(challenge) {
+  document.getElementById("resultEmoji").textContent = challenge.emoji;
+  document.getElementById("resultTitle").textContent = challenge.title;
+  document.getElementById("resultText").textContent = challenge.text;
+  document.getElementById("result").classList.add("show");
+
+  setTimeout(() => {
+    document.getElementById("result").scrollIntoView({
+      behavior: "smooth",
+      block: "nearest"
+    });
+  }, 100);
+}
+
+async function copyChallenge() {
+  if (!selectedChallenge) return;
+
+  const text =
+    selectedChallenge.title + "\n" + selectedChallenge.text;
+
+  try {
+    await navigator.clipboard.writeText(text);
+    alert("نسخت التحدي بنجاح ❤️");
+  } catch (error) {
+    const area = document.createElement("textarea");
+    area.value = text;
+    document.body.appendChild(area);
+    area.select();
+    document.execCommand("copy");
+    area.remove();
+    alert("نسخت التحدي ❤️");
+  }
+}
+
+drawWheel();
+</script>
+</body>
+</html>
