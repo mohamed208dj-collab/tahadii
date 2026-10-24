@@ -1,1 +1,782 @@
+<!DOCTYPE html><html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#100d20">
+<title>ملاحظاتي ❤️ | LoveSpace</title><style>
+@import url('https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;600;700;800&display=swap');
 
+:root {
+  --bg: #100d20;
+  --card: #1c1730;
+  --card2: #241b3d;
+  --pink: #ff70b8;
+  --purple: #a78bfa;
+  --text: #fff5fc;
+  --muted: #b9adc9;
+  --border: rgba(255,255,255,.09);
+  --danger: #ff6b81;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Alexandria', sans-serif;
+  background:
+    radial-gradient(ellipse at top right, rgba(167,139,250,.14), transparent 38%),
+    radial-gradient(ellipse at bottom left, rgba(255,112,184,.10), transparent 35%),
+    var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  padding: 22px;
+}
+
+button, input, textarea, select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+.container {
+  max-width: 1050px;
+  margin: auto;
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 28px;
+}
+
+.back {
+  color: var(--muted);
+  text-decoration: none;
+  background: var(--card);
+  border: 1px solid var(--border);
+  padding: 11px 16px;
+  border-radius: 14px;
+  font-size: 13px;
+}
+
+.back:hover {
+  color: var(--pink);
+  border-color: var(--pink);
+}
+
+.logo {
+  color: var(--pink);
+  font-size: 13px;
+  letter-spacing: 1px;
+}
+
+.hero {
+  text-align: center;
+  padding: 24px 10px 30px;
+}
+
+.hero-icon {
+  width: 75px;
+  height: 75px;
+  margin: 0 auto 18px;
+  display: grid;
+  place-items: center;
+  font-size: 35px;
+  border-radius: 24px;
+  background: linear-gradient(135deg, rgba(255,112,184,.18), rgba(167,139,250,.20));
+  border: 1px solid rgba(255,112,184,.24);
+  box-shadow: 0 0 40px rgba(255,112,184,.10);
+}
+
+h1 {
+  font-size: clamp(25px, 5vw, 36px);
+  margin-bottom: 12px;
+}
+
+h1 span {
+  color: var(--pink);
+}
+
+.subtitle {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 2;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 13px;
+  margin-bottom: 22px;
+}
+
+.stat {
+  background: rgba(28,23,48,.85);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 18px 10px;
+  text-align: center;
+}
+
+.stat strong {
+  display: block;
+  color: var(--pink);
+  font-size: 25px;
+  margin-bottom: 5px;
+}
+
+.stat span {
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.panel {
+  background: rgba(28,23,48,.90);
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  padding: 22px;
+  margin-bottom: 22px;
+  box-shadow: 0 15px 45px rgba(0,0,0,.10);
+}
+
+.panel-title {
+  font-size: 17px;
+  margin-bottom: 18px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.field.full {
+  grid-column: 1 / -1;
+}
+
+label {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+input, textarea, select {
+  width: 100%;
+  background: #120f22;
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 13px;
+  padding: 13px 14px;
+  outline: none;
+  font-size: 13px;
+  transition: .2s;
+}
+
+input:focus, textarea:focus, select:focus {
+  border-color: var(--pink);
+  box-shadow: 0 0 0 3px rgba(255,112,184,.08);
+}
+
+textarea {
+  min-height: 130px;
+  resize: vertical;
+  line-height: 2;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.btn {
+  border: 0;
+  border-radius: 13px;
+  padding: 12px 18px;
+  font-size: 12px;
+  font-weight: 700;
+  transition: .2s;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.08);
+}
+
+.primary {
+  background: linear-gradient(135deg, var(--pink), #d85eff);
+  color: #211027;
+}
+
+.secondary {
+  background: var(--card2);
+  border: 1px solid var(--border);
+  color: var(--text);
+}
+
+.danger {
+  color: var(--danger);
+  background: rgba(255,107,129,.10);
+  border: 1px solid rgba(255,107,129,.16);
+}
+
+.searchbar {
+  display: grid;
+  grid-template-columns: 1fr 190px;
+  gap: 12px;
+  margin-bottom: 17px;
+}
+
+.notes-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 15px;
+}
+
+.note {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(145deg, #211a37, #191429);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 19px;
+  animation: appear .3s ease;
+}
+
+.note::before {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 3px;
+  height: 100%;
+  background: var(--note-color, var(--pink));
+  opacity: .9;
+}
+
+.note.pinned {
+  border-color: rgba(255,112,184,.4);
+}
+
+.note-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.note h3 {
+  font-size: 15px;
+  line-height: 1.8;
+  overflow-wrap: anywhere;
+}
+
+.pin {
+  border: 0;
+  background: transparent;
+  color: #776a8c;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.pin.active {
+  color: #ffd166;
+}
+
+.note-content {
+  color: #cfc3df;
+  font-size: 12px;
+  line-height: 2.1;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  margin-bottom: 15px;
+}
+
+.note-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  color: #9689aa;
+  font-size: 10px;
+  margin-bottom: 13px;
+}
+
+.tag {
+  padding: 5px 9px;
+  border-radius: 20px;
+  color: var(--purple);
+  background: rgba(167,139,250,.10);
+}
+
+.note-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  border-top: 1px solid var(--border);
+  padding-top: 12px;
+}
+
+.note-actions button {
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  padding: 7px 10px;
+  background: rgba(255,255,255,.03);
+  color: var(--muted);
+  font-size: 10px;
+}
+
+.note-actions button:hover {
+  color: var(--pink);
+  border-color: var(--pink);
+}
+
+.empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 40px 15px;
+  color: var(--muted);
+  background: rgba(28,23,48,.5);
+  border: 1px dashed var(--border);
+  border-radius: 18px;
+  line-height: 2.2;
+}
+
+.empty div {
+  font-size: 35px;
+  margin-bottom: 10px;
+}
+
+.footer {
+  text-align: center;
+  padding: 20px 0 5px;
+  color: #766b8b;
+  font-size: 11px;
+  line-height: 2;
+}
+
+.toast {
+  position: fixed;
+  bottom: 22px;
+  left: 50%;
+  transform: translate(-50%, 20px);
+  background: #302345;
+  border: 1px solid rgba(255,112,184,.3);
+  color: white;
+  padding: 12px 18px;
+  border-radius: 13px;
+  font-size: 12px;
+  opacity: 0;
+  pointer-events: none;
+  transition: .25s;
+  z-index: 10;
+  max-width: 90%;
+  text-align: center;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+@keyframes appear {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 650px) {
+  body { padding: 14px; }
+  .panel { padding: 16px; border-radius: 18px; }
+  .form-grid, .notes-grid { grid-template-columns: 1fr; }
+  .searchbar { grid-template-columns: 1fr; }
+  .stats { gap: 8px; }
+  .stat { padding: 14px 6px; }
+  .stat strong { font-size: 21px; }
+  .stat span { font-size: 10px; }
+  .topbar { margin-bottom: 10px; }
+  .hero { padding-top: 20px; }
+}
+</style></head><body>
+<div class="container">  <header class="topbar">
+    <a class="back" href="home.html">← الرئيسية</a>
+    <div class="logo">LoveSpace ♥</div>
+  </header>  <section class="hero">
+    <div class="hero-icon">📝</div>
+    <h1>مساحة <span>ملاحظاتي</span></h1>
+    <p class="subtitle">كل فكرة تستاهل مكانها… اكتبها وخليها محفوظة عندك ✨</p>
+  </section>  <section class="stats">
+    <div class="stat">
+      <strong id="totalCount">0</strong>
+      <span>كل الملاحظات</span>
+    </div>
+    <div class="stat">
+      <strong id="pinnedCount">0</strong>
+      <span>الملاحظات المثبتة</span>
+    </div>
+    <div class="stat">
+      <strong id="todayCount">0</strong>
+      <span>ملاحظات اليوم</span>
+    </div>
+  </section>  <section class="panel" id="editorPanel">
+    <h2 class="panel-title" id="formTitle">✍️ أضف ملاحظة جديدة</h2><form id="noteForm">
+  <div class="form-grid">
+    <div class="field">
+      <label for="noteTitle">عنوان الملاحظة</label>
+      <input id="noteTitle" maxlength="100" placeholder="مثلاً: فكرة جديدة..." required>
+    </div>
+
+    <div class="field">
+      <label for="noteCategory">التصنيف</label>
+      <select id="noteCategory">
+        <option value="عام">📌 عام</option>
+        <option value="أفكار">💡 أفكار</option>
+        <option value="ذكريات">💗 ذكريات</option>
+        <option value="دراسة">📚 دراسة</option>
+        <option value="أهداف">🎯 أهداف</option>
+        <option value="مهم">⭐ مهم</option>
+      </select>
+    </div>
+
+    <div class="field full">
+      <label for="noteContent">محتوى الملاحظة</label>
+      <textarea id="noteContent" maxlength="10000" placeholder="اكتب كل ما تحب الاحتفاظ به هنا..." required></textarea>
+    </div>
+  </div>
+
+  <div class="actions">
+    <button class="btn primary" id="saveBtn" type="submit">💾 حفظ الملاحظة</button>
+    <button class="btn secondary" type="button" id="cancelBtn" hidden>إلغاء التعديل</button>
+    <button class="btn secondary" type="reset" id="clearBtn">مسح الحقول</button>
+  </div>
+</form>
+
+  </section>  <section class="panel">
+    <h2 class="panel-title">📂 ملاحظاتي المحفوظة</h2><div class="searchbar">
+  <input id="searchInput" type="search" placeholder="🔍 ابحث عن عنوان أو كلمة...">
+  <select id="filterCategory">
+    <option value="الكل">جميع التصنيفات</option>
+    <option value="عام">📌 عام</option>
+    <option value="أفكار">💡 أفكار</option>
+    <option value="ذكريات">💗 ذكريات</option>
+    <option value="دراسة">📚 دراسة</option>
+    <option value="أهداف">🎯 أهداف</option>
+    <option value="مهم">⭐ مهم</option>
+  </select>
+</div>
+
+<div class="notes-grid" id="notesGrid"></div>
+
+  </section>  <footer class="footer">
+    صُنعت بكل حب ❤️<br>
+    LoveSpace — مساحتك الخاصة للأفكار والذكريات
+  </footer>
+</div><div class="toast" id="toast"></div><script>
+const STORAGE_KEY = 'lovespace_notes_v1';
+
+const form = document.getElementById('noteForm');
+const titleInput = document.getElementById('noteTitle');
+const contentInput = document.getElementById('noteContent');
+const categoryInput = document.getElementById('noteCategory');
+const searchInput = document.getElementById('searchInput');
+const filterCategory = document.getElementById('filterCategory');
+const notesGrid = document.getElementById('notesGrid');
+const saveBtn = document.getElementById('saveBtn');
+const cancelBtn = document.getElementById('cancelBtn');
+const formTitle = document.getElementById('formTitle');
+
+let notes = loadNotes();
+let editingId = null;
+let toastTimer;
+
+function loadNotes() {
+  try {
+    const data = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+    return Array.isArray(data) ? data.filter(n =>
+      n && typeof n === 'object' &&
+      typeof n.id === 'string' &&
+      typeof n.title === 'string' &&
+      typeof n.content === 'string'
+    ) : [];
+  } catch {
+    return [];
+  }
+}
+
+function saveNotes() {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(notes));
+    return true;
+  } catch {
+    showToast('تعذّر الحفظ. تحقق من مساحة التخزين وإعدادات المتصفح.');
+    return false;
+  }
+}
+
+function showToast(message) {
+  const toast = document.getElementById('toast');
+  toast.textContent = message;
+  toast.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toast.classList.remove('show'), 2600);
+}
+
+function escapeHTML(value) {
+  return String(value).replace(/[&<>"']/g, char => ({
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;'
+  })[char]);
+}
+
+function formatDate(dateString) {
+  const date = new Date(dateString);
+  if (Number.isNaN(date.getTime())) return 'تاريخ غير معروف';
+  return date.toLocaleDateString('ar-DZ', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric'
+  });
+}
+
+function updateStats() {
+  const today = new Date().toDateString();
+  document.getElementById('totalCount').textContent = notes.length;
+  document.getElementById('pinnedCount').textContent =
+    notes.filter(n => n.pinned).length;
+  document.getElementById('todayCount').textContent =
+    notes.filter(n => new Date(n.createdAt).toDateString() === today).length;
+}
+
+function renderNotes() {
+  const query = searchInput.value.trim().toLocaleLowerCase();
+  const category = filterCategory.value;
+
+  const filtered = notes
+    .filter(n => category === 'الكل' || n.category === category)
+    .filter(n => `${n.title} ${n.content} ${n.category}`
+      .toLocaleLowerCase().includes(query))
+    .sort((a, b) => Number(Boolean(b.pinned)) - Number(Boolean(a.pinned)) ||
+      new Date(b.updatedAt || b.createdAt) - new Date(a.updatedAt || a.createdAt));
+
+  updateStats();
+
+  if (!filtered.length) {
+    notesGrid.innerHTML = `
+      <div class="empty">
+        <div>📝</div>
+        <strong>${notes.length ? 'ما لقينا حتى ملاحظة مطابقة' : 'مازال ما عندك حتى ملاحظة'}</strong>
+        <p>${notes.length ? 'جرّب كلمة أخرى أو بدّل التصنيف.' : 'أضف أول ملاحظة وخلي أفكارك محفوظة ❤️'}</p>
+      </div>`;
+    return;
+  }
+
+  notesGrid.innerHTML = filtered.map(note => `
+    <article class="note ${note.pinned ? 'pinned' : ''}">
+      <div class="note-top">
+        <h3>${escapeHTML(note.title)}</h3>
+        <button class="pin ${note.pinned ? 'active' : ''}"
+          data-action="pin" data-id="${escapeHTML(note.id)}"
+          title="${note.pinned ? 'إلغاء التثبيت' : 'تثبيت الملاحظة'}"
+          aria-label="${note.pinned ? 'إلغاء التثبيت' : 'تثبيت الملاحظة'}">
+          ${note.pinned ? '★' : '☆'}
+        </button>
+      </div>
+
+      <p class="note-content">${escapeHTML(note.content)}</p>
+
+      <div class="note-meta">
+        <span class="tag">${escapeHTML(note.category || 'عام')}</span>
+        <span>${formatDate(note.updatedAt || note.createdAt)}</span>
+      </div>
+
+      <div class="note-actions">
+        <button data-action="edit" data-id="${escapeHTML(note.id)}">✏️ تعديل</button>
+        <button data-action="copy" data-id="${escapeHTML(note.id)}">📋 نسخ</button>
+        <button data-action="delete" data-id="${escapeHTML(note.id)}">🗑️ حذف</button>
+      </div>
+    </article>
+  `).join('');
+}
+
+function resetEditor() {
+  editingId = null;
+  form.reset();
+  formTitle.textContent = '✍️ أضف ملاحظة جديدة';
+  saveBtn.textContent = '💾 حفظ الملاحظة';
+  cancelBtn.hidden = true;
+}
+
+form.addEventListener('submit', event => {
+  event.preventDefault();
+
+  const title = titleInput.value.trim();
+  const content = contentInput.value.trim();
+  const category = categoryInput.value;
+
+  if (!title || !content) {
+    showToast('اكتب العنوان والمحتوى أولاً ❤️');
+    return;
+  }
+
+  const now = new Date().toISOString();
+
+  if (editingId) {
+    const index = notes.findIndex(n => n.id === editingId);
+    if (index === -1) {
+      showToast('الملاحظة غير موجودة، حاول مجدداً.');
+      resetEditor();
+      return;
+    }
+
+    const previous = notes[index];
+    notes[index] = {
+      ...previous,
+      title,
+      content,
+      category,
+      updatedAt: now
+    };
+
+    if (!saveNotes()) {
+      notes[index] = previous;
+      return;
+    }
+
+    showToast('تم تعديل الملاحظة بنجاح ✨');
+  } else {
+    const newNote = {
+      id: (typeof crypto !== 'undefined' && crypto.randomUUID)
+        ? crypto.randomUUID()
+        : Date.now().toString(36) + Math.random().toString(36).slice(2),
+      title,
+      content,
+      category,
+      pinned: false,
+      createdAt: now,
+      updatedAt: now
+    };
+
+    notes.unshift(newNote);
+
+    if (!saveNotes()) {
+      notes = notes.filter(n => n.id !== newNote.id);
+      return;
+    }
+
+    showToast('تحفظت الملاحظة بنجاح ❤️');
+  }
+
+  resetEditor();
+  renderNotes();
+});
+
+cancelBtn.addEventListener('click', () => {
+  resetEditor();
+  showToast('تم إلغاء التعديل');
+});
+
+document.getElementById('clearBtn').addEventListener('click', () => {
+  setTimeout(() => {
+    if (editingId) resetEditor();
+  }, 0);
+});
+
+notesGrid.addEventListener('click', async event => {
+  const button = event.target.closest('button[data-action]');
+  if (!button) return;
+
+  const { action, id } = button.dataset;
+  const index = notes.findIndex(n => n.id === id);
+  if (index === -1) return;
+
+  const note = notes[index];
+
+  if (action === 'edit') {
+    editingId = id;
+    titleInput.value = note.title;
+    contentInput.value = note.content;
+    categoryInput.value = note.category || 'عام';
+    formTitle.textContent = '✏️ تعديل الملاحظة';
+    saveBtn.textContent = '💾 حفظ التعديلات';
+    cancelBtn.hidden = false;
+    document.getElementById('editorPanel').scrollIntoView({
+      behavior: 'smooth',
+      block: 'start'
+    });
+    titleInput.focus();
+  }
+
+  if (action === 'pin') {
+    const previous = note.pinned;
+    note.pinned = !note.pinned;
+
+    if (!saveNotes()) {
+      note.pinned = previous;
+      return;
+    }
+
+    renderNotes();
+    showToast(note.pinned ? 'تثبتت الملاحظة ⭐' : 'تلغى تثبيت الملاحظة');
+  }
+
+  if (action === 'delete') {
+    if (!confirm(`تحب تحذف الملاحظة "${note.title}"؟`)) return;
+
+    const removed = notes.splice(index, 1)[0];
+
+    if (!saveNotes()) {
+      notes.splice(index, 0, removed);
+      return;
+    }
+
+    if (editingId === id) resetEditor();
+    renderNotes();
+    showToast('تم حذف الملاحظة');
+  }
+
+  if (action === 'copy') {
+    const text = `${note.title}\n\n${note.content}`;
+
+    try {
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(text);
+      } else {
+        const helper = document.createElement('textarea');
+        helper.value = text;
+        helper.style.position = 'fixed';
+        helper.style.opacity = '0';
+        document.body.appendChild(helper);
+        helper.select();
+        const copied = document.execCommand('copy');
+        helper.remove();
+        if (!copied) throw new Error('Copy failed');
+      }
+      showToast('تم نسخ الملاحظة 📋');
+    } catch {
+      showToast('النسخ غير متاح في هذا المتصفح، حاول تحديد النص يدوياً.');
+    }
+  }
+});
+
+searchInput.addEventListener('input', renderNotes);
+filterCategory.addEventListener('change', renderNotes);
+
+renderNotes();
+</script></body>
+</html>
