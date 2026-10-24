@@ -1,1 +1,458 @@
 
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#100d20">
+<title>LoveSpace ❤️ | الرئيسية</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+  --bg: #100d20;
+  --panel: rgba(255,255,255,.055);
+  --pink: #ff80b5;
+  --purple: #a78bfa;
+  --text: #fff5fb;
+  --muted: #bcb2ce;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  font-family: 'Alexandria', sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(ellipse at 10% 10%, #49245c 0, transparent 40%),
+    radial-gradient(ellipse at 90% 90%, #311d57 0, transparent 40%),
+    var(--bg);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.container {
+  width: min(1100px, 92%);
+  margin: auto;
+  position: relative;
+  z-index: 1;
+}
+
+.orb {
+  position: fixed;
+  width: 230px;
+  height: 230px;
+  border-radius: 50%;
+  filter: blur(90px);
+  opacity: .18;
+  pointer-events: none;
+  animation: float 10s ease-in-out infinite alternate;
+}
+
+.orb.one {
+  background: #ff4fa3;
+  top: 10%;
+  right: -100px;
+}
+
+.orb.two {
+  background: #875bff;
+  bottom: 0;
+  left: -100px;
+  animation-delay: -4s;
+}
+
+@keyframes float {
+  to { transform: translate(30px,-25px) scale(1.15); }
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 22px 0;
+  border-bottom: 1px solid #ffffff12;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 19px;
+  font-weight: 800;
+}
+
+.logo {
+  width: 45px;
+  height: 45px;
+  display: grid;
+  place-items: center;
+  border-radius: 15px;
+  background: linear-gradient(135deg, var(--pink), var(--purple));
+  box-shadow: 0 0 25px #ff80b533;
+}
+
+.back {
+  color: var(--pink);
+  font-size: 12px;
+  padding: 10px 14px;
+  border: 1px solid #ff80b544;
+  border-radius: 25px;
+  transition: .25s;
+}
+
+.back:hover {
+  background: #ff80b518;
+  transform: translateY(-2px);
+}
+
+.hero {
+  padding: 45px 0 30px;
+  animation: enter .7s ease both;
+}
+
+@keyframes enter {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.tag {
+  color: var(--pink);
+  font-size: 12px;
+  margin-bottom: 12px;
+}
+
+h1 {
+  font-size: clamp(27px, 5vw, 42px);
+  line-height: 1.7;
+  font-weight: 800;
+}
+
+h1 span {
+  color: var(--pink);
+}
+
+.hero p {
+  margin-top: 10px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 2.1;
+}
+
+.info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding: 17px 20px;
+  margin-bottom: 30px;
+  border: 1px solid #ffffff12;
+  border-radius: 20px;
+  background: var(--panel);
+}
+
+.info small {
+  color: var(--muted);
+  font-size: 11px;
+}
+
+#clock {
+  color: var(--pink);
+  font-size: 17px;
+  font-weight: 700;
+  direction: ltr;
+}
+
+.section-title {
+  font-size: 17px;
+  margin-bottom: 18px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  padding-bottom: 45px;
+}
+
+.card {
+  position: relative;
+  overflow: hidden;
+  min-height: 165px;
+  padding: 22px;
+  border: 1px solid #ffffff12;
+  border-radius: 22px;
+  background: var(--panel);
+  transition: transform .25s, border-color .25s, background .25s;
+  animation: enter .65s ease both;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  border-color: #ff80b566;
+  background: #ffffff0b;
+}
+
+.card::after {
+  content: "";
+  position: absolute;
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: #ff80b511;
+  left: -30px;
+  bottom: -35px;
+  transition: .3s;
+}
+
+.card:hover::after {
+  transform: scale(1.5);
+}
+
+.emoji {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #ff80b51c, #a78bfa24);
+  font-size: 23px;
+  margin-bottom: 17px;
+}
+
+.card h3 {
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.card p {
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.9;
+}
+
+footer {
+  text-align: center;
+  padding: 22px 0 30px;
+  color: var(--muted);
+  font-size: 11px;
+  border-top: 1px solid #ffffff12;
+}
+
+footer span {
+  color: var(--pink);
+}
+
+@media (max-width: 750px) {
+  .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .card { padding: 17px; min-height: 155px; }
+}
+
+@media (max-width: 390px) {
+  .grid { grid-template-columns: 1fr; }
+  .card { min-height: auto; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    transition-duration: .01ms !important;
+  }
+}
+</style>
+</head>
+
+<body>
+<div class="orb one"></div>
+<div class="orb two"></div>
+
+<div class="container">
+  <header>
+    <a class="brand" href="home.html">
+      <div class="logo">❤️</div>
+      <span>LoveSpace</span>
+    </a>
+    <a class="back" href="index.html">← الصفحة الأولى</a>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="tag">✦ مساحتكم الخاصة ✦</div>
+      <h1>كل لحظة عندها <span>حكاية ❤️</span></h1>
+      <p>
+        مرحباً بيكم في مساحتكم الخاصة، اختاروا القسم لي حابين تفتحوه
+        وخليوا أجمل اللحظات تبقى محفوظة.
+      </p>
+    </section>
+
+    <section class="info">
+      <div>
+        <small>اليوم والتاريخ</small>
+        <p id="date">جاري التحميل...</p>
+      </div>
+      <div>
+        <small>الساعة الآن</small>
+        <div id="clock">00:00:00</div>
+      </div>
+    </section>
+
+    <h2 class="section-title">✦ اكتشفوا مساحتكم</h2>
+
+    <section class="grid">
+      <a class="card" href="profile.html">
+        <div class="emoji">👤</div>
+        <h3>الملف الشخصي</h3>
+        <p>الاسم والمعلومات الشخصية.</p>
+      </a>
+
+      <a class="card" href="diary.html">
+        <div class="emoji">📔</div>
+        <h3>مذكراتنا</h3>
+        <p>اكتبوا أفكاركم واحتفظوا بيها.</p>
+      </a>
+
+      <a class="card" href="messages.html">
+        <div class="emoji">💌</div>
+        <h3>الرسائل</h3>
+        <p>كلمات جميلة ورسائل خاصة.</p>
+      </a>
+
+      <a class="card" href="photos.html">
+        <div class="emoji">📸</div>
+        <h3>معرض الصور</h3>
+        <p>مساحة لتنظيم الصور واللحظات.</p>
+      </a>
+
+      <a class="card" href="memories.html">
+        <div class="emoji">🌷</div>
+        <h3>الذكريات</h3>
+        <p>احتفظوا باللحظات المميزة.</p>
+      </a>
+
+      <a class="card" href="love-letter.html">
+        <div class="emoji">💖</div>
+        <h3>رسالة حب</h3>
+        <p>رسالة بتصميم رومانسي.</p>
+      </a>
+
+      <a class="card" href="our-story.html">
+        <div class="emoji">📖</div>
+        <h3>قصتنا</h3>
+        <p>حكايتكم من البداية حتى اليوم.</p>
+      </a>
+
+      <a class="card" href="games.html">
+        <div class="emoji">🎮</div>
+        <h3>الألعاب</h3>
+        <p>ألعاب بسيطة للتسلية.</p>
+      </a>
+
+      <a class="card" href="questions.html">
+        <div class="emoji">❓</div>
+        <h3>أسئلة بيناتنا</h3>
+        <p>أسئلة تفاعلية لاكتشاف بعضكم.</p>
+      </a>
+
+      <a class="card" href="love-wheel.html">
+        <div class="emoji">🎡</div>
+        <h3>عجلة الحب</h3>
+        <p>جربوا الحظ مع العجلة التفاعلية.</p>
+      </a>
+
+      <a class="card" href="quiz.html">
+        <div class="emoji">✨</div>
+        <h3>الاختبار</h3>
+        <p>اختبار تفاعلي ممتع.</p>
+      </a>
+
+      <a class="card" href="music.html">
+        <div class="emoji">🎵</div>
+        <h3>الموسيقى</h3>
+        <p>مساحة للموسيقى المفضلة.</p>
+      </a>
+
+      <a class="card" href="dates.html">
+        <div class="emoji">🗓️</div>
+        <h3>التواريخ المهمة</h3>
+        <p>سجلوا الأيام التي لا تُنسى.</p>
+      </a>
+
+      <a class="card" href="events.html">
+        <div class="emoji">🎉</div>
+        <h3>المناسبات</h3>
+        <p>الأعياد والمناسبات الخاصة.</p>
+      </a>
+
+      <a class="card" href="calendar.html">
+        <div class="emoji">📅</div>
+        <h3>التقويم</h3>
+        <p>نظرة منظمة على التواريخ.</p>
+      </a>
+
+      <a class="card" href="countdown.html">
+        <div class="emoji">⏳</div>
+        <h3>العد التنازلي</h3>
+        <p>احسبوا الوقت المتبقي لموعد مهم.</p>
+      </a>
+
+      <a class="card" href="gifts.html">
+        <div class="emoji">🎁</div>
+        <h3>الهدايا</h3>
+        <p>أفكار للهدايا والمفاجآت.</p>
+      </a>
+
+      <a class="card" href="study.html">
+        <div class="emoji">📚</div>
+        <h3>StudySpace</h3>
+        <p>مساحة خاصة للدراسة والمراجعة.</p>
+      </a>
+
+      <a class="card" href="settings.html">
+        <div class="emoji">⚙️</div>
+        <h3>الإعدادات</h3>
+        <p>خيارات تخصيص الموقع.</p>
+      </a>
+    </section>
+  </main>
+
+  <footer>
+    صُنعت بكل حب <span>♥</span> LoveSpace
+  </footer>
+</div>
+
+<script>
+function updateClock() {
+  const now = new Date();
+
+  document.getElementById('clock').textContent =
+    now.toLocaleTimeString('fr-FR', {
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit'
+    });
+
+  document.getElementById('date').textContent =
+    now.toLocaleDateString('ar-DZ', {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+}
+
+updateClock();
+setInterval(updateClock, 1000);
+</script>
+</body>
+</html>
