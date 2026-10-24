@@ -1,1 +1,773 @@
 
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#100d20">
+<title>الألعاب 🎮 | LoveSpace</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+  --bg: #100d20;
+  --panel: rgba(255,255,255,.055);
+  --pink: #ff80b5;
+  --purple: #a78bfa;
+  --text: #fff5fb;
+  --muted: #bcb2ce;
+  --border: rgba(255,255,255,.10);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  min-height: 100vh;
+  font-family: 'Alexandria', sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(ellipse at 10% 5%, #49245c 0, transparent 40%),
+    radial-gradient(ellipse at 90% 85%, #311d57 0, transparent 40%),
+    var(--bg);
+}
+
+button, input { font: inherit; }
+button { -webkit-tap-highlight-color: transparent; }
+a { color: inherit; text-decoration: none; }
+
+.container {
+  width: min(1000px, 92%);
+  margin: auto;
+  position: relative;
+  z-index: 1;
+}
+
+.orb {
+  position: fixed;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  filter: blur(85px);
+  opacity: .17;
+  pointer-events: none;
+  animation: float 10s ease-in-out infinite alternate;
+}
+.orb.one { background: #ff4fa3; top: 5%; right: -100px; }
+.orb.two { background: #875bff; bottom: 0; left: -100px; animation-delay: -4s; }
+
+@keyframes float {
+  to { transform: translate(25px,-25px) scale(1.15); }
+}
+@keyframes appear {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 22px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  font-weight: 800;
+  font-size: 18px;
+}
+.logo {
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border-radius: 15px;
+  background: linear-gradient(135deg, var(--pink), var(--purple));
+  box-shadow: 0 0 25px #ff80b533;
+  font-size: 22px;
+}
+
+.back {
+  color: var(--pink);
+  font-size: 11px;
+  padding: 10px 14px;
+  border: 1px solid #ff80b544;
+  border-radius: 25px;
+}
+
+.hero {
+  padding: 42px 0 25px;
+  animation: appear .6s ease both;
+}
+.tag { color: var(--pink); font-size: 12px; margin-bottom: 10px; }
+h1 { font-size: clamp(28px, 5vw, 42px); line-height: 1.7; }
+h1 span { color: var(--pink); }
+.hero p { color: var(--muted); font-size: 12px; line-height: 2.2; margin-top: 8px; }
+
+.score-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin: 15px 0 28px;
+}
+.stat {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 17px;
+  padding: 15px;
+}
+.stat strong { display: block; color: var(--pink); font-size: 22px; margin: 5px 0; }
+.stat small { color: var(--muted); font-size: 10px; }
+
+.game-menu {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 25px;
+}
+
+.menu-btn {
+  border: 1px solid var(--border);
+  background: var(--panel);
+  color: var(--text);
+  border-radius: 17px;
+  padding: 15px 8px;
+  cursor: pointer;
+  transition: .2s;
+}
+.menu-btn .emoji { display: block; font-size: 26px; margin-bottom: 8px; }
+.menu-btn span:last-child { font-size: 11px; }
+.menu-btn.active, .menu-btn:hover {
+  border-color: #ff80b566;
+  background: #ff80b512;
+  transform: translateY(-2px);
+}
+
+.game-panel {
+  display: none;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 23px;
+  padding: 24px;
+  margin-bottom: 25px;
+  animation: appear .35s ease both;
+}
+.game-panel.active { display: block; }
+
+.game-panel h2 { font-size: 17px; margin-bottom: 10px; }
+.description { color: var(--muted); font-size: 11px; line-height: 2; margin-bottom: 20px; }
+
+.message {
+  min-height: 27px;
+  text-align: center;
+  color: var(--pink);
+  font-size: 12px;
+  margin: 15px 0;
+  line-height: 1.9;
+}
+
+.action-btn {
+  border: 0;
+  background: linear-gradient(110deg, var(--pink), var(--purple));
+  color: #1b1028;
+  font-weight: 800;
+  padding: 12px 18px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: .2s;
+}
+.action-btn:hover { transform: translateY(-2px); filter: brightness(1.08); }
+
+.secondary-btn {
+  border: 1px solid var(--border);
+  background: #ffffff08;
+  color: var(--text);
+  padding: 11px 16px;
+  border-radius: 12px;
+  cursor: pointer;
+}
+.controls { display: flex; justify-content: center; flex-wrap: wrap; gap: 9px; }
+
+/* XO */
+.xo-board {
+  width: min(330px, 100%);
+  margin: 18px auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 9px;
+}
+.xo-cell {
+  aspect-ratio: 1;
+  border: 1px solid var(--border);
+  background: #ffffff07;
+  color: var(--pink);
+  border-radius: 16px;
+  font-size: clamp(28px, 7vw, 44px);
+  font-weight: 800;
+  cursor: pointer;
+  transition: .2s;
+}
+.xo-cell:hover:not(:disabled) { background: #ff80b514; border-color: #ff80b566; }
+.xo-cell:disabled { cursor: default; }
+
+/* Memory */
+.memory-board {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+  max-width: 450px;
+  margin: 20px auto;
+}
+.memory-card {
+  aspect-ratio: 1;
+  border: 1px solid var(--border);
+  background: linear-gradient(135deg, #312147, #201832);
+  color: var(--pink);
+  border-radius: 13px;
+  font-size: clamp(20px, 5vw, 32px);
+  cursor: pointer;
+  transition: .2s;
+}
+.memory-card.open, .memory-card.matched {
+  background: #ff80b516;
+  border-color: #ff80b566;
+}
+.memory-card.matched { cursor: default; }
+
+/* Quiz */
+.quiz-box { max-width: 650px; margin: auto; }
+.quiz-progress { height: 6px; background: #ffffff12; border-radius: 20px; overflow: hidden; margin-bottom: 20px; }
+.quiz-progress div { height: 100%; background: linear-gradient(90deg, var(--pink), var(--purple)); width: 0%; transition: .3s; }
+.quiz-question { font-size: 16px; line-height: 2; margin-bottom: 18px; }
+.quiz-options { display: grid; gap: 10px; }
+.quiz-option {
+  text-align: right;
+  border: 1px solid var(--border);
+  background: #ffffff06;
+  color: var(--text);
+  padding: 13px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: .2s;
+}
+.quiz-option:hover:not(:disabled) { border-color: var(--pink); }
+.quiz-option.correct { border-color: #6ee7b7; background: #6ee7b715; }
+.quiz-option.wrong { border-color: #fb7185; background: #fb718515; }
+.quiz-option:disabled { cursor: default; }
+
+/* Guess */
+.guess-box { max-width: 500px; margin: auto; text-align: center; }
+.guess-number {
+  width: 100%;
+  max-width: 220px;
+  display: block;
+  margin: 18px auto;
+  text-align: center;
+  font-size: 23px;
+  color: var(--pink);
+  background: #0c0918;
+  border: 1px solid var(--border);
+  padding: 14px;
+  border-radius: 14px;
+  outline: none;
+}
+.guess-number:focus { border-color: var(--pink); }
+footer { text-align: center; color: var(--muted); font-size: 10px; padding: 10px 0 28px; }
+footer span { color: var(--pink); }
+
+@media (max-width: 700px) {
+  .game-menu { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .game-panel { padding: 17px; }
+}
+@media (max-width: 390px) {
+  .score-row { gap: 7px; }
+  .stat { padding: 10px; }
+  .stat strong { font-size: 18px; }
+  .memory-board { gap: 6px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    transition-duration: .01ms !important;
+  }
+}
+</style>
+</head>
+
+<body>
+<div class="orb one"></div>
+<div class="orb two"></div>
+
+<div class="container">
+  <header>
+    <a class="brand" href="home.html">
+      <div class="logo">❤️</div>
+      <span>LoveSpace</span>
+    </a>
+    <a class="back" href="home.html">← الرئيسية</a>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="tag">✦ وقت المرح والتحدي ✦</div>
+      <h1>منطقة <span>الألعاب 🎮</span></h1>
+      <p>اختار اللعبة لي تعجبك، جرّب ذكاءك وتحدّى روحك. كل الألعاب تخدم مباشرة في المتصفح.</p>
+    </section>
+
+    <section class="score-row">
+      <div class="stat">
+        <div>🎮</div>
+        <strong>4</strong>
+        <small>ألعاب متوفرة</small>
+      </div>
+      <div class="stat">
+        <div>🏆</div>
+        <strong id="bestScore">0</strong>
+        <small>أفضل نقاط الاختبار</small>
+      </div>
+      <div class="stat">
+        <div>🧠</div>
+        <strong id="memoryMoves">0</strong>
+        <small>محاولات الذاكرة</small>
+      </div>
+    </section>
+
+    <nav class="game-menu" aria-label="اختيار لعبة">
+      <button class="menu-btn active" data-game="xo" type="button">
+        <span class="emoji">⭕</span><span>لعبة XO</span>
+      </button>
+      <button class="menu-btn" data-game="memory" type="button">
+        <span class="emoji">🧠</span><span>لعبة الذاكرة</span>
+      </button>
+      <button class="menu-btn" data-game="quiz" type="button">
+        <span class="emoji">❓</span><span>تحدي الأسئلة</span>
+      </button>
+      <button class="menu-btn" data-game="guess" type="button">
+        <span class="emoji">🔢</span><span>تخمين الرقم</span>
+      </button>
+    </nav>
+
+    <!-- XO -->
+    <section class="game-panel active" id="game-xo">
+      <h2>⭕ لعبة XO</h2>
+      <p class="description">العب ضد صديقك على نفس الجهاز. اللاعب الأول X والثاني O.</p>
+      <div class="message" id="xoMessage" aria-live="polite">دور اللاعب X</div>
+      <div class="xo-board" id="xoBoard">
+        <button class="xo-cell" data-index="0" aria-label="المربع 1"></button>
+        <button class="xo-cell" data-index="1" aria-label="المربع 2"></button>
+        <button class="xo-cell" data-index="2" aria-label="المربع 3"></button>
+        <button class="xo-cell" data-index="3" aria-label="المربع 4"></button>
+        <button class="xo-cell" data-index="4" aria-label="المربع 5"></button>
+        <button class="xo-cell" data-index="5" aria-label="المربع 6"></button>
+        <button class="xo-cell" data-index="6" aria-label="المربع 7"></button>
+        <button class="xo-cell" data-index="7" aria-label="المربع 8"></button>
+        <button class="xo-cell" data-index="8" aria-label="المربع 9"></button>
+      </div>
+      <div class="controls">
+        <button class="action-btn" id="xoReset" type="button">🔄 مباراة جديدة</button>
+      </div>
+    </section>
+
+    <!-- MEMORY -->
+    <section class="game-panel" id="game-memory">
+      <h2>🧠 لعبة الذاكرة</h2>
+      <p class="description">اقلب البطاقات وحاول تلقى كل زوج متشابه بأقل عدد من المحاولات.</p>
+      <div class="message" id="memoryMessage" aria-live="polite">وجد الأزواج المتشابهة!</div>
+      <div class="memory-board" id="memoryBoard"></div>
+      <div class="controls">
+        <button class="action-btn" id="memoryReset" type="button">🔄 إعادة اللعب</button>
+      </div>
+    </section>
+
+    <!-- QUIZ -->
+    <section class="game-panel" id="game-quiz">
+      <h2>❓ تحدي الأسئلة</h2>
+      <p class="description">جاوب على الأسئلة الثقافية وشوف شحال تجيب من نقطة.</p>
+      <div class="quiz-box">
+        <div class="quiz-progress"><div id="quizProgress"></div></div>
+        <div class="message" id="quizCounter" aria-live="polite">السؤال 1</div>
+        <div class="quiz-question" id="quizQuestion"></div>
+        <div class="quiz-options" id="quizOptions"></div>
+        <div class="message" id="quizMessage" aria-live="polite"></div>
+        <div class="controls">
+          <button class="action-btn" id="quizNext" type="button" hidden>السؤال التالي ←</button>
+          <button class="action-btn" id="quizRestart" type="button" hidden>🔄 أعد الاختبار</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- GUESS -->
+    <section class="game-panel" id="game-guess">
+      <h2>🔢 تخمين الرقم</h2>
+      <p class="description">اختر رقم من 1 حتى 100. حاول تخمّن الرقم السري بأقل عدد من المحاولات.</p>
+      <div class="guess-box">
+        <div class="message" id="guessMessage" aria-live="polite">أنا اخترت رقم سري. تقدر تلقاه؟</div>
+        <form id="guessForm">
+          <input class="guess-number" id="guessInput" type="number"
+            min="1" max="100" placeholder="1 - 100" required>
+          <button class="action-btn" type="submit">جرّب الرقم</button>
+        </form>
+        <div class="message" id="guessAttempts">عدد المحاولات: 0</div>
+        <div class="controls">
+          <button class="secondary-btn" id="guessReset" type="button">🔄 رقم جديد</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>اللعب يزيد حلاوة مع شوية تحدي <span>♥</span> LoveSpace</footer>
+</div>
+
+<script>
+/* تبديل الألعاب */
+const menuButtons = document.querySelectorAll('.menu-btn');
+const panels = document.querySelectorAll('.game-panel');
+
+menuButtons.forEach(button => {
+  button.addEventListener('click', () => {
+    menuButtons.forEach(item => item.classList.remove('active'));
+    panels.forEach(panel => panel.classList.remove('active'));
+    button.classList.add('active');
+    document.getElementById('game-' + button.dataset.game).classList.add('active');
+  });
+});
+
+/* لعبة XO */
+const xoCells = [...document.querySelectorAll('.xo-cell')];
+const xoMessage = document.getElementById('xoMessage');
+let xoBoard = Array(9).fill('');
+let xoTurn = 'X';
+let xoFinished = false;
+
+const wins = [
+  [0,1,2], [3,4,5], [6,7,8],
+  [0,3,6], [1,4,7], [2,5,8],
+  [0,4,8], [2,4,6]
+];
+
+function checkWinner(board) {
+  return wins.find(line => line.every(index => board[index] &&
+    board[index] === board[line[0]]));
+}
+
+function resetXO() {
+  xoBoard = Array(9).fill('');
+  xoTurn = 'X';
+  xoFinished = false;
+  xoCells.forEach(cell => {
+    cell.textContent = '';
+    cell.disabled = false;
+  });
+  xoMessage.textContent = 'دور اللاعب X';
+}
+
+xoCells.forEach(cell => {
+  cell.addEventListener('click', () => {
+    const index = Number(cell.dataset.index);
+    if (xoFinished || xoBoard[index]) return;
+
+    xoBoard[index] = xoTurn;
+    cell.textContent = xoTurn;
+    cell.style.color = xoTurn === 'X' ? '#ff80b5' : '#a78bfa';
+
+    const winningLine = checkWinner(xoBoard);
+    if (winningLine) {
+      xoFinished = true;
+      xoMessage.textContent = '🏆 اللاعب ' + xoTurn + ' فاز!';
+      xoCells.forEach(button => button.disabled = true);
+      winningLine.forEach(i => {
+        xoCells[i].style.background = '#ff80b51c';
+      });
+      return;
+    }
+
+    if (xoBoard.every(Boolean)) {
+      xoFinished = true;
+      xoMessage.textContent = '🤝 تعادل! جربوا مرة أخرى.';
+      return;
+    }
+
+    xoTurn = xoTurn === 'X' ? 'O' : 'X';
+    xoMessage.textContent = 'دور اللاعب ' + xoTurn;
+  });
+});
+
+document.getElementById('xoReset').addEventListener('click', () => {
+  xoCells.forEach(cell => cell.style.background = '');
+  resetXO();
+});
+
+/* لعبة الذاكرة */
+const memoryEmojis = ['❤️','🌷','⭐','🎁','🌙','🦋','💎','🎀'];
+const memoryBoard = document.getElementById('memoryBoard');
+const memoryMessage = document.getElementById('memoryMessage');
+let memoryDeck = [];
+let opened = [];
+let matched = new Set();
+let moves = 0;
+let memoryLocked = false;
+let memoryTimer = null;
+
+function shuffle(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+}
+
+function updateMemoryMoves() {
+  document.getElementById('memoryMoves').textContent = moves;
+}
+
+function resetMemory() {
+  clearTimeout(memoryTimer);
+  memoryLocked = false;
+  opened = [];
+  matched = new Set();
+  moves = 0;
+  updateMemoryMoves();
+
+  memoryDeck = shuffle([...memoryEmojis, ...memoryEmojis]);
+  memoryBoard.innerHTML = '';
+  memoryMessage.textContent = 'وجد الأزواج المتشابهة!';
+
+  memoryDeck.forEach((emoji, index) => {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'memory-card';
+    button.textContent = '❔';
+    button.setAttribute('aria-label', 'بطاقة مخفية');
+    button.dataset.index = index;
+    button.addEventListener('click', () => flipMemory(index));
+    memoryBoard.appendChild(button);
+  });
+}
+
+function flipMemory(index) {
+  if (memoryLocked || matched.has(index) || opened.includes(index)) return;
+
+  const buttons = [...memoryBoard.children];
+  buttons[index].textContent = memoryDeck[index];
+  buttons[index].classList.add('open');
+  buttons[index].setAttribute('aria-label', memoryDeck[index]);
+  opened.push(index);
+
+  if (opened.length !== 2) return;
+
+  moves++;
+  updateMemoryMoves();
+
+  const [first, second] = opened;
+  if (memoryDeck[first] === memoryDeck[second]) {
+    matched.add(first);
+    matched.add(second);
+    buttons[first].classList.add('matched');
+    buttons[second].classList.add('matched');
+    opened = [];
+
+    if (matched.size === memoryDeck.length) {
+      memoryMessage.textContent = '🎉 برافو! كملت اللعبة في ' + moves + ' محاولات.';
+    }
+  } else {
+    memoryLocked = true;
+    memoryTimer = setTimeout(() => {
+      buttons[first].textContent = '❔';
+      buttons[second].textContent = '❔';
+      buttons[first].classList.remove('open');
+      buttons[second].classList.remove('open');
+      buttons[first].setAttribute('aria-label', 'بطاقة مخفية');
+      buttons[second].setAttribute('aria-label', 'بطاقة مخفية');
+      opened = [];
+      memoryLocked = false;
+    }, 800);
+  }
+}
+
+document.getElementById('memoryReset').addEventListener('click', resetMemory);
+resetMemory();
+
+/* تحدي الأسئلة */
+const questions = [
+  { q: 'ما هي عاصمة الجزائر؟', a: ['وهران','الجزائر العاصمة','قسنطينة','تيبازة'], correct: 1 },
+  { q: 'كم عدد أيام السنة العادية؟', a: ['360','364','365','366'], correct: 2 },
+  { q: 'ما هو الكوكب المعروف بالكوكب الأحمر؟', a: ['المريخ','الزهرة','المشتري','عطارد'], correct: 0 },
+  { q: 'كم يساوي 9 × 7؟', a: ['56','63','72','49'], correct: 1 },
+  { q: 'ما هي اللغة التي كُتب بها هذا الموقع؟', a: ['العربية','اليابانية','الروسية','الألمانية'], correct: 0 },
+  { q: 'أي عضو يضخ الدم في الجسم؟', a: ['الرئة','القلب','المعدة','الكبد'], correct: 1 },
+  { q: 'كم عدد أضلاع المثلث؟', a: ['2','3','4','5'], correct: 1 },
+  { q: 'ما هو أكبر محيط في العالم؟', a: ['الهندي','الأطلسي','الهادئ','المتجمد الشمالي'], correct: 2 }
+];
+
+let quizQuestions = [];
+let quizIndex = 0;
+let quizScore = 0;
+let quizAnswered = false;
+
+function startQuiz() {
+  quizQuestions = shuffle([...questions]).slice(0, 5);
+  quizIndex = 0;
+  quizScore = 0;
+  quizAnswered = false;
+  document.getElementById('quizNext').hidden = true;
+  document.getElementById('quizRestart').hidden = true;
+  showQuestion();
+}
+
+function showQuestion() {
+  const question = quizQuestions[quizIndex];
+  quizAnswered = false;
+
+  document.getElementById('quizProgress').style.width =
+    (quizIndex / quizQuestions.length * 100) + '%';
+  document.getElementById('quizCounter').textContent =
+    'السؤال ' + (quizIndex + 1) + ' من ' + quizQuestions.length;
+  document.getElementById('quizQuestion').textContent = question.q;
+  document.getElementById('quizMessage').textContent = '';
+  document.getElementById('quizNext').hidden = true;
+
+  const options = document.getElementById('quizOptions');
+  options.innerHTML = '';
+
+  question.a.forEach((answer, index) => {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'quiz-option';
+    button.textContent = answer;
+    button.addEventListener('click', () => chooseAnswer(index));
+    options.appendChild(button);
+  });
+}
+
+function chooseAnswer(index) {
+  if (quizAnswered) return;
+  quizAnswered = true;
+
+  const question = quizQuestions[quizIndex];
+  const buttons = [...document.querySelectorAll('.quiz-option')];
+
+  buttons.forEach((button, i) => {
+    button.disabled = true;
+    if (i === question.correct) button.classList.add('correct');
+    else if (i === index) button.classList.add('wrong');
+  });
+
+  if (index === question.correct) {
+    quizScore++;
+    document.getElementById('quizMessage').textContent = '✅ إجابة صحيحة!';
+  } else {
+    document.getElementById('quizMessage').textContent =
+      '❌ الإجابة الصحيحة: ' + question.a[question.correct];
+  }
+
+  document.getElementById('quizNext').hidden = false;
+  document.getElementById('quizNext').textContent =
+    quizIndex === quizQuestions.length - 1 ? 'عرض النتيجة 🏆' : 'السؤال التالي ←';
+}
+
+document.getElementById('quizNext').addEventListener('click', () => {
+  if (!quizAnswered) return;
+
+  if (quizIndex < quizQuestions.length - 1) {
+    quizIndex++;
+    showQuestion();
+  } else {
+    finishQuiz();
+  }
+});
+
+function finishQuiz() {
+  document.getElementById('quizProgress').style.width = '100%';
+  document.getElementById('quizCounter').textContent = 'انتهى الاختبار';
+  document.getElementById('quizQuestion').textContent =
+    'نتيجتك: ' + quizScore + ' من ' + quizQuestions.length;
+  document.getElementById('quizOptions').innerHTML = '';
+  document.getElementById('quizMessage').textContent =
+    quizScore === quizQuestions.length ? '🏆 ممتاز! كامل الإجابات صحيحة!' :
+    quizScore >= 3 ? '👏 مليح! واصل التحدي.' : '💪 حاول مرة أخرى وتعلّم من الأسئلة.';
+
+  document.getElementById('quizNext').hidden = true;
+  document.getElementById('quizRestart').hidden = false;
+
+  try {
+    const best = Number(localStorage.getItem('lovespace_quiz_best') || 0);
+    if (quizScore > best) {
+      localStorage.setItem('lovespace_quiz_best', String(quizScore));
+    }
+    document.getElementById('bestScore').textContent =
+      localStorage.getItem('lovespace_quiz_best') || '0';
+  } catch {}
+}
+
+document.getElementById('quizRestart').addEventListener('click', startQuiz);
+
+try {
+  document.getElementById('bestScore').textContent =
+    localStorage.getItem('lovespace_quiz_best') || '0';
+} catch {}
+
+startQuiz();
+
+/* تخمين الرقم */
+let secretNumber = 0;
+let guessCount = 0;
+let guessFinished = false;
+
+function resetGuess() {
+  secretNumber = Math.floor(Math.random() * 100) + 1;
+  guessCount = 0;
+  guessFinished = false;
+
+  document.getElementById('guessInput').value = '';
+  document.getElementById('guessInput').disabled = false;
+  document.querySelector('#guessForm button').disabled = false;
+  document.getElementById('guessMessage').textContent =
+    'أنا اخترت رقم سري بين 1 و100. تقدر تلقاه؟';
+  document.getElementById('guessAttempts').textContent = 'عدد المحاولات: 0';
+}
+
+document.getElementById('guessForm').addEventListener('submit', event => {
+  event.preventDefault();
+  if (guessFinished) return;
+
+  const input = document.getElementById('guessInput');
+  const guess = Number(input.value);
+
+  if (!Number.isInteger(guess) || guess < 1 || guess > 100) {
+    document.getElementById('guessMessage').textContent =
+      'اكتب رقم صحيح بين 1 و100.';
+    return;
+  }
+
+  guessCount++;
+  document.getElementById('guessAttempts').textContent =
+    'عدد المحاولات: ' + guessCount;
+
+  if (guess === secretNumber) {
+    guessFinished = true;
+    document.getElementById('guessMessage').textContent =
+      '🎉 برافو! لقيت الرقم ' + secretNumber + ' في ' + guessCount + ' محاولات.';
+    input.disabled = true;
+    document.querySelector('#guessForm button').disabled = true;
+  } else if (guess < secretNumber) {
+    document.getElementById('guessMessage').textContent =
+      '⬆️ الرقم السري أكبر من ' + guess + '. جرّب مرة أخرى!';
+  } else {
+    document.getElementById('guessMessage').textContent =
+      '⬇️ الرقم السري أصغر من ' + guess + '. جرّب مرة أخرى!';
+  }
+
+  if (!guessFinished) input.select();
+});
+
+document.getElementById('guessReset').addEventListener('click', resetGuess);
+resetGuess();
+</script>
+</body>
+</html>
+
