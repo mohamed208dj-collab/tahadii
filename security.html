@@ -1,1 +1,463 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#100d20">
+<title>الأمان 🔐 | LoveSpace</title>
 
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+  --bg: #100d20;
+  --card: #1b1630;
+  --card2: #241b3d;
+  --pink: #ff6fae;
+  --purple: #a78bfa;
+  --text: #f8f3ff;
+  --muted: #b6abc9;
+  --border: rgba(255,255,255,.09);
+  --green: #6ee7b7;
+  --yellow: #fcd34d;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: 'Alexandria', sans-serif;
+  background:
+    radial-gradient(ellipse at top right, #382052 0%, transparent 40%),
+    radial-gradient(ellipse at bottom left, #251641 0%, transparent 38%),
+    var(--bg);
+  color: var(--text);
+}
+
+button, input { font: inherit; }
+
+button {
+  cursor: pointer;
+  border: none;
+  transition: .2s;
+}
+
+button:hover { transform: translateY(-2px); }
+
+.container {
+  width: min(100% - 30px, 900px);
+  margin: auto;
+  padding: 25px 0 50px;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 28px;
+}
+
+.back {
+  color: white;
+  text-decoration: none;
+  background: #ffffff12;
+  border: 1px solid var(--border);
+  padding: 10px 15px;
+  border-radius: 14px;
+  font-size: 13px;
+}
+
+.logo {
+  font-weight: 800;
+  color: var(--pink);
+  letter-spacing: .5px;
+}
+
+.hero {
+  text-align: center;
+  padding: 28px 15px;
+}
+
+.hero-icon {
+  width: 86px;
+  height: 86px;
+  display: grid;
+  place-items: center;
+  margin: 0 auto 18px;
+  border-radius: 28px;
+  background: linear-gradient(135deg, #ff6fae30, #a78bfa30);
+  border: 1px solid #ff6fae45;
+  font-size: 39px;
+  box-shadow: 0 0 40px #ff6fae12;
+}
+
+h1 {
+  font-size: clamp(24px, 5vw, 34px);
+  margin: 0 0 12px;
+}
+
+.hero p {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 2;
+  max-width: 560px;
+  margin: auto;
+}
+
+.card {
+  background: linear-gradient(145deg, #211a37ee, #171327ee);
+  border: 1px solid var(--border);
+  border-radius: 23px;
+  padding: 22px;
+  margin-bottom: 18px;
+  box-shadow: 0 12px 35px #00000012;
+}
+
+.card-title {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  margin: 0 0 17px;
+  font-size: 17px;
+}
+
+.card-title span { font-size: 22px; }
+
+.status {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #ffffff07;
+  border: 1px solid var(--border);
+  padding: 14px;
+  border-radius: 16px;
+  margin-bottom: 11px;
+}
+
+.status-icon { font-size: 23px; }
+
+.status-text { flex: 1; }
+
+.status-text strong {
+  display: block;
+  font-size: 13px;
+  margin-bottom: 5px;
+}
+
+.status-text small {
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.8;
+}
+
+.pill {
+  font-size: 10px;
+  color: var(--green);
+  background: #6ee7b715;
+  padding: 6px 9px;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+
+.notice {
+  color: var(--yellow);
+  background: #fcd34d10;
+  border: 1px solid #fcd34d25;
+  border-radius: 13px;
+  padding: 13px;
+  font-size: 11px;
+  line-height: 2;
+  margin-top: 13px;
+}
+
+.field { margin: 14px 0; }
+
+.field label {
+  display: block;
+  color: var(--muted);
+  font-size: 12px;
+  margin-bottom: 9px;
+}
+
+.field input {
+  width: 100%;
+  padding: 14px;
+  border-radius: 13px;
+  border: 1px solid var(--border);
+  background: #0f0b1c;
+  color: white;
+  outline: none;
+}
+
+.field input:focus { border-color: var(--purple); }
+
+.btn {
+  width: 100%;
+  padding: 13px;
+  border-radius: 13px;
+  color: white;
+  font-weight: 700;
+  margin-top: 8px;
+}
+
+.primary {
+  background: linear-gradient(135deg, #ff6fae, #a78bfa);
+  color: #160f25;
+}
+
+.secondary {
+  background: #ffffff0c;
+  border: 1px solid var(--border);
+}
+
+.danger {
+  background: #ff557018;
+  border: 1px solid #ff557044;
+  color: #ff9bb0;
+}
+
+.tips {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.tip {
+  padding: 16px;
+  border-radius: 16px;
+  background: #ffffff07;
+  border: 1px solid var(--border);
+}
+
+.tip .emoji {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.tip strong {
+  display: block;
+  font-size: 12px;
+  margin-bottom: 7px;
+}
+
+.tip p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.9;
+}
+
+.message {
+  display: none;
+  margin-top: 13px;
+  padding: 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  line-height: 1.8;
+}
+
+.message.show { display: block; }
+.message.good { background: #6ee7b715; color: var(--green); }
+.message.bad { background: #fb718515; color: #fda4af; }
+
+footer {
+  text-align: center;
+  color: #8f84a7;
+  font-size: 11px;
+  margin-top: 25px;
+}
+
+@media(max-width: 520px) {
+  .tips { grid-template-columns: 1fr; }
+  .card { padding: 17px; }
+  .status { align-items: flex-start; }
+  .pill { margin-top: 2px; }
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+
+  <header class="topbar">
+    <a class="back" href="home.html">← الرئيسية</a>
+    <div class="logo">LoveSpace ♡</div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-icon">🔐</div>
+    <h1>مركز الأمان</h1>
+    <p>خصوصيتك مهمة ❤️ تعرّف على حالة الحماية في هذا الجهاز، واستعمل رمز PIN لحماية الدخول إلى هذه الصفحة.</p>
+  </section>
+
+  <section class="card">
+    <h2 class="card-title"><span>🛡️</span> فحص الأمان المحلي</h2>
+
+    <div class="status">
+      <div class="status-icon">🔒</div>
+      <div class="status-text">
+        <strong>رمز PIN</strong>
+        <small id="pinStatus">تحقق من حالة رمز الحماية.</small>
+      </div>
+      <span class="pill" id="pinBadge">جارٍ الفحص</span>
+    </div>
+
+    <div class="status">
+      <div class="status-icon">💾</div>
+      <div class="status-text">
+        <strong>تخزين البيانات</strong>
+        <small>بعض المعلومات تُحفظ محليًا في المتصفح.</small>
+      </div>
+      <span class="pill">محلي</span>
+    </div>
+
+    <div class="status">
+      <div class="status-icon">🌐</div>
+      <div class="status-text">
+        <strong>الاتصال بالخادم</strong>
+        <small>هذه الصفحة لا تتحقق من وجود خادم أو حساب آمن.</small>
+      </div>
+      <span class="pill">غير مفحوص</span>
+    </div>
+
+    <div class="notice">
+      ⚠️ هذا فحص توضيحي محلي فقط، وليس فحصًا شاملًا لأمان الموقع أو الجهاز.
+    </div>
+  </section>
+
+  <section class="card">
+    <h2 class="card-title"><span>🔑</span> إدارة رمز PIN</h2>
+    <p style="color:var(--muted);font-size:12px;line-height:2;margin-top:-5px">
+      أنشئ رمزًا من 4 إلى 12 رقمًا. الرمز يُحفظ في هذا المتصفح فقط، وليس نظام تسجيل دخول حقيقيًا.
+    </p>
+
+    <div class="field">
+      <label for="pin">رمز PIN الجديد</label>
+      <input id="pin" type="password" inputmode="numeric"
+        autocomplete="new-password" maxlength="12"
+        placeholder="أدخل من 4 إلى 12 رقمًا">
+    </div>
+
+    <div class="field">
+      <label for="confirmPin">تأكيد الرمز</label>
+      <input id="confirmPin" type="password" inputmode="numeric"
+        autocomplete="new-password" maxlength="12"
+        placeholder="أعد إدخال الرمز">
+    </div>
+
+    <button class="btn primary" id="savePin">حفظ رمز PIN</button>
+    <button class="btn secondary" id="removePin">إزالة رمز PIN</button>
+    <div class="message" id="pinMessage" role="status"></div>
+  </section>
+
+  <section class="card">
+    <h2 class="card-title"><span>💡</span> نصائح لحماية حسابك</h2>
+
+    <div class="tips">
+      <div class="tip">
+        <div class="emoji">🔑</div>
+        <strong>استعمل كلمة مرور قوية</strong>
+        <p>اختَر كلمة مرور طويلة ومختلفة عن كلمات المرور التي تستعملها في المواقع الأخرى.</p>
+      </div>
+
+      <div class="tip">
+        <div class="emoji">📱</div>
+        <strong>أمّن هاتفك</strong>
+        <p>فعّل قفل الشاشة بالبصمة أو رمز سري، ولا تترك هاتفك مفتوحًا للآخرين.</p>
+      </div>
+
+      <div class="tip">
+        <div class="emoji">🚫</div>
+        <strong>لا تشارك رموزك</strong>
+        <p>لا ترسل كلمات المرور أو رموز التحقق لأي شخص، حتى لو ادّعى أنه من الدعم.</p>
+      </div>
+
+      <div class="tip">
+        <div class="emoji">💾</div>
+        <strong>احتفظ بنسخة احتياطية</strong>
+        <p>صدّر بياناتك المهمة بانتظام، وخزّن النسخة في مكان آمن.</p>
+      </div>
+
+      <div class="tip">
+        <div class="emoji">🌐</div>
+        <strong>تحقق من الروابط</strong>
+        <p>تجنب الروابط المشبوهة، وتأكد من عنوان الموقع قبل إدخال معلوماتك.</p>
+      </div>
+
+      <div class="tip">
+        <div class="emoji">🔄</div>
+        <strong>حدّث تطبيقاتك</strong>
+        <p>حافظ على تحديث المتصفح والهاتف لتستفيد من إصلاحات الأمان.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>صُنعت بكل حب ❤️ LoveSpace</footer>
+</div>
+
+<script>
+const PIN_KEY = 'lovespace_security_pin_v1';
+
+const pinInput = document.getElementById('pin');
+const confirmInput = document.getElementById('confirmPin');
+const pinMessage = document.getElementById('pinMessage');
+
+function showMessage(text, good) {
+  pinMessage.textContent = text;
+  pinMessage.className = 'message show ' + (good ? 'good' : 'bad');
+}
+
+function updateStatus() {
+  const exists = localStorage.getItem(PIN_KEY);
+  document.getElementById('pinStatus').textContent =
+    exists ? 'يوجد رمز محفوظ في هذا المتصفح.' : 'لم يتم إعداد رمز PIN بعد.';
+  document.getElementById('pinBadge').textContent =
+    exists ? 'مُعدّ' : 'غير مُعدّ';
+}
+
+document.getElementById('savePin').addEventListener('click', () => {
+  const pin = pinInput.value.trim();
+  const confirmPin = confirmInput.value.trim();
+
+  if (!/^\d{4,12}$/.test(pin)) {
+    showMessage('أدخل رمزًا يتكون من 4 إلى 12 رقمًا.', false);
+    return;
+  }
+
+  if (pin !== confirmPin) {
+    showMessage('الرمزان غير متطابقين. أعد المحاولة.', false);
+    return;
+  }
+
+  try {
+    localStorage.setItem(PIN_KEY, pin);
+    pinInput.value = '';
+    confirmInput.value = '';
+    updateStatus();
+    showMessage('تم حفظ الرمز في هذا المتصفح. تذكّر أنه لا يقفل الموقع فعليًا.', true);
+  } catch (error) {
+    showMessage('تعذّر الحفظ. تحقق من إعدادات التخزين في المتصفح.', false);
+  }
+});
+
+document.getElementById('removePin').addEventListener('click', () => {
+  if (!localStorage.getItem(PIN_KEY)) {
+    showMessage('لا يوجد رمز محفوظ لإزالته.', false);
+    return;
+  }
+
+  if (!confirm('هل تريد إزالة رمز PIN المحفوظ من هذا المتصفح؟')) return;
+
+  localStorage.removeItem(PIN_KEY);
+  pinInput.value = '';
+  confirmInput.value = '';
+  updateStatus();
+  showMessage('تمت إزالة رمز PIN المحلي.', true);
+});
+
+updateStatus();
+</script>
+</body>
+</html>
