@@ -1,1 +1,891 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#100d20">
+<title>موادي الدراسية 📚 | LoveSpace</title>
 
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --bg: #100d20;
+  --card: #1b1530;
+  --pink: #ff78b7;
+  --purple: #a78bfa;
+  --text: #fff0f7;
+  --muted: #bdb0d0;
+  --border: #ffffff15;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  padding: 20px 14px 35px;
+  font-family: 'Alexandria', sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(circle at 15% 10%, #54265c55, transparent 35%),
+    radial-gradient(circle at 85% 85%, #6e287755, transparent 35%),
+    var(--bg);
+}
+
+.container {
+  width: 100%;
+  max-width: 900px;
+  margin: auto;
+}
+
+header {
+  text-align: center;
+  padding: 15px 0 25px;
+}
+
+.logo {
+  width: 68px;
+  height: 68px;
+  display: grid;
+  place-items: center;
+  margin: 0 auto 15px;
+  border-radius: 22px;
+  font-size: 32px;
+  background: linear-gradient(135deg, #ff78b7, #8b5cf6);
+  box-shadow: 0 0 35px #ff78b744;
+}
+
+h1 {
+  font-size: clamp(25px, 5vw, 36px);
+  margin-bottom: 10px;
+  background: linear-gradient(90deg, #fff, #ff9dce, #c4b5fd);
+  color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
+}
+
+.subtitle {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 2;
+}
+
+.card {
+  background: linear-gradient(145deg, #211832ed, #171225f5);
+  border: 1px solid var(--border);
+  border-radius: 23px;
+  padding: 20px;
+  margin-bottom: 17px;
+  box-shadow: 0 15px 40px #0003;
+}
+
+.welcome {
+  background: linear-gradient(120deg, #44204f, #292044);
+  border-color: #ff78b72b;
+}
+
+.welcome h2 {
+  color: var(--pink);
+  font-size: 18px;
+  margin-bottom: 9px;
+}
+
+.welcome p {
+  color: #e4d5f0;
+  font-size: 12px;
+  line-height: 2.1;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 17px;
+}
+
+.stat {
+  padding: 17px 7px;
+  text-align: center;
+  background: #ffffff08;
+  border: 1px solid var(--border);
+  border-radius: 17px;
+}
+
+.stat strong {
+  display: block;
+  color: var(--pink);
+  font-size: 24px;
+}
+
+.stat span {
+  display: block;
+  margin-top: 6px;
+  color: var(--muted);
+  font-size: 10px;
+}
+
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 15px;
+  margin-bottom: 17px;
+}
+
+.section-title span {
+  font-size: 22px;
+}
+
+.search-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+input, select, textarea {
+  width: 100%;
+  min-width: 0;
+  padding: 13px;
+  color: var(--text);
+  font-family: inherit;
+  font-size: 12px;
+  background: #100d20;
+  border: 1px solid #ffffff20;
+  border-radius: 13px;
+  outline: none;
+}
+
+input:focus, select:focus, textarea:focus {
+  border-color: var(--pink);
+}
+
+select option {
+  background: #1b1530;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: 0;
+  border-radius: 13px;
+  padding: 12px 15px;
+  font-size: 11px;
+  font-weight: 600;
+  transition: .2s;
+}
+
+button:active {
+  transform: scale(.97);
+}
+
+.primary {
+  color: white;
+  background: linear-gradient(100deg, #ec4899, #8b5cf6);
+}
+
+.secondary {
+  color: var(--text);
+  background: #ffffff0c;
+  border: 1px solid var(--border);
+}
+
+.danger {
+  color: #ff9ab7;
+  background: #ff477e13;
+}
+
+.subject-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 13px;
+}
+
+.subject {
+  position: relative;
+  min-width: 0;
+  overflow: hidden;
+  padding: 18px 15px;
+  border-radius: 19px;
+  background: #100d2080;
+  border: 1px solid var(--border);
+  transition: transform .2s, border-color .2s;
+}
+
+.subject:hover {
+  transform: translateY(-3px);
+  border-color: #ff78b755;
+}
+
+.subject-top {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  margin-bottom: 14px;
+}
+
+.subject-icon {
+  width: 47px;
+  height: 47px;
+  min-width: 47px;
+  display: grid;
+  place-items: center;
+  font-size: 24px;
+  border-radius: 15px;
+  background: var(--subject-color, #a78bfa22);
+}
+
+.subject h3 {
+  font-size: 13px;
+  overflow-wrap: anywhere;
+}
+
+.subject small {
+  display: block;
+  color: var(--muted);
+  font-size: 10px;
+  margin-top: 5px;
+}
+
+.subject-progress-label {
+  display: flex;
+  justify-content: space-between;
+  gap: 5px;
+  color: var(--muted);
+  font-size: 10px;
+}
+
+.track {
+  height: 7px;
+  border-radius: 20px;
+  background: #ffffff12;
+  overflow: hidden;
+  margin-top: 9px;
+}
+
+.bar {
+  height: 100%;
+  border-radius: 20px;
+  background: linear-gradient(90deg, #ec4899, #a78bfa);
+  transition: width .3s;
+}
+
+.subject-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 15px;
+}
+
+.subject-actions button {
+  flex: 1;
+  padding: 10px 7px;
+  font-size: 10px;
+}
+
+.empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 28px 10px;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 2;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.full {
+  grid-column: 1 / -1;
+}
+
+label {
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.add-btn {
+  width: 100%;
+  margin-top: 15px;
+}
+
+.detail {
+  display: none;
+}
+
+.detail.show {
+  display: block;
+}
+
+.detail-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 17px;
+}
+
+.detail-head h2 {
+  color: var(--pink);
+  font-size: 18px;
+}
+
+.progress-input {
+  margin-bottom: 15px;
+}
+
+.note-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 90px;
+  line-height: 1.9;
+}
+
+.lesson-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.lesson {
+  padding: 14px;
+  border-radius: 15px;
+  background: #100d2080;
+  border: 1px solid var(--border);
+}
+
+.lesson h4 {
+  font-size: 12px;
+  margin-bottom: 7px;
+  overflow-wrap: anywhere;
+}
+
+.lesson p {
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 2;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.lesson-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.lesson-bottom small {
+  color: #9d8eb1;
+  font-size: 9px;
+}
+
+footer {
+  text-align: center;
+  color: #a99bbd;
+  font-size: 11px;
+  margin-top: 25px;
+  line-height: 2;
+}
+
+@media (max-width: 560px) {
+  .card { padding: 16px 12px; }
+  .subject-grid { grid-template-columns: 1fr; }
+  .form-grid { grid-template-columns: 1fr; }
+  .full { grid-column: auto; }
+  .stats { gap: 7px; }
+  .stat strong { font-size: 21px; }
+  .search-row { flex-direction: column; }
+}
+</style>
+</head>
+
+<body>
+<main class="container">
+
+<header>
+  <div class="logo">📚</div>
+  <h1>موادي الدراسية</h1>
+  <p class="subtitle">
+    كل مادة عندها مساحتها الخاصة للدروس والملاحظات ✨
+  </p>
+</header>
+
+<section class="card welcome">
+  <h2>نظّم قرايتك وقرّب لهدفك 🎯</h2>
+  <p>
+    اختار المادة، تابع نسبة تقدمك، وسجّل ملاحظاتك
+    باش تلقى كلش منظّم في بلاصة وحدة.
+  </p>
+</section>
+
+<section class="stats">
+  <div class="stat">
+    <strong id="subjectCount">0</strong>
+    <span>المواد</span>
+  </div>
+  <div class="stat">
+    <strong id="noteCount">0</strong>
+    <span>الملاحظات</span>
+  </div>
+  <div class="stat">
+    <strong id="averageProgress">0%</strong>
+    <span>معدل التقدم</span>
+  </div>
+</section>
+
+<section class="card">
+  <div class="section-title">
+    <span>🔎</span>
+    <h2>ابحث عن مادة</h2>
+  </div>
+
+  <div class="search-row">
+    <input id="searchInput" type="search"
+      placeholder="اكتب اسم المادة...">
+    <select id="sortSelect" aria-label="ترتيب المواد">
+      <option value="default">الترتيب الافتراضي</option>
+      <option value="name">حسب الاسم</option>
+      <option value="progress">حسب التقدم</option>
+    </select>
+  </div>
+
+  <div class="subject-grid" id="subjectGrid"></div>
+</section>
+
+<section class="card">
+  <div class="section-title">
+    <span>➕</span>
+    <h2>إضافة مادة جديدة</h2>
+  </div>
+
+  <form id="subjectForm">
+    <div class="form-grid">
+      <div class="field">
+        <label for="subjectName">اسم المادة</label>
+        <input id="subjectName" maxlength="60"
+          placeholder="مثال: رياضيات" required>
+      </div>
+
+      <div class="field">
+        <label for="subjectIcon">رمز المادة</label>
+        <select id="subjectIcon">
+          <option value="📐">📐 رياضيات</option>
+          <option value="⚛️">⚛️ فيزياء</option>
+          <option value="🧬">🧬 علوم</option>
+          <option value="🏗️">🏗️ هندسة</option>
+          <option value="📖">📖 لغات</option>
+          <option value="🌍">🌍 تاريخ وجغرافيا</option>
+          <option value="🕌">🕌 إسلامية</option>
+          <option value="💻">💻 إعلام آلي</option>
+          <option value="📝">📝 أخرى</option>
+        </select>
+      </div>
+
+      <div class="field full">
+        <label for="subjectDescription">وصف قصير (اختياري)</label>
+        <input id="subjectDescription" maxlength="120"
+          placeholder="مثال: مراجعة الدروس وحل التمارين">
+      </div>
+    </div>
+
+    <button type="submit" class="primary add-btn">
+      إضافة المادة 📚
+    </button>
+  </form>
+</section>
+
+<section class="card detail" id="detailSection">
+  <div class="detail-head">
+    <h2 id="detailTitle">📚 المادة</h2>
+    <button class="secondary" id="closeDetail">إغلاق ✕</button>
+  </div>
+
+  <div class="progress-input">
+    <div class="subject-progress-label">
+      <span>نسبة إكمال المادة</span>
+      <strong id="detailProgressText">0%</strong>
+    </div>
+    <input type="range" id="progressSlider"
+      min="0" max="100" value="0"
+      aria-label="نسبة التقدم في المادة">
+  </div>
+
+  <div class="section-title">
+    <span>📝</span>
+    <h3>دروسي وملاحظاتي</h3>
+  </div>
+
+  <form id="noteForm" class="note-form">
+    <input id="noteTitle" maxlength="100"
+      placeholder="عنوان الدرس أو الملاحظة" required>
+    <textarea id="noteContent" maxlength="5000"
+      placeholder="اكتب ملخص الدرس، القوانين أو الملاحظات هنا..."></textarea>
+    <button class="primary" type="submit">حفظ الملاحظة 💾</button>
+  </form>
+
+  <div class="lesson-list" id="lessonList"></div>
+</section>
+
+<footer>
+  LoveSpace · Subjects 📚
+  <br>
+  نظّم اليوم، وافتخر بتقدمك غدوة ❤️
+</footer>
+
+</main>
+
+<script>
+const STORAGE_KEY = "lovespace_subjects_v1";
+
+const defaultSubjects = [
+  { name: "رياضيات", icon: "📐", description: "الدروس والتمارين", progress: 0 },
+  { name: "فيزياء", icon: "⚛️", description: "القوانين والتطبيقات", progress: 0 },
+  { name: "علوم طبيعية", icon: "🧬", description: "الفهم والحفظ", progress: 0 },
+  { name: "هندسة مدنية", icon: "🏗️", description: "الرسم والتطبيقات", progress: 0 },
+  { name: "لغة عربية", icon: "📖", description: "النصوص والقواعد", progress: 0 },
+  { name: "فرنسية", icon: "🇫🇷", description: "Compréhension et expression", progress: 0 },
+  { name: "إنجليزية", icon: "🇬🇧", description: "Reading and writing", progress: 0 },
+  { name: "فلسفة", icon: "💭", description: "المقالات والأفكار", progress: 0 },
+  { name: "تاريخ وجغرافيا", icon: "🌍", description: "التواريخ والمفاهيم", progress: 0 },
+  { name: "تربية إسلامية", icon: "🕌", description: "الدروس والمفاهيم", progress: 0 }
+];
+
+let subjects = [];
+let selectedId = null;
+
+const $ = id => document.getElementById(id);
+
+function makeId() {
+  return Date.now().toString(36) +
+    Math.random().toString(36).slice(2, 8);
+}
+
+function escapeHTML(value) {
+  return String(value).replace(/[&<>"']/g, char => ({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#39;"
+  })[char]);
+}
+
+function saveData() {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(subjects));
+  } catch (error) {
+    alert("تعذّر حفظ البيانات. تأكد من مساحة التخزين.");
+  }
+}
+
+function loadData() {
+  try {
+    const stored = JSON.parse(localStorage.getItem(STORAGE_KEY));
+
+    if (Array.isArray(stored)) {
+      subjects = stored.filter(s =>
+        s && typeof s.id === "string" &&
+        typeof s.name === "string"
+      ).map(s => ({
+        id: s.id,
+        name: s.name,
+        icon: typeof s.icon === "string" ? s.icon : "📚",
+        description: typeof s.description === "string"
+          ? s.description : "",
+        progress: Math.max(0, Math.min(100, Number(s.progress) || 0)),
+        notes: Array.isArray(s.notes) ? s.notes : []
+      }));
+      return;
+    }
+  } catch (error) {}
+
+  subjects = defaultSubjects.map(subject => ({
+    ...subject,
+    id: makeId(),
+    notes: []
+  }));
+
+  saveData();
+}
+
+function updateStats() {
+  const totalNotes = subjects.reduce(
+    (sum, subject) => sum + subject.notes.length, 0
+  );
+
+  const average = subjects.length
+    ? Math.round(subjects.reduce(
+        (sum, subject) => sum + subject.progress, 0
+      ) / subjects.length)
+    : 0;
+
+  $("subjectCount").textContent = subjects.length;
+  $("noteCount").textContent = totalNotes;
+  $("averageProgress").textContent = average + "%";
+}
+
+function renderSubjects() {
+  const query = $("searchInput").value.trim().toLowerCase();
+  const sort = $("sortSelect").value;
+
+  let list = subjects.filter(subject =>
+    subject.name.toLowerCase().includes(query) ||
+    subject.description.toLowerCase().includes(query)
+  );
+
+  if (sort === "name") {
+    list.sort((a, b) => a.name.localeCompare(b.name, "ar"));
+  } else if (sort === "progress") {
+    list.sort((a, b) => b.progress - a.progress);
+  }
+
+  if (!list.length) {
+    $("subjectGrid").innerHTML = `
+      <div class="empty">
+        📚 ما لقيناش مادة بهذا الاسم.<br>
+        جرّب كلمة أخرى أو أضف مادة جديدة.
+      </div>`;
+    updateStats();
+    return;
+  }
+
+  $("subjectGrid").innerHTML = list.map(subject => `
+    <article class="subject">
+      <div class="subject-top">
+        <div class="subject-icon">${escapeHTML(subject.icon)}</div>
+        <div>
+          <h3>${escapeHTML(subject.name)}</h3>
+          <small>${escapeHTML(subject.description || "مادتي الدراسية")}</small>
+        </div>
+      </div>
+
+      <div class="subject-progress-label">
+        <span>التقدم</span>
+        <strong>${subject.progress}%</strong>
+      </div>
+      <div class="track">
+        <div class="bar" style="width:${subject.progress}%"></div>
+      </div>
+
+      <div class="subject-actions">
+        <button class="primary" data-action="open"
+          data-id="${subject.id}">فتح المادة</button>
+        <button class="secondary" data-action="edit"
+          data-id="${subject.id}">تعديل الاسم</button>
+        <button class="danger" data-action="delete"
+          data-id="${subject.id}">حذف</button>
+      </div>
+    </article>
+  `).join("");
+
+  updateStats();
+}
+
+function renderNotes(subject) {
+  if (!subject.notes.length) {
+    $("lessonList").innerHTML = `
+      <div class="empty">
+        📝 ما زلت ما ضفت حتى ملاحظة لهذه المادة.
+      </div>`;
+    return;
+  }
+
+  $("lessonList").innerHTML = subject.notes.map(note => `
+    <article class="lesson">
+      <h4>${escapeHTML(note.title)}</h4>
+      <p>${escapeHTML(note.content || "ما كاينش محتوى إضافي.")}</p>
+      <div class="lesson-bottom">
+        <small>${escapeHTML(note.date || "")}</small>
+        <button class="danger" data-note-delete="${note.id}">
+          حذف الملاحظة
+        </button>
+      </div>
+    </article>
+  `).join("");
+}
+
+function openSubject(id) {
+  const subject = subjects.find(s => s.id === id);
+  if (!subject) return;
+
+  selectedId = id;
+  $("detailTitle").textContent = subject.icon + " " + subject.name;
+  $("progressSlider").value = subject.progress;
+  $("detailProgressText").textContent = subject.progress + "%";
+
+  renderNotes(subject);
+  $("detailSection").classList.add("show");
+
+  $("detailSection").scrollIntoView({
+    behavior: "smooth",
+    block: "start"
+  });
+}
+
+$("subjectForm").addEventListener("submit", event => {
+  event.preventDefault();
+
+  const name = $("subjectName").value.trim();
+  if (!name) return;
+
+  if (subjects.some(s => s.name.toLowerCase() === name.toLowerCase())) {
+    alert("هذه المادة موجودة بالفعل.");
+    return;
+  }
+
+  subjects.push({
+    id: makeId(),
+    name,
+    icon: $("subjectIcon").value,
+    description: $("subjectDescription").value.trim(),
+    progress: 0,
+    notes: []
+  });
+
+  saveData();
+  renderSubjects();
+  $("subjectForm").reset();
+});
+
+$("subjectGrid").addEventListener("click", event => {
+  const button = event.target.closest("button[data-action]");
+  if (!button) return;
+
+  const subject = subjects.find(s => s.id === button.dataset.id);
+  if (!subject) return;
+
+  const action = button.dataset.action;
+
+  if (action === "open") {
+    openSubject(subject.id);
+  }
+
+  if (action === "edit") {
+    const newName = prompt("اكتب الاسم الجديد للمادة:", subject.name);
+    if (newName === null) return;
+
+    const cleaned = newName.trim();
+    if (!cleaned) {
+      alert("اسم المادة ما يقدرش يكون فارغ.");
+      return;
+    }
+
+    if (subjects.some(s =>
+      s.id !== subject.id &&
+      s.name.toLowerCase() === cleaned.toLowerCase()
+    )) {
+      alert("كاينة مادة أخرى بنفس الاسم.");
+      return;
+    }
+
+    subject.name = cleaned;
+    saveData();
+    renderSubjects();
+
+    if (selectedId === subject.id) {
+      $("detailTitle").textContent = subject.icon + " " + subject.name;
+    }
+  }
+
+  if (action === "delete") {
+    if (!confirm("متأكد حاب تحذف هذه المادة وملاحظاتها؟")) return;
+
+    subjects = subjects.filter(s => s.id !== subject.id);
+
+    if (selectedId === subject.id) {
+      selectedId = null;
+      $("detailSection").classList.remove("show");
+    }
+
+    saveData();
+    renderSubjects();
+  }
+});
+
+$("progressSlider").addEventListener("input", event => {
+  $("detailProgressText").textContent = event.target.value + "%";
+});
+
+$("progressSlider").addEventListener("change", event => {
+  const subject = subjects.find(s => s.id === selectedId);
+  if (!subject) return;
+
+  subject.progress = Number(event.target.value);
+  saveData();
+  renderSubjects();
+});
+
+$("noteForm").addEventListener("submit", event => {
+  event.preventDefault();
+
+  const subject = subjects.find(s => s.id === selectedId);
+  if (!subject) {
+    alert("افتح مادة أولاً.");
+    return;
+  }
+
+  const title = $("noteTitle").value.trim();
+  if (!title) return;
+
+  subject.notes.unshift({
+    id: makeId(),
+    title,
+    content: $("noteContent").value.trim(),
+    date: new Date().toLocaleDateString("ar-DZ")
+  });
+
+  saveData();
+  renderSubjects();
+  renderNotes(subject);
+  $("noteForm").reset();
+});
+
+$("lessonList").addEventListener("click", event => {
+  const button = event.target.closest("[data-note-delete]");
+  if (!button) return;
+
+  const subject = subjects.find(s => s.id === selectedId);
+  if (!subject) return;
+
+  subject.notes = subject.notes.filter(
+    note => note.id !== button.dataset.noteDelete
+  );
+
+  saveData();
+  renderSubjects();
+  renderNotes(subject);
+});
+
+$("closeDetail").addEventListener("click", () => {
+  $("detailSection").classList.remove("show");
+  selectedId = null;
+});
+
+$("searchInput").addEventListener("input", renderSubjects);
+$("sortSelect").addEventListener("change", renderSubjects);
+
+loadData();
+renderSubjects();
+</script>
+</body>
+</html>
