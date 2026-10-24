@@ -1,1 +1,606 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#100d20">
+<title>العد التنازلي ❤️ | LoveSpace</title>
 
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+  --bg: #100d20;
+  --card: rgba(255,255,255,.055);
+  --border: rgba(255,255,255,.1);
+  --pink: #ff79bd;
+  --purple: #a78bfa;
+  --text: #fff;
+  --muted: #aaa5c2;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  padding: 20px;
+  font-family: 'Alexandria', sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(circle at 10% 10%, #49245a55, transparent 35%),
+    radial-gradient(circle at 90% 75%, #a13a7950, transparent 35%),
+    var(--bg);
+}
+
+.container { max-width: 950px; margin: auto; }
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 30px;
+}
+
+.logo {
+  color: var(--pink);
+  text-decoration: none;
+  font-weight: 800;
+  font-size: 20px;
+}
+
+.back {
+  color: white;
+  text-decoration: none;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 13px;
+  padding: 10px 15px;
+  font-size: 12px;
+}
+
+.hero { text-align: center; margin: 35px 0 25px; }
+
+.hero-icon {
+  font-size: 52px;
+  animation: float 2.5s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-9px); }
+}
+
+h1 { font-size: clamp(25px, 5vw, 38px); margin: 12px 0; }
+
+.hero p {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 2;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 22px;
+  backdrop-filter: blur(15px);
+  box-shadow: 0 15px 45px #0002;
+  margin-bottom: 18px;
+}
+
+.featured { text-align: center; overflow: hidden; }
+
+.featured-label {
+  display: inline-block;
+  color: var(--pink);
+  background: #ff79bd12;
+  border: 1px solid #ff79bd35;
+  padding: 7px 13px;
+  border-radius: 30px;
+  font-size: 11px;
+}
+
+.featured h2 {
+  font-size: clamp(19px, 4vw, 27px);
+  margin: 20px 0 8px;
+  overflow-wrap: anywhere;
+}
+
+.target-date { color: var(--muted); font-size: 12px; }
+
+.timer {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+  margin: 27px 0 18px;
+}
+
+.time-box {
+  padding: 20px 5px;
+  background: linear-gradient(145deg, #a78bfa18, #ff79bd15);
+  border: 1px solid var(--border);
+  border-radius: 17px;
+}
+
+.time-number {
+  display: block;
+  font-size: clamp(24px, 5vw, 39px);
+  font-weight: 800;
+  line-height: 1.4;
+  color: var(--pink);
+  font-variant-numeric: tabular-nums;
+}
+
+.time-label { font-size: 10px; color: var(--muted); }
+
+.love-message {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 2;
+  overflow-wrap: anywhere;
+}
+
+.form-title { font-size: 16px; margin: 0 0 18px; }
+
+label {
+  display: block;
+  color: var(--muted);
+  font-size: 12px;
+  margin: 13px 0 7px;
+}
+
+input, textarea {
+  width: 100%;
+  background: #0d0a19;
+  color: white;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 13px;
+  font-family: inherit;
+  font-size: 12px;
+  outline: none;
+}
+
+input:focus, textarea:focus { border-color: var(--pink); }
+
+textarea { min-height: 75px; resize: vertical; }
+
+.primary {
+  width: 100%;
+  border: none;
+  border-radius: 13px;
+  padding: 14px;
+  margin-top: 16px;
+  background: linear-gradient(135deg, var(--purple), var(--pink));
+  color: #170c24;
+  font-family: inherit;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.list-title { font-size: 16px; margin: 0 0 16px; }
+
+.countdowns { display: grid; gap: 12px; }
+
+.countdown-item {
+  border: 1px solid var(--border);
+  border-right: 3px solid var(--pink);
+  border-radius: 15px;
+  padding: 15px;
+  background: #ffffff07;
+}
+
+.item-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.item-top strong { font-size: 13px; overflow-wrap: anywhere; }
+
+.item-date {
+  font-size: 10px;
+  color: var(--purple);
+  margin-top: 7px;
+}
+
+.item-remaining {
+  color: var(--muted);
+  font-size: 11px;
+  margin-top: 10px;
+  line-height: 1.8;
+}
+
+.item-message {
+  color: var(--muted);
+  font-size: 11px;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  line-height: 1.9;
+  margin-top: 8px;
+}
+
+.delete {
+  border: 0;
+  color: #ff91b5;
+  background: #ff79bd15;
+  border-radius: 9px;
+  padding: 7px 10px;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 10px;
+  flex-shrink: 0;
+}
+
+.empty {
+  text-align: center;
+  color: var(--muted);
+  font-size: 12px;
+  padding: 20px 5px;
+  line-height: 2;
+}
+
+.footer {
+  text-align: center;
+  color: var(--muted);
+  font-size: 11px;
+  margin: 25px 0 5px;
+}
+
+.toast {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: none;
+  background: #2c2141;
+  border: 1px solid #a78bfa70;
+  padding: 12px 18px;
+  border-radius: 13px;
+  font-size: 12px;
+  z-index: 10;
+  max-width: 90%;
+  text-align: center;
+}
+
+@media(max-width: 520px) {
+  body { padding: 14px; }
+  .card { padding: 16px; }
+  .timer { gap: 6px; }
+  .time-box { padding: 15px 3px; border-radius: 12px; }
+  .time-label { font-size: 9px; }
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+
+<header>
+  <a class="logo" href="home.html">❤️ LoveSpace</a>
+  <a class="back" href="home.html">← الرئيسية</a>
+</header>
+
+<section class="hero">
+  <div class="hero-icon">⏳</div>
+  <h1>نستناو أجمل لحظاتنا</h1>
+  <p>كل ثانية تقربنا من ذكرى جديدة تستاهل تتعاش ❤️</p>
+</section>
+
+<section class="card featured">
+  <span class="featured-label">💗 العدّاد الرئيسي</span>
+  <h2 id="mainTitle">أجمل لحظة جاية</h2>
+  <div class="target-date" id="mainDate">زيد مناسبة باش يبدأ العدّ التنازلي</div>
+
+  <div class="timer">
+    <div class="time-box">
+      <span class="time-number" id="days">00</span>
+      <span class="time-label">يوم</span>
+    </div>
+    <div class="time-box">
+      <span class="time-number" id="hours">00</span>
+      <span class="time-label">ساعة</span>
+    </div>
+    <div class="time-box">
+      <span class="time-number" id="minutes">00</span>
+      <span class="time-label">دقيقة</span>
+    </div>
+    <div class="time-box">
+      <span class="time-number" id="seconds">00</span>
+      <span class="time-label">ثانية</span>
+    </div>
+  </div>
+
+  <div class="love-message" id="mainMessage">
+    اختار مناسبتك المفضلة وخلي العدّاد يحسب الوقت المتبقي ليها ✨
+  </div>
+</section>
+
+<section class="card">
+  <h2 class="form-title">✨ زيد عدّاد جديد</h2>
+
+  <form id="countdownForm">
+    <label for="title">اسم المناسبة</label>
+    <input id="title" maxlength="80" placeholder="مثلاً: عيد ميلاد حبيبتي ❤️" required>
+
+    <label for="date">تاريخ المناسبة</label>
+    <input id="date" type="date" required>
+
+    <label for="time">وقت المناسبة</label>
+    <input id="time" type="time" value="00:00" required>
+
+    <label for="message">رسالة صغيرة (اختياري)</label>
+    <textarea id="message" maxlength="400" placeholder="اكتب رسالة جميلة تظهر مع العدّاد..."></textarea>
+
+    <button type="submit" class="primary">💖 إنشاء العدّاد</button>
+  </form>
+</section>
+
+<section class="card">
+  <h2 class="list-title">🎀 العدّادات تاعي</h2>
+  <div class="countdowns" id="countdownList"></div>
+</section>
+
+<div class="footer">كل لحظة جميلة تبدأ بالانتظار ❤️ | LoveSpace</div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const STORAGE_KEY = 'lovespace_countdowns_v1';
+const $ = id => document.getElementById(id);
+
+function loadItems() {
+  try {
+    const value = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+    if (!Array.isArray(value)) return [];
+    return value.filter(item =>
+      item &&
+      typeof item.id === 'string' &&
+      typeof item.title === 'string' &&
+      typeof item.target === 'string' &&
+      Number.isFinite(Date.parse(item.target))
+    );
+  } catch {
+    return [];
+  }
+}
+
+let items = loadItems();
+let activeId = items.find(item => Date.parse(item.target) > Date.now())?.id
+  || items[0]?.id
+  || null;
+
+function saveItems() {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
+    return true;
+  } catch {
+    toast('ما قدرناش نحفظو البيانات. تأكد من مساحة المتصفح.');
+    return false;
+  }
+}
+
+function escapeHTML(value) {
+  return String(value).replace(/[&<>"']/g, char => ({
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;'
+  }[char]));
+}
+
+function toast(message) {
+  const el = $('toast');
+  el.textContent = message;
+  el.style.display = 'block';
+  clearTimeout(toast.timer);
+  toast.timer = setTimeout(() => el.style.display = 'none', 2500);
+}
+
+function formatDate(dateString) {
+  const date = new Date(dateString);
+  return new Intl.DateTimeFormat('ar-DZ', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit'
+  }).format(date);
+}
+
+function getRemaining(target) {
+  const difference = new Date(target).getTime() - Date.now();
+
+  if (difference <= 0) {
+    return { passed: true, days: 0, hours: 0, minutes: 0, seconds: 0 };
+  }
+
+  const totalSeconds = Math.floor(difference / 1000);
+
+  return {
+    passed: false,
+    days: Math.floor(totalSeconds / 86400),
+    hours: Math.floor((totalSeconds % 86400) / 3600),
+    minutes: Math.floor((totalSeconds % 3600) / 60),
+    seconds: totalSeconds % 60
+  };
+}
+
+function pad(number) {
+  return String(number).padStart(2, '0');
+}
+
+function renderMain() {
+  const item = items.find(entry => entry.id === activeId);
+
+  if (!item) {
+    $('mainTitle').textContent = 'أجمل لحظة جاية';
+    $('mainDate').textContent = 'زيد مناسبة باش يبدأ العدّ التنازلي';
+    $('mainMessage').textContent = 'اختار مناسبتك المفضلة وخلي العدّاد يحسب الوقت المتبقي ليها ✨';
+    ['days', 'hours', 'minutes', 'seconds'].forEach(id => $(id).textContent = '00');
+    return;
+  }
+
+  $('mainTitle').textContent = item.title;
+  $('mainDate').textContent = '📅 ' + formatDate(item.target);
+  $('mainMessage').textContent = item.message || 'كل ثانية تقربنا من لحظة جميلة ❤️';
+
+  const remaining = getRemaining(item.target);
+
+  if (remaining.passed) {
+    ['days', 'hours', 'minutes', 'seconds'].forEach(id => $(id).textContent = '00');
+    $('mainMessage').textContent = '❤️ وصلنا للموعد المنتظر! عيش اللحظة الجميلة.';
+  } else {
+    $('days').textContent = remaining.days;
+    $('hours').textContent = pad(remaining.hours);
+    $('minutes').textContent = pad(remaining.minutes);
+    $('seconds').textContent = pad(remaining.seconds);
+  }
+}
+
+function renderList() {
+  const container = $('countdownList');
+
+  if (!items.length) {
+    container.innerHTML = '<div class="empty">ما زدت حتى عدّاد مزال 🌙<br>أنشئ أول عدّاد من الفوق.</div>';
+    return;
+  }
+
+  const sorted = [...items].sort((a, b) =>
+    Date.parse(a.target) - Date.parse(b.target)
+  );
+
+  container.innerHTML = sorted.map(item => {
+    const remaining = getRemaining(item.target);
+    const description = remaining.passed
+      ? '❤️ وصل الموعد!'
+      : `باقي ${remaining.days} يوم و${remaining.hours} ساعة و${remaining.minutes} دقيقة`;
+
+    return `
+      <article class="countdown-item">
+        <div class="item-top">
+          <div>
+            <strong>${escapeHTML(item.title)}</strong>
+            <div class="item-date">📅 ${escapeHTML(formatDate(item.target))}</div>
+          </div>
+          <button type="button" class="delete" data-delete="${escapeHTML(item.id)}">حذف</button>
+        </div>
+        <div class="item-remaining">${description}</div>
+        ${item.message ? `<div class="item-message">${escapeHTML(item.message)}</div>` : ''}
+        <button type="button" class="primary" data-select="${escapeHTML(item.id)}"
+          style="padding:10px;margin-top:12px;font-size:11px">
+          ${item.id === activeId ? '💗 العدّاد المختار' : 'عرض العدّاد'}
+        </button>
+      </article>
+    `;
+  }).join('');
+}
+
+function render() {
+  renderMain();
+  renderList();
+}
+
+$('countdownForm').addEventListener('submit', event => {
+  event.preventDefault();
+
+  const title = $('title').value.trim();
+  const date = $('date').value;
+  const time = $('time').value || '00:00';
+
+  if (!title || !date) {
+    toast('عمر اسم المناسبة والتاريخ ❤️');
+    return;
+  }
+
+  const target = new Date(`${date}T${time}:00`);
+
+  if (Number.isNaN(target.getTime())) {
+    toast('التاريخ أو الوقت غير صالح.');
+    return;
+  }
+
+  const item = {
+    id: (crypto.randomUUID ? crypto.randomUUID() :
+      String(Date.now()) + Math.random().toString(16).slice(2)),
+    title,
+    target: target.toISOString(),
+    message: $('message').value.trim()
+  };
+
+  items.push(item);
+  const previousActiveId = activeId;
+  activeId = item.id;
+
+  if (!saveItems()) {
+    items = items.filter(entry => entry.id !== item.id);
+    activeId = previousActiveId;
+    return;
+  }
+
+  $('countdownForm').reset();
+  render();
+  toast('تم إنشاء العدّاد بنجاح ❤️');
+});
+
+document.addEventListener('click', event => {
+  const selectButton = event.target.closest('[data-select]');
+  const deleteButton = event.target.closest('[data-delete]');
+
+  if (selectButton) {
+    activeId = selectButton.dataset.select;
+    render();
+    return;
+  }
+
+  if (deleteButton) {
+    const id = deleteButton.dataset.delete;
+    const previousItems = items;
+    const previousActiveId = activeId;
+
+    items = items.filter(item => item.id !== id);
+
+    if (activeId === id) {
+      activeId = items[0]?.id || null;
+    }
+
+    if (!saveItems()) {
+      items = previousItems;
+      activeId = previousActiveId;
+      return;
+    }
+
+    render();
+    toast('تم حذف العدّاد 🗑️');
+  }
+});
+
+render();
+
+// تحديث العدّاد كل ثانية دون إعادة بناء قائمة المناسبات
+setInterval(() => {
+  renderMain();
+  const elements = document.querySelectorAll('.countdown-item');
+  elements.forEach(element => {
+    const button = element.querySelector('[data-select]');
+    if (!button) return;
+
+    const item = items.find(entry => entry.id === button.dataset.select);
+    const label = element.querySelector('.item-remaining');
+    if (!item || !label) return;
+
+    const remaining = getRemaining(item.target);
+    label.textContent = remaining.passed
+      ? '❤️ وصل الموعد!'
+      : `باقي ${remaining.days} يوم و${remaining.hours} ساعة و${remaining.minutes} دقيقة`;
+  });
+}, 1000);
+</script>
+</body>
+</html>
