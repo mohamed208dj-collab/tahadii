@@ -1,1 +1,842 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#100d20">
+<title>يومياتنا 📔 | LoveSpace</title>
 
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+  --bg: #100d20;
+  --card: rgba(255,255,255,.055);
+  --border: rgba(255,255,255,.10);
+  --pink: #ff70b8;
+  --purple: #a78bfa;
+  --text: #f7f2ff;
+  --muted: #aaa3c2;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Alexandria', sans-serif;
+  color: var(--text);
+  min-height: 100vh;
+  padding: 22px 15px 40px;
+  background:
+    radial-gradient(circle at 10% 10%, #352052 0, transparent 35%),
+    radial-gradient(circle at 90% 80%, #291638 0, transparent 35%),
+    var(--bg);
+}
+
+.container {
+  max-width: 1000px;
+  margin: auto;
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.back {
+  color: var(--text);
+  text-decoration: none;
+  padding: 11px 14px;
+  border: 1px solid var(--border);
+  border-radius: 13px;
+  background: var(--card);
+  font-size: 12px;
+}
+
+.logo {
+  font-weight: 800;
+  color: var(--pink);
+  font-size: 16px;
+}
+
+.hero {
+  text-align: center;
+  padding: 34px 18px;
+  border: 1px solid var(--border);
+  border-radius: 26px;
+  background: linear-gradient(135deg, #a78bfa20, #ff70b815);
+  margin-bottom: 22px;
+}
+
+.hero-icon {
+  font-size: 48px;
+  margin-bottom: 12px;
+}
+
+h1 {
+  font-size: clamp(24px, 5vw, 34px);
+  margin-bottom: 12px;
+}
+
+h1 span {
+  color: var(--pink);
+}
+
+.hero p {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 2.1;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 25px;
+}
+
+.stat {
+  text-align: center;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 17px;
+  padding: 16px 8px;
+}
+
+.stat strong {
+  display: block;
+  color: var(--pink);
+  font-size: 23px;
+  margin-bottom: 6px;
+}
+
+.stat span {
+  color: var(--muted);
+  font-size: 10px;
+}
+
+.panel {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  padding: 22px;
+  margin-bottom: 25px;
+}
+
+.panel h2, .section-title {
+  font-size: 17px;
+  margin-bottom: 10px;
+}
+
+.subtext {
+  font-size: 11px;
+  color: var(--muted);
+  line-height: 2;
+  margin-bottom: 18px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+label {
+  color: var(--muted);
+  font-size: 11px;
+}
+
+input, textarea, select {
+  width: 100%;
+  padding: 13px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: #100d20;
+  color: var(--text);
+  outline: none;
+  font: inherit;
+  font-size: 12px;
+}
+
+input:focus, textarea:focus, select:focus {
+  border-color: var(--pink);
+}
+
+textarea {
+  min-height: 145px;
+  resize: vertical;
+  line-height: 2;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.moods {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 8px;
+}
+
+.mood {
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,.035);
+  color: var(--text);
+  border-radius: 12px;
+  padding: 11px 4px;
+  cursor: pointer;
+  font-size: 23px;
+}
+
+.mood.selected {
+  border-color: var(--pink);
+  background: #ff70b820;
+  box-shadow: 0 0 15px #ff70b815;
+}
+
+.mood-label {
+  font-size: 10px;
+  color: var(--muted);
+  margin-top: 9px;
+}
+
+.primary {
+  border: none;
+  border-radius: 13px;
+  padding: 14px 18px;
+  background: linear-gradient(135deg, var(--pink), var(--purple));
+  color: #21112d;
+  font-family: inherit;
+  font-weight: 700;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.secondary {
+  border: 1px solid var(--border);
+  border-radius: 11px;
+  padding: 10px 13px;
+  background: rgba(255,255,255,.04);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.form-actions {
+  display: flex;
+  gap: 9px;
+  flex-wrap: wrap;
+}
+
+.search {
+  margin: 14px 0;
+}
+
+.search input {
+  padding: 15px;
+}
+
+.diary-list {
+  display: grid;
+  gap: 14px;
+}
+
+.entry {
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  background: var(--card);
+  padding: 20px;
+  overflow: hidden;
+}
+
+.entry-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.entry h3 {
+  font-size: 15px;
+  margin-bottom: 8px;
+  overflow-wrap: anywhere;
+}
+
+.entry-date {
+  color: var(--muted);
+  font-size: 10px;
+  line-height: 1.8;
+}
+
+.entry-mood {
+  font-size: 26px;
+  flex-shrink: 0;
+}
+
+.entry-content {
+  font-size: 12px;
+  line-height: 2.2;
+  color: #ddd5ef;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  margin-bottom: 15px;
+}
+
+.entry-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+  border-top: 1px solid var(--border);
+  padding-top: 13px;
+}
+
+.tag {
+  color: var(--purple);
+  font-size: 10px;
+}
+
+.actions {
+  display: flex;
+  gap: 7px;
+  flex-wrap: wrap;
+}
+
+.empty {
+  display: none;
+  text-align: center;
+  color: var(--muted);
+  padding: 35px 15px;
+  background: var(--card);
+  border: 1px dashed var(--border);
+  border-radius: 18px;
+  line-height: 2.2;
+  font-size: 12px;
+}
+
+footer {
+  text-align: center;
+  color: #807896;
+  font-size: 10px;
+  line-height: 2;
+  margin-top: 30px;
+}
+
+@media(max-width: 550px) {
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .moods {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .panel {
+    padding: 17px;
+  }
+
+  .entry {
+    padding: 16px;
+  }
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+
+  <header class="topbar">
+    <a class="back" href="home.html">→ الرجوع للرئيسية</a>
+    <div class="logo">LoveSpace ❤️</div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-icon">📔</div>
+    <h1>دفتر <span>يومياتنا</span></h1>
+    <p>
+      كل يوم عنده حكاية، وكل لحظة تستاهل تتكتب ❤️<br>
+      اكتب أفكارك، مشاعرك، وأجمل ذكرياتك في مكان واحد.
+    </p>
+  </section>
+
+  <div class="stats">
+    <div class="stat">
+      <strong id="totalEntries">0</strong>
+      <span>مجموع اليوميات</span>
+    </div>
+    <div class="stat">
+      <strong id="monthEntries">0</strong>
+      <span>هذا الشهر</span>
+    </div>
+    <div class="stat">
+      <strong id="favoriteEntries">0</strong>
+      <span>المفضلة ⭐</span>
+    </div>
+  </div>
+
+  <section class="panel" id="editor">
+    <h2 id="formTitle">✍️ اكتب يومية جديدة</h2>
+    <p class="subtext">
+      عبّر براحتك، وخلي كل كلمة تحفظ ذكرى من ذكرياتك.
+    </p>
+
+    <form id="diaryForm">
+      <div class="field">
+        <label for="entryTitle">عنوان اليومية *</label>
+        <input id="entryTitle" maxlength="100"
+               placeholder="مثلاً: أجمل يوم في حياتي" required>
+      </div>
+
+      <div class="form-row">
+        <div class="field">
+          <label for="entryDate">التاريخ</label>
+          <input id="entryDate" type="date" required>
+        </div>
+
+        <div class="field">
+          <label for="entryCategory">التصنيف</label>
+          <select id="entryCategory">
+            <option value="يوميات">📔 يوميات</option>
+            <option value="حب">❤️ حب ومشاعر</option>
+            <option value="ذكريات">📸 ذكريات</option>
+            <option value="أهداف">✨ أهداف وأحلام</option>
+            <option value="أفكار">💭 أفكار</option>
+            <option value="رسالة">💌 رسالة</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>كيف كان مزاجك اليوم؟</label>
+        <div class="moods" id="moods">
+          <button type="button" class="mood selected"
+                  data-mood="😍" aria-label="حب وسعادة">😍</button>
+          <button type="button" class="mood"
+                  data-mood="🥰" aria-label="فرحة">🥰</button>
+          <button type="button" class="mood"
+                  data-mood="😊" aria-label="جيد">😊</button>
+          <button type="button" class="mood"
+                  data-mood="😌" aria-label="هدوء">😌</button>
+          <button type="button" class="mood"
+                  data-mood="😔" aria-label="حزين">😔</button>
+          <button type="button" class="mood"
+                  data-mood="😴" aria-label="تعب">😴</button>
+        </div>
+        <div class="mood-label" id="moodLabel">😍 فرحان ومليان حب</div>
+      </div>
+
+      <div class="field">
+        <label for="entryContent">وش حاب تكتب؟ *</label>
+        <textarea id="entryContent" maxlength="10000"
+          placeholder="اكتب واش صرا معاك اليوم، واش حسّيت، أو ذكرى تحب تحتفظ بيها..."
+          required></textarea>
+      </div>
+
+      <div class="form-actions">
+        <button class="primary" id="saveButton" type="submit">
+          💗 حفظ اليومية
+        </button>
+        <button class="secondary" id="cancelEdit"
+                type="button" hidden>
+          إلغاء التعديل
+        </button>
+      </div>
+    </form>
+  </section>
+
+  <section>
+    <h2 class="section-title">🕰️ يومياتي السابقة</h2>
+
+    <div class="search">
+      <input id="searchInput" type="search"
+             placeholder="🔍 ابحث في العناوين والمحتوى...">
+    </div>
+
+    <div class="filters form-actions" style="margin-bottom:15px">
+      <button class="secondary" data-filter="all">الكل</button>
+      <button class="secondary" data-filter="favorite">⭐ المفضلة</button>
+      <button class="secondary" data-filter="حب">❤️ حب</button>
+      <button class="secondary" data-filter="ذكريات">📸 ذكريات</button>
+      <button class="secondary" data-filter="أهداف">✨ أهداف</button>
+    </div>
+
+    <div class="diary-list" id="diaryList"></div>
+
+    <div class="empty" id="emptyState">
+      <div style="font-size:38px;margin-bottom:10px">📔</div>
+      <strong>ما كاين حتى يومية هنا</strong>
+      <p>اكتب أول يومية وخلي قصتك تبدأ من اليوم ❤️</p>
+    </div>
+  </section>
+
+  <footer>
+    كل كلمة ذكرى، وكل ذكرى جزء من الحكاية ❤️<br>
+    LoveSpace — مساحتنا الخاصة
+  </footer>
+
+</div>
+
+<script>
+const STORAGE_KEY = 'lovespace_diary_v1';
+
+const moodNames = {
+  '😍': 'فرحان ومليان حب',
+  '🥰': 'فرحة وحنان',
+  '😊': 'مزاج جيد',
+  '😌': 'مرتاح وهادئ',
+  '😔': 'حزين شوية',
+  '😴': 'تعبان'
+};
+
+let entries = loadEntries();
+let selectedMood = '😍';
+let editingId = null;
+let activeFilter = 'all';
+
+const form = document.getElementById('diaryForm');
+const titleInput = document.getElementById('entryTitle');
+const dateInput = document.getElementById('entryDate');
+const categoryInput = document.getElementById('entryCategory');
+const contentInput = document.getElementById('entryContent');
+const list = document.getElementById('diaryList');
+const searchInput = document.getElementById('searchInput');
+
+function todayString() {
+  const now = new Date();
+  const localDate = new Date(
+    now.getTime() - now.getTimezoneOffset() * 60000
+  );
+  return localDate.toISOString().slice(0, 10);
+}
+
+function loadEntries() {
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved !== null) {
+      const parsed = JSON.parse(saved);
+      if (Array.isArray(parsed)) return parsed;
+    }
+  } catch (error) {
+    console.warn('تعذر تحميل اليوميات المحفوظة.');
+  }
+  return [];
+}
+
+function saveEntries() {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(entries));
+    return true;
+  } catch (error) {
+    alert('تعذر حفظ اليومية. تأكد من مساحة التخزين في المتصفح.');
+    return false;
+  }
+}
+
+function safeText(value) {
+  return String(value ?? '').replace(/[&<>"']/g, char => ({
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;'
+  })[char]);
+}
+
+function formatDate(value) {
+  if (!value) return 'بلا تاريخ';
+  const date = new Date(value + 'T12:00:00');
+  if (Number.isNaN(date.getTime())) return safeText(value);
+
+  return new Intl.DateTimeFormat('ar-DZ', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  }).format(date);
+}
+
+function updateStats() {
+  const now = new Date();
+  const month = String(now.getMonth() + 1).padStart(2, '0');
+  const prefix = now.getFullYear() + '-' + month;
+
+  document.getElementById('totalEntries').textContent = entries.length;
+
+  document.getElementById('monthEntries').textContent =
+    entries.filter(entry => (entry.date || '').startsWith(prefix)).length;
+
+  document.getElementById('favoriteEntries').textContent =
+    entries.filter(entry => entry.favorite).length;
+}
+
+function renderEntries() {
+  const query = searchInput.value.trim().toLowerCase();
+
+  const filtered = entries.filter(entry => {
+    const matchesSearch =
+      (entry.title + ' ' + entry.content + ' ' + entry.category)
+        .toLowerCase().includes(query);
+
+    const matchesFilter =
+      activeFilter === 'all' ||
+      (activeFilter === 'favorite' && entry.favorite) ||
+      entry.category === activeFilter;
+
+    return matchesSearch && matchesFilter;
+  });
+
+  const sorted = [...filtered].sort((a, b) => {
+    return (b.createdAt || 0) - (a.createdAt || 0);
+  });
+
+  list.innerHTML = sorted.map(entry => `
+    <article class="entry">
+      <div class="entry-top">
+        <div>
+          <h3>${safeText(entry.title)}</h3>
+          <div class="entry-date">
+            📅 ${formatDate(entry.date)}
+            <br>
+            ${safeText(entry.category)}
+          </div>
+        </div>
+        <div class="entry-mood">${safeText(entry.mood || '😊')}</div>
+      </div>
+
+      <div class="entry-content">${safeText(entry.content)}</div>
+
+      <div class="entry-footer">
+        <span class="tag">
+          ${safeText(moodNames[entry.mood] || 'ذكرى خاصة')}
+        </span>
+
+        <div class="actions">
+          <button class="secondary"
+            data-action="favorite"
+            data-id="${safeText(entry.id)}">
+            ${entry.favorite ? '⭐ إزالة من المفضلة' : '☆ المفضلة'}
+          </button>
+
+          <button class="secondary"
+            data-action="edit"
+            data-id="${safeText(entry.id)}">
+            ✏️ تعديل
+          </button>
+
+          <button class="secondary"
+            data-action="delete"
+            data-id="${safeText(entry.id)}">
+            🗑️ حذف
+          </button>
+        </div>
+      </div>
+    </article>
+  `).join('');
+
+  document.getElementById('emptyState').style.display =
+    sorted.length ? 'none' : 'block';
+
+  updateStats();
+}
+
+document.getElementById('moods').addEventListener('click', event => {
+  const button = event.target.closest('[data-mood]');
+  if (!button) return;
+
+  selectedMood = button.dataset.mood;
+
+  document.querySelectorAll('.mood').forEach(item => {
+    item.classList.toggle('selected', item === button);
+  });
+
+  document.getElementById('moodLabel').textContent =
+    selectedMood + ' ' + moodNames[selectedMood];
+});
+
+form.addEventListener('submit', event => {
+  event.preventDefault();
+
+  const title = titleInput.value.trim();
+  const content = contentInput.value.trim();
+
+  if (!title || !content) {
+    alert('عمّر العنوان والمحتوى أولاً ❤️');
+    return;
+  }
+
+  const previous = editingId
+    ? entries.find(entry => entry.id === editingId)
+    : null;
+
+  const entry = {
+    id: editingId || (
+      Date.now().toString() +
+      Math.random().toString(16).slice(2)
+    ),
+    title,
+    date: dateInput.value,
+    category: categoryInput.value,
+    content,
+    mood: selectedMood,
+    favorite: previous ? previous.favorite : false,
+    createdAt: previous ? previous.createdAt : Date.now()
+  };
+
+  const oldEntries = [...entries];
+
+  if (editingId) {
+    entries = entries.map(item =>
+      item.id === editingId ? entry : item
+    );
+  } else {
+    entries.push(entry);
+  }
+
+  if (!saveEntries()) {
+    entries = oldEntries;
+    return;
+  }
+
+  resetForm();
+  renderEntries();
+
+  alert(editingId ? 'تم تعديل اليومية ❤️' : 'تم حفظ يوميتك ❤️');
+});
+
+function resetForm() {
+  editingId = null;
+  form.reset();
+  dateInput.value = todayString();
+  selectedMood = '😍';
+
+  document.querySelectorAll('.mood').forEach(button => {
+    button.classList.toggle(button.dataset.mood === selectedMood,
+                            button.dataset.mood === selectedMood);
+  });
+
+  document.querySelectorAll('.mood').forEach(button => {
+    button.classList.toggle(
+      'selected',
+      button.dataset.mood === selectedMood
+    );
+  });
+
+  document.getElementById('moodLabel').textContent =
+    selectedMood + ' ' + moodNames[selectedMood];
+
+  document.getElementById('formTitle').textContent =
+    '✍️ اكتب يومية جديدة';
+
+  document.getElementById('saveButton').textContent =
+    '💗 حفظ اليومية';
+
+  document.getElementById('cancelEdit').hidden = true;
+}
+
+document.getElementById('cancelEdit').addEventListener('click', () => {
+  resetForm();
+});
+
+list.addEventListener('click', event => {
+  const button = event.target.closest('[data-action]');
+  if (!button) return;
+
+  const id = button.dataset.id;
+  const entry = entries.find(item => item.id === id);
+  if (!entry) return;
+
+  if (button.dataset.action === 'favorite') {
+    const oldValue = entry.favorite;
+    entry.favorite = !entry.favorite;
+
+    if (!saveEntries()) {
+      entry.favorite = oldValue;
+      return;
+    }
+
+    renderEntries();
+  }
+
+  if (button.dataset.action === 'delete') {
+    if (!confirm('متأكد بلي حاب تحذف هذي اليومية؟')) return;
+
+    const oldEntries = [...entries];
+    entries = entries.filter(item => item.id !== id);
+
+    if (!saveEntries()) {
+      entries = oldEntries;
+      return;
+    }
+
+    if (editingId === id) resetForm();
+    renderEntries();
+  }
+
+  if (button.dataset.action === 'edit') {
+    editingId = id;
+
+    titleInput.value = entry.title;
+    dateInput.value = entry.date || todayString();
+    categoryInput.value = entry.category;
+    contentInput.value = entry.content;
+    selectedMood = entry.mood || '😍';
+
+    document.querySelectorAll('.mood').forEach(item => {
+      item.classList.toggle(
+        'selected',
+        item.dataset.mood === selectedMood
+      );
+    });
+
+    document.getElementById('moodLabel').textContent =
+      selectedMood + ' ' + (moodNames[selectedMood] || '');
+
+    document.getElementById('formTitle').textContent =
+      '✏️ تعديل اليومية';
+
+    document.getElementById('saveButton').textContent =
+      '💾 حفظ التعديلات';
+
+    document.getElementById('cancelEdit').hidden = false;
+
+    document.getElementById('editor').scrollIntoView({
+      behavior: 'smooth',
+      block: 'start'
+    });
+  }
+});
+
+searchInput.addEventListener('input', renderEntries);
+
+document.querySelectorAll('[data-filter]').forEach(button => {
+  button.addEventListener('click', () => {
+    activeFilter = button.dataset.filter;
+
+    document.querySelectorAll('[data-filter]').forEach(item => {
+      item.style.borderColor =
+        item === button ? 'var(--pink)' : 'var(--border)';
+      item.style.background =
+        item === button ? '#ff70b820' : 'rgba(255,255,255,.04)';
+    });
+
+    renderEntries();
+  });
+});
+
+dateInput.value = todayString();
+renderEntries();
+</script>
+</body>
+</html>
