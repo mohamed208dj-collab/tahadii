@@ -1,1 +1,627 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#100d20">
+<title>ملفي الشخصي ❤️ | LoveSpace</title>
+<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
+<style>
+:root{
+  --bg:#100d20;
+  --card:rgba(35,27,57,.88);
+  --text:#fff5ff;
+  --muted:#b9abc9;
+  --primary:#e879f9;
+  --secondary:#a78bfa;
+  --border:rgba(232,121,249,.2);
+  --danger:#fb7185;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:'Alexandria',sans-serif;color:var(--text);min-height:100vh;
+  background:radial-gradient(ellipse at top,#301740 0%,var(--bg) 58%);
+  line-height:1.8;
+}
+button,input,textarea,select{font:inherit}
+button{cursor:pointer}
+a{color:inherit;text-decoration:none}
+.container{width:min(960px,93%);margin:auto;padding:22px 0 45px}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:25px}
+.back,.top-btn{
+  padding:9px 13px;border:1px solid var(--border);border-radius:13px;
+  background:rgba(255,255,255,.04);color:var(--text);font-size:11px;
+}
+.logo{font-size:15px;font-weight:800;color:var(--primary)}
+.hero{text-align:center;padding:18px 0 25px}
+.hero-icon{
+  width:70px;height:70px;display:grid;place-items:center;margin:0 auto 12px;
+  font-size:32px;border-radius:24px;border:1px solid var(--border);
+  background:rgba(232,121,249,.1);
+}
+.hero h1{font-size:clamp(25px,5vw,36px);font-weight:800}
+.hero h1 span{color:var(--primary)}
+.hero p{font-size:11px;color:var(--muted);margin-top:7px}
+.profile-card{
+  position:relative;overflow:hidden;border:1px solid var(--border);
+  border-radius:25px;background:var(--card);margin-bottom:22px;
+}
+.cover{
+  height:150px;background:linear-gradient(125deg,#6d286f,#35215e,#17132c);
+  position:relative;overflow:hidden;
+}
+.cover:before,.cover:after{
+  content:"♡";position:absolute;color:rgba(255,255,255,.12);
+  font-size:110px;transform:rotate(-15deg);
+}
+.cover:before{left:10%;top:-45px}
+.cover:after{right:15%;top:10px;font-size:75px}
+.profile-main{padding:0 25px 24px}
+.profile-head{display:flex;align-items:flex-end;gap:17px;margin-top:-53px;position:relative}
+.avatar-wrap{position:relative;flex-shrink:0}
+.avatar{
+  width:112px;height:112px;border-radius:32px;object-fit:cover;
+  border:4px solid #211832;background:#30203f;
+  display:grid;place-items:center;font-size:42px;
+}
+.avatar-placeholder{
+  display:grid;place-items:center;width:112px;height:112px;
+  border:4px solid #211832;border-radius:32px;
+  background:linear-gradient(135deg,#503061,#271b3d);font-size:42px;
+}
+.avatar-edit{
+  position:absolute;bottom:-5px;left:-5px;width:35px;height:35px;
+  border-radius:12px;border:2px solid #211832;
+  background:var(--primary);color:#24122b;font-weight:800;
+}
+.name-area{padding-bottom:8px;min-width:0}
+.name-area h2{font-size:21px;overflow-wrap:anywhere}
+.name-area p{font-size:11px;color:var(--muted)}
+.badge{
+  display:inline-block;margin-top:5px;padding:4px 9px;border-radius:30px;
+  color:var(--primary);background:rgba(232,121,249,.1);font-size:9px;
+}
+.profile-bio{font-size:12px;color:var(--muted);margin-top:18px;white-space:pre-wrap;overflow-wrap:anywhere}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;margin:20px 0}
+.stat{
+  padding:13px 8px;text-align:center;border:1px solid var(--border);
+  border-radius:16px;background:rgba(255,255,255,.025);
+}
+.stat strong{display:block;color:var(--primary);font-size:22px}
+.stat span{font-size:10px;color:var(--muted)}
+.panel{
+  padding:21px;border:1px solid var(--border);border-radius:22px;
+  background:var(--card);margin-bottom:19px;
+}
+.panel-heading{display:flex;align-items:center;gap:11px;margin-bottom:18px}
+.panel-icon{
+  width:42px;height:42px;display:grid;place-items:center;border-radius:14px;
+  background:rgba(232,121,249,.1);font-size:20px;flex-shrink:0;
+}
+.panel-heading h3{font-size:14px}
+.panel-heading p{font-size:10px;color:var(--muted)}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.field{display:flex;flex-direction:column;gap:6px;min-width:0}
+.field.full{grid-column:1/-1}
+.field label{font-size:11px;color:var(--muted)}
+.field input,.field textarea,.field select{
+  width:100%;min-width:0;padding:12px;border:1px solid var(--border);
+  border-radius:12px;background:rgba(10,8,20,.38);color:var(--text);
+  font-size:11px;outline:none;
+}
+.field input:focus,.field textarea:focus,.field select:focus{border-color:var(--primary)}
+.field textarea{min-height:90px;resize:vertical}
+.field input[type="date"]{color-scheme:dark}
+.field input[type="file"]{padding:9px}
+.hint{font-size:9px;color:var(--muted)}
+.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:16px}
+.primary{
+  border:0;border-radius:13px;padding:12px 17px;
+  background:linear-gradient(135deg,var(--primary),var(--secondary));
+  color:#24122b;font-size:11px;font-weight:800;
+}
+.secondary{
+  border:1px solid var(--border);border-radius:12px;padding:10px 13px;
+  background:rgba(255,255,255,.04);color:var(--text);font-size:10px;
+}
+.danger{color:var(--danger);border-color:rgba(251,113,133,.3)}
+.couple-card{
+  padding:18px;border:1px solid rgba(232,121,249,.24);border-radius:18px;
+  background:linear-gradient(135deg,rgba(232,121,249,.08),rgba(167,139,250,.07));
+}
+.couple-title{text-align:center;font-size:12px;color:var(--primary);margin-bottom:17px}
+.couple-people{display:flex;align-items:center;justify-content:center;gap:18px}
+.person{text-align:center;min-width:0;flex:1}
+.person-icon{
+  width:65px;height:65px;display:grid;place-items:center;margin:auto auto 8px;
+  border-radius:22px;background:rgba(255,255,255,.05);font-size:28px;
+  border:1px solid var(--border);overflow:hidden;
+}
+.person-icon img{width:100%;height:100%;object-fit:cover}
+.person strong{display:block;font-size:12px;overflow-wrap:anywhere}
+.person small{font-size:9px;color:var(--muted)}
+.heart-between{font-size:26px;color:var(--primary);animation:pulse 1.7s infinite}
+@keyframes pulse{50%{transform:scale(1.15)}}
+.hidden{display:none!important}
+.toast{
+  position:fixed;bottom:22px;left:50%;transform:translate(-50%,20px);
+  background:#291a3b;border:1px solid var(--border);border-radius:13px;
+  padding:12px 18px;font-size:11px;opacity:0;pointer-events:none;
+  transition:.25s;z-index:30;text-align:center;max-width:90%;
+}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+.footer{text-align:center;color:var(--muted);font-size:10px;padding:20px 0}
+.footer span{color:var(--primary)}
+@media(max-width:560px){
+  .container{width:94%;padding-top:15px}
+  .form-grid{grid-template-columns:1fr}
+  .field.full{grid-column:auto}
+  .panel{padding:15px;border-radius:18px}
+  .profile-main{padding:0 15px 19px}
+  .profile-head{gap:12px}
+  .avatar,.avatar-placeholder{width:88px;height:88px;border-radius:25px}
+  .profile-head{margin-top:-42px}
+  .name-area h2{font-size:17px}
+  .cover{height:125px}
+  .stats{gap:7px}
+  .stat{padding:10px 5px}
+  .stat strong{font-size:19px}
+  .stat span{font-size:9px}
+  .couple-people{gap:8px}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*:before,*:after{animation:none!important;transition:none!important}
+}
+</style>
+</head>
+
+<body>
+<main class="container">
+
+  <header class="topbar">
+    <a class="back" href="home.html">→ الرئيسية</a>
+    <div class="logo">LoveSpace ♥</div>
+    <button class="top-btn" id="editTop">✏️ تعديل الملف</button>
+  </header>
+
+  <section class="hero">
+    <div class="hero-icon">👤</div>
+    <h1>ملفي <span>الشخصي</span></h1>
+    <p>هنا تفاصيلك، حكايتك، والحاجات اللي تحب تبقى محفوظة ❤️</p>
+  </section>
+
+  <section class="profile-card">
+    <div class="cover"></div>
+    <div class="profile-main">
+      <div class="profile-head">
+        <div class="avatar-wrap">
+          <div id="avatarPlaceholder" class="avatar-placeholder">🧑🏻</div>
+          <img id="avatarImage" class="avatar hidden" alt="الصورة الشخصية">
+          <button class="avatar-edit" id="quickPhoto" title="تغيير الصورة" aria-label="تغيير الصورة">✎</button>
+        </div>
+        <div class="name-area">
+          <h2 id="displayName">صاحب المساحة ❤️</h2>
+          <p id="displayUsername">@lovespace</p>
+          <span class="badge">💗 صاحب المساحة</span>
+        </div>
+      </div>
+      <p class="profile-bio" id="displayBio">اكتب نبذة صغيرة عليك وخلي ملفك يعبر عليك.</p>
+    </div>
+  </section>
+
+  <section class="stats">
+    <div class="stat"><strong id="memoriesCount">0</strong><span>الذكريات 📸</span></div>
+    <div class="stat"><strong id="notesCount">0</strong><span>الملاحظات 📝</span></div>
+    <div class="stat"><strong id="daysCount">—</strong><span>أيام في مساحتنا 💜</span></div>
+  </section>
+
+  <section class="panel" id="profilePanel">
+    <div class="panel-heading">
+      <div class="panel-icon">🪪</div>
+      <div>
+        <h3>معلوماتي الشخصية</h3>
+        <p>بدّل المعلومات كيما تحب</p>
+      </div>
+    </div>
+
+    <form id="profileForm">
+      <div class="form-grid">
+        <div class="field">
+          <label for="firstName">الاسم</label>
+          <input id="firstName" maxlength="50" placeholder="اكتب اسمك">
+        </div>
+        <div class="field">
+          <label for="lastName">اللقب</label>
+          <input id="lastName" maxlength="50" placeholder="اكتب لقبك">
+        </div>
+        <div class="field">
+          <label for="username">اسم المستخدم</label>
+          <input id="username" maxlength="30" placeholder="مثلاً: sohaib26">
+        </div>
+        <div class="field">
+          <label for="birthday">تاريخ الميلاد</label>
+          <input id="birthday" type="date">
+        </div>
+        <div class="field">
+          <label for="city">المدينة (اختياري)</label>
+          <input id="city" maxlength="80" placeholder="اكتب مدينتك إذا حبيت">
+        </div>
+        <div class="field">
+          <label for="status">حالتي</label>
+          <select id="status">
+            <option value="صاحب المساحة ❤️">صاحب المساحة ❤️</option>
+            <option value="أعيش أحلى حكايتي 💗">أعيش أحلى حكايتي 💗</option>
+            <option value="أركز على أحلامي ✨">أركز على أحلامي ✨</option>
+            <option value="أحب الهدوء 🌙">أحب الهدوء 🌙</option>
+          </select>
+        </div>
+        <div class="field full">
+          <label for="bio">نبذة عني</label>
+          <textarea id="bio" maxlength="500" placeholder="اكتب جملة تعبر عليك..."></textarea>
+        </div>
+        <div class="field full">
+          <label for="avatarFile">صورتي الشخصية</label>
+          <input id="avatarFile" type="file" accept="image/jpeg,image/png,image/webp">
+          <span class="hint">اختار صورة JPG أو PNG أو WEBP، بحجم لا يتجاوز 2 ميغابايت.</span>
+        </div>
+      </div>
+      <div class="actions">
+        <button class="primary" type="submit">💾 حفظ التغييرات</button>
+        <button class="secondary" type="button" id="cancelBtn">إلغاء التعديل</button>
+      </div>
+    </form>
+  </section>
+
+  <section class="panel">
+    <div class="panel-heading">
+      <div class="panel-icon">💞</div>
+      <div>
+        <h3>مساحتنا مع بعض</h3>
+        <p>تفاصيل صغيرة على الحكاية الكبيرة</p>
+      </div>
+    </div>
+
+    <div class="couple-card">
+      <div class="couple-title">عالمنا الخاص ❤️</div>
+      <div class="couple-people">
+        <div class="person">
+          <div class="person-icon" id="coupleAvatar1">🧑🏻</div>
+          <strong id="coupleName1">أنا</strong>
+          <small>صاحب المساحة</small>
+        </div>
+        <div class="heart-between">♥</div>
+        <div class="person">
+          <div class="person-icon" id="coupleAvatar2">👩🏻</div>
+          <strong id="coupleName2">أميمة</strong>
+          <small>شخص مميز 💗</small>
+        </div>
+      </div>
+    </div>
+
+    <form id="coupleForm" style="margin-top:18px">
+      <div class="form-grid">
+        <div class="field">
+          <label for="partnerName">اسم الشخص المميز</label>
+          <input id="partnerName" maxlength="60" placeholder="مثلاً: أميمة">
+        </div>
+        <div class="field">
+          <label for="specialDate">تاريخ مميز بيناتنا (اختياري)</label>
+          <input id="specialDate" type="date">
+        </div>
+        <div class="field full">
+          <label for="coupleNote">رسالة صغيرة</label>
+          <textarea id="coupleNote" maxlength="400" placeholder="اكتب عبارة تحب تبقى في مساحتكم..."></textarea>
+        </div>
+        <div class="field full">
+          <label for="partnerPhoto">صورة الشخص المميز (اختياري)</label>
+          <input id="partnerPhoto" type="file" accept="image/jpeg,image/png,image/webp">
+          <span class="hint">الصورة تُحفظ محليًا في المتصفح على هذا الجهاز.</span>
+        </div>
+      </div>
+      <div class="actions">
+        <button class="primary" type="submit">💗 حفظ معلوماتنا</button>
+      </div>
+      <p id="coupleMessage" style="font-size:11px;color:var(--primary);margin-top:14px;white-space:pre-wrap"></p>
+    </form>
+  </section>
+
+  <section class="panel">
+    <div class="panel-heading">
+      <div class="panel-icon">🛡️</div>
+      <div>
+        <h3>البيانات والخصوصية</h3>
+        <p>تحكم في النسخة المحلية من ملفك</p>
+      </div>
+    </div>
+    <p style="font-size:11px;color:var(--muted);margin-bottom:14px">
+      المعلومات والصور في هذه الصفحة محفوظة في تخزين المتصفح، وليست حسابًا إلكترونيًا حقيقيًا ولا تتم مزامنتها تلقائيًا بين الأجهزة.
+    </p>
+    <div class="actions">
+      <button class="secondary" id="exportBtn">📦 تصدير ملفي</button>
+      <button class="secondary danger" id="removeAvatarBtn">🗑️ حذف صورتي</button>
+      <a class="secondary" href="privacy.html">🔐 إعدادات الخصوصية</a>
+    </div>
+  </section>
+
+  <footer class="footer">ملفك، ذكرياتك، ومساحتك الخاصة <span>♥</span><br>LoveSpace © 2026</footer>
+</main>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(() => {
+  'use strict';
+
+  const PROFILE_KEY = 'lovespace_profile_v1';
+  const COUPLE_KEY = 'lovespace_couple_profile_v1';
+  const MAX_AVATAR_BYTES = 2 * 1024 * 1024;
+  const $ = id => document.getElementById(id);
+
+  const defaultProfile = {
+    firstName:'',lastName:'',username:'',birthday:'',city:'',
+    status:'صاحب المساحة ❤️',bio:'اكتب نبذة صغيرة عليك وخلي ملفك يعبر عليك.',
+    avatar:'',createdAt:Date.now()
+  };
+
+  const defaultCouple = {
+    partnerName:'أميمة',specialDate:'',note:'',partnerPhoto:''
+  };
+
+  let profile = readStorage(PROFILE_KEY, defaultProfile);
+  let couple = readStorage(COUPLE_KEY, defaultCouple);
+  let pendingAvatar = null;
+  let pendingPartnerPhoto = null;
+  let toastTimer;
+
+  function readStorage(key, defaults){
+    try{
+      const value = JSON.parse(localStorage.getItem(key) || 'null');
+      return value && typeof value === 'object' ? {...defaults,...value} : {...defaults};
+    }catch{
+      return {...defaults};
+    }
+  }
+
+  function toast(message){
+    const el = $('toast');
+    el.textContent = message;
+    el.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => el.classList.remove('show'),2600);
+  }
+
+  function save(key, data){
+    try{
+      localStorage.setItem(key,JSON.stringify(data));
+      return true;
+    }catch{
+      toast('تعذر الحفظ. ربما مساحة التخزين ممتلئة؛ جرّب صورة أصغر.');
+      return false;
+    }
+  }
+
+  function escapeHTML(value){
+    return String(value ?? '').replace(/[&<>"']/g, char => ({
+      '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+    })[char]);
+  }
+
+  function getFullName(){
+    return [profile.firstName,profile.lastName].filter(Boolean).join(' ').trim()
+      || 'صاحب المساحة ❤️';
+  }
+
+  function displayImage(container,image,placeholder){
+    if(image){
+      container.innerHTML = '';
+      const img = document.createElement('img');
+      img.src = image;
+      img.alt = 'الصورة الشخصية';
+      img.style.cssText = 'width:100%;height:100%;object-fit:cover;border-radius:inherit';
+      container.appendChild(img);
+    }else{
+      container.textContent = placeholder;
+    }
+  }
+
+  function renderProfile(){
+    const name = getFullName();
+    $('displayName').textContent = name;
+    $('displayUsername').textContent = profile.username
+      ? '@' + profile.username.replace(/^@/,'') : '@lovespace';
+    $('displayBio').textContent = profile.bio || 'لا توجد نبذة شخصية حتى الآن.';
+    $('avatarImage').classList.toggle('hidden',!profile.avatar);
+    $('avatarPlaceholder').classList.toggle('hidden',!!profile.avatar);
+
+    if(profile.avatar) $('avatarImage').src = profile.avatar;
+    $('coupleName1').textContent = profile.firstName || 'أنا';
+    $('coupleName2').textContent = couple.partnerName || 'شخص مميز';
+    displayImage($('coupleAvatar1'),profile.avatar,'🧑🏻');
+    displayImage($('coupleAvatar2'),couple.partnerPhoto,'👩🏻');
+    $('coupleMessage').textContent = couple.note || '';
+
+    let memories = [];
+    let notes = [];
+    try{
+      const value = JSON.parse(localStorage.getItem('lovespace_memories_v1') || '[]');
+      if(Array.isArray(value)) memories = value;
+    }catch{}
+    try{
+      const value = JSON.parse(localStorage.getItem('lovespace_notes_v1') || '[]');
+      if(Array.isArray(value)) notes = value;
+    }catch{}
+
+    $('memoriesCount').textContent = memories.length;
+    $('notesCount').textContent = notes.length;
+
+    const start = Number(profile.createdAt);
+    $('daysCount').textContent = Number.isFinite(start) && start > 0
+      ? Math.max(1,Math.floor((Date.now()-start)/86400000)+1) : '—';
+  }
+
+  function fillForm(){
+    $('firstName').value = profile.firstName || '';
+    $('lastName').value = profile.lastName || '';
+    $('username').value = profile.username || '';
+    $('birthday').value = profile.birthday || '';
+    $('city').value = profile.city || '';
+    $('status').value = profile.status || defaultProfile.status;
+    $('bio').value = profile.bio || '';
+
+    $('partnerName').value = couple.partnerName || '';
+    $('specialDate').value = couple.specialDate || '';
+    $('coupleNote').value = couple.note || '';
+  }
+
+  function readImage(file,maxBytes,onSuccess){
+    if(!file) return;
+    if(!['image/jpeg','image/png','image/webp'].includes(file.type)){
+      toast('اختار صورة JPG أو PNG أو WEBP.');
+      return;
+    }
+    if(file.size > maxBytes){
+      toast('الصورة كبيرة بزاف. اختار صورة أصغر.');
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = () => onSuccess(String(reader.result || ''));
+    reader.onerror = () => toast('ما قدرناش نقراو الصورة.');
+    reader.readAsDataURL(file);
+  }
+
+  $('avatarFile').addEventListener('change',event=>{
+    const file = event.target.files && event.target.files[0];
+    if(!file) return;
+    readImage(file,MAX_AVATAR_BYTES,image=>{
+      pendingAvatar = image;
+      $('avatarImage').src = image;
+      $('avatarImage').classList.remove('hidden');
+      $('avatarPlaceholder').classList.add('hidden');
+    });
+  });
+
+  $('partnerPhoto').addEventListener('change',event=>{
+    const file = event.target.files && event.target.files[0];
+    if(!file) return;
+    readImage(file,MAX_AVATAR_BYTES,image=>{
+      pendingPartnerPhoto = image;
+      displayImage($('coupleAvatar2'),image,'👩🏻');
+    });
+  });
+
+  $('profileForm').addEventListener('submit',event=>{
+    event.preventDefault();
+
+    const birthday = $('birthday').value;
+    if(birthday && birthday > new Date().toISOString().slice(0,10)){
+      toast('تاريخ الميلاد ما يقدرش يكون في المستقبل.');
+      return;
+    }
+
+    const updated = {
+      ...profile,
+      firstName:$('firstName').value.trim(),
+      lastName:$('lastName').value.trim(),
+      username:$('username').value.trim().replace(/^@/,''),
+      birthday,
+      city:$('city').value.trim(),
+      status:$('status').value,
+      bio:$('bio').value.trim(),
+      avatar:pendingAvatar !== null ? pendingAvatar : profile.avatar,
+      updatedAt:Date.now()
+    };
+
+    if(save(PROFILE_KEY,updated)){
+      profile = updated;
+      pendingAvatar = null;
+      renderProfile();
+      toast('تحفظ الملف الشخصي بنجاح ❤️');
+    }
+  });
+
+  $('coupleForm').addEventListener('submit',event=>{
+    event.preventDefault();
+    const updated = {
+      partnerName:$('partnerName').value.trim() || 'شخص مميز',
+      specialDate:$('specialDate').value,
+      note:$('coupleNote').value.trim(),
+      partnerPhoto:pendingPartnerPhoto !== null ? pendingPartnerPhoto : couple.partnerPhoto
+    };
+    if(updated.specialDate && updated.specialDate > new Date().toISOString().slice(0,10)){
+      toast('التاريخ المميز ما يقدرش يكون في المستقبل.');
+      return;
+    }
+    if(save(COUPLE_KEY,updated)){
+      couple = updated;
+      pendingPartnerPhoto = null;
+      renderProfile();
+      toast('تحفظت معلوماتكم ❤️');
+    }
+  });
+
+  $('editTop').addEventListener('click',()=>{
+    $('profilePanel').scrollIntoView({behavior:'smooth',block:'start'});
+    $('firstName').focus({preventScroll:true});
+  });
+
+  $('quickPhoto').addEventListener('click',()=>{
+    $('avatarFile').click();
+  });
+
+  $('cancelBtn').addEventListener('click',()=>{
+    profile = readStorage(PROFILE_KEY,defaultProfile);
+    pendingAvatar = null;
+    $('avatarFile').value = '';
+    fillForm();
+    renderProfile();
+    toast('تم إلغاء التعديلات غير المحفوظة.');
+  });
+
+  $('removeAvatarBtn').addEventListener('click',()=>{
+    if(!profile.avatar && pendingAvatar === null){
+      toast('ما كاين حتى صورة شخصية للحذف.');
+      return;
+    }
+    if(!confirm('متأكد بلي تحب تحذف صورتك الشخصية؟')) return;
+
+    const updated = {...profile,avatar:'',updatedAt:Date.now()};
+    if(save(PROFILE_KEY,updated)){
+      profile = updated;
+      pendingAvatar = null;
+      $('avatarFile').value = '';
+      renderProfile();
+      toast('تحذفت الصورة الشخصية.');
+    }
+  });
+
+  $('exportBtn').addEventListener('click',()=>{
+    try{
+      const data = {
+        exportedAt:new Date().toISOString(),
+        profile,
+        couple
+      };
+      const blob = new Blob([JSON.stringify(data,null,2)],{
+        type:'application/json;charset=utf-8'
+      });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'lovespace-profile-backup.json';
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      setTimeout(()=>URL.revokeObjectURL(url),1000);
+      toast('تم تجهيز نسخة ملفك للتصدير.');
+    }catch{
+      toast('ما قدرناش نصدّر الملف.');
+    }
+  });
+
+  fillForm();
+  renderProfile();
+})();
+</script>
+</body>
+</html>
