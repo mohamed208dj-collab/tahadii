@@ -1,1 +1,827 @@
+<!DOCTYPE html><html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#100d20">
+<title>صورنا وذكرياتنا ❤️ | LoveSpace</title><style>
+@import url('https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;600;700;800&display=swap');
 
+:root {
+  --bg: #100d20;
+  --panel: #1b1630;
+  --panel2: #241c3c;
+  --pink: #ff78b7;
+  --purple: #b69aff;
+  --text: #fff3fb;
+  --muted: #b9adc9;
+  --border: rgba(255,255,255,.09);
+  --danger: #ff7590;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: 'Alexandria', sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(ellipse at 10% 0%, rgba(153,95,255,.17), transparent 40%),
+    radial-gradient(ellipse at 90% 15%, rgba(255,90,170,.12), transparent 35%),
+    var(--bg);
+}
+
+button, input, textarea { font: inherit; }
+button { cursor: pointer; }
+
+.container {
+  width: min(1050px, 93%);
+  margin: auto;
+  padding: 24px 0 55px;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.back {
+  color: var(--text);
+  text-decoration: none;
+  background: rgba(255,255,255,.06);
+  border: 1px solid var(--border);
+  border-radius: 13px;
+  padding: 11px 15px;
+  font-size: 12px;
+}
+
+.brand {
+  color: var(--purple);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.hero {
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+  padding: 32px 18px;
+  border: 1px solid var(--border);
+  border-radius: 25px;
+  background: linear-gradient(145deg, rgba(182,154,255,.12), rgba(255,120,183,.07));
+}
+
+.hero::before, .hero::after {
+  content: "♡";
+  position: absolute;
+  color: rgba(255,120,183,.13);
+  font-size: 100px;
+  pointer-events: none;
+}
+
+.hero::before { top: -35px; right: 10px; }
+.hero::after { bottom: -50px; left: 10px; }
+
+.hero-icon {
+  font-size: 42px;
+  display: inline-block;
+  animation: float 2.5s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-7px); }
+}
+
+h1 { font-size: clamp(24px, 5vw, 36px); margin: 12px 0; }
+.hero p { color: var(--muted); font-size: 13px; line-height: 2; margin: 0; }
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 11px;
+  margin: 18px 0 24px;
+}
+
+.stat {
+  text-align: center;
+  background: rgba(255,255,255,.045);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 15px 8px;
+}
+
+.stat strong { display: block; color: var(--pink); font-size: 22px; }
+.stat span { color: var(--muted); font-size: 10px; }
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+}
+
+.search {
+  flex: 1;
+  min-width: 170px;
+  padding: 12px 14px;
+  color: var(--text);
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  outline: none;
+}
+
+.search:focus { border-color: var(--purple); }
+
+.btn {
+  border: 0;
+  color: #241329;
+  background: linear-gradient(135deg, var(--pink), var(--purple));
+  border-radius: 12px;
+  padding: 12px 15px;
+  font-weight: 700;
+  font-size: 12px;
+}
+
+.btn.secondary {
+  color: var(--text);
+  background: rgba(255,255,255,.07);
+  border: 1px solid var(--border);
+}
+
+.upload-label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  cursor: pointer;
+}
+
+#fileInput { display: none; }
+
+.filters {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+}
+
+.chip {
+  padding: 9px 13px;
+  border-radius: 30px;
+  color: var(--muted);
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,.04);
+  font-size: 11px;
+}
+
+.chip.active {
+  color: var(--text);
+  border-color: rgba(255,120,183,.45);
+  background: rgba(255,120,183,.12);
+}
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 15px;
+}
+
+.photo-card {
+  min-width: 0;
+  overflow: hidden;
+  border-radius: 17px;
+  border: 1px solid var(--border);
+  background: var(--panel);
+  animation: appear .35s ease;
+}
+
+@keyframes appear {
+  from { opacity: 0; transform: translateY(7px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.photo-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 4.4;
+  overflow: hidden;
+  background: linear-gradient(135deg, #302247, #1b1630);
+}
+
+.photo-frame img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  cursor: pointer;
+  transition: transform .4s ease;
+}
+
+.photo-card:hover .photo-frame img { transform: scale(1.045); }
+
+.photo-info { padding: 13px; }
+
+.photo-info h3 {
+  font-size: 13px;
+  margin: 0 0 7px;
+  overflow-wrap: anywhere;
+}
+
+.photo-info p {
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.8;
+  margin: 0;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.photo-date { color: var(--purple); font-size: 10px; margin-bottom: 9px; }
+
+.photo-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 12px;
+}
+
+.small-btn {
+  padding: 7px 9px;
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,.05);
+  border-radius: 9px;
+  color: var(--text);
+  font-size: 10px;
+}
+
+.small-btn.favorite { color: var(--pink); }
+.small-btn.delete { color: var(--danger); }
+
+.empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 40px 15px;
+  border: 1px dashed var(--border);
+  border-radius: 17px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 2.2;
+}
+
+.note {
+  margin-top: 22px;
+  padding: 16px;
+  color: var(--muted);
+  background: rgba(182,154,255,.06);
+  border: 1px solid var(--border);
+  border-radius: 15px;
+  font-size: 11px;
+  line-height: 2;
+}
+
+footer { text-align: center; color: #81758f; font-size: 11px; margin-top: 25px; }
+
+/* تكبير الصورة */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 15px;
+  background: rgba(5,3,12,.94);
+}
+
+.lightbox.show { display: flex; }
+
+.lightbox-content {
+  width: min(850px, 100%);
+  text-align: center;
+}
+
+.lightbox img {
+  max-width: 100%;
+  max-height: 75vh;
+  object-fit: contain;
+  border-radius: 13px;
+}
+
+.lightbox h3 { font-size: 15px; margin: 12px 0 5px; }
+.lightbox p { color: var(--muted); font-size: 12px; }
+
+.close-lightbox {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,.1);
+  color: white;
+  font-size: 23px;
+}
+
+/* نافذة التعديل */
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  background: rgba(5,3,12,.82);
+}
+
+.modal.show { display: flex; }
+
+.modal-box {
+  width: min(460px, 100%);
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 22px;
+  border-radius: 21px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+}
+
+.modal-box h2 { margin-top: 0; font-size: 19px; }
+
+.field { margin: 14px 0; }
+.field label { display: block; font-size: 12px; color: var(--muted); margin-bottom: 8px; }
+
+.field input, .field textarea {
+  width: 100%;
+  padding: 12px;
+  color: var(--text);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 11px;
+  outline: none;
+  font-size: 12px;
+}
+
+.field textarea { min-height: 85px; resize: vertical; }
+.modal-actions { display: flex; gap: 9px; margin-top: 18px; }
+.modal-actions button { flex: 1; }
+
+@media (max-width: 700px) {
+  .gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .photo-info { padding: 10px; }
+}
+
+@media (max-width: 380px) {
+  .gallery { grid-template-columns: 1fr; }
+  .photo-frame { aspect-ratio: 4 / 3.5; }
+  .stats { gap: 6px; }
+  .stat strong { font-size: 19px; }
+  .stat span { font-size: 9px; }
+}
+</style></head><body>
+<div class="container">  <header class="topbar">
+    <a class="back" href="home.html">← الرئيسية</a>
+    <div class="brand">LoveSpace ♡</div>
+  </header>  <section class="hero">
+    <div class="hero-icon">📸</div>
+    <h1>صورنا وذكرياتنا</h1>
+    <p>كل صورة تحكي حكاية، وكل ذكرى عندها بلاصتها.<br>جمع هنا الصور واللحظات اللي تحب تحتفظ بيها. 💗</p>
+  </section>  <section class="stats">
+    <div class="stat">
+      <strong id="totalPhotos">0</strong>
+      <span>مجموع الصور</span>
+    </div>
+    <div class="stat">
+      <strong id="favoritePhotos">0</strong>
+      <span>صور مفضلة ⭐</span>
+    </div>
+    <div class="stat">
+      <strong id="memoryPhotos">0</strong>
+      <span>صور الذكريات</span>
+    </div>
+  </section>  <div class="toolbar">
+    <input id="search" class="search" type="search" placeholder="🔎 قلب على صورة أو ذكرى..." oninput="renderGallery()"><label class="btn upload-label" for="fileInput">＋ أضف صور</label>
+<input id="fileInput" type="file" accept="image/*" multiple>
+
+  </div>  <div class="filters">
+    <button class="chip active" onclick="setFilter('all',this)">كل الصور</button>
+    <button class="chip" onclick="setFilter('favorites',this)">⭐ المفضلة</button>
+    <button class="chip" onclick="setFilter('memories',this)">💗 الذكريات</button>
+  </div>  <div id="gallery" class="gallery"></div>  <div class="note">
+    🔒 الصور تبقى في هذا المتصفح فقط. اختار صورك من الهاتف باش تزيدها للمعرض.
+    احتفظ بنسخة من صورك الأصلية، لأن بيانات المتصفح تقدر تتمسح عند مسح بيانات الموقع.
+  </div>  <footer>صُنعت بكل حب ♡ LoveSpace</footer>
+</div><div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+  <button class="close-lightbox" onclick="hideLightbox()" aria-label="إغلاق">×</button>
+  <div class="lightbox-content" onclick="event.stopPropagation()">
+    <img id="largeImage" src="" alt="صورة مكبرة">
+    <h3 id="largeTitle"></h3>
+    <p id="largeDescription"></p>
+  </div>
+</div><div class="modal" id="modal">
+  <div class="modal-box">
+    <h2>💗 معلومات الصورة</h2>
+    <form id="photoForm">
+      <input type="hidden" id="photoId">  <div class="field">
+    <label for="photoTitle">عنوان الصورة</label>
+    <input id="photoTitle" maxlength="80" placeholder="مثلاً: ذكرى جميلة" required>
+  </div>
+
+  <div class="field">
+    <label for="photoDescription">وصف أو ذكرى</label>
+    <textarea id="photoDescription" maxlength="500" placeholder="اكتب حكاية الصورة هنا..."></textarea>
+  </div>
+
+  <div class="modal-actions">
+    <button class="btn" type="submit">💾 حفظ</button>
+    <button class="btn secondary" type="button" onclick="closeModal()">إلغاء</button>
+  </div>
+</form>
+
+  </div>
+</div><script>
+const STORAGE_KEY = 'lovespace_photos_v1';
+const DB_NAME = 'lovespace_photos_database';
+const STORE_NAME = 'photos';
+
+let photos = [];
+let activeFilter = 'all';
+let db = null;
+let dbReady = false;
+
+const gallery = document.getElementById('gallery');
+const fileInput = document.getElementById('fileInput');
+const modal = document.getElementById('modal');
+
+function escapeHTML(value) {
+  return String(value ?? '').replace(/[&<>"']/g, char => ({
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;'
+  }[char]));
+}
+
+function makeId() {
+  return crypto.randomUUID ? crypto.randomUUID() : String(Date.now()) + Math.random().toString(16).slice(2);
+}
+
+function openDatabase() {
+  return new Promise((resolve, reject) => {
+    if (!('indexedDB' in window)) {
+      reject(new Error('المتصفح لا يدعم تخزين الصور'));
+      return;
+    }
+
+    const request = indexedDB.open(DB_NAME, 1);
+
+    request.onupgradeneeded = () => {
+      const database = request.result;
+      if (!database.objectStoreNames.contains(STORE_NAME)) {
+        database.createObjectStore(STORE_NAME, { keyPath: 'id' });
+      }
+    };
+
+    request.onsuccess = () => resolve(request.result);
+    request.onerror = () => reject(request.error);
+  });
+}
+
+function dbRequest(mode, action, data) {
+  return new Promise((resolve, reject) => {
+    if (!db) {
+      reject(new Error('قاعدة الصور غير جاهزة'));
+      return;
+    }
+
+    const transaction = db.transaction(STORE_NAME, mode);
+    const store = transaction.objectStore(STORE_NAME);
+    let request;
+
+    if (action === 'getAll') request = store.getAll();
+    else if (action === 'put') request = store.put(data);
+    else if (action === 'delete') request = store.delete(data);
+
+    if (request) {
+      request.onsuccess = () => resolve(request.result);
+      request.onerror = () => reject(request.error);
+    } else {
+      reject(new Error('عملية غير معروفة'));
+    }
+  });
+}
+
+async function initialise() {
+  try {
+    db = await openDatabase();
+    dbReady = true;
+
+    const savedPhotos = await dbRequest('readonly', 'getAll');
+
+    photos = savedPhotos.map(photo => ({
+      ...photo,
+      favorite: Boolean(photo.favorite),
+      memory: Boolean(photo.memory)
+    }));
+
+    renderGallery();
+  } catch (error) {
+    dbReady = false;
+
+    try {
+      const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+      photos = Array.isArray(saved) ? saved : [];
+    } catch {
+      photos = [];
+    }
+
+    renderGallery();
+
+    if (!dbReady) {
+      showStorageWarning();
+    }
+  }
+}
+
+function showStorageWarning() {
+  const note = document.querySelector('.note');
+  note.textContent = '⚠️ تعذر فتح مخزن الصور في هذا المتصفح. جرّب فتح الصفحة في متصفح عادي وتجنب وضع التصفح الخفي.';
+}
+
+function persistFallback() {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(photos));
+    return true;
+  } catch {
+    alert('مساحة التخزين غير كافية أو غير متاحة. جرّب صورًا أقل أو أصغر حجمًا.');
+    return false;
+  }
+}
+
+async function savePhoto(photo) {
+  if (dbReady) {
+    try {
+      await dbRequest('readwrite', 'put', photo);
+      return true;
+    } catch {
+      alert('ما قدرناش نحفظ الصورة. تأكد من مساحة التخزين المتوفرة.');
+      return false;
+    }
+  }
+
+  photos = photos.filter(item => item.id !== photo.id);
+  photos.push(photo);
+
+  return persistFallback();
+}
+
+async function removePhoto(id) {
+  if (dbReady) {
+    try {
+      await dbRequest('readwrite', 'delete', id);
+    } catch {
+      alert('ما قدرناش نحذف الصورة.');
+      return;
+    }
+  } else {
+    photos = photos.filter(photo => photo.id !== id);
+    if (!persistFallback()) return;
+  }
+
+  photos = photos.filter(photo => photo.id !== id);
+  renderGallery();
+}
+
+function setFilter(filter, button) {
+  activeFilter = filter;
+  document.querySelectorAll('.chip').forEach(chip => chip.classList.remove('active'));
+  button.classList.add('active');
+  renderGallery();
+}
+
+function updateStats() {
+  document.getElementById('totalPhotos').textContent = photos.length;
+  document.getElementById('favoritePhotos').textContent =
+    photos.filter(photo => photo.favorite).length;
+  document.getElementById('memoryPhotos').textContent =
+    photos.filter(photo => photo.memory).length;
+}
+
+function renderGallery() {
+  updateStats();
+
+  const query = document.getElementById('search').value.trim().toLowerCase();
+
+  const filtered = photos.filter(photo => {
+    const text = `${photo.title || ''} ${photo.description || ''}`.toLowerCase();
+    const matchesSearch = text.includes(query);
+    const matchesFilter =
+      activeFilter === 'all' ||
+      (activeFilter === 'favorites' && photo.favorite) ||
+      (activeFilter === 'memories' && photo.memory);
+
+    return matchesSearch && matchesFilter;
+  });
+
+  if (!filtered.length) {
+    gallery.innerHTML = `
+      <div class="empty">
+        📷 ${photos.length ? 'ما لقيناش صور تطابق بحثك.' : 'المعرض مازال فارغ.'}<br>
+        اضغط على «أضف صور» واختار صورك من الهاتف باش تبدأ تجمع ذكرياتك. 💗
+      </div>`;
+    return;
+  }
+
+  gallery.innerHTML = filtered.map(photo => `
+    <article class="photo-card">
+      <div class="photo-frame">
+        <img
+          src="${escapeHTML(photo.dataUrl)}"
+          alt="${escapeHTML(photo.title || 'صورة من الذكريات')}"
+          loading="lazy"
+          onclick="showLightbox('${photo.id}')">
+      </div>
+
+      <div class="photo-info">
+        <div class="photo-date">${escapeHTML(photo.date || '')}</div>
+        <h3>${escapeHTML(photo.title || 'ذكرى بلا عنوان')}</h3>
+        <p>${escapeHTML(photo.description || 'ذكرى جميلة تستحق تبقى.')}</p>
+
+        <div class="photo-actions">
+          <button class="small-btn favorite" onclick="toggleFavorite('${photo.id}')">
+            ${photo.favorite ? '⭐ مفضلة' : '☆ المفضلة'}
+          </button>
+          <button class="small-btn" onclick="toggleMemory('${photo.id}')">
+            ${photo.memory ? '💗 ذكرى' : '＋ ذكرى'}
+          </button>
+          <button class="small-btn" onclick="editPhoto('${photo.id}')">✏️ تعديل</button>
+          <button class="small-btn delete" onclick="deletePhoto('${photo.id}')">🗑️ حذف</button>
+        </div>
+      </div>
+    </article>
+  `).join('');
+}
+
+function getPhoto(id) {
+  return photos.find(photo => photo.id === id);
+}
+
+function fileToDataURL(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = () => reject(reader.error);
+    reader.readAsDataURL(file);
+  });
+}
+
+fileInput.addEventListener('change', async () => {
+  const files = Array.from(fileInput.files || []);
+  fileInput.value = '';
+
+  if (!files.length) return;
+
+  const validFiles = files.filter(file => file.type.startsWith('image/'));
+
+  if (!validFiles.length) {
+    alert('اختار ملفات صور فقط.');
+    return;
+  }
+
+  for (const file of validFiles) {
+    if (file.size > 12 * 1024 * 1024) {
+      alert(`الصورة "${file.name}" كبيرة بزاف. الحد الأقصى للصورة الواحدة هو 12 MB.`);
+      continue;
+    }
+
+    try {
+      const dataUrl = await fileToDataURL(file);
+
+      const photo = {
+        id: makeId(),
+        title: file.name.replace(/\.[^.]+$/, '').slice(0, 80) || 'ذكرى جديدة',
+        description: '',
+        dataUrl,
+        date: new Date().toLocaleDateString('ar-DZ'),
+        favorite: false,
+        memory: false,
+        createdAt: Date.now()
+      };
+
+      const success = await savePhoto(photo);
+      if (success) photos.push(photo);
+    } catch {
+      alert(`ما قدرناش نقراو الصورة: ${file.name}`);
+    }
+  }
+
+  renderGallery();
+});
+
+async function toggleFavorite(id) {
+  const photo = getPhoto(id);
+  if (!photo) return;
+
+  const updated = { ...photo, favorite: !photo.favorite };
+  const success = await savePhoto(updated);
+
+  if (success) {
+    photos = photos.map(item => item.id === id ? updated : item);
+    renderGallery();
+  }
+}
+
+async function toggleMemory(id) {
+  const photo = getPhoto(id);
+  if (!photo) return;
+
+  const updated = { ...photo, memory: !photo.memory };
+  const success = await savePhoto(updated);
+
+  if (success) {
+    photos = photos.map(item => item.id === id ? updated : item);
+    renderGallery();
+  }
+}
+
+function editPhoto(id) {
+  const photo = getPhoto(id);
+  if (!photo) return;
+
+  document.getElementById('photoId').value = id;
+  document.getElementById('photoTitle').value = photo.title || '';
+  document.getElementById('photoDescription').value = photo.description || '';
+  modal.classList.add('show');
+}
+
+function closeModal() {
+  modal.classList.remove('show');
+}
+
+document.getElementById('photoForm').addEventListener('submit', async event => {
+  event.preventDefault();
+
+  const id = document.getElementById('photoId').value;
+  const photo = getPhoto(id);
+  if (!photo) return;
+
+  const updated = {
+    ...photo,
+    title: document.getElementById('photoTitle').value.trim(),
+    description: document.getElementById('photoDescription').value.trim()
+  };
+
+  const success = await savePhoto(updated);
+  if (success) {
+    photos = photos.map(item => item.id === id ? updated : item);
+    closeModal();
+    renderGallery();
+  }
+});
+
+async function deletePhoto(id) {
+  if (!confirm('متأكد بلي حاب تحذف هذي الصورة من المعرض؟')) return;
+  await removePhoto(id);
+}
+
+function showLightbox(id) {
+  const photo = getPhoto(id);
+  if (!photo) return;
+
+  document.getElementById('largeImage').src = photo.dataUrl;
+  document.getElementById('largeTitle').textContent = photo.title || '';
+  document.getElementById('largeDescription').textContent = photo.description || '';
+  document.getElementById('lightbox').classList.add('show');
+}
+
+function hideLightbox() {
+  document.getElementById('lightbox').classList.remove('show');
+  document.getElementById('largeImage').src = '';
+}
+
+function closeLightbox(event) {
+  if (event.target.id === 'lightbox') hideLightbox();
+}
+
+document.getElementById('modal').addEventListener('click', event => {
+  if (event.target.id === 'modal') closeModal();
+});
+
+document.addEventListener('keydown', event => {
+  if (event.key === 'Escape') {
+    closeModal();
+    hideLightbox();
+  }
+});
+
+initialise();
+</script></body>
+</html>
