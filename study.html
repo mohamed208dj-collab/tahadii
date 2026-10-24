@@ -1,1 +1,887 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#100d20">
+<title>Study Space 📚 | LoveSpace</title>
 
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --bg: #100d20;
+  --card: #1b1530;
+  --pink: #ff78b7;
+  --purple: #a78bfa;
+  --text: #fff0f7;
+  --muted: #bdb0d0;
+  --border: #ffffff15;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  padding: 20px 14px 35px;
+  font-family: 'Alexandria', sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(circle at 15% 10%, #54265c55, transparent 35%),
+    radial-gradient(circle at 85% 85%, #6e287755, transparent 35%),
+    var(--bg);
+}
+
+.container {
+  max-width: 850px;
+  width: 100%;
+  margin: auto;
+}
+
+header {
+  text-align: center;
+  padding: 15px 0 25px;
+}
+
+.logo {
+  width: 68px;
+  height: 68px;
+  margin: 0 auto 15px;
+  display: grid;
+  place-items: center;
+  border-radius: 22px;
+  font-size: 32px;
+  background: linear-gradient(135deg, #ff78b7, #8b5cf6);
+  box-shadow: 0 0 35px #ff78b744;
+}
+
+h1 {
+  font-size: clamp(25px, 5vw, 36px);
+  margin-bottom: 10px;
+  background: linear-gradient(90deg, #fff, #ff9dce, #c4b5fd);
+  color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
+}
+
+.subtitle {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 2;
+}
+
+.card {
+  background: linear-gradient(145deg, #211832ed, #171225f5);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 22px;
+  margin-bottom: 17px;
+  box-shadow: 0 15px 40px #0003;
+}
+
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 18px;
+  font-size: 16px;
+}
+
+.section-title span {
+  font-size: 22px;
+}
+
+.welcome {
+  background: linear-gradient(120deg, #44204f, #292044);
+  border-color: #ff78b72b;
+}
+
+.welcome h2 {
+  color: var(--pink);
+  font-size: 20px;
+  margin-bottom: 9px;
+}
+
+.welcome p {
+  font-size: 12px;
+  line-height: 2.1;
+  color: #e4d5f0;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 17px;
+}
+
+.stat {
+  text-align: center;
+  padding: 18px 8px;
+  background: #ffffff08;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+}
+
+.stat .number {
+  font-size: 25px;
+  font-weight: 700;
+  color: var(--pink);
+}
+
+.stat p {
+  color: var(--muted);
+  font-size: 10px;
+  margin-top: 7px;
+}
+
+.progress-track {
+  width: 100%;
+  height: 10px;
+  background: #ffffff12;
+  border-radius: 20px;
+  overflow: hidden;
+  margin: 12px 0 8px;
+}
+
+.progress-bar {
+  height: 100%;
+  width: 0;
+  border-radius: 20px;
+  background: linear-gradient(90deg, #ec4899, #a78bfa);
+  transition: width .4s;
+}
+
+.progress-info {
+  display: flex;
+  justify-content: space-between;
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.field.full {
+  grid-column: 1 / -1;
+}
+
+label {
+  font-size: 11px;
+  color: var(--muted);
+}
+
+input, select, textarea {
+  width: 100%;
+  min-width: 0;
+  padding: 13px;
+  color: var(--text);
+  font-family: inherit;
+  font-size: 12px;
+  background: #100d20;
+  border: 1px solid #ffffff20;
+  border-radius: 13px;
+  outline: none;
+}
+
+input:focus, select:focus, textarea:focus {
+  border-color: var(--pink);
+}
+
+select option {
+  background: #1b1530;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: 0;
+  border-radius: 13px;
+  padding: 13px 16px;
+  font-size: 12px;
+  font-weight: 600;
+  transition: .2s;
+}
+
+button:active {
+  transform: scale(.97);
+}
+
+.primary {
+  color: white;
+  background: linear-gradient(100deg, #ec4899, #8b5cf6);
+}
+
+.primary:hover {
+  filter: brightness(1.1);
+}
+
+.add-btn {
+  width: 100%;
+  margin-top: 15px;
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.filter-btn {
+  color: var(--muted);
+  background: #ffffff09;
+  border: 1px solid var(--border);
+  padding: 9px 13px;
+  font-size: 10px;
+}
+
+.filter-btn.active {
+  color: white;
+  background: #a855f733;
+  border-color: #c084fc88;
+}
+
+.task-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.task {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 15px;
+  background: #100d207a;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+}
+
+.task-check {
+  width: 20px;
+  height: 20px;
+  min-width: 20px;
+  margin-top: 3px;
+  accent-color: #ec4899;
+  cursor: pointer;
+}
+
+.task-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.task-name {
+  font-size: 12px;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.task.done .task-name {
+  text-decoration: line-through;
+  opacity: .55;
+}
+
+.task-meta {
+  color: var(--muted);
+  font-size: 10px;
+  line-height: 2;
+  margin-top: 7px;
+}
+
+.priority {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 8px;
+  margin-top: 6px;
+  font-size: 9px;
+}
+
+.priority.high {
+  color: #ff9bba;
+  background: #ff477e18;
+}
+
+.priority.normal {
+  color: #c4b5fd;
+  background: #8b5cf618;
+}
+
+.priority.low {
+  color: #9be7c3;
+  background: #34d39918;
+}
+
+.delete-btn {
+  color: #ff9ab7;
+  background: #ff477e13;
+  padding: 8px 10px;
+  font-size: 10px;
+}
+
+.empty {
+  text-align: center;
+  padding: 25px 10px;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 2;
+}
+
+.timer-box {
+  text-align: center;
+  padding: 10px 0;
+}
+
+.timer-display {
+  font-size: clamp(43px, 10vw, 64px);
+  font-weight: 700;
+  letter-spacing: 2px;
+  margin: 15px 0;
+  color: var(--pink);
+  font-variant-numeric: tabular-nums;
+}
+
+.timer-label {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.timer-controls {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 9px;
+  margin-top: 20px;
+}
+
+.timer-controls button {
+  min-width: 100px;
+}
+
+.secondary {
+  color: var(--text);
+  background: #ffffff0c;
+  border: 1px solid var(--border);
+}
+
+.timer-setting {
+  max-width: 180px;
+  margin: 15px auto 0;
+}
+
+.tips {
+  display: grid;
+  gap: 10px;
+}
+
+.tip {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 13px;
+  background: #ffffff07;
+  border-radius: 14px;
+}
+
+.tip-icon {
+  font-size: 22px;
+}
+
+.tip p {
+  font-size: 11px;
+  line-height: 2;
+  color: var(--muted);
+}
+
+.tip strong {
+  display: block;
+  color: var(--text);
+  margin-bottom: 3px;
+}
+
+footer {
+  text-align: center;
+  color: #a99bbd;
+  font-size: 11px;
+  margin-top: 25px;
+  line-height: 2;
+}
+
+@media (max-width: 520px) {
+  .card { padding: 17px 13px; }
+  .stats { gap: 7px; }
+  .stat { padding: 15px 4px; }
+  .stat .number { font-size: 21px; }
+  .form-grid { grid-template-columns: 1fr; }
+  .field.full { grid-column: auto; }
+}
+</style>
+</head>
+
+<body>
+<main class="container">
+
+<header>
+  <div class="logo">📚</div>
+  <h1>Study Space</h1>
+  <p class="subtitle">
+    نظّم قرايتك، تابع تقدمك، وقرّب لأهدافك كل يوم ✨
+  </p>
+</header>
+
+<section class="card welcome">
+  <h2>كل خطوة صغيرة تقرّبك للنجاح 🎯</h2>
+  <p>
+    ماشي لازم تكمل كلش في نهار واحد. اختار مهمة،
+    ركّز عليها، ومن بعد انتقل للي بعدها. المهم هو الاستمرار.
+  </p>
+</section>
+
+<section class="stats">
+  <div class="stat">
+    <div class="number" id="totalTasks">0</div>
+    <p>إجمالي المهام</p>
+  </div>
+  <div class="stat">
+    <div class="number" id="doneTasks">0</div>
+    <p>المهام المكتملة</p>
+  </div>
+  <div class="stat">
+    <div class="number" id="studyMinutes">0</div>
+    <p>دقائق التركيز</p>
+  </div>
+</section>
+
+<section class="card">
+  <div class="section-title">
+    <span>📈</span>
+    <h2>تقدمك الدراسي</h2>
+  </div>
+
+  <div class="progress-info">
+    <span>نسبة إكمال المهام</span>
+    <strong id="progressText">0%</strong>
+  </div>
+  <div class="progress-track">
+    <div class="progress-bar" id="progressBar"></div>
+  </div>
+</section>
+
+<section class="card">
+  <div class="section-title">
+    <span>➕</span>
+    <h2>أضف مهمة دراسية</h2>
+  </div>
+
+  <form id="taskForm">
+    <div class="form-grid">
+      <div class="field full">
+        <label for="taskTitle">عنوان المهمة</label>
+        <input id="taskTitle" maxlength="100"
+          placeholder="مثال: مراجعة درس النهايات" required>
+      </div>
+
+      <div class="field">
+        <label for="taskSubject">المادة</label>
+        <select id="taskSubject">
+          <option>رياضيات</option>
+          <option>فيزياء</option>
+          <option>علوم طبيعية</option>
+          <option>هندسة مدنية</option>
+          <option>عربية</option>
+          <option>فرنسية</option>
+          <option>إنجليزية</option>
+          <option>فلسفة</option>
+          <option>تاريخ وجغرافيا</option>
+          <option>إسلامية</option>
+          <option>أخرى</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="taskDate">تاريخ الإنجاز</label>
+        <input type="date" id="taskDate">
+      </div>
+
+      <div class="field">
+        <label for="taskDuration">المدة المتوقعة بالدقائق</label>
+        <input type="number" id="taskDuration"
+          min="5" max="600" value="30">
+      </div>
+
+      <div class="field">
+        <label for="taskPriority">الأولوية</label>
+        <select id="taskPriority">
+          <option value="high">مهمة جداً</option>
+          <option value="normal" selected>عادية</option>
+          <option value="low">منخفضة</option>
+        </select>
+      </div>
+    </div>
+
+    <button class="primary add-btn" type="submit">
+      ➕ إضافة المهمة
+    </button>
+  </form>
+</section>
+
+<section class="card">
+  <div class="section-title">
+    <span>📝</span>
+    <h2>برنامج المراجعة</h2>
+  </div>
+
+  <div class="filters">
+    <button class="filter-btn active" data-filter="all">الكل</button>
+    <button class="filter-btn" data-filter="pending">قيد الإنجاز</button>
+    <button class="filter-btn" data-filter="done">مكتملة</button>
+  </div>
+
+  <div class="task-list" id="taskList"></div>
+</section>
+
+<section class="card">
+  <div class="section-title">
+    <span>⏱️</span>
+    <h2>مؤقّت التركيز</h2>
+  </div>
+
+  <div class="timer-box">
+    <p class="timer-label" id="timerLabel">وقت المذاكرة</p>
+    <div class="timer-display" id="timerDisplay">25:00</div>
+
+    <div class="timer-setting">
+      <label for="timerMinutes">مدة الجلسة بالدقائق</label>
+      <input id="timerMinutes" type="number" min="1"
+        max="180" value="25">
+    </div>
+
+    <div class="timer-controls">
+      <button class="primary" id="startTimer">▶ ابدأ</button>
+      <button class="secondary" id="pauseTimer">⏸ إيقاف مؤقت</button>
+      <button class="secondary" id="resetTimer">↺ إعادة</button>
+    </div>
+  </div>
+</section>
+
+<section class="card">
+  <div class="section-title">
+    <span>💡</span>
+    <h2>نصائح للمراجعة</h2>
+  </div>
+
+  <div class="tips">
+    <div class="tip">
+      <span class="tip-icon">🎯</span>
+      <p><strong>حدد هدفاً واضحاً</strong>
+      قبل ما تبدأ، قرر واش حاب تكمل في هذي الجلسة.</p>
+    </div>
+
+    <div class="tip">
+      <span class="tip-icon">📵</span>
+      <p><strong>قلّل المشتتات</strong>
+      حط الهاتف بعيد عليك وقت التركيز إذا ما كنتش تحتاجه.</p>
+    </div>
+
+    <div class="tip">
+      <span class="tip-icon">🧠</span>
+      <p><strong>اختبر روحك</strong>
+      حاول تحل تمارين وتسترجع المعلومات بلا ما تشوف الدرس مباشرة.</p>
+    </div>
+
+    <div class="tip">
+      <span class="tip-icon">🌿</span>
+      <p><strong>خذ استراحات</strong>
+      ارتاح بين الجلسات، ونظّم وقتك بطريقة تناسبك.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  LoveSpace · Study Space 📚
+  <br>
+  خطوة اليوم هي نجاح الغد ✨
+</footer>
+
+</main>
+
+<script>
+const STORAGE_KEY = "lovespace_study_v1";
+
+let tasks = [];
+let currentFilter = "all";
+let focusMinutes = 0;
+let timerSeconds = 25 * 60;
+let timerRunning = false;
+let timerInterval = null;
+let lastTick = 0;
+
+const $ = id => document.getElementById(id);
+
+function loadData() {
+  try {
+    const data = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
+    tasks = Array.isArray(data.tasks) ? data.tasks : [];
+    focusMinutes = Number.isFinite(data.focusMinutes)
+      ? Math.max(0, data.focusMinutes) : 0;
+  } catch (error) {
+    tasks = [];
+    focusMinutes = 0;
+  }
+}
+
+function saveData() {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({
+      tasks,
+      focusMinutes
+    }));
+  } catch (error) {
+    alert("ما قدرناش نحفظو البيانات. تأكد من مساحة التخزين في المتصفح.");
+  }
+}
+
+function escapeHTML(value) {
+  return String(value).replace(/[&<>"']/g, char => ({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#39;"
+  })[char]);
+}
+
+function priorityLabel(priority) {
+  if (priority === "high") return "مهمة جداً";
+  if (priority === "low") return "منخفضة";
+  return "عادية";
+}
+
+function render() {
+  const completed = tasks.filter(task => task.done).length;
+  const percent = tasks.length
+    ? Math.round(completed / tasks.length * 100) : 0;
+
+  $("totalTasks").textContent = tasks.length;
+  $("doneTasks").textContent = completed;
+  $("studyMinutes").textContent = focusMinutes;
+  $("progressText").textContent = percent + "%";
+  $("progressBar").style.width = percent + "%";
+
+  const filtered = tasks.filter(task => {
+    if (currentFilter === "pending") return !task.done;
+    if (currentFilter === "done") return task.done;
+    return true;
+  });
+
+  if (!filtered.length) {
+    $("taskList").innerHTML = `
+      <div class="empty">
+        📚 ما كاين حتى مهمة هنا حالياً.<br>
+        أضف أول مهمة وابدأ رحلتك!
+      </div>`;
+    return;
+  }
+
+  $("taskList").innerHTML = filtered.map(task => `
+    <div class="task ${task.done ? "done" : ""}">
+      <input class="task-check" type="checkbox"
+        data-action="toggle" data-id="${task.id}"
+        ${task.done ? "checked" : ""}
+        aria-label="تحديد المهمة كمكتملة">
+
+      <div class="task-content">
+        <div class="task-name">${escapeHTML(task.title)}</div>
+        <div class="task-meta">
+          📘 ${escapeHTML(task.subject)}
+          · ⏱️ ${task.duration} دقيقة
+          ${task.date ? "<br>📅 " + escapeHTML(task.date) : ""}
+        </div>
+        <span class="priority ${task.priority}">
+          ${priorityLabel(task.priority)}
+        </span>
+      </div>
+
+      <button class="delete-btn"
+        data-action="delete" data-id="${task.id}">
+        حذف
+      </button>
+    </div>
+  `).join("");
+}
+
+$("taskForm").addEventListener("submit", event => {
+  event.preventDefault();
+
+  const title = $("taskTitle").value.trim();
+  if (!title) return;
+
+  const duration = Number($("taskDuration").value);
+  if (!Number.isFinite(duration) || duration < 5 || duration > 600) {
+    alert("أدخل مدة بين 5 و600 دقيقة.");
+    return;
+  }
+
+  tasks.unshift({
+    id: Date.now().toString() + Math.random().toString(36).slice(2, 7),
+    title,
+    subject: $("taskSubject").value,
+    date: $("taskDate").value,
+    duration,
+    priority: $("taskPriority").value,
+    done: false
+  });
+
+  saveData();
+  render();
+  $("taskTitle").value = "";
+});
+
+$("taskList").addEventListener("change", event => {
+  const checkbox = event.target.closest('[data-action="toggle"]');
+  if (!checkbox) return;
+
+  const task = tasks.find(item => item.id === checkbox.dataset.id);
+  if (!task) return;
+
+  task.done = checkbox.checked;
+  saveData();
+  render();
+});
+
+$("taskList").addEventListener("click", event => {
+  const button = event.target.closest('[data-action="delete"]');
+  if (!button) return;
+
+  tasks = tasks.filter(task => task.id !== button.dataset.id);
+  saveData();
+  render();
+});
+
+document.querySelectorAll(".filter-btn").forEach(button => {
+  button.addEventListener("click", () => {
+    currentFilter = button.dataset.filter;
+
+    document.querySelectorAll(".filter-btn").forEach(item => {
+      item.classList.toggle("active", item === button);
+    });
+
+    render();
+  });
+});
+
+function updateTimerDisplay() {
+  const minutes = Math.floor(timerSeconds / 60);
+  const seconds = timerSeconds % 60;
+
+  $("timerDisplay").textContent =
+    String(minutes).padStart(2, "0") + ":" +
+    String(seconds).padStart(2, "0");
+}
+
+function stopTimer() {
+  timerRunning = false;
+
+  if (timerInterval !== null) {
+    clearInterval(timerInterval);
+    timerInterval = null;
+  }
+}
+
+function startTimer() {
+  if (timerRunning) return;
+
+  if (timerSeconds <= 0) {
+    const minutes = Number($("timerMinutes").value);
+    if (!Number.isFinite(minutes) || minutes < 1 || minutes > 180) {
+      alert("اختار مدة بين دقيقة واحدة و180 دقيقة.");
+      return;
+    }
+    timerSeconds = Math.round(minutes * 60);
+  }
+
+  timerRunning = true;
+  lastTick = Date.now();
+  $("timerLabel").textContent = "ركز، راك قادر! 💪";
+
+  timerInterval = setInterval(() => {
+    if (!timerRunning) return;
+
+    const now = Date.now();
+    const elapsed = Math.floor((now - lastTick) / 1000);
+
+    if (elapsed < 1) return;
+
+    lastTick += elapsed * 1000;
+    timerSeconds = Math.max(0, timerSeconds - elapsed);
+
+    updateTimerDisplay();
+
+    if (timerSeconds <= 0) {
+      stopTimer();
+      focusMinutes += Math.max(1, Math.round(
+        Number($("timerMinutes").value) || 25
+      ));
+      saveData();
+      render();
+      $("timerLabel").textContent = "برافو! كملت جلسة التركيز 🎉";
+      alert("برافو! كملت جلسة المذاكرة. خذ استراحة صغيرة.");
+    }
+  }, 250);
+}
+
+$("startTimer").addEventListener("click", startTimer);
+
+$("pauseTimer").addEventListener("click", () => {
+  stopTimer();
+  $("timerLabel").textContent = "المؤقّت متوقف مؤقتاً";
+});
+
+$("resetTimer").addEventListener("click", () => {
+  stopTimer();
+
+  const minutes = Number($("timerMinutes").value);
+  if (!Number.isFinite(minutes) || minutes < 1 || minutes > 180) {
+    alert("اختار مدة بين دقيقة واحدة و180 دقيقة.");
+    return;
+  }
+
+  timerSeconds = Math.round(minutes * 60);
+  $("timerLabel").textContent = "وقت المذاكرة";
+  updateTimerDisplay();
+});
+
+$("timerMinutes").addEventListener("change", () => {
+  if (timerRunning) return;
+
+  const minutes = Number($("timerMinutes").value);
+  if (!Number.isFinite(minutes) || minutes < 1 || minutes > 180) {
+    $("timerMinutes").value = 25;
+    timerSeconds = 25 * 60;
+  } else {
+    timerSeconds = Math.round(minutes * 60);
+  }
+
+  updateTimerDisplay();
+});
+
+loadData();
+render();
+updateTimerDisplay();
+</script>
+</body>
+</html>
