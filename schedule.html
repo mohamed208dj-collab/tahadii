@@ -1,1 +1,576 @@
 
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#100d20">
+<title>البرنامج الأسبوعي | LoveSpace</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+  --bg:#100d20;
+  --card:#1b1630;
+  --pink:#ff6fae;
+  --purple:#a78bfa;
+  --text:#f8f3ff;
+  --muted:#b6abc9;
+  --border:rgba(255,255,255,.09);
+  --green:#6ee7b7;
+}
+
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  min-height:100vh;
+  font-family:'Alexandria',sans-serif;
+  color:var(--text);
+  background:
+    radial-gradient(ellipse at top right,#382052 0%,transparent 40%),
+    radial-gradient(ellipse at bottom left,#251641 0%,transparent 38%),
+    var(--bg);
+}
+
+button,input,select,textarea{font:inherit}
+button{cursor:pointer;transition:.2s}
+button:hover{transform:translateY(-2px)}
+
+.container{width:min(100% - 28px,1050px);margin:auto;padding:24px 0 45px}
+
+.topbar{
+  display:flex;justify-content:space-between;align-items:center;
+  gap:12px;margin-bottom:24px
+}
+
+.back{
+  text-decoration:none;color:white;background:#ffffff10;
+  border:1px solid var(--border);padding:10px 14px;
+  border-radius:13px;font-size:12px
+}
+
+.logo{color:var(--pink);font-weight:800}
+
+.hero{text-align:center;padding:20px 10px 30px}
+.hero-icon{
+  width:75px;height:75px;display:grid;place-items:center;
+  margin:0 auto 15px;border-radius:25px;font-size:34px;
+  background:linear-gradient(135deg,#ff6fae30,#a78bfa30);
+  border:1px solid #ff6fae35
+}
+
+h1{font-size:clamp(23px,4vw,32px);margin:0 0 10px}
+.hero p{font-size:12px;color:var(--muted);line-height:2;margin:0}
+
+.stats{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:12px;margin-bottom:20px
+}
+
+.stat,.panel{
+  background:linear-gradient(145deg,#211a37ee,#171327ee);
+  border:1px solid var(--border);border-radius:20px;padding:18px
+}
+
+.stat{text-align:center}
+.stat strong{display:block;font-size:24px;color:var(--pink)}
+.stat span{display:block;color:var(--muted);font-size:11px;margin-top:6px}
+
+.layout{display:grid;grid-template-columns:320px minmax(0,1fr);gap:18px;align-items:start}
+.panel{margin-bottom:18px}
+.panel h2{font-size:16px;margin:0 0 18px}
+
+.field{margin-bottom:13px}
+.field label{display:block;font-size:11px;color:var(--muted);margin-bottom:8px}
+.field input,.field select,.field textarea{
+  width:100%;padding:12px;border-radius:12px;
+  background:#100d20;color:white;border:1px solid var(--border);
+  outline:none
+}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--purple)}
+.field select option{background:#1b1630}
+.field textarea{resize:vertical;min-height:70px}
+
+.btn{
+  border:0;border-radius:12px;padding:12px;
+  color:white;font-weight:700;font-size:12px
+}
+.primary{background:linear-gradient(135deg,var(--pink),var(--purple));color:#180f26}
+.secondary{background:#ffffff10;border:1px solid var(--border)}
+.danger{background:#ff557018;color:#ff9bb0;border:1px solid #ff557033}
+.full{width:100%}
+
+.weekbar{
+  display:flex;justify-content:space-between;align-items:center;
+  gap:10px;margin-bottom:14px;flex-wrap:wrap
+}
+.weekbar h2{margin:0;font-size:16px}
+.weekbar select{
+  background:#100d20;color:white;border:1px solid var(--border);
+  padding:10px;border-radius:12px;max-width:100%
+}
+
+.days{
+  display:flex;gap:8px;overflow-x:auto;padding:2px 2px 12px;
+  scrollbar-width:thin
+}
+.day{
+  flex:1;min-width:75px;border-radius:14px;padding:12px 7px;
+  color:var(--muted);background:#ffffff07;
+  border:1px solid var(--border);text-align:center
+}
+.day strong{display:block;font-size:12px;margin-bottom:5px}
+.day small{font-size:10px}
+.day.active{
+  color:white;background:linear-gradient(145deg,#ff6fae35,#a78bfa25);
+  border-color:#ff6fae80
+}
+
+.day-heading{display:flex;justify-content:space-between;align-items:center;margin:12px 0 15px}
+.day-heading h3{font-size:14px;margin:0}
+.day-heading span{color:var(--muted);font-size:11px}
+
+.schedule-list{display:flex;flex-direction:column;gap:11px}
+.lesson{
+  display:flex;gap:12px;align-items:stretch;
+  padding:14px;border:1px solid var(--border);
+  background:#ffffff06;border-radius:15px
+}
+.time{
+  min-width:73px;text-align:center;align-self:center;
+  padding:9px 5px;background:#a78bfa16;
+  border-radius:11px;color:#d6c5ff;font-size:11px;line-height:1.8
+}
+.lesson-content{flex:1;min-width:0}
+.lesson-content h4{margin:2px 0 6px;font-size:13px;overflow-wrap:anywhere}
+.lesson-content p{margin:0;color:var(--muted);font-size:10px;line-height:1.9;overflow-wrap:anywhere}
+.lesson-meta{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.tag{font-size:9px;padding:5px 8px;border-radius:20px;background:#ff6fae16;color:#ff9bc7}
+.tag.done{background:#6ee7b715;color:var(--green)}
+.actions{display:flex;flex-direction:column;gap:6px;justify-content:center}
+.small-btn{padding:7px 9px;border-radius:9px;font-size:10px;color:white;background:#ffffff10;border:1px solid var(--border)}
+.small-btn.delete{color:#ff9bb0}
+
+.empty{
+  text-align:center;padding:30px 12px;color:var(--muted);
+  border:1px dashed #ffffff20;border-radius:15px;font-size:12px;line-height:2
+}
+
+.notice{color:var(--muted);font-size:10px;line-height:2;margin-top:12px}
+.message{display:none;padding:11px;border-radius:10px;font-size:11px;margin-top:12px;line-height:1.8}
+.message.show{display:block}
+.message.good{background:#6ee7b715;color:var(--green)}
+.message.bad{background:#fb718515;color:#fda4af}
+
+footer{text-align:center;color:#8f84a7;font-size:10px;margin-top:25px}
+
+@media(max-width:760px){
+  .layout{grid-template-columns:1fr}
+  .stats{gap:8px}
+  .stat{padding:14px 5px}
+  .stat strong{font-size:21px}
+}
+@media(max-width:430px){
+  .container{width:min(100% - 20px,1050px)}
+  .lesson{gap:8px;padding:10px}
+  .time{min-width:62px;font-size:10px}
+  .actions{gap:5px}
+  .small-btn{padding:7px;font-size:9px}
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+
+  <header class="topbar">
+    <a class="back" href="home.html">← الرئيسية</a>
+    <div class="logo">LoveSpace ♡</div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-icon">🗓️</div>
+    <h1>البرنامج الأسبوعي</h1>
+    <p>نظّم وقتك، رتّب حصصك، وخلّي كل يوم عنده خطة واضحة ✨</p>
+  </section>
+
+  <section class="stats">
+    <div class="stat">
+      <strong id="totalCount">0</strong>
+      <span>كل الحصص</span>
+    </div>
+    <div class="stat">
+      <strong id="todayCount">0</strong>
+      <span>حصص اليوم</span>
+    </div>
+    <div class="stat">
+      <strong id="doneCount">0</strong>
+      <span>حصص مكتملة</span>
+    </div>
+  </section>
+
+  <div class="layout">
+
+    <aside>
+      <section class="panel">
+        <h2 id="formTitle">✨ إضافة حصة جديدة</h2>
+
+        <form id="lessonForm">
+          <div class="field">
+            <label for="lessonName">اسم الحصة أو النشاط</label>
+            <input id="lessonName" maxlength="80" required placeholder="مثال: مراجعة الرياضيات">
+          </div>
+
+          <div class="field">
+            <label for="lessonDay">اليوم</label>
+            <select id="lessonDay" required>
+              <option value="0">الأحد</option>
+              <option value="1">الإثنين</option>
+              <option value="2">الثلاثاء</option>
+              <option value="3">الأربعاء</option>
+              <option value="4">الخميس</option>
+              <option value="5">الجمعة</option>
+              <option value="6">السبت</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="startTime">وقت البداية</label>
+            <input id="startTime" type="time" required value="09:00">
+          </div>
+
+          <div class="field">
+            <label for="endTime">وقت النهاية</label>
+            <input id="endTime" type="time" required value="10:00">
+          </div>
+
+          <div class="field">
+            <label for="lessonType">نوع النشاط</label>
+            <select id="lessonType">
+              <option value="دراسة">📚 دراسة</option>
+              <option value="مراجعة">📝 مراجعة</option>
+              <option value="راحة">☕ راحة</option>
+              <option value="رياضة">🏃 رياضة</option>
+              <option value="شخصي">💜 نشاط شخصي</option>
+              <option value="آخر">✨ آخر</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="lessonNote">ملاحظات (اختياري)</label>
+            <textarea id="lessonNote" maxlength="300" placeholder="اكتب ملاحظاتك هنا..."></textarea>
+          </div>
+
+          <button class="btn primary full" type="submit" id="submitBtn">＋ إضافة إلى البرنامج</button>
+          <button class="btn secondary full" type="button" id="cancelEdit" style="display:none;margin-top:8px">إلغاء التعديل</button>
+          <div class="message" id="formMessage" role="status"></div>
+        </form>
+
+        <p class="notice">💾 البرنامج يتحفظ تلقائيًا في المتصفح على هذا الجهاز.</p>
+      </section>
+    </aside>
+
+    <main>
+      <section class="panel">
+        <div class="weekbar">
+          <h2>📅 جدول الأسبوع</h2>
+          <select id="filterType" aria-label="تصفية حسب نوع النشاط">
+            <option value="all">كل الأنشطة</option>
+            <option value="دراسة">دراسة</option>
+            <option value="مراجعة">مراجعة</option>
+            <option value="راحة">راحة</option>
+            <option value="رياضة">رياضة</option>
+            <option value="شخصي">شخصي</option>
+            <option value="آخر">آخر</option>
+          </select>
+        </div>
+
+        <div class="days" id="days"></div>
+
+        <div class="day-heading">
+          <h3 id="selectedDayTitle">حصص الأحد</h3>
+          <span id="dayCount">0 حصص</span>
+        </div>
+
+        <div class="schedule-list" id="scheduleList"></div>
+      </section>
+
+      <section class="panel">
+        <h2>💜 تذكير صغير</h2>
+        <p style="font-size:12px;line-height:2;color:var(--muted);margin:0">
+          ماشي لازم تكمل كل شيء في نهار واحد. نظّم وقتك، خذ فترات راحة، واحتفل بكل خطوة صغيرة تحققها.
+        </p>
+      </section>
+    </main>
+
+  </div>
+
+  <footer>صُنعت بكل حب ❤️ LoveSpace</footer>
+</div>
+
+<script>
+const STORAGE_KEY = 'lovespace_schedule_v1';
+
+const dayNames = [
+  'الأحد','الإثنين','الثلاثاء','الأربعاء',
+  'الخميس','الجمعة','السبت'
+];
+
+const $ = id => document.getElementById(id);
+
+let lessons = [];
+let selectedDay = (new Date().getDay() + 6) % 7;
+let editingId = null;
+
+try {
+  const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+  lessons = Array.isArray(saved) ? saved.filter(item =>
+    item &&
+    typeof item.id === 'string' &&
+    typeof item.name === 'string' &&
+    Number.isInteger(item.day) &&
+    item.day >= 0 && item.day <= 6 &&
+    typeof item.start === 'string' &&
+    typeof item.end === 'string'
+  ) : [];
+} catch {
+  lessons = [];
+}
+
+function saveLessons() {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(lessons));
+    return true;
+  } catch {
+    showMessage('تعذّر الحفظ في المتصفح. تحقق من مساحة التخزين.', false);
+    return false;
+  }
+}
+
+function escapeHTML(value) {
+  return String(value ?? '').replace(/[&<>"']/g, char => ({
+    '&':'&amp;',
+    '<':'&lt;',
+    '>':'&gt;',
+    '"':'&quot;',
+    "'":'&#39;'
+  }[char]));
+}
+
+function showMessage(text, good) {
+  const box = $('formMessage');
+  box.textContent = text;
+  box.className = 'message show ' + (good ? 'good' : 'bad');
+}
+
+function hideMessage() {
+  $('formMessage').className = 'message';
+}
+
+function sortLessons(items) {
+  return [...items].sort((a,b) =>
+    a.start.localeCompare(b.start) ||
+    a.end.localeCompare(b.end)
+  );
+}
+
+function renderDays() {
+  $('days').innerHTML = dayNames.map((name, day) => {
+    const count = lessons.filter(item => item.day === day).length;
+    return `
+      <button type="button" class="day ${selectedDay === day ? 'active' : ''}"
+        data-day="${day}">
+        <strong>${name}</strong>
+        <small>${count} حصص</small>
+      </button>`;
+  }).join('');
+}
+
+function renderStats() {
+  const today = (new Date().getDay() + 6) % 7;
+  $('totalCount').textContent = lessons.length;
+  $('todayCount').textContent = lessons.filter(item => item.day === today).length;
+  $('doneCount').textContent = lessons.filter(item => item.done).length;
+}
+
+function renderSchedule() {
+  renderDays();
+  renderStats();
+
+  $('selectedDayTitle').textContent = 'حصص ' + dayNames[selectedDay];
+
+  const filter = $('filterType').value;
+  let items = sortLessons(lessons.filter(item =>
+    item.day === selectedDay &&
+    (filter === 'all' || item.type === filter)
+  ));
+
+  $('dayCount').textContent = items.length + ' حصص';
+
+  if (!items.length) {
+    $('scheduleList').innerHTML = `
+      <div class="empty">
+        🌙 ما كاين حتى نشاط في هذا اليوم حسب التصفية.<br>
+        استعمل النموذج لإضافة أول حصة تاعك!
+      </div>`;
+    return;
+  }
+
+  $('scheduleList').innerHTML = items.map(item => `
+    <article class="lesson">
+      <div class="time">
+        ${escapeHTML(item.start)}<br>↓<br>${escapeHTML(item.end)}
+      </div>
+
+      <div class="lesson-content">
+        <h4>${escapeHTML(item.name)}</h4>
+        ${item.note ? `<p>${escapeHTML(item.note)}</p>` : ''}
+        <div class="lesson-meta">
+          <span class="tag">${escapeHTML(item.type || 'آخر')}</span>
+          ${item.done ? '<span class="tag done">✓ مكتملة</span>' : ''}
+        </div>
+      </div>
+
+      <div class="actions">
+        <button class="small-btn" type="button" data-action="toggle" data-id="${escapeHTML(item.id)}">
+          ${item.done ? '↩ تراجع' : '✓ تم'}
+        </button>
+        <button class="small-btn" type="button" data-action="edit" data-id="${escapeHTML(item.id)}">✏️ تعديل</button>
+        <button class="small-btn delete" type="button" data-action="delete" data-id="${escapeHTML(item.id)}">🗑 حذف</button>
+      </div>
+    </article>
+  `).join('');
+}
+
+function resetForm() {
+  editingId = null;
+  $('lessonForm').reset();
+  $('startTime').value = '09:00';
+  $('endTime').value = '10:00';
+  $('lessonDay').value = String(selectedDay);
+  $('formTitle').textContent = '✨ إضافة حصة جديدة';
+  $('submitBtn').textContent = '＋ إضافة إلى البرنامج';
+  $('cancelEdit').style.display = 'none';
+  hideMessage();
+}
+
+$('lessonForm').addEventListener('submit', event => {
+  event.preventDefault();
+
+  const name = $('lessonName').value.trim();
+  const day = Number($('lessonDay').value);
+  const start = $('startTime').value;
+  const end = $('endTime').value;
+  const type = $('lessonType').value;
+  const note = $('lessonNote').value.trim();
+
+  if (!name || !start || !end) {
+    showMessage('عمّر المعلومات المطلوبة أولًا.', false);
+    return;
+  }
+
+  if (end <= start) {
+    showMessage('وقت النهاية لازم يكون بعد وقت البداية.', false);
+    return;
+  }
+
+  const duplicate = lessons.some(item =>
+    item.id !== editingId &&
+    item.day === day &&
+    start < item.end &&
+    end > item.start
+  );
+
+  if (duplicate && !confirm('كاين نشاط آخر في نفس الفترة أو جزء منها. تحب تحفظ رغم ذلك؟')) {
+    return;
+  }
+
+  if (editingId) {
+    const index = lessons.findIndex(item => item.id === editingId);
+    if (index !== -1) {
+      lessons[index] = {
+        ...lessons[index], name, day, start, end, type, note
+      };
+    }
+  } else {
+    lessons.push({
+      id: (crypto.randomUUID ? crypto.randomUUID() : String(Date.now()) + Math.random()),
+      name, day, start, end, type, note, done: false
+    });
+  }
+
+  if (!saveLessons()) return;
+
+  selectedDay = day;
+  resetForm();
+  $('filterType').value = 'all';
+  renderSchedule();
+  showMessage('تم حفظ الحصة بنجاح 💜', true);
+  window.scrollTo({top: 0, behavior: 'smooth'});
+});
+
+$('days').addEventListener('click', event => {
+  const button = event.target.closest('[data-day]');
+  if (!button) return;
+
+  selectedDay = Number(button.dataset.day);
+  if (!editingId) $('lessonDay').value = String(selectedDay);
+  renderSchedule();
+});
+
+$('filterType').addEventListener('change', renderSchedule);
+
+$('scheduleList').addEventListener('click', event => {
+  const button = event.target.closest('[data-action]');
+  if (!button) return;
+
+  const item = lessons.find(entry => entry.id === button.dataset.id);
+  if (!item) return;
+
+  const action = button.dataset.action;
+
+  if (action === 'toggle') {
+    item.done = !item.done;
+    if (saveLessons()) renderSchedule();
+  }
+
+  if (action === 'delete') {
+    if (!confirm('متأكد بلي تحب تحذف هذه الحصة؟')) return;
+    lessons = lessons.filter(entry => entry.id !== item.id);
+    if (editingId === item.id) resetForm();
+    if (saveLessons()) renderSchedule();
+  }
+
+  if (action === 'edit') {
+    editingId = item.id;
+    $('lessonName').value = item.name;
+    $('lessonDay').value = String(item.day);
+    $('startTime').value = item.start;
+    $('endTime').value = item.end;
+    $('lessonType').value = item.type || 'آخر';
+    $('lessonNote').value = item.note || '';
+    $('formTitle').textContent = '✏️ تعديل الحصة';
+    $('submitBtn').textContent = '💾 حفظ التعديلات';
+    $('cancelEdit').style.display = 'block';
+    hideMessage();
+    document.querySelector('.layout').scrollIntoView({behavior:'smooth',block:'start'});
+  }
+});
+
+$('cancelEdit').addEventListener('click', resetForm);
+
+$('lessonDay').addEventListener('change', () => {
+  if (!editingId) {
+    selectedDay = Number($('lessonDay').value);
+    renderSchedule();
+  }
+});
+
+renderSchedule();
+$('lessonDay').value = String(selectedDay);
+</script>
+</body>
+</html>
+
