@@ -1,1 +1,672 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#100d20">
+<title>رسائلنا ❤️ | LoveSpace</title>
 
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+  --bg: #100d20;
+  --card: rgba(255,255,255,.055);
+  --border: rgba(255,255,255,.1);
+  --pink: #ff79bd;
+  --purple: #a78bfa;
+  --text: #fff;
+  --muted: #aaa5c2;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  padding: 20px;
+  font-family: 'Alexandria', sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(circle at 10% 10%, #49245a55, transparent 35%),
+    radial-gradient(circle at 90% 75%, #a13a7950, transparent 35%),
+    var(--bg);
+}
+
+.container { max-width: 1000px; margin: auto; }
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 28px;
+}
+
+.logo {
+  color: var(--pink);
+  text-decoration: none;
+  font-size: 20px;
+  font-weight: 800;
+}
+
+.back {
+  color: white;
+  text-decoration: none;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 13px;
+  padding: 10px 15px;
+  font-size: 12px;
+}
+
+.hero { text-align: center; margin: 30px 0; }
+
+.hero-icon {
+  font-size: 48px;
+  animation: float 2.5s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+h1 { font-size: clamp(25px, 5vw, 37px); margin: 12px 0; }
+
+.hero p {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 2;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  padding: 20px;
+  margin-bottom: 18px;
+  backdrop-filter: blur(15px);
+  box-shadow: 0 15px 45px #0002;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.stat {
+  text-align: center;
+  padding: 15px 5px;
+  border: 1px solid var(--border);
+  background: var(--card);
+  border-radius: 16px;
+}
+
+.stat-icon { font-size: 22px; }
+
+.stat-number {
+  display: block;
+  color: var(--pink);
+  font-size: 23px;
+  font-weight: 800;
+  margin: 5px 0;
+}
+
+.stat-label { color: var(--muted); font-size: 10px; }
+
+.section-title { font-size: 15px; margin: 0 0 16px; }
+
+input, textarea, select {
+  width: 100%;
+  padding: 12px;
+  background: #0d0a19;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  color: white;
+  font-family: inherit;
+  font-size: 12px;
+  outline: none;
+}
+
+input:focus, textarea:focus, select:focus { border-color: var(--pink); }
+
+textarea { min-height: 110px; resize: vertical; line-height: 2; }
+
+label {
+  display: block;
+  color: var(--muted);
+  font-size: 12px;
+  margin: 13px 0 7px;
+}
+
+.primary {
+  width: 100%;
+  margin-top: 15px;
+  padding: 13px;
+  border: none;
+  border-radius: 13px;
+  background: linear-gradient(135deg, var(--purple), var(--pink));
+  color: #170c24;
+  font-family: inherit;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 15px;
+}
+
+.search { flex: 1; min-width: 180px; }
+
+.filters { display: flex; gap: 7px; flex-wrap: wrap; }
+
+.filter {
+  padding: 9px 12px;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  background: #ffffff07;
+  font-family: inherit;
+  font-size: 10px;
+  cursor: pointer;
+}
+
+.filter.active {
+  color: white;
+  border-color: var(--purple);
+  background: #a78bfa30;
+}
+
+.messages { display: grid; gap: 12px; }
+
+.message {
+  border: 1px solid var(--border);
+  border-radius: 17px;
+  padding: 15px;
+  background: #ffffff06;
+  transition: .2s;
+}
+
+.message:hover { border-color: #ff79bd60; }
+
+.message-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.sender {
+  color: var(--pink);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.message-date { color: var(--muted); font-size: 9px; margin-top: 6px; }
+
+.message-body {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  line-height: 2;
+  font-size: 12px;
+  margin: 14px 0;
+}
+
+.message-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
+  border-top: 1px solid var(--border);
+  padding-top: 11px;
+}
+
+.tag { color: var(--purple); font-size: 10px; }
+
+.actions { display: flex; gap: 6px; flex-wrap: wrap; }
+
+.action {
+  padding: 7px 9px;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  color: var(--muted);
+  background: #ffffff08;
+  font-family: inherit;
+  font-size: 10px;
+  cursor: pointer;
+}
+
+.action.favorite { color: var(--pink); }
+.action.delete { color: #ff91b5; }
+
+.empty {
+  text-align: center;
+  color: var(--muted);
+  padding: 30px 10px;
+  font-size: 12px;
+  line-height: 2;
+}
+
+.note {
+  color: var(--muted);
+  font-size: 10px;
+  line-height: 2;
+  margin-top: 12px;
+}
+
+.footer {
+  text-align: center;
+  color: var(--muted);
+  font-size: 11px;
+  margin: 25px 0 5px;
+}
+
+.toast {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: none;
+  background: #2c2141;
+  border: 1px solid #a78bfa70;
+  padding: 12px 18px;
+  border-radius: 13px;
+  font-size: 12px;
+  z-index: 10;
+  max-width: 90%;
+  text-align: center;
+}
+
+@media(max-width: 540px) {
+  body { padding: 14px; }
+  .card { padding: 15px; }
+  .stats { gap: 6px; }
+  .stat { padding: 12px 3px; }
+  .stat-number { font-size: 20px; }
+  .message { padding: 12px; }
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+
+<header>
+  <a class="logo" href="home.html">❤️ LoveSpace</a>
+  <a class="back" href="home.html">← الرئيسية</a>
+</header>
+
+<section class="hero">
+  <div class="hero-icon">💌</div>
+  <h1>رسائلنا الخاصة</h1>
+  <p>كلمات صغيرة، مشاعر كبيرة، وذكريات تبقى في القلب ❤️</p>
+</section>
+
+<section class="stats">
+  <div class="stat">
+    <div class="stat-icon">💌</div>
+    <span class="stat-number" id="totalCount">0</span>
+    <span class="stat-label">كل الرسائل</span>
+  </div>
+  <div class="stat">
+    <div class="stat-icon">⭐</div>
+    <span class="stat-number" id="favoriteCount">0</span>
+    <span class="stat-label">المفضلة</span>
+  </div>
+  <div class="stat">
+    <div class="stat-icon">📝</div>
+    <span class="stat-number" id="todayCount">0</span>
+    <span class="stat-label">رسائل اليوم</span>
+  </div>
+</section>
+
+<section class="card" id="editorCard">
+  <h2 class="section-title" id="formHeading">✍️ اكتب رسالة جديدة</h2>
+
+  <form id="messageForm">
+    <label for="sender">اسم المرسل</label>
+    <input id="sender" maxlength="60" placeholder="مثلاً: صهيب ❤️" required>
+
+    <label for="category">نوع الرسالة</label>
+    <select id="category">
+      <option value="💗 حب">💗 حب</option>
+      <option value="🌹 اشتياق">🌹 اشتياق</option>
+      <option value="💌 اعتذار">💌 اعتذار</option>
+      <option value="🎂 مناسبة">🎂 مناسبة</option>
+      <option value="✨ أخرى">✨ أخرى</option>
+    </select>
+
+    <label for="body">نص الرسالة</label>
+    <textarea id="body" maxlength="5000" placeholder="اكتب واش في قلبك..." required></textarea>
+
+    <button class="primary" type="submit" id="submitButton">💖 حفظ الرسالة</button>
+    <button class="primary" type="button" id="cancelEdit"
+      style="display:none;background:#ffffff12;color:white;border:1px solid var(--border)">
+      إلغاء التعديل
+    </button>
+  </form>
+
+  <p class="note">
+    🔒 الرسائل محفوظة محلياً في هذا المتصفح فقط، وليست محادثة مباشرة بين جهازين.
+  </p>
+</section>
+
+<section class="card">
+  <div class="toolbar">
+    <h2 class="section-title" style="margin:0">📬 دفتر الرسائل</h2>
+    <input class="search" id="search" placeholder="🔎 ابحث في الرسائل...">
+  </div>
+
+  <div class="toolbar">
+    <div class="filters">
+      <button class="filter active" data-filter="all">الكل</button>
+      <button class="filter" data-filter="favorite">⭐ المفضلة</button>
+      <button class="filter" data-filter="💗 حب">💗 حب</button>
+      <button class="filter" data-filter="🌹 اشتياق">🌹 اشتياق</button>
+      <button class="filter" data-filter="💌 اعتذار">💌 اعتذار</button>
+      <button class="filter" data-filter="🎂 مناسبة">🎂 مناسبة</button>
+    </div>
+  </div>
+
+  <div class="messages" id="messagesList"></div>
+</section>
+
+<div class="footer">رسائل من القلب للقلب ❤️ | LoveSpace</div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const STORAGE_KEY = 'lovespace_messages_v1';
+const $ = id => document.getElementById(id);
+
+let messages = loadMessages();
+let activeFilter = 'all';
+let editingId = null;
+
+function loadMessages() {
+  try {
+    const data = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+    if (!Array.isArray(data)) return [];
+
+    return data.filter(item =>
+      item &&
+      typeof item.id === 'string' &&
+      typeof item.sender === 'string' &&
+      typeof item.body === 'string'
+    );
+  } catch {
+    return [];
+  }
+}
+
+function saveMessages() {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(messages));
+    return true;
+  } catch {
+    toast('ما قدرناش نحفظو الرسائل. تأكد من مساحة المتصفح.');
+    return false;
+  }
+}
+
+function escapeHTML(value) {
+  return String(value).replace(/[&<>"']/g, char => ({
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;'
+  }[char]));
+}
+
+function toast(text) {
+  const el = $('toast');
+  el.textContent = text;
+  el.style.display = 'block';
+  clearTimeout(toast.timer);
+  toast.timer = setTimeout(() => el.style.display = 'none', 2600);
+}
+
+function formatDate(timestamp) {
+  const date = new Date(timestamp);
+  if (Number.isNaN(date.getTime())) return '';
+
+  return new Intl.DateTimeFormat('ar-DZ', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit'
+  }).format(date);
+}
+
+function sameDay(timestampA, timestampB) {
+  const a = new Date(timestampA);
+  const b = new Date(timestampB);
+
+  return a.getFullYear() === b.getFullYear() &&
+    a.getMonth() === b.getMonth() &&
+    a.getDate() === b.getDate();
+}
+
+function renderStats() {
+  $('totalCount').textContent = messages.length;
+  $('favoriteCount').textContent = messages.filter(m => m.favorite).length;
+  $('todayCount').textContent = messages.filter(m =>
+    sameDay(m.createdAt || 0, Date.now())
+  ).length;
+}
+
+function renderMessages() {
+  const list = $('messagesList');
+  const query = $('search').value.trim().toLocaleLowerCase();
+
+  let filtered = [...messages];
+
+  if (activeFilter === 'favorite') {
+    filtered = filtered.filter(m => m.favorite);
+  } else if (activeFilter !== 'all') {
+    filtered = filtered.filter(m => m.category === activeFilter);
+  }
+
+  if (query) {
+    filtered = filtered.filter(m =>
+      `${m.sender} ${m.body} ${m.category}`
+        .toLocaleLowerCase()
+        .includes(query)
+    );
+  }
+
+  filtered.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+
+  if (!filtered.length) {
+    list.innerHTML = '<div class="empty">ما لقينا حتى رسالة هنا 💗<br>اكتب أول رسالة من الفوق.</div>';
+    return;
+  }
+
+  list.innerHTML = filtered.map(m => `
+    <article class="message">
+      <div class="message-top">
+        <div>
+          <div class="sender">💌 ${escapeHTML(m.sender)}</div>
+          <div class="message-date">${escapeHTML(formatDate(m.createdAt || Date.now()))}</div>
+        </div>
+        <span>${m.favorite ? '⭐' : '💗'}</span>
+      </div>
+
+      <div class="message-body">${escapeHTML(m.body)}</div>
+
+      <div class="message-bottom">
+        <span class="tag">${escapeHTML(m.category || '✨ أخرى')}</span>
+        <div class="actions">
+          <button class="action favorite" data-favorite="${escapeHTML(m.id)}">
+            ${m.favorite ? '★ إزالة المفضلة' : '☆ المفضلة'}
+          </button>
+          <button class="action" data-edit="${escapeHTML(m.id)}">✏️ تعديل</button>
+          <button class="action delete" data-delete="${escapeHTML(m.id)}">🗑️ حذف</button>
+        </div>
+      </div>
+    </article>
+  `).join('');
+}
+
+function render() {
+  renderStats();
+  renderMessages();
+}
+
+function resetForm() {
+  editingId = null;
+  $('messageForm').reset();
+  $('formHeading').textContent = '✍️ اكتب رسالة جديدة';
+  $('submitButton').textContent = '💖 حفظ الرسالة';
+  $('cancelEdit').style.display = 'none';
+}
+
+$('messageForm').addEventListener('submit', event => {
+  event.preventDefault();
+
+  const sender = $('sender').value.trim();
+  const body = $('body').value.trim();
+
+  if (!sender || !body) {
+    toast('عمر اسم المرسل ونص الرسالة ❤️');
+    return;
+  }
+
+  if (editingId) {
+    const index = messages.findIndex(m => m.id === editingId);
+    if (index === -1) {
+      resetForm();
+      return;
+    }
+
+    const oldMessage = messages[index];
+
+    messages[index] = {
+      ...oldMessage,
+      sender,
+      body,
+      category: $('category').value,
+      updatedAt: Date.now()
+    };
+
+    if (!saveMessages()) {
+      messages[index] = oldMessage;
+      return;
+    }
+
+    resetForm();
+    render();
+    toast('تم تعديل الرسالة بنجاح ✨');
+    return;
+  }
+
+  const item = {
+    id: (crypto.randomUUID ? crypto.randomUUID() :
+      String(Date.now()) + Math.random().toString(16).slice(2)),
+    sender,
+    body,
+    category: $('category').value,
+    favorite: false,
+    createdAt: Date.now()
+  };
+
+  messages.push(item);
+
+  if (!saveMessages()) {
+    messages = messages.filter(m => m.id !== item.id);
+    return;
+  }
+
+  resetForm();
+  render();
+  toast('تحفظت الرسالة بنجاح 💌');
+});
+
+$('cancelEdit').addEventListener('click', resetForm);
+
+$('search').addEventListener('input', renderMessages);
+
+document.querySelectorAll('[data-filter]').forEach(button => {
+  button.addEventListener('click', () => {
+    activeFilter = button.dataset.filter;
+
+    document.querySelectorAll('[data-filter]').forEach(item => {
+      item.classList.toggle('active', item === button);
+    });
+
+    renderMessages();
+  });
+});
+
+document.addEventListener('click', event => {
+  const favoriteButton = event.target.closest('[data-favorite]');
+  const editButton = event.target.closest('[data-edit]');
+  const deleteButton = event.target.closest('[data-delete]');
+
+  if (favoriteButton) {
+    const item = messages.find(m => m.id === favoriteButton.dataset.favorite);
+    if (!item) return;
+
+    const oldValue = item.favorite;
+    item.favorite = !item.favorite;
+
+    if (!saveMessages()) {
+      item.favorite = oldValue;
+      return;
+    }
+
+    render();
+    toast(item.favorite ? 'تضافت للمفضلة ⭐' : 'تحيدات من المفضلة');
+    return;
+  }
+
+  if (editButton) {
+    const item = messages.find(m => m.id === editButton.dataset.edit);
+    if (!item) return;
+
+    editingId = item.id;
+    $('sender').value = item.sender;
+    $('body').value = item.body;
+    $('category').value = item.category || '✨ أخرى';
+    $('formHeading').textContent = '✏️ تعديل الرسالة';
+    $('submitButton').textContent = '💖 حفظ التعديلات';
+    $('cancelEdit').style.display = 'block';
+
+    $('editorCard').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    return;
+  }
+
+  if (deleteButton) {
+    const id = deleteButton.dataset.delete;
+    const oldMessages = messages;
+    messages = messages.filter(m => m.id !== id);
+
+    if (!saveMessages()) {
+      messages = oldMessages;
+      return;
+    }
+
+    if (editingId === id) resetForm();
+
+    render();
+    toast('تم حذف الرسالة 🗑️');
+  }
+});
+
+render();
+</script>
+</body>
+</html>
