@@ -1,1 +1,492 @@
+<!DOCTYPE html><html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#100d20">
+<title>قصتنا ❤️ | LoveSpace</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;600;700;800&display=swap');:root {
+--bg: #100d20;
+--panel: #1b1630;
+--panel2: #241c3c;
+--pink: #ff78b7;
+--purple: #b69aff;
+--text: #fff3fb;
+--muted: #b9adc9;
+--border: rgba(255,255,255,.09);
+--danger: #ff7590;
+}
 
+* { box-sizing: border-box; }
+
+body {
+margin: 0;
+min-height: 100vh;
+font-family: 'Alexandria', sans-serif;
+color: var(--text);
+background:
+radial-gradient(ellipse at 10% 0%, rgba(153,95,255,.17), transparent 40%),
+radial-gradient(ellipse at 90% 15%, rgba(255,90,170,.12), transparent 35%),
+var(--bg);
+}
+
+button, input, textarea, select { font: inherit; }
+button { cursor: pointer; }
+
+.container {
+width: min(920px, 92%);
+margin: auto;
+padding: 25px 0 60px;
+}
+
+.topbar {
+display: flex;
+align-items: center;
+justify-content: space-between;
+gap: 12px;
+margin-bottom: 28px;
+}
+
+.back {
+color: var(--text);
+text-decoration: none;
+background: rgba(255,255,255,.06);
+border: 1px solid var(--border);
+border-radius: 13px;
+padding: 11px 15px;
+font-size: 13px;
+}
+
+.brand {
+color: var(--purple);
+font-size: 13px;
+font-weight: 700;
+}
+
+.hero {
+text-align: center;
+padding: 34px 18px 30px;
+border: 1px solid var(--border);
+border-radius: 26px;
+background: linear-gradient(145deg, rgba(182,154,255,.12), rgba(255,120,183,.07));
+box-shadow: 0 18px 55px rgba(0,0,0,.15);
+}
+
+.heart {
+font-size: 42px;
+display: inline-block;
+animation: pulse 1.8s infinite;
+}
+
+@keyframes pulse {
+0%, 100% { transform: scale(1); }
+50% { transform: scale(1.12); }
+}
+
+h1 { font-size: clamp(25px, 5vw, 38px); margin: 12px 0; }
+.hero p { color: var(--muted); line-height: 2; font-size: 13px; margin: 0; }
+
+.names {
+margin-top: 20px;
+color: var(--pink);
+font-size: 16px;
+font-weight: 700;
+}
+
+.stats {
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+gap: 12px;
+margin: 20px 0 30px;
+}
+
+.stat {
+background: rgba(255,255,255,.045);
+border: 1px solid var(--border);
+border-radius: 17px;
+text-align: center;
+padding: 17px 8px;
+}
+
+.stat strong { display: block; font-size: 23px; color: var(--pink); }
+.stat span { font-size: 11px; color: var(--muted); }
+
+.section-title {
+display: flex;
+justify-content: space-between;
+align-items: center;
+gap: 12px;
+margin: 28px 0 16px;
+}
+
+.section-title h2 { margin: 0; font-size: 19px; }
+
+.btn {
+border: 0;
+color: #241329;
+background: linear-gradient(135deg, var(--pink), var(--purple));
+border-radius: 12px;
+padding: 11px 15px;
+font-weight: 700;
+font-size: 12px;
+}
+
+.btn.secondary {
+color: var(--text);
+background: rgba(255,255,255,.07);
+border: 1px solid var(--border);
+}
+
+.timeline {
+position: relative;
+padding-right: 25px;
+}
+
+.timeline::before {
+content: "";
+position: absolute;
+right: 7px;
+top: 8px;
+bottom: 8px;
+width: 2px;
+background: linear-gradient(var(--pink), var(--purple), transparent);
+}
+
+.story-card {
+position: relative;
+background: linear-gradient(145deg, rgba(36,28,60,.95), rgba(27,22,48,.95));
+border: 1px solid var(--border);
+border-radius: 19px;
+padding: 18px;
+margin-bottom: 17px;
+animation: appear .4s ease;
+}
+
+.story-card::before {
+content: "♥";
+position: absolute;
+right: -27px;
+top: 20px;
+color: var(--pink);
+background: var(--bg);
+font-size: 15px;
+}
+
+@keyframes appear {
+from { opacity: 0; transform: translateY(8px); }
+to { opacity: 1; transform: translateY(0); }
+}
+
+.story-date {
+color: var(--purple);
+font-size: 11px;
+font-weight: 700;
+}
+
+.story-card h3 { font-size: 17px; margin: 9px 0; }
+.story-card p { color: var(--muted); font-size: 13px; line-height: 2; white-space: pre-wrap; margin: 0; }
+
+.story-actions {
+display: flex;
+gap: 8px;
+flex-wrap: wrap;
+margin-top: 15px;
+}
+
+.small-btn {
+color: var(--text);
+border: 1px solid var(--border);
+background: rgba(255,255,255,.05);
+border-radius: 9px;
+padding: 7px 10px;
+font-size: 11px;
+}
+
+.small-btn.delete { color: var(--danger); }
+
+.empty {
+text-align: center;
+padding: 35px 15px;
+color: var(--muted);
+background: rgba(255,255,255,.03);
+border: 1px dashed var(--border);
+border-radius: 17px;
+font-size: 13px;
+line-height: 2;
+}
+
+.quote {
+margin-top: 30px;
+text-align: center;
+color: var(--pink);
+line-height: 2.2;
+font-size: 15px;
+padding: 20px;
+border-radius: 18px;
+background: rgba(255,120,183,.06);
+border: 1px solid rgba(255,120,183,.12);
+}
+
+footer { text-align: center; color: #81758f; font-size: 11px; margin-top: 30px; }
+
+.modal {
+position: fixed;
+inset: 0;
+background: rgba(5,3,12,.8);
+display: none;
+align-items: center;
+justify-content: center;
+padding: 18px;
+z-index: 10;
+}
+
+.modal.show { display: flex; }
+
+.modal-box {
+width: min(500px, 100%);
+max-height: 90vh;
+overflow: auto;
+padding: 22px;
+border-radius: 22px;
+background: #1b1630;
+border: 1px solid var(--border);
+}
+
+.modal-box h2 { margin-top: 0; font-size: 20px; }
+
+.field { margin: 14px 0; }
+.field label { display: block; font-size: 12px; margin-bottom: 8px; color: var(--muted); }
+
+.field input, .field textarea {
+width: 100%;
+padding: 12px;
+color: var(--text);
+background: #100d20;
+border: 1px solid var(--border);
+border-radius: 11px;
+outline: none;
+}
+
+.field input:focus, .field textarea:focus { border-color: var(--purple); }
+.field textarea { min-height: 120px; resize: vertical; line-height: 1.8; }
+
+.modal-actions { display: flex; gap: 9px; margin-top: 18px; }
+.modal-actions button { flex: 1; }
+
+@media (max-width: 520px) {
+.container { width: 94%; padding-top: 16px; }
+.stats { gap: 7px; }
+.stat { padding: 13px 5px; }
+.stat strong { font-size: 20px; }
+.stat span { font-size: 10px; }
+.section-title h2 { font-size: 16px; }
+.section-title .btn { padding: 10px; }
+.story-card { padding: 15px; }
+}
+</style>
+
+</head>
+<body><div class="container">
+  <header class="topbar">
+    <a class="back" href="home.html">← الرئيسية</a>
+    <div class="brand">LoveSpace ♡</div>
+  </header>  <section class="hero">
+    <div class="heart">💗</div>
+    <h1>حكاية صهيب وأميمة</h1>
+    <p>كل لحظة عندها حكاية، وكل ذكرى عندها مكان في القلب.<br>هنا نجمعو فصول قصتنا، ذكرى بذكرى.</p>
+    <div class="names">صهيب <span>♥</span> أميمة</div>
+  </section>  <section class="stats">
+    <div class="stat">
+      <strong id="totalCount">0</strong>
+      <span>ذكرى مكتوبة</span>
+    </div>
+    <div class="stat">
+      <strong id="firstDate">—</strong>
+      <span>أول ذكرى</span>
+    </div>
+    <div class="stat">
+      <strong>∞</strong>
+      <span>أمنيات للمستقبل</span>
+    </div>
+  </section>  <div class="section-title">
+    <h2>📖 فصول حكايتنا</h2>
+    <button class="btn" onclick="openModal()">＋ أضف ذكرى</button>
+  </div>  <div id="timeline" class="timeline"></div>  <div class="quote">
+    «أجمل الحكايات ماشي لازم تكون مثالية،<br>
+    يكفي تكون صادقة ومليانة لحظات ما تتنساش.» 💕
+  </div>  <footer>صُنعت بكل حب ♡ LoveSpace</footer>
+</div><div class="modal" id="modal">
+  <div class="modal-box">
+    <h2 id="modalTitle">✨ ذكرى جديدة</h2>
+    <form id="storyForm">
+      <input type="hidden" id="editId">
+      <div class="field">
+        <label for="title">عنوان الذكرى</label>
+        <input id="title" maxlength="80" placeholder="مثلاً: أول مرة هدرتنا..." required>
+      </div>
+      <div class="field">
+        <label for="date">تاريخ الذكرى</label>
+        <input id="date" type="date" required>
+      </div>
+      <div class="field">
+        <label for="description">احكيلنا واش صرا في هذيك اللحظة</label>
+        <textarea id="description" maxlength="2000" placeholder="اكتب تفاصيل الذكرى هنا..." required></textarea>
+      </div>
+      <div class="modal-actions">
+        <button class="btn" type="submit">💗 حفظ الذكرى</button>
+        <button class="btn secondary" type="button" onclick="closeModal()">إلغاء</button>
+      </div>
+    </form>
+  </div>
+</div><script>
+const STORAGE_KEY = 'lovespace_our_story_v1';
+let stories = [];
+
+try {
+  const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+  stories = Array.isArray(saved) ? saved : [];
+} catch {
+  stories = [];
+}
+
+const timeline = document.getElementById('timeline');
+const modal = document.getElementById('modal');
+const form = document.getElementById('storyForm');
+
+function saveStories() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(stories));
+}
+
+function escapeHTML(value) {
+  return String(value).replace(/[&<>"']/g, char => ({
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;'
+  }[char]));
+}
+
+function formatDate(value) {
+  if (!value) return 'بلا تاريخ';
+  const date = new Date(value + 'T12:00:00');
+  if (Number.isNaN(date.getTime())) return value;
+  return new Intl.DateTimeFormat('ar-DZ', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  }).format(date);
+}
+
+function renderStories() {
+  stories.sort((a, b) => (a.date || '').localeCompare(b.date || ''));
+
+  document.getElementById('totalCount').textContent = stories.length;
+  document.getElementById('firstDate').textContent =
+    stories.length ? formatDate(stories[0].date) : '—';
+
+  if (!stories.length) {
+    timeline.innerHTML = `
+      <div class="empty">
+        💌 مازال ما كتبتوش أول ذكرى هنا.<br>
+        اضغط على «أضف ذكرى» وابدأ اكتب حكايتكم!
+      </div>`;
+    return;
+  }
+
+  timeline.innerHTML = stories.map(story => `
+    <article class="story-card">
+      <div class="story-date">♡ ${escapeHTML(formatDate(story.date))}</div>
+      <h3>${escapeHTML(story.title)}</h3>
+      <p>${escapeHTML(story.description)}</p>
+      <div class="story-actions">
+        <button class="small-btn" onclick="editStory('${story.id}')">✏️ تعديل</button>
+        <button class="small-btn" onclick="copyStory('${story.id}')">📋 نسخ</button>
+        <button class="small-btn delete" onclick="deleteStory('${story.id}')">🗑️ حذف</button>
+      </div>
+    </article>
+  `).join('');
+}
+
+function openModal(story = null) {
+  form.reset();
+  document.getElementById('editId').value = story ? story.id : '';
+  document.getElementById('modalTitle').textContent =
+    story ? '✏️ تعديل الذكرى' : '✨ ذكرى جديدة';
+  document.getElementById('title').value = story ? story.title : '';
+  document.getElementById('date').value = story ? story.date : new Date().toISOString().slice(0, 10);
+  document.getElementById('description').value = story ? story.description : '';
+  modal.classList.add('show');
+}
+
+function closeModal() {
+  modal.classList.remove('show');
+}
+
+form.addEventListener('submit', event => {
+  event.preventDefault();
+
+  const editId = document.getElementById('editId').value;
+  const story = {
+    id: editId || (crypto.randomUUID ? crypto.randomUUID() : String(Date.now())),
+    title: document.getElementById('title').value.trim(),
+    date: document.getElementById('date').value,
+    description: document.getElementById('description').value.trim()
+  };
+
+  if (!story.title || !story.date || !story.description) return;
+
+  if (editId) {
+    stories = stories.map(item => item.id === editId ? story : item);
+  } else {
+    stories.push(story);
+  }
+
+  saveStories();
+  renderStories();
+  closeModal();
+});
+
+function editStory(id) {
+  const story = stories.find(item => item.id === id);
+  if (story) openModal(story);
+}
+
+function deleteStory(id) {
+  if (!confirm('متأكد بلي حاب تحذف هذي الذكرى؟')) return;
+  stories = stories.filter(item => item.id !== id);
+  saveStories();
+  renderStories();
+}
+
+async function copyStory(id) {
+  const story = stories.find(item => item.id === id);
+  if (!story) return;
+
+  const text = `${story.title}\n${formatDate(story.date)}\n\n${story.description}`;
+
+  try {
+    await navigator.clipboard.writeText(text);
+    alert('تم نسخ الذكرى بنجاح 💗');
+  } catch {
+    const area = document.createElement('textarea');
+    area.value = text;
+    document.body.appendChild(area);
+    area.select();
+    document.execCommand('copy');
+    area.remove();
+    alert('تم نسخ الذكرى 💗');
+  }
+}
+
+modal.addEventListener('click', event => {
+  if (event.target === modal) closeModal();
+});
+
+document.addEventListener('keydown', event => {
+  if (event.key === 'Escape') closeModal();
+});
+
+renderStories();
+</script></body>
+</html>
