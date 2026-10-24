@@ -1,1 +1,527 @@
+<!DOCTYPE html><html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#100d20">
+<title>الخصوصية 🔐 | LoveSpace</title><style>
+@import url('https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;600;700;800&display=swap');
 
+:root {
+  --bg: #100d20;
+  --panel: #1b1630;
+  --panel2: #241c3c;
+  --pink: #ff78b7;
+  --purple: #b69aff;
+  --text: #fff3fb;
+  --muted: #b9adc9;
+  --border: rgba(255,255,255,.09);
+  --danger: #ff7590;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: 'Alexandria', sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(ellipse at 10% 0%, rgba(153,95,255,.17), transparent 40%),
+    radial-gradient(ellipse at 90% 15%, rgba(255,90,170,.12), transparent 35%),
+    var(--bg);
+}
+
+button, input { font: inherit; }
+button { cursor: pointer; }
+
+.container {
+  width: min(850px, 93%);
+  margin: auto;
+  padding: 24px 0 55px;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 25px;
+}
+
+.back {
+  color: var(--text);
+  text-decoration: none;
+  background: rgba(255,255,255,.06);
+  border: 1px solid var(--border);
+  border-radius: 13px;
+  padding: 11px 15px;
+  font-size: 12px;
+}
+
+.brand { color: var(--purple); font-size: 13px; font-weight: 700; }
+
+.hero {
+  text-align: center;
+  padding: 30px 18px;
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  background: linear-gradient(145deg, rgba(182,154,255,.12), rgba(255,120,183,.07));
+}
+
+.hero-icon { font-size: 42px; display: inline-block; }
+
+h1 { font-size: clamp(24px, 5vw, 34px); margin: 12px 0; }
+.hero p { color: var(--muted); font-size: 13px; line-height: 2; margin: 0; }
+
+.badge {
+  display: inline-block;
+  margin-top: 15px;
+  padding: 7px 12px;
+  color: #a7f3cf;
+  background: rgba(76,220,155,.08);
+  border: 1px solid rgba(76,220,155,.2);
+  border-radius: 30px;
+  font-size: 10px;
+}
+
+.section-title { font-size: 17px; margin: 25px 0 13px; }
+
+.card {
+  padding: 17px;
+  margin-bottom: 12px;
+  border: 1px solid var(--border);
+  border-radius: 17px;
+  background: linear-gradient(145deg, rgba(36,28,60,.95), rgba(27,22,48,.95));
+}
+
+.card-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 13px;
+}
+
+.icon-box {
+  width: 43px;
+  height: 43px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  border-radius: 13px;
+  background: rgba(182,154,255,.11);
+  font-size: 20px;
+}
+
+.card-content { flex: 1; min-width: 0; }
+.card-content h3 { font-size: 13px; margin: 2px 0 7px; }
+.card-content p { color: var(--muted); font-size: 11px; line-height: 1.9; margin: 0; }
+
+.toggle-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.toggle-text { flex: 1; }
+.toggle-text strong { display: block; font-size: 12px; margin-bottom: 6px; }
+.toggle-text span { display: block; color: var(--muted); font-size: 10px; line-height: 1.8; }
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 47px;
+  height: 26px;
+  flex-shrink: 0;
+}
+
+.switch input { opacity: 0; width: 0; height: 0; }
+
+.slider {
+  position: absolute;
+  inset: 0;
+  cursor: pointer;
+  border-radius: 30px;
+  background: #484056;
+  transition: .25s;
+}
+
+.slider::before {
+  content: "";
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  right: 4px;
+  top: 4px;
+  background: white;
+  border-radius: 50%;
+  transition: .25s;
+}
+
+.switch input:checked + .slider { background: var(--pink); }
+.switch input:checked + .slider::before { transform: translateX(-21px); }
+.switch input:focus-visible + .slider { outline: 2px solid white; outline-offset: 3px; }
+
+.status {
+  padding: 13px;
+  border-radius: 12px;
+  background: rgba(255,255,255,.04);
+  border: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 2;
+  margin-top: 12px;
+}
+
+.data-list { list-style: none; padding: 0; margin: 12px 0 0; }
+
+.data-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.9;
+  margin: 10px 0;
+}
+
+.data-list li span { color: var(--pink); }
+
+.btn {
+  border: 0;
+  color: #241329;
+  background: linear-gradient(135deg, var(--pink), var(--purple));
+  border-radius: 12px;
+  padding: 12px 15px;
+  font-weight: 700;
+  font-size: 11px;
+}
+
+.btn.secondary {
+  color: var(--text);
+  background: rgba(255,255,255,.07);
+  border: 1px solid var(--border);
+}
+
+.btn.danger {
+  color: white;
+  background: rgba(255,117,144,.12);
+  border: 1px solid rgba(255,117,144,.35);
+}
+
+.button-row { display: flex; gap: 9px; flex-wrap: wrap; margin-top: 14px; }
+
+.warning {
+  margin-top: 12px;
+  padding: 13px;
+  border: 1px solid rgba(255,117,144,.23);
+  border-radius: 12px;
+  background: rgba(255,117,144,.06);
+  color: #ffc0ce;
+  font-size: 11px;
+  line-height: 2;
+}
+
+.policy {
+  font-size: 11px;
+  color: var(--muted);
+  line-height: 2.1;
+}
+
+.policy strong { color: var(--text); }
+
+footer { text-align: center; color: #81758f; font-size: 11px; margin-top: 25px; }
+
+.toast {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translate(-50%, 20px);
+  opacity: 0;
+  pointer-events: none;
+  padding: 12px 18px;
+  color: var(--text);
+  background: #2b2142;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  font-size: 11px;
+  transition: .25s;
+  z-index: 50;
+  width: max-content;
+  max-width: 90%;
+}
+
+.toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+@media (max-width: 500px) {
+  .container { width: 94%; padding-top: 16px; }
+  .card { padding: 14px; }
+  .button-row button { flex: 1; }
+}
+</style></head><body>
+<div class="container">  <header class="topbar">
+    <a class="back" href="home.html">← الرئيسية</a>
+    <div class="brand">LoveSpace ♡</div>
+  </header>  <section class="hero">
+    <div class="hero-icon">🔐</div>
+    <h1>خصوصيتك أولاً</h1>
+    <p>مساحتك الخاصة تستحق الحماية.<br>هنا تلقى معلومات على تخزين بياناتك وبعض الخيارات المحلية للخصوصية.</p>
+    <div class="badge">● إعدادات محلية على هذا الجهاز</div>
+  </section>  <h2 class="section-title">🛡️ خيارات الخصوصية</h2>  <section class="card">
+    <div class="toggle-row">
+      <div class="toggle-text">
+        <strong>إخفاء معاينة المحتوى</strong>
+        <span>يخفي النصوص الحساسة داخل هذه الصفحة أثناء استعمالها، ولا يقفل الموقع بكلمة سر.</span>
+      </div>
+      <label class="switch">
+        <input type="checkbox" id="hideContent">
+        <span class="slider"></span>
+      </label>
+    </div>
+  </section>  <section class="card">
+    <div class="toggle-row">
+      <div class="toggle-text">
+        <strong>تأكيد قبل حذف البيانات</strong>
+        <span>يعرض رسالة تأكيد قبل استعمال زر مسح البيانات من هذه الصفحة.</span>
+      </div>
+      <label class="switch">
+        <input type="checkbox" id="confirmDelete" checked>
+        <span class="slider"></span>
+      </label>
+    </div>
+  </section>  <section class="card">
+    <div class="toggle-row">
+      <div class="toggle-text">
+        <strong>تذكير بالخصوصية</strong>
+        <span>إظهار تذكير داخل الصفحة حول حفظ نسخة احتياطية وعدم مشاركة المعلومات الخاصة.</span>
+      </div>
+      <label class="switch">
+        <input type="checkbox" id="privacyReminder" checked>
+        <span class="slider"></span>
+      </label>
+    </div>
+    <div class="status" id="reminderBox">
+      💜 تذكير: ما تشاركش كلمات السر أو المعلومات الحساسة، واحتفظ بنسخة من ذكرياتك المهمة.
+    </div>
+  </section>  <h2 class="section-title">📦 معلومات التخزين</h2>  <section class="card">
+    <div class="card-head">
+      <div class="icon-box">💾</div>
+      <div class="card-content">
+        <h3>كيفاش تتحفظ بياناتك؟</h3>
+        <p>الصفحات اللي برمجناها تستعمل تخزين المتصفح لبعض البيانات. التخزين المحلي مربوط بنفس المتصفح والجهاز، وما يضمنش المزامنة بين هاتفك وهاتف آخر.</p>
+      </div>
+    </div><ul class="data-list">
+  <li><span>♥</span> المذكرات، المهام، الأسئلة، والإعدادات المحلية.</li>
+  <li><span>♥</span> الصور ممكن تتحفظ في مساحة تخزين المتصفح حسب طريقة برمجة صفحة الصور.</li>
+  <li><span>♥</span> حذف بيانات المتصفح أو تغيير الجهاز ممكن يؤدي لفقدان البيانات المحلية.</li>
+</ul>
+
+<div class="status" id="storageStatus">جاري فحص إعدادات التخزين المحلية...</div>
+
+<div class="button-row">
+  <button class="btn secondary" onclick="refreshStorageStatus()">🔄 تحديث الحالة</button>
+  <button class="btn secondary" onclick="exportData()">📥 تصدير نسخة احتياطية</button>
+</div>
+
+  </section>  <h2 class="section-title">🧹 إدارة البيانات</h2>  <section class="card">
+    <div class="card-head">
+      <div class="icon-box">🗑️</div>
+      <div class="card-content">
+        <h3>مسح بيانات LoveSpace المحلية</h3>
+        <p>يحذف مفاتيح التخزين المحلية المعروفة للمشروع من هذا المتصفح فقط. ما يحذفش ملفات الموقع المنشورة، وما يضمنش حذف البيانات الموجودة في صفحات أو قواعد بيانات خارجية.</p>
+      </div>
+    </div><div class="warning">
+  ⚠️ قبل المسح، صدّر نسخة احتياطية إذا كنت حاب تحتفظ بالذكريات. الصور المخزنة في قاعدة بيانات المتصفح قد لا تدخل في ملف النسخة الاحتياطية هذا.
+</div>
+
+<div class="button-row">
+  <button class="btn danger" onclick="clearLocalData()">مسح البيانات المحلية</button>
+</div>
+
+  </section>  <h2 class="section-title">📜 توضيح الخصوصية</h2>  <section class="card policy">
+    <p><strong>1. التخزين:</strong> بعض وظائف الموقع تحفظ البيانات في المتصفح باستعمال localStorage أو IndexedDB.</p>
+    <p><strong>2. المشاركة:</strong> التخزين المحلي وحده ما يبعثش إجاباتك أو مذكراتك تلقائياً لهاتف شخص آخر.</p>
+    <p><strong>3. الاتصال بالإنترنت:</strong> الخطوط الخارجية المستعملة في التصميم ممكن تتطلب اتصالاً بمزوّد خارجي. هذي الصفحة ما تقدرش تثبت وحدها كل الاتصالات اللي تقوم بها بقية ملفات الموقع.</p>
+    <p><strong>4. الحماية:</strong> هذي الخيارات واجهة محلية، وما تعتبرش نظام أمان كامل. أي شخص عنده وصول لجهازك أو متصفحك ممكن يقدر يشوف بيانات محلية.</p>
+    <p><strong>5. النسخ الاحتياطية:</strong> الملف المُصدّر قد يحتوي معلومات خاصة؛ خليه في مكان آمن وما تبعثوش لأي شخص غير موثوق.</p>
+  </section>  <footer>LoveSpace ♡ خصوصيتك مسؤولية مشتركة</footer>
+</div><div class="toast" id="toast" role="status" aria-live="polite"></div><script>
+const SETTINGS_KEY = 'lovespace_privacy_settings_v1';
+
+const PROJECT_KEYS = [
+  'lovespace_diary_v1',
+  'lovespace_gifts_v1',
+  'lovespace_events_v1',
+  'lovespace_favorites_v1',
+  'lovespace_quiz_best',
+  'lovespace_calendar_v1',
+  'lovespace_countdowns_v1',
+  'lovespace_notifications_v1',
+  'lovespace_messages_v1',
+  'lovespace_study_v1',
+  'lovespace_subjects_v1',
+  'lovespace_tasks_v1',
+  'lovespace_security_pin_v1',
+  'lovespace_schedule_v1',
+  'lovespace_music_v1',
+  'lovespace_pomodoro_v1',
+  'lovespace_notes_v1',
+  'lovespace_our_story_v1',
+  'lovespace_questions_v1',
+  'lovespace_photos_v1',
+  'lovespace_privacy_settings_v1'
+];
+
+const DEFAULT_SETTINGS = {
+  hideContent: false,
+  confirmDelete: true,
+  privacyReminder: true
+};
+
+let settings = { ...DEFAULT_SETTINGS };
+
+function showToast(message) {
+  const toast = document.getElementById('toast');
+  toast.textContent = message;
+  toast.classList.add('show');
+  clearTimeout(showToast.timer);
+  showToast.timer = setTimeout(() => toast.classList.remove('show'), 2600);
+}
+
+function saveSettings() {
+  try {
+    localStorage.setItem(SETTINGS_KEY, JSON.stringify(settings));
+  } catch {
+    showToast('ما قدرناش نحفظ الإعدادات في المتصفح.');
+  }
+}
+
+function applySettings() {
+  document.getElementById('hideContent').checked = settings.hideContent;
+  document.getElementById('confirmDelete').checked = settings.confirmDelete;
+  document.getElementById('privacyReminder').checked = settings.privacyReminder;
+
+  document.getElementById('reminderBox').style.display =
+    settings.privacyReminder ? 'block' : 'none';
+
+  document.querySelectorAll('.policy, .data-list').forEach(element => {
+    element.style.filter = settings.hideContent ? 'blur(5px)' : 'none';
+    element.style.userSelect = settings.hideContent ? 'none' : 'auto';
+  });
+
+  document.querySelectorAll('.policy, .data-list').forEach(element => {
+    element.style.transition = 'filter .2s ease';
+  });
+}
+
+function loadSettings() {
+  try {
+    const saved = JSON.parse(localStorage.getItem(SETTINGS_KEY) || '{}');
+    settings = { ...DEFAULT_SETTINGS, ...saved };
+  } catch {
+    settings = { ...DEFAULT_SETTINGS };
+  }
+
+  applySettings();
+}
+
+document.getElementById('hideContent').addEventListener('change', event => {
+  settings.hideContent = event.target.checked;
+  saveSettings();
+  applySettings();
+  showToast(settings.hideContent ? 'تم إخفاء معاينة بعض المحتوى.' : 'تم إظهار المحتوى.');
+});
+
+document.getElementById('confirmDelete').addEventListener('change', event => {
+  settings.confirmDelete = event.target.checked;
+  saveSettings();
+  showToast('تم تحديث الإعداد.');
+});
+
+document.getElementById('privacyReminder').addEventListener('change', event => {
+  settings.privacyReminder = event.target.checked;
+  saveSettings();
+  applySettings();
+  showToast('تم تحديث التذكير.');
+});
+
+function refreshStorageStatus() {
+  let count = 0;
+  let bytes = 0;
+
+  try {
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i);
+      if (key && key.startsWith('lovespace_')) {
+        count++;
+        const value = localStorage.getItem(key) || '';
+        bytes += new Blob([key, value]).size;
+      }
+    }
+
+    document.getElementById('storageStatus').textContent =
+      `لقينا ${count} مفاتيح تخزين محلية باسم LoveSpace، بحجم تقريبي ${formatBytes(bytes)}. هذا الفحص ما يشملش بالضرورة كل ملفات الصور أو قواعد البيانات.`;
+  } catch {
+    document.getElementById('storageStatus').textContent =
+      'المتصفح ما سمحش بقراءة معلومات التخزين المحلي.';
+  }
+}
+
+function formatBytes(bytes) {
+  if (bytes < 1024) return bytes + ' بايت';
+  if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+  return (bytes / (1024 * 1024)).toFixed(2) + ' MB';
+}
+
+function exportData() {
+  const data = {
+    format: 'lovespace-privacy-export',
+    version: 1,
+    exportedAt: new Date().toISOString(),
+    localStorage: {}
+  };
+
+  try {
+    PROJECT_KEYS.forEach(key => {
+      const value = localStorage.getItem(key);
+      if (value !== null) data.localStorage[key] = value;
+    });
+
+    const blob = new Blob([JSON.stringify(data, null, 2)], {
+      type: 'application/json'
+    });
+
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'lovespace-privacy-backup.json';
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    URL.revokeObjectURL(url);
+
+    showToast('تم تجهيز نسخة البيانات المحلية.');
+  } catch {
+    showToast('تعذر تصدير البيانات. جرّب متصفحاً عادياً.');
+  }
+}
+
+function clearLocalData() {
+  const message =
+    'هل أنت متأكد؟ راح يتم حذف مفاتيح LoveSpace المحلية المعروفة من هذا المتصفح. هذا الإجراء ما يمسحش الملفات المنشورة أو قواعد البيانات الخارجية.';
+
+  if (settings.confirmDelete && !confirm(message)) return;
+
+  try {
+    PROJECT_KEYS.forEach(key => localStorage.removeItem(key));
+    refreshStorageStatus();
+    showToast('تم مسح مفاتيح التخزين المحلية المعروفة.');
+    setTimeout(() => location.reload(), 800);
+  } catch {
+    showToast('تعذر مسح بعض البيانات المحلية.');
+  }
+}
+
+loadSettings();
+refreshStorageStatus();
+</script></body>
+</html>
