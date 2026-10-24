@@ -1,1 +1,836 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#100d20">
+<title>مهامي | LoveSpace</title>
 
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --bg: #100d20;
+  --card: #1b1530;
+  --pink: #ff78b7;
+  --purple: #a78bfa;
+  --text: #fff0f7;
+  --muted: #bdb0d0;
+  --border: #ffffff15;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  padding: 20px 14px 35px;
+  font-family: 'Alexandria', sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(circle at 15% 10%, #54265c55, transparent 35%),
+    radial-gradient(circle at 85% 85%, #6e287755, transparent 35%),
+    var(--bg);
+}
+
+.container {
+  max-width: 850px;
+  width: 100%;
+  margin: auto;
+}
+
+header {
+  text-align: center;
+  padding: 15px 0 25px;
+}
+
+.logo {
+  width: 68px;
+  height: 68px;
+  margin: 0 auto 15px;
+  display: grid;
+  place-items: center;
+  border-radius: 22px;
+  font-size: 32px;
+  background: linear-gradient(135deg, #ff78b7, #8b5cf6);
+  box-shadow: 0 0 35px #ff78b744;
+}
+
+h1 {
+  font-size: clamp(25px, 5vw, 36px);
+  margin-bottom: 10px;
+  background: linear-gradient(90deg, #fff, #ff9dce, #c4b5fd);
+  color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
+}
+
+.subtitle {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 2;
+}
+
+.card {
+  background: linear-gradient(145deg, #211832ed, #171225f5);
+  border: 1px solid var(--border);
+  border-radius: 23px;
+  padding: 21px;
+  margin-bottom: 17px;
+  box-shadow: 0 15px 40px #0003;
+}
+
+.welcome {
+  background: linear-gradient(120deg, #44204f, #292044);
+  border-color: #ff78b72b;
+}
+
+.welcome h2 {
+  color: var(--pink);
+  font-size: 18px;
+  margin-bottom: 9px;
+}
+
+.welcome p {
+  color: #e4d5f0;
+  font-size: 12px;
+  line-height: 2.1;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 17px;
+}
+
+.stat {
+  padding: 17px 7px;
+  text-align: center;
+  background: #ffffff08;
+  border: 1px solid var(--border);
+  border-radius: 17px;
+}
+
+.stat strong {
+  display: block;
+  color: var(--pink);
+  font-size: 24px;
+}
+
+.stat span {
+  display: block;
+  margin-top: 6px;
+  color: var(--muted);
+  font-size: 10px;
+}
+
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 17px;
+  font-size: 15px;
+}
+
+.section-title span {
+  font-size: 22px;
+}
+
+label {
+  color: var(--muted);
+  font-size: 11px;
+}
+
+input, select, textarea {
+  width: 100%;
+  min-width: 0;
+  padding: 13px;
+  color: var(--text);
+  font-family: inherit;
+  font-size: 12px;
+  background: #100d20;
+  border: 1px solid #ffffff20;
+  border-radius: 13px;
+  outline: none;
+}
+
+input:focus, select:focus, textarea:focus {
+  border-color: var(--pink);
+}
+
+select option {
+  background: #1b1530;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 13px;
+}
+
+.full {
+  grid-column: 1 / -1;
+}
+
+textarea {
+  min-height: 85px;
+  resize: vertical;
+  line-height: 1.9;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: 0;
+  border-radius: 13px;
+  padding: 12px 15px;
+  font-size: 11px;
+  font-weight: 600;
+  transition: .2s;
+}
+
+button:active {
+  transform: scale(.97);
+}
+
+.primary {
+  color: white;
+  background: linear-gradient(100deg, #ec4899, #8b5cf6);
+}
+
+.secondary {
+  color: var(--text);
+  background: #ffffff0c;
+  border: 1px solid var(--border);
+}
+
+.danger {
+  color: #ff9ab7;
+  background: #ff477e13;
+}
+
+.add-btn {
+  width: 100%;
+  margin-top: 15px;
+}
+
+.progress-info {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.progress-info strong {
+  color: var(--pink);
+}
+
+.track {
+  height: 9px;
+  margin-top: 10px;
+  border-radius: 20px;
+  background: #ffffff12;
+  overflow: hidden;
+}
+
+.bar {
+  width: 0;
+  height: 100%;
+  border-radius: 20px;
+  background: linear-gradient(90deg, #ec4899, #a78bfa);
+  transition: width .35s;
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 15px;
+}
+
+.filter-btn {
+  color: var(--muted);
+  background: #ffffff09;
+  border: 1px solid var(--border);
+}
+
+.filter-btn.active {
+  color: white;
+  background: #a855f733;
+  border-color: #c084fc88;
+}
+
+.task-list {
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+}
+
+.task {
+  display: flex;
+  align-items: flex-start;
+  gap: 11px;
+  padding: 15px;
+  background: #100d207a;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+}
+
+.task-checkbox {
+  width: 19px;
+  height: 19px;
+  min-width: 19px;
+  margin-top: 3px;
+  accent-color: #ec4899;
+  cursor: pointer;
+}
+
+.task-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.task-title {
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.9;
+  overflow-wrap: anywhere;
+}
+
+.task.completed .task-title {
+  text-decoration: line-through;
+  opacity: .55;
+}
+
+.task-description {
+  margin-top: 5px;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.9;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 9px;
+}
+
+.tag {
+  display: inline-block;
+  padding: 5px 8px;
+  border-radius: 8px;
+  font-size: 9px;
+  background: #ffffff0c;
+  color: #d7c8e8;
+}
+
+.tag.high {
+  color: #ff9bba;
+  background: #ff477e18;
+}
+
+.tag.normal {
+  color: #c4b5fd;
+  background: #8b5cf618;
+}
+
+.tag.low {
+  color: #9be7c3;
+  background: #34d39918;
+}
+
+.tag.overdue {
+  color: #ffb1b1;
+  background: #ef444422;
+}
+
+.task-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.task-actions button {
+  padding: 8px 10px;
+  white-space: nowrap;
+}
+
+.empty {
+  text-align: center;
+  padding: 25px 10px;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 2;
+}
+
+footer {
+  text-align: center;
+  color: #a99bbd;
+  font-size: 11px;
+  margin-top: 25px;
+  line-height: 2;
+}
+
+@media (max-width: 560px) {
+  .card { padding: 16px 12px; }
+  .form-grid { grid-template-columns: 1fr; }
+  .full { grid-column: auto; }
+  .stats { gap: 7px; }
+  .stat strong { font-size: 21px; }
+  .task { gap: 8px; padding: 12px 9px; }
+  .task-actions button { padding: 8px; font-size: 10px; }
+}
+</style>
+</head>
+
+<body>
+<main class="container">
+
+<header>
+  <div class="logo">✅</div>
+  <h1>مهامي اليومية</h1>
+  <p class="subtitle">
+    رتّب أولوياتك، أنجز مهامك، وخلّي كل يوم خطوة للقدّام ✨
+  </p>
+</header>
+
+<section class="card welcome">
+  <h2>كل مهمة تكملها هي إنجاز 🎯</h2>
+  <p>
+    اكتب واش لازم عليك تدير، حدّد الأولوية والموعد،
+    وتابع تقدمك حتى تكمل برنامجك.
+  </p>
+</section>
+
+<section class="stats">
+  <div class="stat">
+    <strong id="totalCount">0</strong>
+    <span>إجمالي المهام</span>
+  </div>
+  <div class="stat">
+    <strong id="completedCount">0</strong>
+    <span>المهام المكتملة</span>
+  </div>
+  <div class="stat">
+    <strong id="pendingCount">0</strong>
+    <span>المهام المتبقية</span>
+  </div>
+</section>
+
+<section class="card">
+  <div class="section-title">
+    <span>📈</span>
+    <h2>نسبة الإنجاز</h2>
+  </div>
+
+  <div class="progress-info">
+    <span>التقدم الإجمالي</span>
+    <strong id="progressText">0%</strong>
+  </div>
+
+  <div class="track">
+    <div class="bar" id="progressBar"></div>
+  </div>
+</section>
+
+<section class="card">
+  <div class="section-title">
+    <span>➕</span>
+    <h2 id="formHeading">إضافة مهمة جديدة</h2>
+  </div>
+
+  <form id="taskForm">
+    <div class="form-grid">
+      <div class="field full">
+        <label for="taskTitle">عنوان المهمة *</label>
+        <input id="taskTitle" maxlength="120"
+          placeholder="مثال: إكمال تمارين الرياضيات" required>
+      </div>
+
+      <div class="field full">
+        <label for="taskDescription">تفاصيل المهمة (اختياري)</label>
+        <textarea id="taskDescription" maxlength="1500"
+          placeholder="اكتب التفاصيل اللي تحتاجها..."></textarea>
+      </div>
+
+      <div class="field">
+        <label for="taskCategory">التصنيف</label>
+        <select id="taskCategory">
+          <option value="دراسة">📚 دراسة</option>
+          <option value="شخصية">🌟 شخصية</option>
+          <option value="عمل">💼 عمل</option>
+          <option value="مشروع">💻 مشروع</option>
+          <option value="أخرى">📝 أخرى</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="taskPriority">الأولوية</label>
+        <select id="taskPriority">
+          <option value="high">🔴 مهمة جداً</option>
+          <option value="normal" selected>🟣 عادية</option>
+          <option value="low">🟢 منخفضة</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="taskDate">تاريخ التسليم</label>
+        <input id="taskDate" type="date">
+      </div>
+    </div>
+
+    <button type="submit" class="primary add-btn" id="submitBtn">
+      ➕ إضافة المهمة
+    </button>
+
+    <button type="button" class="secondary add-btn"
+      id="cancelEdit" hidden>
+      إلغاء التعديل
+    </button>
+  </form>
+</section>
+
+<section class="card">
+  <div class="section-title">
+    <span>📋</span>
+    <h2>قائمة المهام</h2>
+  </div>
+
+  <div class="field" style="margin-bottom:14px">
+    <label for="searchInput">البحث عن مهمة</label>
+    <input id="searchInput" type="search"
+      placeholder="اكتب عنوان المهمة أو التصنيف...">
+  </div>
+
+  <div class="filters">
+    <button class="filter-btn active" data-filter="all">الكل</button>
+    <button class="filter-btn" data-filter="pending">غير مكتملة</button>
+    <button class="filter-btn" data-filter="done">مكتملة</button>
+    <button class="filter-btn" data-filter="today">موعدها اليوم</button>
+    <button class="filter-btn" data-filter="overdue">متأخرة</button>
+  </div>
+
+  <div class="task-list" id="taskList"></div>
+</section>
+
+<footer>
+  LoveSpace · Tasks Manager
+  <br>
+  نظّم وقتك، وحقق أهدافك ❤️
+</footer>
+
+</main>
+
+<script>
+const STORAGE_KEY = "lovespace_tasks_v1";
+
+let tasks = [];
+let currentFilter = "all";
+let editingId = null;
+
+const $ = id => document.getElementById(id);
+
+function makeId() {
+  return Date.now().toString(36) +
+    Math.random().toString(36).slice(2, 8);
+}
+
+function escapeHTML(value) {
+  return String(value).replace(/[&<>"']/g, char => ({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#39;"
+  })[char]);
+}
+
+function todayString() {
+  const date = new Date();
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+}
+
+function loadTasks() {
+  try {
+    const stored = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+    if (Array.isArray(stored)) {
+      tasks = stored.filter(task =>
+        task &&
+        typeof task.id === "string" &&
+        typeof task.title === "string"
+      );
+    }
+  } catch (error) {
+    tasks = [];
+  }
+}
+
+function saveTasks() {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
+  } catch (error) {
+    alert("تعذّر حفظ المهام. تأكد من مساحة التخزين في المتصفح.");
+  }
+}
+
+function isOverdue(task) {
+  return Boolean(task.date && task.date < todayString() && !task.done);
+}
+
+function priorityText(priority) {
+  if (priority === "high") return "مهمة جداً";
+  if (priority === "low") return "منخفضة";
+  return "عادية";
+}
+
+function renderStats() {
+  const completed = tasks.filter(task => task.done).length;
+  const pending = tasks.length - completed;
+  const percent = tasks.length
+    ? Math.round(completed / tasks.length * 100)
+    : 0;
+
+  $("totalCount").textContent = tasks.length;
+  $("completedCount").textContent = completed;
+  $("pendingCount").textContent = pending;
+  $("progressText").textContent = percent + "%";
+  $("progressBar").style.width = percent + "%";
+}
+
+function renderTasks() {
+  const query = $("searchInput").value.trim().toLowerCase();
+
+  let filtered = tasks.filter(task => {
+    const matchesQuery =
+      task.title.toLowerCase().includes(query) ||
+      (task.description || "").toLowerCase().includes(query) ||
+      (task.category || "").toLowerCase().includes(query);
+
+    if (!matchesQuery) return false;
+
+    if (currentFilter === "pending") return !task.done;
+    if (currentFilter === "done") return task.done;
+    if (currentFilter === "today") {
+      return task.date === todayString();
+    }
+    if (currentFilter === "overdue") return isOverdue(task);
+
+    return true;
+  });
+
+  filtered.sort((a, b) => {
+    if (a.done !== b.done) return Number(a.done) - Number(b.done);
+
+    const priorityOrder = { high: 0, normal: 1, low: 2 };
+    const priorityDifference =
+      (priorityOrder[a.priority] ?? 1) -
+      (priorityOrder[b.priority] ?? 1);
+
+    if (priorityDifference !== 0) return priorityDifference;
+
+    if (a.date && b.date) return a.date.localeCompare(b.date);
+    if (a.date) return -1;
+    if (b.date) return 1;
+
+    return (b.createdAt || 0) - (a.createdAt || 0);
+  });
+
+  if (!filtered.length) {
+    $("taskList").innerHTML = `
+      <div class="empty">
+        ✨ ما كاين حتى مهمة في هذي القائمة.<br>
+        أضف مهمة جديدة وابدأ الإنجاز!
+      </div>`;
+    return;
+  }
+
+  $("taskList").innerHTML = filtered.map(task => {
+    const overdue = isOverdue(task);
+
+    return `
+      <article class="task ${task.done ? "completed" : ""}">
+        <input class="task-checkbox" type="checkbox"
+          data-action="toggle" data-id="${task.id}"
+          ${task.done ? "checked" : ""}
+          aria-label="تحديد المهمة كمكتملة">
+
+        <div class="task-main">
+          <div class="task-title">${escapeHTML(task.title)}</div>
+
+          ${task.description ? `
+            <div class="task-description">
+              ${escapeHTML(task.description)}
+            </div>` : ""}
+
+          <div class="meta">
+            <span class="tag">${escapeHTML(task.category || "أخرى")}</span>
+            <span class="tag ${task.priority || "normal"}">
+              ${priorityText(task.priority)}
+            </span>
+            ${task.date ? `
+              <span class="tag ${overdue ? "overdue" : ""}">
+                ${overdue ? "⚠️ متأخرة: " : "📅 "}
+                ${escapeHTML(task.date)}
+              </span>` : ""}
+            ${task.done ? `<span class="tag">✅ مكتملة</span>` : ""}
+          </div>
+        </div>
+
+        <div class="task-actions">
+          <button class="secondary"
+            data-action="edit" data-id="${task.id}">تعديل</button>
+          <button class="danger"
+            data-action="delete" data-id="${task.id}">حذف</button>
+        </div>
+      </article>`;
+  }).join("");
+}
+
+function render() {
+  renderStats();
+  renderTasks();
+}
+
+function resetForm() {
+  editingId = null;
+  $("taskForm").reset();
+  $("formHeading").textContent = "إضافة مهمة جديدة";
+  $("submitBtn").textContent = "➕ إضافة المهمة";
+  $("cancelEdit").hidden = true;
+}
+
+$("taskForm").addEventListener("submit", event => {
+  event.preventDefault();
+
+  const title = $("taskTitle").value.trim();
+  if (!title) return;
+
+  const date = $("taskDate").value;
+
+  if (date && !/^\d{4}-\d{2}-\d{2}$/.test(date)) {
+    alert("تحقق من تاريخ المهمة.");
+    return;
+  }
+
+  const data = {
+    title,
+    description: $("taskDescription").value.trim(),
+    category: $("taskCategory").value,
+    priority: $("taskPriority").value,
+    date
+  };
+
+  if (editingId) {
+    const task = tasks.find(item => item.id === editingId);
+    if (!task) {
+      resetForm();
+      return;
+    }
+
+    Object.assign(task, data);
+  } else {
+    tasks.unshift({
+      id: makeId(),
+      ...data,
+      done: false,
+      createdAt: Date.now()
+    });
+  }
+
+  saveTasks();
+  resetForm();
+  render();
+});
+
+$("taskList").addEventListener("change", event => {
+  const checkbox = event.target.closest('[data-action="toggle"]');
+  if (!checkbox) return;
+
+  const task = tasks.find(item => item.id === checkbox.dataset.id);
+  if (!task) return;
+
+  task.done = checkbox.checked;
+  saveTasks();
+  render();
+});
+
+$("taskList").addEventListener("click", event => {
+  const button = event.target.closest("button[data-action]");
+  if (!button) return;
+
+  const task = tasks.find(item => item.id === button.dataset.id);
+  if (!task) return;
+
+  const action = button.dataset.action;
+
+  if (action === "delete") {
+    if (!confirm("متأكد حاب تحذف هذي المهمة؟")) return;
+
+    tasks = tasks.filter(item => item.id !== task.id);
+
+    if (editingId === task.id) resetForm();
+
+    saveTasks();
+    render();
+  }
+
+  if (action === "edit") {
+    editingId = task.id;
+
+    $("taskTitle").value = task.title;
+    $("taskDescription").value = task.description || "";
+    $("taskCategory").value = task.category || "أخرى";
+    $("taskPriority").value = task.priority || "normal";
+    $("taskDate").value = task.date || "";
+
+    $("formHeading").textContent = "تعديل المهمة";
+    $("submitBtn").textContent = "💾 حفظ التعديلات";
+    $("cancelEdit").hidden = false;
+
+    $("taskForm").scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+
+    $("taskTitle").focus();
+  }
+});
+
+$("cancelEdit").addEventListener("click", resetForm);
+
+document.querySelectorAll(".filter-btn").forEach(button => {
+  button.addEventListener("click", () => {
+    currentFilter = button.dataset.filter;
+
+    document.querySelectorAll(".filter-btn").forEach(item => {
+      item.classList.toggle("active", item === button);
+    });
+
+    renderTasks();
+  });
+});
+
+$("searchInput").addEventListener("input", renderTasks);
+
+loadTasks();
+render();
+</script>
+</body>
+</html>
