@@ -1,1 +1,693 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#100d20">
+<title>النسخ الاحتياطي 💾 | LoveSpace</title>
 
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+  --bg: #100d20;
+  --card: rgba(255,255,255,.055);
+  --border: rgba(255,255,255,.10);
+  --pink: #ff70b8;
+  --purple: #a78bfa;
+  --text: #f7f2ff;
+  --muted: #aaa3c2;
+  --green: #63e6be;
+  --red: #ff8585;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Alexandria', sans-serif;
+  color: var(--text);
+  min-height: 100vh;
+  padding: 22px 15px 40px;
+  background:
+    radial-gradient(circle at 10% 10%, #352052 0, transparent 35%),
+    radial-gradient(circle at 90% 80%, #291638 0, transparent 35%),
+    var(--bg);
+}
+
+.container {
+  max-width: 900px;
+  margin: auto;
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.back {
+  color: var(--text);
+  text-decoration: none;
+  padding: 11px 14px;
+  border: 1px solid var(--border);
+  border-radius: 13px;
+  background: var(--card);
+  font-size: 12px;
+}
+
+.logo {
+  color: var(--pink);
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.hero {
+  text-align: center;
+  padding: 35px 18px;
+  border: 1px solid var(--border);
+  border-radius: 26px;
+  background: linear-gradient(135deg, #a78bfa20, #ff70b815);
+  margin-bottom: 22px;
+}
+
+.hero-icon {
+  font-size: 48px;
+  margin-bottom: 12px;
+}
+
+h1 {
+  font-size: clamp(24px, 5vw, 34px);
+  margin-bottom: 12px;
+}
+
+h1 span {
+  color: var(--pink);
+}
+
+.hero p {
+  font-size: 12px;
+  line-height: 2.1;
+  color: var(--muted);
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 23px;
+}
+
+.info-card {
+  padding: 17px 10px;
+  text-align: center;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 17px;
+}
+
+.info-card .icon {
+  font-size: 25px;
+  margin-bottom: 9px;
+}
+
+.info-card h3 {
+  font-size: 12px;
+  margin-bottom: 7px;
+}
+
+.info-card p {
+  font-size: 10px;
+  color: var(--muted);
+  line-height: 1.9;
+}
+
+.panel {
+  padding: 23px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  margin-bottom: 18px;
+}
+
+.panel h2 {
+  font-size: 17px;
+  margin-bottom: 10px;
+}
+
+.description {
+  font-size: 11px;
+  color: var(--muted);
+  line-height: 2.1;
+  margin-bottom: 18px;
+}
+
+.action-card {
+  padding: 18px;
+  border-radius: 16px;
+  background: rgba(255,255,255,.035);
+  border: 1px solid var(--border);
+  margin-bottom: 13px;
+}
+
+.action-card h3 {
+  font-size: 13px;
+  margin-bottom: 9px;
+}
+
+.action-card p {
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 2;
+  margin-bottom: 15px;
+}
+
+.btn {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  transition: .2s;
+}
+
+.btn:hover {
+  filter: brightness(1.08);
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--pink), var(--purple));
+  color: #21112d;
+}
+
+.btn-secondary {
+  background: rgba(167,139,250,.13);
+  color: var(--text);
+  border: 1px solid #a78bfa55;
+}
+
+.btn-danger {
+  background: rgba(255,133,133,.10);
+  border: 1px solid #ff858555;
+  color: var(--red);
+}
+
+.file-input {
+  width: 100%;
+  padding: 14px;
+  border: 1px dashed #a78bfa88;
+  border-radius: 12px;
+  color: var(--muted);
+  background: #100d20;
+  font-family: inherit;
+  font-size: 11px;
+  margin-bottom: 12px;
+}
+
+.status {
+  display: none;
+  margin-top: 14px;
+  padding: 13px;
+  border-radius: 12px;
+  font-size: 11px;
+  line-height: 2;
+  overflow-wrap: anywhere;
+}
+
+.status.success {
+  display: block;
+  background: #63e6be12;
+  border: 1px solid #63e6be44;
+  color: var(--green);
+}
+
+.status.error {
+  display: block;
+  background: #ff858512;
+  border: 1px solid #ff858544;
+  color: var(--red);
+}
+
+.status.neutral {
+  display: block;
+  background: #a78bfa12;
+  border: 1px solid #a78bfa44;
+  color: var(--purple);
+}
+
+.preview {
+  display: none;
+  margin-top: 15px;
+  padding: 15px;
+  border-radius: 13px;
+  border: 1px solid var(--border);
+  background: #100d20;
+}
+
+.preview h3 {
+  font-size: 12px;
+  margin-bottom: 10px;
+}
+
+.preview p {
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 2;
+}
+
+.warning {
+  margin-top: 15px;
+  padding: 14px;
+  border-radius: 12px;
+  background: #ffbd6910;
+  border: 1px solid #ffbd6940;
+  color: #ffcf91;
+  font-size: 11px;
+  line-height: 2.1;
+}
+
+.check-row {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  margin: 14px 0;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 2;
+}
+
+.check-row input {
+  margin-top: 6px;
+  accent-color: var(--pink);
+  flex-shrink: 0;
+}
+
+footer {
+  text-align: center;
+  margin-top: 27px;
+  color: #807896;
+  font-size: 10px;
+  line-height: 2;
+}
+
+@media(max-width: 560px) {
+  .info-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .panel {
+    padding: 17px;
+  }
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+
+  <header class="topbar">
+    <a href="home.html" class="back">→ الرجوع للرئيسية</a>
+    <div class="logo">LoveSpace ❤️</div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-icon">💾</div>
+    <h1>النسخ <span>الاحتياطي</span></h1>
+    <p>
+      حافظ على ذكرياتك ومعلوماتك من الضياع ❤️<br>
+      صدّر نسخة من بياناتك واسترجعها وقت الحاجة.
+    </p>
+  </section>
+
+  <div class="info-grid">
+    <div class="info-card">
+      <div class="icon">📦</div>
+      <h3>نسخة احتياطية</h3>
+      <p>جمع البيانات المدعومة في ملف واحد.</p>
+    </div>
+
+    <div class="info-card">
+      <div class="icon">🔄</div>
+      <h3>استرجاع البيانات</h3>
+      <p>استرجع المعلومات من ملف محفوظ سابقاً.</p>
+    </div>
+
+    <div class="info-card">
+      <div class="icon">🔒</div>
+      <h3>الخصوصية</h3>
+      <p>الملف يبقى عندك، احتفظ به في مكان آمن.</p>
+    </div>
+  </div>
+
+  <section class="panel">
+    <h2>📤 إنشاء نسخة احتياطية</h2>
+    <p class="description">
+      حمّل ملف JSON يحتوي على البيانات المحلية الموجودة في المتصفح
+      والمفاتيح المعروفة في الصفحات الحالية.
+    </p>
+
+    <div class="action-card">
+      <h3>💗 نسخة LoveSpace</h3>
+      <p>
+        يشمل هذا التصدير بيانات اليوميات والهدايا والأحداث والمفضلة
+        والألعاب، إذا كانت محفوظة في هذا المتصفح بالمفاتيح المعروفة.
+      </p>
+      <button class="btn btn-primary" id="exportBtn">
+        ⬇️ تحميل النسخة الاحتياطية
+      </button>
+      <div class="status" id="exportStatus" role="status"></div>
+    </div>
+
+    <div class="warning">
+      ⚠️ هذه نسخة من البيانات المحلية المدعومة فقط. لا تشمل تلقائياً
+      الصور والملفات أو البيانات الموجودة في خادم خارجي أو في جهاز آخر.
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>📥 استرجاع نسخة احتياطية</h2>
+    <p class="description">
+      اختار ملف JSON سبق وصدّرتو من هذه الصفحة. نعرض لك معلومات الملف
+      قبل ما تقرر استرجاعه.
+    </p>
+
+    <input
+      type="file"
+      id="backupFile"
+      class="file-input"
+      accept=".json,application/json"
+    >
+
+    <button class="btn btn-secondary" id="previewBtn">
+      🔍 فحص النسخة الاحتياطية
+    </button>
+
+    <div class="preview" id="preview">
+      <h3>📋 معلومات النسخة</h3>
+      <p id="previewText"></p>
+    </div>
+
+    <label class="check-row">
+      <input type="checkbox" id="confirmRestore">
+      <span>
+        فهمت أن الاسترجاع قد يستبدل البيانات الحالية في المفاتيح
+        المدعومة، وأنه لازم نحتفظ بنسخة احتياطية من بياناتي الحالية.
+      </span>
+    </label>
+
+    <button class="btn btn-danger" id="restoreBtn" disabled>
+      ♻️ استرجاع النسخة الاحتياطية
+    </button>
+
+    <div class="status" id="restoreStatus" role="status"></div>
+
+    <div class="warning">
+      لا تسترجع ملفاً مجهول المصدر. الاسترجاع يكتب البيانات المحلية
+      للمفاتيح المدعومة فقط، وقد يؤثر على محتوى الصفحات المرتبطة بها.
+    </div>
+  </section>
+
+  <footer>
+    ذكرياتك تستاهل الحماية ❤️<br>
+    LoveSpace — مساحتنا الخاصة
+  </footer>
+
+</div>
+
+<script>
+const BACKUP_FORMAT = 'lovespace-backup';
+const BACKUP_VERSION = 1;
+
+/*
+  أضف هنا مفاتيح التخزين المستعملة فعلياً في صفحات مشروعك.
+  المفتاح لازم يطابق الاسم المستعمل داخل localStorage.
+*/
+const STORAGE_KEYS = [
+  'lovespace_diary_v1',
+  'lovespace_gifts_v1',
+  'lovespace_events_v1',
+  'lovespace_favorites_v1',
+  'lovespace_quiz_best'
+];
+
+let validatedBackup = null;
+
+function showStatus(id, message, type) {
+  const element = document.getElementById(id);
+  element.className = 'status ' + type;
+  element.textContent = message;
+}
+
+function formatSize(bytes) {
+  if (bytes < 1024) return bytes + ' بايت';
+  if (bytes < 1024 * 1024) {
+    return (bytes / 1024).toFixed(1) + ' كيلوبايت';
+  }
+  return (bytes / (1024 * 1024)).toFixed(2) + ' ميغابايت';
+}
+
+function readLocalData() {
+  const data = {};
+  const unavailable = [];
+
+  STORAGE_KEYS.forEach(key => {
+    try {
+      const value = localStorage.getItem(key);
+      if (value !== null) {
+        data[key] = JSON.parse(value);
+      }
+    } catch (error) {
+      unavailable.push(key);
+    }
+  });
+
+  return { data, unavailable };
+}
+
+function downloadJson(data, filename) {
+  const blob = new Blob(
+    [JSON.stringify(data, null, 2)],
+    { type: 'application/json;charset=utf-8' }
+  );
+
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+
+  link.href = url;
+  link.download = filename;
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+
+document.getElementById('exportBtn').addEventListener('click', () => {
+  try {
+    const result = readLocalData();
+
+    const backup = {
+      format: BACKUP_FORMAT,
+      version: BACKUP_VERSION,
+      createdAt: new Date().toISOString(),
+      app: 'LoveSpace',
+      data: result.data
+    };
+
+    const date = new Date().toISOString().slice(0, 10);
+    downloadJson(backup, `lovespace-backup-${date}.json`);
+
+    let message =
+      'تم تجهيز النسخة الاحتياطية. عدد المفاتيح المصدّرة: ' +
+      Object.keys(result.data).length + '.';
+
+    if (result.unavailable.length) {
+      message += ' بعض البيانات تعذّر قراءتها.';
+    }
+
+    showStatus('exportStatus', message, 'success');
+  } catch (error) {
+    showStatus(
+      'exportStatus',
+      'تعذر إنشاء النسخة الاحتياطية. جرّب من جديد.',
+      'error'
+    );
+  }
+});
+
+function validateBackup(parsed) {
+  if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) {
+    throw new Error('الملف ليس بصيغة JSON صحيحة.');
+  }
+
+  if (parsed.format !== BACKUP_FORMAT) {
+    throw new Error('هذا الملف ليس نسخة احتياطية معروفة من LoveSpace.');
+  }
+
+  if (parsed.version !== BACKUP_VERSION) {
+    throw new Error('إصدار النسخة غير مدعوم في هذه الصفحة.');
+  }
+
+  if (!parsed.data || typeof parsed.data !== 'object' ||
+      Array.isArray(parsed.data)) {
+    throw new Error('النسخة لا تحتوي على بيانات صحيحة.');
+  }
+
+  const keys = Object.keys(parsed.data);
+
+  if (!keys.length) {
+    throw new Error('النسخة فارغة.');
+  }
+
+  for (const key of keys) {
+    if (!STORAGE_KEYS.includes(key)) {
+      throw new Error('النسخة تحتوي على مفتاح تخزين غير مدعوم: ' + key);
+    }
+
+    const value = parsed.data[key];
+
+    if (typeof value === 'undefined') {
+      throw new Error('توجد قيمة غير صالحة في النسخة.');
+    }
+
+    // نتحقق أن القيمة قابلة للتحويل إلى JSON.
+    JSON.stringify(value);
+  }
+
+  return parsed;
+}
+
+document.getElementById('previewBtn').addEventListener('click', async () => {
+  const file = document.getElementById('backupFile').files[0];
+  const preview = document.getElementById('preview');
+  const confirmCheckbox = document.getElementById('confirmRestore');
+  const restoreBtn = document.getElementById('restoreBtn');
+
+  validatedBackup = null;
+  confirmCheckbox.checked = false;
+  restoreBtn.disabled = true;
+  preview.style.display = 'none';
+
+  if (!file) {
+    showStatus('restoreStatus', 'اختار ملف النسخة الاحتياطية أولاً.', 'error');
+    return;
+  }
+
+  if (file.size > 10 * 1024 * 1024) {
+    showStatus('restoreStatus', 'حجم الملف كبير جداً. الحد الأقصى 10 ميغابايت.', 'error');
+    return;
+  }
+
+  try {
+    const text = await file.text();
+    const parsed = validateBackup(JSON.parse(text));
+
+    validatedBackup = parsed;
+
+    const count = Object.keys(parsed.data).length;
+    const created = parsed.createdAt
+      ? new Date(parsed.createdAt).toLocaleString('ar-DZ')
+      : 'غير محدد';
+
+    document.getElementById('previewText').textContent =
+      'اسم الملف: ' + file.name +
+      '\nحجم الملف: ' + formatSize(file.size) +
+      '\nتاريخ النسخة: ' + created +
+      '\nعدد مفاتيح البيانات: ' + count +
+      '\nالمفاتيح: ' + Object.keys(parsed.data).join('، ');
+
+    preview.style.display = 'block';
+
+    showStatus(
+      'restoreStatus',
+      'النسخة سليمة من ناحية البنية. راجع محتواها قبل الاسترجاع.',
+      'success'
+    );
+  } catch (error) {
+    showStatus(
+      'restoreStatus',
+      error.message || 'تعذر قراءة النسخة الاحتياطية.',
+      'error'
+    );
+  }
+});
+
+document.getElementById('confirmRestore').addEventListener('change', event => {
+  document.getElementById('restoreBtn').disabled =
+    !(event.target.checked && validatedBackup);
+});
+
+document.getElementById('restoreBtn').addEventListener('click', () => {
+  if (!validatedBackup ||
+      !document.getElementById('confirmRestore').checked) {
+    showStatus('restoreStatus', 'افحص النسخة وأكد العملية أولاً.', 'error');
+    return;
+  }
+
+  const keys = Object.keys(validatedBackup.data);
+
+  const ok = confirm(
+    'تحذير: استرجاع النسخة سيستبدل البيانات الحالية للمفاتيح التالية:\n\n' +
+    keys.join('\n') +
+    '\n\nننصحك بتحميل نسخة من بياناتك الحالية أولاً. هل تريد المتابعة؟'
+  );
+
+  if (!ok) return;
+
+  // نحتفظ بالقيم الحالية حتى نستطيع التراجع إذا فشلت الكتابة.
+  const previous = {};
+
+  try {
+    keys.forEach(key => {
+      previous[key] = localStorage.getItem(key);
+    });
+
+    keys.forEach(key => {
+      localStorage.setItem(
+        key,
+        JSON.stringify(validatedBackup.data[key])
+      );
+    });
+
+    showStatus(
+      'restoreStatus',
+      'تم استرجاع البيانات. حدّث الصفحات المرتبطة بها حتى تظهر التغييرات.',
+      'success'
+    );
+
+    document.getElementById('confirmRestore').checked = false;
+    document.getElementById('restoreBtn').disabled = true;
+  } catch (error) {
+    // محاولة إعادة القيم السابقة إذا فشلت العملية.
+    keys.forEach(key => {
+      try {
+        if (Object.prototype.hasOwnProperty.call(previous, key)) {
+          if (previous[key] === null) {
+            localStorage.removeItem(key);
+          } else {
+            localStorage.setItem(key, previous[key]);
+          }
+        }
+      } catch (rollbackError) {
+        // قد لا تسمح مساحة التخزين باستعادة كل القيم.
+      }
+    });
+
+    showStatus(
+      'restoreStatus',
+      'فشل الاسترجاع. حاول مرة أخرى وتأكد من مساحة التخزين.',
+      'error'
+    );
+  }
+});
+</script>
+</body>
+</html>
