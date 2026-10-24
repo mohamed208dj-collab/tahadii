@@ -1,1 +1,493 @@
 
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#100d20">
+<title>مؤقت التركيز | LoveSpace</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;600;700;800&display=swap');
+
+:root{
+  --bg:#100d20;
+  --card:#1b1630;
+  --pink:#ff6fae;
+  --purple:#a78bfa;
+  --text:#f8f3ff;
+  --muted:#b6abc9;
+  --border:rgba(255,255,255,.09);
+  --green:#6ee7b7;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;min-height:100vh;font-family:'Alexandria',sans-serif;color:var(--text);
+  background:radial-gradient(ellipse at top right,#382052 0%,transparent 40%),
+  radial-gradient(ellipse at bottom left,#251641 0%,transparent 38%),var(--bg);
+}
+button,input{font:inherit}
+button{cursor:pointer;transition:.2s}
+button:hover{transform:translateY(-2px)}
+.container{width:min(100% - 28px,950px);margin:auto;padding:24px 0 45px}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:24px}
+.back{text-decoration:none;color:white;background:#ffffff10;border:1px solid var(--border);padding:10px 14px;border-radius:13px;font-size:12px}
+.logo{font-weight:800;color:var(--pink)}
+.hero{text-align:center;padding:16px 10px 28px}
+.hero-icon{width:76px;height:76px;display:grid;place-items:center;margin:0 auto 15px;border-radius:25px;font-size:35px;background:linear-gradient(135deg,#ff6fae30,#a78bfa30);border:1px solid #ff6fae40}
+h1{font-size:clamp(24px,4vw,32px);margin:0 0 10px}
+.hero p{font-size:12px;color:var(--muted);line-height:2;margin:0}
+.panel{background:linear-gradient(145deg,#211a37ee,#171327ee);border:1px solid var(--border);border-radius:23px;padding:22px;margin-bottom:18px}
+.layout{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(270px,.85fr);gap:18px;align-items:start}
+.timer-panel{text-align:center;overflow:hidden;position:relative}
+.mode-tabs{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:24px}
+.mode{border:1px solid var(--border);border-radius:12px;background:#ffffff08;color:var(--muted);padding:10px 13px;font-size:11px}
+.mode.active{background:linear-gradient(135deg,#ff6fae30,#a78bfa30);color:white;border-color:#ff6fae70}
+.timer-ring{width:min(100%,290px);aspect-ratio:1;margin:0 auto 23px;position:relative;display:grid;place-items:center}
+svg{position:absolute;inset:0;width:100%;height:100%;transform:rotate(-90deg)}
+.ring-bg{fill:none;stroke:#ffffff0d;stroke-width:8}
+.ring-progress{fill:none;stroke:url(#gradient);stroke-width:8;stroke-linecap:round;stroke-dasharray:565.49;stroke-dashoffset:0;transition:stroke-dashoffset .4s linear}
+.timer-content{position:relative;z-index:1}
+.time{font-size:clamp(42px,9vw,64px);font-weight:800;letter-spacing:2px;direction:ltr;font-variant-numeric:tabular-nums}
+.mode-label{color:var(--muted);font-size:12px;margin-top:6px}
+.timer-status{font-size:11px;color:var(--pink);margin-top:10px;min-height:20px}
+.controls{display:flex;justify-content:center;align-items:center;gap:12px;flex-wrap:wrap}
+.btn{border:0;border-radius:13px;padding:13px 19px;font-size:12px;font-weight:700;color:white}
+.primary{background:linear-gradient(135deg,var(--pink),var(--purple));color:#190f28;min-width:130px}
+.secondary{background:#ffffff0c;border:1px solid var(--border)}
+.timer-note{font-size:10px;color:var(--muted);line-height:2;margin-top:20px}
+.panel h2{font-size:15px;margin:0 0 17px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-bottom:18px}
+.stat{padding:14px 5px;text-align:center;background:#ffffff07;border:1px solid var(--border);border-radius:15px}
+.stat strong{display:block;font-size:22px;color:var(--pink)}
+.stat span{font-size:9px;color:var(--muted);display:block;margin-top:6px}
+.field{margin-bottom:14px}
+.field label{display:block;font-size:11px;color:var(--muted);margin-bottom:8px}
+.field input{width:100%;accent-color:var(--pink);background:#100d20;color:white;border:1px solid var(--border);padding:11px;border-radius:12px;outline:none}
+.field input[type=range]{padding:0;border:0;background:transparent}
+.field .value{float:left;color:var(--pink);direction:ltr}
+.check-row{display:flex;align-items:center;gap:9px;color:var(--muted);font-size:11px;margin:15px 0}
+.check-row input{accent-color:var(--pink);width:16px;height:16px}
+.btn.full{width:100%}
+.sessions{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px}
+.session-dot{width:13px;height:13px;border-radius:50%;background:#ffffff16;border:1px solid #ffffff18}
+.session-dot.done{background:var(--green);border-color:var(--green);box-shadow:0 0 9px #6ee7b740}
+.tip{padding:14px;border-radius:14px;background:#ffffff07;border:1px solid var(--border);font-size:11px;line-height:2;color:var(--muted);margin-top:12px}
+.message{display:none;margin-top:12px;padding:11px;border-radius:11px;font-size:11px;line-height:1.8}
+.message.show{display:block}.message.good{background:#6ee7b715;color:var(--green)}.message.bad{background:#fb718515;color:#fda4af}
+footer{text-align:center;color:#8f84a7;font-size:10px;margin-top:25px}
+@media(max-width:720px){.layout{grid-template-columns:1fr}.panel{padding:17px}.timer-ring{width:min(100%,260px)}}
+</style>
+</head>
+<body>
+<div class="container">
+
+<header class="topbar">
+  <a class="back" href="home.html">← الرئيسية</a>
+  <div class="logo">LoveSpace ♡</div>
+</header>
+
+<section class="hero">
+  <div class="hero-icon">🍅</div>
+  <h1>مؤقت التركيز</h1>
+  <p>ركّز في مهمة واحدة، خذ راحتك في الوقت المناسب، وقرّب كل يوم لهدفك ✨</p>
+</section>
+
+<div class="layout">
+  <main>
+    <section class="panel timer-panel">
+      <div class="mode-tabs">
+        <button class="mode active" data-mode="focus">📚 تركيز</button>
+        <button class="mode" data-mode="short">☕ راحة قصيرة</button>
+        <button class="mode" data-mode="long">🌙 راحة طويلة</button>
+      </div>
+
+      <div class="timer-ring">
+        <svg viewBox="0 0 200 200" aria-hidden="true">
+          <defs>
+            <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#ff6fae"/>
+              <stop offset="100%" stop-color="#a78bfa"/>
+            </linearGradient>
+          </defs>
+          <circle class="ring-bg" cx="100" cy="100" r="90"/>
+          <circle class="ring-progress" id="ringProgress" cx="100" cy="100" r="90"/>
+        </svg>
+        <div class="timer-content">
+          <div class="time" id="timeDisplay">25:00</div>
+          <div class="mode-label" id="modeLabel">وقت التركيز</div>
+          <div class="timer-status" id="timerStatus">جاهز للانطلاق 💜</div>
+        </div>
+      </div>
+
+      <div class="controls">
+        <button class="btn secondary" id="resetBtn">↺ إعادة</button>
+        <button class="btn primary" id="startBtn">▶ ابدأ التركيز</button>
+        <button class="btn secondary" id="skipBtn">التالي ⏭</button>
+      </div>
+
+      <div class="timer-note">
+        خليك في مهمة واحدة أثناء جلسة التركيز. تقدر تبدّل نوع الجلسة أو تعدّل المدة من الإعدادات.
+      </div>
+      <div class="message" id="timerMessage" role="status"></div>
+    </section>
+
+    <section class="panel">
+      <h2>📈 إنجازاتك اليوم</h2>
+      <div class="stats">
+        <div class="stat"><strong id="focusCount">0</strong><span>جلسات مكتملة</span></div>
+        <div class="stat"><strong id="focusMinutes">0</strong><span>دقائق تركيز</span></div>
+        <div class="stat"><strong id="breakCount">0</strong><span>فترات راحة</span></div>
+      </div>
+      <div style="font-size:11px;color:var(--muted)">جلسات التركيز المكتملة اليوم</div>
+      <div class="sessions" id="sessionDots"></div>
+      <div class="tip">💜 تذكّر: الاستمرارية أهم من الكمال. إذا تعبت، خذ راحة وارجع بهدوء.</div>
+    </section>
+  </main>
+
+  <aside>
+    <section class="panel">
+      <h2>⚙️ إعدادات المؤقت</h2>
+
+      <div class="field">
+        <label for="focusLength">مدة التركيز <span class="value" id="focusValue">25 دقيقة</span></label>
+        <input type="range" id="focusLength" min="5" max="90" step="5" value="25">
+      </div>
+
+      <div class="field">
+        <label for="shortLength">الراحة القصيرة <span class="value" id="shortValue">5 دقائق</span></label>
+        <input type="range" id="shortLength" min="1" max="30" value="5">
+      </div>
+
+      <div class="field">
+        <label for="longLength">الراحة الطويلة <span class="value" id="longValue">15 دقيقة</span></label>
+        <input type="range" id="longLength" min="5" max="60" step="5" value="15">
+      </div>
+
+      <div class="field">
+        <label for="roundsLength">جلسات التركيز قبل الراحة الطويلة <span class="value" id="roundsValue">4</span></label>
+        <input type="range" id="roundsLength" min="2" max="8" value="4">
+      </div>
+
+      <label class="check-row">
+        <input type="checkbox" id="autoBreak">
+        الانتقال التلقائي إلى الراحة
+      </label>
+
+      <label class="check-row">
+        <input type="checkbox" id="soundEnabled" checked>
+        تنبيه صوتي عند نهاية المؤقت
+      </label>
+
+      <button class="btn primary full" id="saveSettings">💾 تطبيق الإعدادات</button>
+      <div class="message" id="settingsMessage" role="status"></div>
+    </section>
+
+    <section class="panel">
+      <h2>📝 نصائح التركيز</h2>
+      <div class="tip">📵 أبعد الإشعارات والمشتتات خلال وقت الدراسة.</div>
+      <div class="tip">🎯 حدّد هدفًا صغيرًا قبل بداية كل جلسة.</div>
+      <div class="tip">💧 اشرب الماء وتحرك قليلًا أثناء فترات الراحة.</div>
+    </section>
+  </aside>
+</div>
+
+<footer>صُنعت بكل حب ❤️ LoveSpace</footer>
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+const STORAGE_KEY = 'lovespace_pomodoro_v1';
+
+const defaults = {
+  focus:25, short:5, long:15, rounds:4,
+  autoBreak:false, sound:true
+};
+
+let settings = {...defaults};
+let mode = 'focus';
+let remaining = settings.focus * 60;
+let running = false;
+let endAt = null;
+let intervalId = null;
+let audioContext = null;
+
+function todayKey(){
+  const d = new Date();
+  return d.getFullYear() + '-' +
+    String(d.getMonth()+1).padStart(2,'0') + '-' +
+    String(d.getDate()).padStart(2,'0');
+}
+
+function emptyStats(){
+  return {date:todayKey(),focusCount:0,focusMinutes:0,breakCount:0};
+}
+
+let stats = emptyStats();
+
+try {
+  const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+  if(saved.settings){
+    settings = {
+      focus: Number(saved.settings.focus) || defaults.focus,
+      short: Number(saved.settings.short) || defaults.short,
+      long: Number(saved.settings.long) || defaults.long,
+      rounds: Number(saved.settings.rounds) || defaults.rounds,
+      autoBreak: Boolean(saved.settings.autoBreak),
+      sound: saved.settings.sound !== false
+    };
+  }
+  if(saved.stats && saved.stats.date === todayKey()){
+    stats = {...emptyStats(), ...saved.stats};
+  }
+} catch {}
+
+function persist(){
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({settings,stats}));
+  } catch {}
+}
+
+function durationForMode(){
+  return settings[mode] * 60;
+}
+
+function modeName(){
+  return mode === 'focus' ? 'وقت التركيز' :
+    mode === 'short' ? 'راحة قصيرة' : 'راحة طويلة';
+}
+
+function formatTime(seconds){
+  const m = Math.floor(Math.max(0,seconds)/60);
+  const s = Math.floor(Math.max(0,seconds)%60);
+  return String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0');
+}
+
+function showMessage(id,text,good=true){
+  const el = $(id);
+  el.textContent = text;
+  el.className = 'message show ' + (good ? 'good' : 'bad');
+}
+
+function clearMessage(id){
+  $(id).className = 'message';
+}
+
+function syncSettingsUI(){
+  $('focusLength').value = settings.focus;
+  $('shortLength').value = settings.short;
+  $('longLength').value = settings.long;
+  $('roundsLength').value = settings.rounds;
+  $('autoBreak').checked = settings.autoBreak;
+  $('soundEnabled').checked = settings.sound;
+  updateSettingLabels();
+}
+
+function updateSettingLabels(){
+  $('focusValue').textContent = $('focusLength').value + ' دقيقة';
+  $('shortValue').textContent = $('shortLength').value + ' دقائق';
+  $('longValue').textContent = $('longLength').value + ' دقيقة';
+  $('roundsValue').textContent = $('roundsLength').value;
+}
+
+['focusLength','shortLength','longLength','roundsLength'].forEach(id=>{
+  $(id).addEventListener('input',updateSettingLabels);
+});
+
+function stopTimer(){
+  running = false;
+  endAt = null;
+  if(intervalId !== null) clearInterval(intervalId);
+  intervalId = null;
+}
+
+function updateDisplay(){
+  $('timeDisplay').textContent = formatTime(remaining);
+  $('modeLabel').textContent = modeName();
+  $('startBtn').textContent = running ? 'Ⅱ إيقاف مؤقت' :
+    '▶ ' + (remaining < durationForMode() ? 'متابعة' : 'ابدأ التركيز');
+
+  const total = durationForMode();
+  const fraction = total > 0 ? remaining / total : 0;
+  const circumference = 2 * Math.PI * 90;
+  $('ringProgress').style.strokeDasharray = circumference;
+  $('ringProgress').style.strokeDashoffset = circumference * (1 - fraction);
+
+  document.title = formatTime(remaining) + ' | LoveSpace';
+  document.querySelectorAll('[data-mode]').forEach(button=>{
+    button.classList.toggle('active',button.dataset.mode===mode);
+  });
+}
+
+function renderStats(){
+  if(stats.date !== todayKey()) stats = emptyStats();
+
+  $('focusCount').textContent = stats.focusCount;
+  $('focusMinutes').textContent = stats.focusMinutes;
+  $('breakCount').textContent = stats.breakCount;
+
+  const dots = Math.min(stats.focusCount % settings.rounds, settings.rounds);
+  $('sessionDots').innerHTML = Array.from({length:settings.rounds},(_,i)=>
+    `<span class="session-dot ${i<dots?'done':''}" title="جلسة ${i+1}"></span>`
+  ).join('');
+}
+
+function setMode(nextMode, reset=true){
+  if(!['focus','short','long'].includes(nextMode)) return;
+  stopTimer();
+  mode = nextMode;
+  if(reset) remaining = durationForMode();
+  $('timerStatus').textContent = 'جاهز للانطلاق 💜';
+  clearMessage('timerMessage');
+  updateDisplay();
+}
+
+function playSound(){
+  if(!settings.sound) return;
+  try {
+    const AudioCtx = window.AudioContext || window.webkitAudioContext;
+    if(!AudioCtx) return;
+    audioContext = audioContext || new AudioCtx();
+    if(audioContext.state === 'suspended') audioContext.resume();
+
+    [660,880,660].forEach((freq,i)=>{
+      const oscillator = audioContext.createOscillator();
+      const gain = audioContext.createGain();
+      oscillator.frequency.value = freq;
+      oscillator.type = 'sine';
+      gain.gain.setValueAtTime(0.0001,audioContext.currentTime+i*0.22);
+      gain.gain.exponentialRampToValueAtTime(0.12,audioContext.currentTime+i*0.22+0.03);
+      gain.gain.exponentialRampToValueAtTime(0.0001,audioContext.currentTime+i*0.22+0.18);
+      oscillator.connect(gain);
+      gain.connect(audioContext.destination);
+      oscillator.start(audioContext.currentTime+i*0.22);
+      oscillator.stop(audioContext.currentTime+i*0.22+0.2);
+    });
+  } catch {}
+}
+
+function completeTimer(){
+  stopTimer();
+  remaining = 0;
+  updateDisplay();
+  playSound();
+
+  if(mode === 'focus'){
+    stats.focusCount++;
+    stats.focusMinutes += settings.focus;
+    renderStats();
+    persist();
+
+    const shouldLongBreak = stats.focusCount % settings.rounds === 0;
+    const next = shouldLongBreak ? 'long' : 'short';
+
+    $('timerStatus').textContent = 'أحسنت! أكملت جلسة التركيز 🎉';
+
+    if(settings.autoBreak){
+      setMode(next);
+      $('timerStatus').textContent = 'بدأت فترة الراحة تلقائيًا ☕';
+      startTimer();
+    } else {
+      showMessage('timerMessage',
+        'برافو! كملت جلسة تركيز. خذ وقتك، وبعدها اختَر ' +
+        (shouldLongBreak ? 'الراحة الطويلة' : 'الراحة القصيرة') + '.',true);
+    }
+  } else {
+    stats.breakCount++;
+    renderStats();
+    persist();
+    $('timerStatus').textContent = 'انتهت الراحة، مستعد لجلسة جديدة؟ ✨';
+
+    if(settings.autoBreak){
+      setMode('focus');
+      $('timerStatus').textContent = 'بدأت جلسة تركيز جديدة 📚';
+      startTimer();
+    } else {
+      showMessage('timerMessage','انتهت فترة الراحة. ارجع للتركيز كي تكون مستعدًا.',true);
+    }
+  }
+  persist();
+}
+
+function tick(){
+  if(!running || endAt === null) return;
+  remaining = Math.max(0,Math.ceil((endAt-Date.now())/1000));
+
+  if(remaining <= 0){
+    completeTimer();
+    return;
+  }
+  updateDisplay();
+}
+
+function startTimer(){
+  if(running){
+    stopTimer();
+    $('timerStatus').textContent = 'المؤقت متوقف مؤقتًا.';
+    updateDisplay();
+    return;
+  }
+
+  if(remaining <= 0) remaining = durationForMode();
+
+  running = true;
+  endAt = Date.now() + remaining*1000;
+  $('timerStatus').textContent = mode === 'focus' ? 'ركّز على هدفك الآن 🎯' : 'خذ راحتك بهدوء ☕';
+
+  if(intervalId !== null) clearInterval(intervalId);
+  intervalId = setInterval(tick,250);
+  updateDisplay();
+}
+
+$('startBtn').addEventListener('click',startTimer);
+
+$('resetBtn').addEventListener('click',()=>{
+  stopTimer();
+  remaining = durationForMode();
+  $('timerStatus').textContent = 'تمت إعادة المؤقت.';
+  clearMessage('timerMessage');
+  updateDisplay();
+});
+
+$('skipBtn').addEventListener('click',()=>{
+  if(mode === 'focus'){
+    setMode(stats.focusCount > 0 && stats.focusCount % settings.rounds === 0 ? 'long':'short');
+  } else {
+    setMode('focus');
+  }
+});
+
+document.querySelectorAll('[data-mode]').forEach(button=>{
+  button.addEventListener('click',()=>setMode(button.dataset.mode));
+});
+
+$('saveSettings').addEventListener('click',()=>{
+  const wasRunning = running;
+  stopTimer();
+
+  settings = {
+    focus:Number($('focusLength').value),
+    short:Number($('shortLength').value),
+    long:Number($('longLength').value),
+    rounds:Number($('roundsLength').value),
+    autoBreak:$('autoBreak').checked,
+    sound:$('soundEnabled').checked
+  };
+
+  remaining = durationForMode();
+  persist();
+  renderStats();
+  updateDisplay();
+  $('timerStatus').textContent = wasRunning ?
+    'تم تطبيق الإعدادات. اضغط متابعة للبدء.' : 'تم حفظ الإعدادات 💜';
+  showMessage('settingsMessage','تم تطبيق الإعدادات بنجاح.',true);
+});
+
+syncSettingsUI();
+remaining = durationForMode();
+renderStats();
+updateDisplay();
+</script>
+</body>
+</html>
+
